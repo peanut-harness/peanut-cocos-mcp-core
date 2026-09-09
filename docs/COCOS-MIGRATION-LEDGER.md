@@ -28,3 +28,13 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 ## 安装顺序
 
 安装 `Core Creator host` → 启动并通过 Core 冒烟测试 → 安装 `Core capability` 包 → 验证本地审批写入。Pro 始终可选，且必须最后安装。
+
+## 2026-09-09 验证记录
+
+- 83 项目录及 schema 覆盖验证通过；新宿主仍只注册 3 项读取。
+- 增加真实审批租约消费、输入验证、Windows 完整性路径检查及 register 生命周期兼容。
+- Lite 目录包和 Creator 扩展在 Windows 打包成功，制品入口及生命周期回归测试通过。
+- 已安装到用户指定的 `D:/workspaces/peanut-agents/test-demos/cocos-for-agent`，并通过该工程 MCP 的 query-project 确认实际路径。
+- 首次 Creator 3.8.7 加载暴露 `plugin_module_export_missing`，已补 register 并替换测试制品；修正版实机加载仍待工程重启复验。不得记录为 host-verified。
+- 工程当前还存在 `app-qa-wasm-backend.ts` 无法导入 `./app-qa-observe-buffer` 的 QA 资产错误；该资产不属于本轮 Pod 源码变更。
+- 旧测试包保存在工程 `temp/pod-migration-backup/lite-before-register-fix`；现有其它插件和资产未被替换。

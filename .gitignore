@@ -1,4 +1,6 @@
 node_modules/
 dist/
+release/
+.package-staging/
 *.tsbuildinfo
 .DS_Store

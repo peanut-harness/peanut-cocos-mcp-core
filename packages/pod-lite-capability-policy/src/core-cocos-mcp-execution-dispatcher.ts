@@ -123,6 +123,7 @@ export class CoreCocosMcpExecutionDispatcher {
         if (
             context == null ||
             context.resources.length === 0 ||
+            context.resources.some((resource) => typeof resource !== 'string' || resource.trim().length === 0) ||
             this.approvalLeases == null ||
             !this.approvalLeases.consume(input.approvalId, {
                 connectionId: context.connectionId,

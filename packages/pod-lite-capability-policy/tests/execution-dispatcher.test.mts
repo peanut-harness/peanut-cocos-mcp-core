@@ -20,6 +20,10 @@ test('write execution consumes a lease bound to connection, operation and resour
         /approval_required/u,
     );
     assert.equal(calls, 0);
+    await assert.rejects(
+        dispatcher.execute('scene.save', { approvalId: lease.token }, { ...context, resources: [' '] }),
+        /approval_required/u,
+    );
     assert.equal(await dispatcher.execute('scene.save', { approvalId: lease.token }, context), 1);
     leases.revoke(lease.token);
     await assert.rejects(dispatcher.execute('scene.save', { approvalId: lease.token }, context), /approval_required/u);
