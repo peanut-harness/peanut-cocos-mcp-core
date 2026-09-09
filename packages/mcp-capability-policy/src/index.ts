@@ -16,6 +16,11 @@ export { CoreCocosMcpReadToolSchemaCatalog, type ICoreMcpJsonSchema } from './co
 export { CoreCocosNativeWriteToolSchemaCatalog } from './core-cocos-native-write-tool-schema-catalog.js';
 export { CoreCocosMcpToolDefinitionCatalog, type ICoreCocosMcpToolDefinition } from './core-cocos-mcp-tool-definition-catalog.js';
 export {
+    CoreCocosMcpExecutionDispatcher,
+    type ICoreCocosMcpExecutionAdapter,
+    type ICoreCocosMcpExecutionRequest,
+} from './core-cocos-mcp-execution-dispatcher.js';
+export {
     McpApprovalLeaseStore,
     type IMcpApprovalLeaseRequest,
     type IMcpApprovalLeaseUse,

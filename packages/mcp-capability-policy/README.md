@@ -9,3 +9,5 @@ The package intentionally does not contain entitlement verification, signing key
 SnowB, Figma/PSD and UI Prefab integrations are not native Core capabilities and remain private paid-support integrations. Other operation families retain their existing ledger assignment until separately classified.
 
 `McpApprovalLeaseStore` is a generic in-memory local confirmation primitive. It binds a short-lived approval to a bridge connection, resource scope, operation allowlist, and maximum risk; it does not implement commercial entitlement.
+
+`CoreCocosMcpExecutionDispatcher` is the host-neutral, fail-closed execution seam. A Creator host supplies adapters for the operations it implements; the dispatcher rejects unknown operations, duplicate registrations, missing adapters, and write requests without `approvalId` before a host call is made.
