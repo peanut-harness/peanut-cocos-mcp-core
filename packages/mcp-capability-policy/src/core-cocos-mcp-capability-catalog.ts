@@ -36,7 +36,9 @@ export type CoreCocosMcpOperation =
     | 'lumen.tree'
     | 'lumen.inspect'
     | 'lumen.validateRefs'
+    | 'lumen.compileRecipe'
     | 'lumen.cocosInfo'
+    | 'lumen.lodRecalcBounds'
     | 'reference.queryImage';
 
 /**
@@ -87,7 +89,9 @@ export class CoreCocosMcpCapabilityCatalog {
         'lumen.tree',
         'lumen.inspect',
         'lumen.validateRefs',
+        'lumen.compileRecipe',
         'lumen.cocosInfo',
+        'lumen.lodRecalcBounds',
         'reference.queryImage',
     ]);
 

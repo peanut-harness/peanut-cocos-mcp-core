@@ -291,6 +291,29 @@ export class CoreCocosMcpReadToolSchemaCatalog {
             }),
         );
         schemas.set(
+            'lumen.compileRecipe',
+            this.object(
+                {
+                    prefabRelativePath: this.string('项目相对 Prefab 路径；禁止绝对路径与 ..。'),
+                    rootName: this.string('空壳根节点名。'),
+                    mode: this.enum(['replaceRoot', 'appendChildren'], 'replaceRoot 替换根；appendChildren 挂到空根下。'),
+                    recipe: this.freeObject('replaceRoot 的根配方。'),
+                    recipes: this.array('appendChildren 的同级子配方列表。'),
+                    rootContentSize: this.xy('appendChildren 时空根 contentSize。', 'width', 'height'),
+                    rootAnchorPoint: this.xy('appendChildren 时空根 anchorPoint。', 'x', 'y'),
+                },
+                ['prefabRelativePath', 'rootName', 'mode'],
+            ),
+        );
+        schemas.set(
+            'lumen.lodRecalcBounds',
+            this.object({
+                nodePath: this.string('可选节点路径。'),
+                prefabRelativePath: this.string('prefabRelativePath；也可用 assetRelativePath 别名。'),
+                assetRelativePath: this.string('prefabRelativePath 的别名。'),
+            }),
+        );
+        schemas.set(
             'reference.queryImage',
             this.object({
                 scenePath: this.string('可选场景路径（当前拒绝）。'),
@@ -374,6 +397,14 @@ export class CoreCocosMcpReadToolSchemaCatalog {
      */
     private static freeObject(description: string): ICoreMcpJsonSchema {
         return Object.freeze({ type: 'object', description, additionalProperties: true });
+    }
+
+    private static array(description: string): ICoreMcpJsonSchema {
+        return Object.freeze({ type: 'array', description });
+    }
+
+    private static xy(description: string, first: string, second: string): ICoreMcpJsonSchema {
+        return this.object({ [first]: this.number('数值。'), [second]: this.number('数值。') });
     }
 
     /**

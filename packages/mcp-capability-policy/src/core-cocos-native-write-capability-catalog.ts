@@ -12,7 +12,11 @@ export type CoreCocosNativeWriteOperation =
     | 'scene.restoreEditorResource' | 'scene.open' | 'scene.save' | 'scene.reload' | 'scene.focusNode' | 'scene.createNode'
     | 'prefab.createFromNode' | 'prefab.apply' | 'prefab.revert' | 'prefab.unpack' | 'prefab.unlink'
     | 'preview.refresh' | 'preview.capture'
-    | 'builder.build';
+    | 'builder.build'
+    | 'lumen.scaffold' | 'lumen.structure' | 'lumen.nodeAdd' | 'lumen.nodeRm' | 'lumen.nodeRename' | 'lumen.nodeReorder'
+    | 'lumen.compAdd' | 'lumen.compRm' | 'lumen.compSet' | 'lumen.assetSet' | 'lumen.nodeSet'
+    | 'lumen.bindClick' | 'lumen.bindSprite' | 'lumen.bindSpriteBatch' | 'lumen.bindRef' | 'lumen.bindController' | 'lumen.refresh' | 'lumen.commit'
+    | 'reference.setImage';
 
 export type CoreCocosNativeWriteRisk = 'write' | 'destructive';
 
@@ -27,7 +31,7 @@ export interface ICoreCocosNativeWriteCapability {
  * 此账本先固定公开边界和安全要求；每项精确 MCP schema 与 Creator 执行适配器在后续批次接入。
  */
 export class CoreCocosNativeWriteCapabilityCatalog {
-    private static readonly destructive = new Set<CoreCocosNativeWriteOperation>(['asset.delete', 'asset.replaceReferences']);
+    private static readonly destructive = new Set<CoreCocosNativeWriteOperation>(['asset.delete', 'asset.replaceReferences', 'lumen.nodeRm', 'lumen.compRm']);
     private static readonly operations: readonly CoreCocosNativeWriteOperation[] = Object.freeze([
         'editor.setSelection',
         'asset.catalog.refresh', 'asset.importPlan', 'asset.import', 'asset.managedStatus', 'asset.replaceReferences',
@@ -35,6 +39,10 @@ export class CoreCocosNativeWriteCapabilityCatalog {
         'scene.restoreEditorResource', 'scene.open', 'scene.save', 'scene.reload', 'scene.focusNode', 'scene.createNode',
         'prefab.createFromNode', 'prefab.apply', 'prefab.revert', 'prefab.unpack', 'prefab.unlink',
         'preview.refresh', 'preview.capture', 'builder.build',
+        'lumen.scaffold', 'lumen.structure', 'lumen.nodeAdd', 'lumen.nodeRm', 'lumen.nodeRename', 'lumen.nodeReorder',
+        'lumen.compAdd', 'lumen.compRm', 'lumen.compSet', 'lumen.assetSet', 'lumen.nodeSet',
+        'lumen.bindClick', 'lumen.bindSprite', 'lumen.bindSpriteBatch', 'lumen.bindRef', 'lumen.bindController', 'lumen.refresh', 'lumen.commit',
+        'reference.setImage',
     ]);
     private static readonly capabilities: readonly ICoreCocosNativeWriteCapability[] = Object.freeze(
         CoreCocosNativeWriteCapabilityCatalog.operations.map((operation) => {
