@@ -5,6 +5,12 @@ export {
     type ICoreCocosMcpCapability,
 } from './core-cocos-mcp-capability-catalog.js';
 export { CoreCocosMcpOperationResolver } from './core-cocos-mcp-operation-resolver.js';
+export {
+    CoreCocosNativeWriteCapabilityCatalog,
+    type CoreCocosNativeWriteOperation,
+    type CoreCocosNativeWriteRisk,
+    type ICoreCocosNativeWriteCapability,
+} from './core-cocos-native-write-capability-catalog.js';
 export { CoreCocosMcpToolNameResolver } from './core-cocos-mcp-tool-name-resolver.js';
 export { CoreCocosMcpReadToolSchemaCatalog, type ICoreMcpJsonSchema } from './core-cocos-mcp-read-tool-schema-catalog.js';
 export { CoreCocosMcpToolDefinitionCatalog, type ICoreCocosMcpToolDefinition } from './core-cocos-mcp-tool-definition-catalog.js';
