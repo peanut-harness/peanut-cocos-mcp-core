@@ -21,6 +21,13 @@ export {
     type ICoreCocosMcpExecutionRequest,
 } from './core-cocos-mcp-execution-dispatcher.js';
 export {
+    CoreCocosCreatorReadAdapter,
+    type ICoreCocosCreatorReadRuntime,
+    type ICoreCocosCreatorVersionPort,
+    type ICoreCocosCreatorProjectPort,
+    type ICoreCocosCreatorSelectionPort,
+} from './core-cocos-creator-read-adapter.js';
+export {
     McpApprovalLeaseStore,
     type IMcpApprovalLeaseRequest,
     type IMcpApprovalLeaseUse,
