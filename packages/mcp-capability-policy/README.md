@@ -4,7 +4,7 @@ Public, dependency-free access-policy primitives shared by the Cocos MCP Hub and
 
 The package intentionally does not contain entitlement verification, signing keys, proprietary workflow definitions, or asset data handling.
 
-`CoreCocosMcpCapabilityCatalog` is fail-closed: only explicitly listed read-only operations are public. `CoreCocosNativeWriteCapabilityCatalog` is the companion open-source migration ledger for 29 native Cocos write/destructive operations. Every one remains free (`local` access) but requires a local approval lease; destructive operations retain explicit confirmation. The first executable-schema batch is registered in `CoreCocosNativeWriteToolSchemaCatalog`: `editor.setSelection` plus all native `asset.*` writes. The remaining scene, prefab, preview, and builder schemas follow with their Creator execution adapters.
+`CoreCocosMcpCapabilityCatalog` is fail-closed: only explicitly listed read-only operations are public. `CoreCocosNativeWriteCapabilityCatalog` is the companion open-source migration ledger for 29 native Cocos write/destructive operations. Every one remains free (`local` access) but requires a local approval lease; destructive operations retain explicit confirmation. The executable-schema batch in `CoreCocosNativeWriteToolSchemaCatalog` covers `editor.setSelection`, all native `asset.*` writes, and all native `scene.*` / `prefab.*` writes. Preview and builder schemas follow with their Creator execution adapters.
 
 SnowB, Figma/PSD and UI Prefab integrations are not native Core capabilities and remain private paid-support integrations. Other operation families retain their existing ledger assignment until separately classified.
 

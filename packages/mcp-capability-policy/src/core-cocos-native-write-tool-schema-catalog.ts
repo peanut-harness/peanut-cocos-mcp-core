@@ -3,7 +3,7 @@ import type { ICoreMcpJsonSchema } from './core-cocos-mcp-read-tool-schema-catal
 
 /**
  * @description 已完成精确入参迁移的 Cocos 原生写工具 schema。
- * 该批覆盖编辑器选区及全部资产原生写入；其它写入族会按执行适配器成熟度继续加入。
+ * 该批覆盖编辑器选区、资产、场景和 Prefab 原生写入；其它写入族会按执行适配器成熟度继续加入。
  */
 export class CoreCocosNativeWriteToolSchemaCatalog {
     private static readonly schemas: ReadonlyMap<CoreCocosNativeWriteOperation, ICoreMcpJsonSchema> = CoreCocosNativeWriteToolSchemaCatalog.buildSchemas();
@@ -35,6 +35,17 @@ export class CoreCocosNativeWriteToolSchemaCatalog {
         schemas.set('asset.reimport', this.object({ paths: this.stringArray('可选相对路径列表；省略则刷新 db://assets。'), path: this.string('单路径别名；会并入 paths。'), ...control() }));
         schemas.set('asset.writeText', this.object({ path: this.string('单文件相对路径（assets/...）；与 files 二选一。'), content: this.string('单文件 UTF-8 内容；与 path 成对。'), files: { type: 'array', description: '批量文本文件；提供时忽略 path/content。', items: this.object({ path: this.string('相对路径（assets/...）。'), content: this.string('UTF-8 文本。') }, ['path', 'content']) }, ...control() }));
         schemas.set('asset.ensureSpriteFramesBatch', this.object({ dbPaths: this.stringArray('db://assets/... 或 assets/... 的 PNG 路径列表。'), refreshRoot: this.string('可选批量刷新根；省略则逐项 refresh-asset 并等待就绪。'), ...control() }, ['dbPaths']));
+        schemas.set('scene.restoreEditorResource', this.object({ uuid: this.string('资源 uuid；与 url 至少一个，或都省略表示恢复「当前」。'), url: this.string('资源 url / db 路径。'), ...control() }));
+        schemas.set('scene.open', this.object({ path: this.string('场景 db:// 或项目相对路径。'), ...control() }, ['path']));
+        schemas.set('scene.save', this.object({ path: this.string('可选场景路径；省略时保存当前打开场景。'), ...control() }));
+        schemas.set('scene.reload', this.object({ soft: this.boolean('是否软重载；默认 true。'), ...control() }));
+        schemas.set('scene.focusNode', this.object({ path: this.string('节点路径或 uuid。'), ...control() }, ['path']));
+        schemas.set('scene.createNode', this.object({ parentPath: this.string('父节点路径；省略时挂场景根。'), name: this.string('节点名。'), type: this.string('类型提示：empty / Camera / Light 等。'), ...control() }));
+        schemas.set('prefab.createFromNode', this.object({ nodePath: this.string('源节点路径或 uuid。'), prefabPath: this.string('目标 Prefab db://assets/.../*.prefab。'), ...control() }, ['nodePath', 'prefabPath']));
+        schemas.set('prefab.apply', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
+        schemas.set('prefab.revert', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
+        schemas.set('prefab.unpack', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
+        schemas.set('prefab.unlink', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
         return schemas;
     }
 
