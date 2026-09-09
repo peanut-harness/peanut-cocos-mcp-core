@@ -4,3 +4,9 @@ export {
     type CoreCocosMcpOperation,
     type ICoreCocosMcpCapability,
 } from './core-cocos-mcp-capability-catalog.js';
+export {
+    McpApprovalLeaseStore,
+    type IMcpApprovalLeaseRequest,
+    type IMcpApprovalLeaseUse,
+    type McpExecutionRisk,
+} from './mcp-approval-lease-store.js';
