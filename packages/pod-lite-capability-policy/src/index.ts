@@ -19,6 +19,7 @@ export {
     CoreCocosMcpExecutionDispatcher,
     type ICoreCocosMcpExecutionAdapter,
     type ICoreCocosMcpExecutionRequest,
+    type ICoreCocosMcpExecutionContext,
 } from './core-cocos-mcp-execution-dispatcher.js';
 export {
     CoreCocosCreatorReadAdapter,

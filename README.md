@@ -1,11 +1,12 @@
-# Peanut Cocos MCP Core
+# Peanut Pod Lite
 
-Open-source foundation for the Peanut Cocos MCP.
+Public, free Cocos Creator capabilities. The current policy and schema catalogs cover 83 operations: 36 reads and 47 writes/destructive operations. Native writes require a real local approval lease; no subscription or online plan is required.
 
-This repository contains public contracts, the capability policy model, and safe base execution primitives for native Cocos editor operations. Native editor writes are free and open-source but retain local approval and destructive-action confirmation.
+## Packages
 
-Third-party integrations and commercial workflow packs — including SnowB, Figma/PSD and UI Prefab — remain private paid-support packages. Donation is voluntary and never gates Core functionality.
+- `pod-lite-capability-policy`: catalogs, schemas, input validation, approval leases and dispatch.
+- `mcp-pod-lite-creator-host`: currently registers three native reads (version, project, selection). The remaining 80 operations still need real host adapters and Creator parity verification.
+- `cocos-creator-lite-host-extension`: native extension entry and package integrity checks, including Windows path handling.
+- `lumen-template-cache`: free cache-pack identification and request parsing, moved from Pro. Import/reset/AssetDB refresh still require a native adapter.
 
-## Status
-
-Migration has begun from the legacy integration repository. The Core ledger now consists of 34 read operations plus 29 native write/destructive operations. The write ledger is public and policy-complete; precise MCP schemas and Creator execution adapters are the next migration batch.
+See [migration ledger](docs/COCOS-MIGRATION-LEDGER.md) and [installation](docs/INSTALLATION.md). The user-designated acceptance project is `D:/workspaces/peanut-agents/test-demos/cocos-for-agent` (Creator 3.8.7). Unit tests do not establish Creator verification.

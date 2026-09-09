@@ -6,8 +6,8 @@
 
 | 源模块 | 迁入范围 | 当前状态 |
 | --- | --- | --- |
-| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 80 个 operation | capability、schema、风险与本地审批账本已覆盖；Creator 执行适配器待逐项替换 |
-| `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | 可移植缓存契约已迁入；Creator adapter 待迁入 |
+| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；新宿主仅注册 3 项读取，剩余 80 项待迁入 |
+| `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | 缓存识别/请求解析已归入 Lite packages/lumen-template-cache；Creator import/reset/refresh adapter 待迁入 |
 | `ui/panel` | 通用宿主壳与生命周期 | 待迁入 Core Creator host |
 
 Core 写入一律由本地审批租约控制；不得被在线许可证、订阅或 Pro 缺失阻断。

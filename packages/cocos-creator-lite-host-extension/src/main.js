@@ -1,8 +1,8 @@
 'use strict';
 
 const { createHash } = require('crypto');
-const { existsSync, readFileSync } = require('fs');
-const { join, resolve } = require('path');
+const { existsSync, readFileSync, realpathSync } = require('fs');
+const { isAbsolute, join, relative, resolve } = require('path');
 
 const CORE_PLUGIN_ID = 'peanut.pod-lite';
 const CORE_MANIFEST_FILE = `${CORE_PLUGIN_ID}.manifest.json`;
@@ -48,22 +48,45 @@ function verifyPackage(packagePath) {
         if (typeof record?.path !== 'string' || typeof record?.digest !== 'string') {
             throw new Error('peanut_cocos_mcp_core_integrity_record_invalid');
         }
-        const filePath = resolve(packagePath, record.path);
-        if (!filePath.startsWith(`${packagePath}/`) || !existsSync(filePath)) {
-            throw new Error('peanut_cocos_mcp_core_integrity_file_missing');
-        }
+        const filePath = requirePackageFile(packagePath, record.path);
         const digest = createHash('sha256').update(readFileSync(filePath)).digest('hex');
         if (digest !== record.digest) {
             throw new Error(`peanut_cocos_mcp_core_integrity_file_mismatch:${record.path}`);
         }
     }
     const digest = createHash('sha256')
-        .update([...records].sort((left, right) => left.path.localeCompare(right.path)).map((record) => `${record.path}:${record.digest}`).join('\n'))
+        .update(
+            [...records]
+                .sort((left, right) => left.path.localeCompare(right.path))
+                .map((record) => `${record.path}:${record.digest}`)
+                .join('\n'),
+        )
         .digest('hex');
     if (digest !== manifest.package.digest) {
         throw new Error('peanut_cocos_mcp_core_integrity_digest_mismatch');
     }
-    return Object.freeze({ manifest, mainPath: resolve(packagePath, manifest.main) });
+    const mainPath = requirePackageFile(packagePath, manifest.main);
+    if (!records.some((record) => resolve(packagePath, record.path) === resolve(packagePath, manifest.main))) {
+        throw new Error('peanut_cocos_mcp_core_entry_not_integrity_checked');
+    }
+    return Object.freeze({ manifest, mainPath });
+}
+
+function requirePackageFile(packagePath, input) {
+    if (typeof input !== 'string' || input.length === 0 || isAbsolute(input) || /^[A-Za-z]:/u.test(input)) {
+        throw new Error('peanut_cocos_mcp_core_integrity_path_invalid');
+    }
+    const root = realpathSync(packagePath);
+    const filePath = resolve(root, input);
+    const child = relative(root, filePath);
+    if (!child || isAbsolute(child) || child === '..' || child.startsWith('../') || child.startsWith('..\\') || !existsSync(filePath)) {
+        throw new Error('peanut_cocos_mcp_core_integrity_file_missing');
+    }
+    const realChild = relative(root, realpathSync(filePath));
+    if (!realChild || isAbsolute(realChild) || realChild === '..' || realChild.startsWith('../') || realChild.startsWith('..\\')) {
+        throw new Error('peanut_cocos_mcp_core_integrity_path_escape');
+    }
+    return filePath;
 }
 
 function createRuntime() {
@@ -111,7 +134,11 @@ async function load() {
         }
         toolHandlers = new Map();
         coreModule = loaded.createPluginModule();
-        await coreModule.activate({ runtime: createRuntime(), mcp: createRegistry(), logger: { info: (message) => getEditor()?.log?.(`[peanut-pod-lite] ${message}`) } });
+        await coreModule.activate({
+            runtime: createRuntime(),
+            mcp: createRegistry(),
+            logger: { info: (message) => getEditor()?.log?.(`[peanut-pod-lite] ${message}`) },
+        });
         hostStatus = Object.freeze({ ready: true, error: null, tools: [...toolHandlers.keys()].sort() });
         getEditor()?.log?.(`[peanut-pod-lite] lite_host_ready:${hostStatus.tools.length}`);
     } catch (error) {
@@ -131,8 +158,12 @@ async function unload() {
 }
 
 const methods = {
-    queryStatus() { return hostStatus; },
-    listTools() { return hostStatus.tools; },
+    queryStatus() {
+        return hostStatus;
+    },
+    listTools() {
+        return hostStatus.tools;
+    },
     async invokeTool(name, input = {}) {
         if (!hostStatus.ready) throw new Error('peanut_cocos_mcp_core_host_not_ready');
         const entry = toolHandlers.get(name);

@@ -1,7 +1,6 @@
 {
-    "name": "@peanut/pod-lite-capability-policy",
+    "name": "@peanut/pod-lite-lumen-template-cache",
     "version": "0.1.0",
-    "description": "Public capability access policy primitives for Peanut Cocos MCP.",
     "license": "Apache-2.0",
     "private": false,
     "type": "module",
@@ -13,18 +12,13 @@
             "import": "./dist/index.js"
         }
     },
-    "files": [
-        "dist",
-        "README.md",
-        "LICENSE"
-    ],
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "typecheck": "tsc -p tsconfig.json --noEmit",
-        "test": "npm run build && node --test tests/*.test.mts",
-        "prepack": "npm run build"
+        "test": "npm run build && node --test tests/*.test.mts"
     },
     "devDependencies": {
+        "@types/node": "^24.0.0",
         "typescript": "^5.9.3"
     }
 }

@@ -1,17 +1,41 @@
 import { CoreCocosMcpToolDefinitionCatalog, type ICoreCocosMcpToolDefinition } from './core-cocos-mcp-tool-definition-catalog.js';
 import type { CoreCocosMcpPublicOperation } from './core-cocos-mcp-tool-name-resolver.js';
+import { CoreMcpInputValidator } from './core-mcp-input-validator.js';
+import type { McpApprovalLeaseStore } from './mcp-approval-lease-store.js';
 
-/** @description 不依赖 Creator SDK 的公开 Core 执行请求。 */
+/**
+ * @description 由宿主计算的调用身份与资源范围，不能从 MCP 输入字段直接填入。
+ */
+export interface ICoreCocosMcpExecutionContext {
+    /**
+     * @description 经宿主认证的本地连接标识。
+     */
+    readonly connectionId: string;
+    /**
+     * @description 由实际操作参数解析出的规范化资源范围。
+     */
+    readonly resources: readonly string[];
+}
+
+/**
+ * @description 不依赖 Creator SDK 的公开 Core 执行请求。
+ */
 export interface ICoreCocosMcpExecutionRequest {
     readonly operation: CoreCocosMcpPublicOperation;
     readonly input: Readonly<Record<string, unknown>>;
 }
 
-/** @description 由 Cocos Creator 宿主实现的实际操作适配器。 */
+/**
+ * @description 由 Cocos Creator 宿主实现的实际操作适配器。
+ */
 export interface ICoreCocosMcpExecutionAdapter {
-    /** @description 此适配器实际实现的公开 operation。 */
+    /**
+     * @description 此适配器实际实现的公开 operation。
+     */
     readonly operations: readonly CoreCocosMcpPublicOperation[];
-    /** @description 在宿主上下文中执行已验证的公开 operation。 */
+    /**
+     * @description 在宿主上下文中执行已验证的公开 operation。
+     */
     execute(request: ICoreCocosMcpExecutionRequest): Promise<unknown>;
 }
 
@@ -20,10 +44,28 @@ export interface ICoreCocosMcpExecutionAdapter {
  * 不直接依赖 Creator 全局对象；宿主通过适配器接入 Message、AssetDB、Scene 或 Lumen 运行时。
  */
 export class CoreCocosMcpExecutionDispatcher {
+    /**
+     * @description 当前发布包的公开工具定义。
+     */
     private readonly definitions = new CoreCocosMcpToolDefinitionCatalog();
+    /**
+     * @description 已验证且按操作唯一注册的实际执行器。
+     */
     private readonly adapters = new Map<CoreCocosMcpPublicOperation, ICoreCocosMcpExecutionAdapter>();
+    /**
+     * @description 执行前的目录输入校验器。
+     */
+    private readonly validator = new CoreMcpInputValidator();
 
-    public constructor(adapters: readonly ICoreCocosMcpExecutionAdapter[]) {
+    /**
+     * @description 组装可执行适配器；未提供租约存储时拒绝全部写入。
+     * @param adapters 当前宿主实际实现的适配器。
+     * @param approvalLeases 由宿主持有的本地审批存储。
+     */
+    public constructor(
+        adapters: readonly ICoreCocosMcpExecutionAdapter[],
+        private readonly approvalLeases: McpApprovalLeaseStore | null = null,
+    ) {
         for (const adapter of adapters) {
             for (const operation of adapter.operations) {
                 if (this.definitions.findByOperation(operation) == null) {
@@ -37,8 +79,14 @@ export class CoreCocosMcpExecutionDispatcher {
         }
     }
 
-    /** @description 执行一项公开 Core operation；未注册、无适配器或缺审批均 fail closed。 */
-    public async execute(operation: unknown, input: unknown): Promise<unknown> {
+    /**
+     * @description 执行公开操作，在副作用前验证输入及本地审批范围。
+     * @param operation 未受信操作标识。
+     * @param input 未受信业务参数。
+     * @param context 宿主解析的连接和资源范围。
+     * @returns 实际适配器的执行结果。
+     */
+    public async execute(operation: unknown, input: unknown, context: ICoreCocosMcpExecutionContext | null = null): Promise<unknown> {
         const definition = this.definitions.findByOperation(operation);
         if (definition == null) {
             throw new Error('core_cocos_mcp_execution_operation_not_public');
@@ -46,23 +94,52 @@ export class CoreCocosMcpExecutionDispatcher {
         if (!CoreCocosMcpExecutionDispatcher.isRecord(input)) {
             throw new Error('core_cocos_mcp_execution_input_invalid');
         }
-        this.requireApproval(definition, input);
+        if (!this.validator.validate(definition.inputSchema, input)) {
+            throw new Error('core_cocos_mcp_execution_schema_invalid');
+        }
         const adapter = this.adapters.get(definition.operation);
         if (adapter == null) {
             throw new Error(`core_cocos_mcp_execution_adapter_missing:${definition.operation}`);
         }
+        this.requireApproval(definition, input, context);
         return adapter.execute({ operation: definition.operation, input });
     }
 
-    private requireApproval(definition: ICoreCocosMcpToolDefinition, input: Readonly<Record<string, unknown>>): void {
+    /**
+     * @description 在调用写入适配器之前消费宿主签发的审批租约。
+     * @param definition 可信目录定义。
+     * @param input 已通过 schema 检查的参数。
+     * @param context 宿主提供的连接及资源范围。
+     * @returns 审批通过时返回，否则抛出拒绝错误。
+     */
+    private requireApproval(
+        definition: ICoreCocosMcpToolDefinition,
+        input: Readonly<Record<string, unknown>>,
+        context: ICoreCocosMcpExecutionContext | null,
+    ): void {
         if (!definition.requiresLocalApproval) {
             return;
         }
-        if (typeof input.approvalId !== 'string' || input.approvalId.trim().length === 0) {
+        if (
+            context == null ||
+            context.resources.length === 0 ||
+            this.approvalLeases == null ||
+            !this.approvalLeases.consume(input.approvalId, {
+                connectionId: context.connectionId,
+                resources: context.resources,
+                operation: definition.operation,
+                risk: definition.risk,
+            })
+        ) {
             throw new Error(`core_cocos_mcp_execution_approval_required:${definition.operation}`);
         }
     }
 
+    /**
+     * @description 将未受信输入缩窄为记录对象。
+     * @param value 未受信输入。
+     * @returns 是否为非空且非数组的对象。
+     */
     private static isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
         return typeof value === 'object' && value != null && !Array.isArray(value);
     }
