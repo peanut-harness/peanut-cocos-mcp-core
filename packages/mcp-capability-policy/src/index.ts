@@ -6,6 +6,7 @@ export {
 } from './core-cocos-mcp-capability-catalog.js';
 export { CoreCocosMcpOperationResolver } from './core-cocos-mcp-operation-resolver.js';
 export { CoreCocosMcpToolNameResolver } from './core-cocos-mcp-tool-name-resolver.js';
+export { CoreCocosMcpReadToolSchemaCatalog, type ICoreMcpJsonSchema } from './core-cocos-mcp-read-tool-schema-catalog.js';
 export {
     McpApprovalLeaseStore,
     type IMcpApprovalLeaseRequest,
