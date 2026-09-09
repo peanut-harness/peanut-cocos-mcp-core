@@ -5,6 +5,7 @@ export {
     type ICoreCocosMcpCapability,
 } from './core-cocos-mcp-capability-catalog.js';
 export { CoreCocosMcpOperationResolver } from './core-cocos-mcp-operation-resolver.js';
+export { CoreCocosMcpToolNameResolver } from './core-cocos-mcp-tool-name-resolver.js';
 export {
     McpApprovalLeaseStore,
     type IMcpApprovalLeaseRequest,
