@@ -1,0 +1,15 @@
+{
+  "id": "peanut.cocos-mcp-core",
+  "version": "0.1.0",
+  "kind": "tooling-plugin",
+  "displayName": "Peanut Cocos MCP Core",
+  "description": {
+    "en-US": "Open Cocos Creator editor operations with local approval for writes.",
+    "zh-CN": "开源 Cocos Creator 编辑器能力；写入仅需本地审批。"
+  },
+  "main": "./peanut.cocos-mcp-core.bundle.js",
+  "engines": { "host": "^0.1.0" },
+  "activation": { "autoActivate": true, "events": ["onStartup"] },
+  "permissions": {},
+  "package": { "schemaVersion": 1, "digest": "", "packedAt": "", "files": [], "libraries": [] }
+}
