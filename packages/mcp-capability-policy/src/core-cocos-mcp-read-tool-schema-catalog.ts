@@ -242,6 +242,60 @@ export class CoreCocosMcpReadToolSchemaCatalog {
                 platform: this.string('平台 id。'),
             }),
         );
+
+        schemas.set(
+            'lumen.schema',
+            this.object({
+                type: this.string('组件类型，如 cc.Label；省略时返回清单。'),
+                cocosVersion: this.string('可选 Creator 版本覆盖。'),
+            }),
+        );
+        schemas.set(
+            'lumen.templates',
+            this.object({
+                cocosVersion: this.string('可选 Creator 版本覆盖。'),
+            }),
+        );
+        schemas.set(
+            'lumen.tree',
+            this.object({
+                prefabRelativePath: this.string('项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。'),
+                assetRelativePath: this.string('prefabRelativePath 的别名；二者同时提供时必须相等。'),
+                cocosVersion: this.string('可选 Creator 版本覆盖。'),
+            }),
+        );
+        schemas.set(
+            'lumen.inspect',
+            this.object({
+                prefabRelativePath: this.string('项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。'),
+                assetRelativePath: this.string('prefabRelativePath 的别名；二者同时提供时必须相等。'),
+                nodePath: this.string('节点路径，如 /Root/Title，必须以 / 开头；独立资产可省略。'),
+                region: this.freeObject('仅 .terrain：顶点盒或本地圆区域。'),
+                cocosVersion: this.string('可选 Creator 版本覆盖。'),
+            }),
+        );
+        schemas.set(
+            'lumen.validateRefs',
+            this.object({
+                prefabRelativePath: this.string('项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。'),
+                assetRelativePath: this.string('prefabRelativePath 的别名；二者同时提供时必须相等。'),
+            }),
+        );
+        schemas.set(
+            'lumen.cocosInfo',
+            this.object({
+                engineRoot: this.string('可选引擎根或 cc.d.ts 路径（可为绝对路径）。'),
+                cocosVersion: this.string('可选 Creator 版本覆盖。'),
+                gapOffset: this.integer('缺口列表起始偏移；缺省 0。'),
+                gapLimit: this.integer('缺口列表每页条数；缺省 40，最大 200。'),
+            }),
+        );
+        schemas.set(
+            'reference.queryImage',
+            this.object({
+                scenePath: this.string('可选场景路径（当前拒绝）。'),
+            }),
+        );
         return schemas;
     }
 
@@ -311,6 +365,15 @@ export class CoreCocosMcpReadToolSchemaCatalog {
      */
     private static stringArray(description: string): ICoreMcpJsonSchema {
         return Object.freeze({ type: 'array', description, items: this.string('字符串值。') });
+    }
+
+    /**
+     * @description 创建允许额外字段的自由对象 schema；具体形状由宿主深层校验。
+     * @param description 面向调用方的说明。
+     * @returns 自由对象 schema。
+     */
+    private static freeObject(description: string): ICoreMcpJsonSchema {
+        return Object.freeze({ type: 'object', description, additionalProperties: true });
     }
 
     /**
