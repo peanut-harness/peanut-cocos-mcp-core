@@ -11,7 +11,7 @@ export type CoreCocosNativeWriteOperation =
     | 'asset.open' | 'asset.copy' | 'asset.move' | 'asset.rename' | 'asset.createFolder' | 'asset.delete' | 'asset.reimport' | 'asset.writeText' | 'asset.ensureSpriteFramesBatch'
     | 'scene.restoreEditorResource' | 'scene.open' | 'scene.save' | 'scene.reload' | 'scene.focusNode' | 'scene.createNode'
     | 'prefab.createFromNode' | 'prefab.apply' | 'prefab.revert' | 'prefab.unpack' | 'prefab.unlink'
-    | 'preview.refresh' | 'preview.capture'
+    | 'preview.refresh'
     | 'builder.build'
     | 'lumen.scaffold' | 'lumen.structure' | 'lumen.nodeAdd' | 'lumen.nodeRm' | 'lumen.nodeRename' | 'lumen.nodeReorder'
     | 'lumen.compAdd' | 'lumen.compRm' | 'lumen.compSet' | 'lumen.assetSet' | 'lumen.nodeSet'
@@ -38,7 +38,7 @@ export class CoreCocosNativeWriteCapabilityCatalog {
         'asset.open', 'asset.copy', 'asset.move', 'asset.rename', 'asset.createFolder', 'asset.delete', 'asset.reimport', 'asset.writeText', 'asset.ensureSpriteFramesBatch',
         'scene.restoreEditorResource', 'scene.open', 'scene.save', 'scene.reload', 'scene.focusNode', 'scene.createNode',
         'prefab.createFromNode', 'prefab.apply', 'prefab.revert', 'prefab.unpack', 'prefab.unlink',
-        'preview.refresh', 'preview.capture', 'builder.build',
+        'preview.refresh', 'builder.build',
         'lumen.scaffold', 'lumen.structure', 'lumen.nodeAdd', 'lumen.nodeRm', 'lumen.nodeRename', 'lumen.nodeReorder',
         'lumen.compAdd', 'lumen.compRm', 'lumen.compSet', 'lumen.assetSet', 'lumen.nodeSet',
         'lumen.bindClick', 'lumen.bindSprite', 'lumen.bindSpriteBatch', 'lumen.bindRef', 'lumen.bindController', 'lumen.refresh', 'lumen.commit',

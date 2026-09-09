@@ -46,8 +46,6 @@ export class CoreCocosNativeWriteToolSchemaCatalog {
         schemas.set('prefab.unpack', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
         schemas.set('prefab.unlink', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
         schemas.set('preview.refresh', this.object({ refreshAssets: this.boolean('是否同时请求 AssetDB refresh；默认 true。'), ...control() }));
-        // 旧实现遗漏了截图写盘的审批字段；Core 将它与其它写入统一绑定本地审批租约。
-        schemas.set('preview.capture', this.object({ url: this.string('可选预览 URL；省略时先 preview.query。'), outputRelativePath: this.string('输出相对路径；默认 .peanut-ai/artifacts/preview-capture.png。'), width: this.integer('视口宽；默认 1280。'), height: this.integer('视口高；默认 720。'), waitMs: this.integer('截图前等待毫秒；默认 500。'), scenePath: this.string('可选工程相对 .scene 路径；省略=当前预览行为。提供时尝试无确认框准备该场景，否则 refused。'), assetRelativePath: this.string('scenePath 别名；二者都给时以 scenePath 为准。'), ...control() }));
         schemas.set('builder.build', this.object({ platform: this.string('平台 id（如 web-desktop）。'), options: this.freeObject('可选构建配置覆盖（透传 Creator）。'), ...control() }, ['platform']));
         const prefabPath = (): ICoreMcpJsonSchema => this.string('项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。');
         const assetAlias = (): ICoreMcpJsonSchema => this.string('prefabRelativePath 的别名；二者同时提供时必须相等。');
