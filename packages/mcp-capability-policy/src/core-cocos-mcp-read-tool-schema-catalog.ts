@@ -52,6 +52,10 @@ export class CoreCocosMcpReadToolSchemaCatalog {
      */
     private static buildSchemas(): ReadonlyMap<CoreCocosMcpOperation, ICoreMcpJsonSchema> {
         const schemas = new Map<CoreCocosMcpOperation, ICoreMcpJsonSchema>();
+        schemas.set('editor.queryVersion', this.empty());
+        schemas.set('editor.queryProject', this.empty());
+        schemas.set('editor.querySelection', this.empty());
+
         schemas.set(
             'asset.queryInfo',
             this.object({
@@ -168,6 +172,76 @@ export class CoreCocosMcpReadToolSchemaCatalog {
                 limit: this.integer('catalog 命中上限。'),
             }),
         );
+
+        schemas.set('scene.getCurrent', this.empty());
+        schemas.set(
+            'scene.getHierarchy',
+            this.object({
+                includeEditorNodes: this.boolean('是否包含编辑器内部节点；默认 false。'),
+            }),
+        );
+        schemas.set('scene.queryCurrentEditorResource', this.empty());
+        schemas.set(
+            'scene.resolvePrefabRootUuid',
+            this.object({
+                rootName: this.string('根节点名；省略时从 prefabRelativePath 推导。'),
+                prefabRelativePath: this.string('Prefab 相对路径，用于推导根名。'),
+                timeoutMs: this.number('等待超时毫秒；默认 10000。'),
+            }),
+        );
+        schemas.set(
+            'scene.queryNode',
+            this.object(
+                {
+                    path: this.string('节点路径或节点名。'),
+                    includeEditorNodes: this.boolean('是否包含编辑器内部节点；默认 false。'),
+                },
+                ['path'],
+            ),
+        );
+        schemas.set(
+            'prefab.getInfo',
+            this.object(
+                {
+                    pathOrUuid: this.string('Prefab 路径 / uuid，或实例节点 path。'),
+                },
+                ['pathOrUuid'],
+            ),
+        );
+
+        schemas.set(
+            'preview.query',
+            this.object({
+                platform: this.string('预留平台提示，如 browser。'),
+            }),
+        );
+        schemas.set(
+            'preview.queryErrors',
+            this.object({
+                limit: this.integer('返回条数上限；默认 50。'),
+                contains: this.string('错误行关键字过滤（大小写不敏感）。'),
+                sinceOffset: this.integer('仅返回 project.log 该字节偏移之后的新增错误；用上次返回的 logOffset。'),
+            }),
+        );
+
+        schemas.set(
+            'builder.queryPlatforms',
+            this.object({
+                filter: this.string('可选平台名子串过滤。'),
+            }),
+        );
+        schemas.set(
+            'builder.querySchema',
+            this.object({
+                platform: this.string('平台 id；省略时返回通用 schema。'),
+            }),
+        );
+        schemas.set(
+            'builder.queryDefaultConfig',
+            this.object({
+                platform: this.string('平台 id。'),
+            }),
+        );
         return schemas;
     }
 
@@ -210,6 +284,15 @@ export class CoreCocosMcpReadToolSchemaCatalog {
      */
     private static integer(description: string): ICoreMcpJsonSchema {
         return Object.freeze({ type: 'integer', description });
+    }
+
+    /**
+     * @description 创建数字 schema。
+     * @param description 面向调用方的说明。
+     * @returns 数字 schema。
+     */
+    private static number(description: string): ICoreMcpJsonSchema {
+        return Object.freeze({ type: 'number', description });
     }
 
     /**
