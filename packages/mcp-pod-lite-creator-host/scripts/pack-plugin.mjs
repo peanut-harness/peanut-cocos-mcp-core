@@ -9,8 +9,8 @@ if (typeof editorRoot !== 'string' || editorRoot.length === 0) {
 const { packDirectoryPlugin } = await import(resolve(editorRoot, 'scripts', 'pack-directory-plugin.mjs'));
 await packDirectoryPlugin({
     pluginRoot,
-    sourceManifestName: 'peanut.cocos-mcp-core.manifest.json',
-    bundleFileName: 'peanut.cocos-mcp-core.bundle.js',
-    releaseDirectoryName: 'peanut.cocos-mcp-core-0.1.0',
+    sourceManifestName: 'peanut.pod-lite.manifest.json',
+    bundleFileName: 'peanut.pod-lite.bundle.js',
+    releaseDirectoryName: 'peanut.pod-lite-0.1.0',
     keepPaths: ['libs'],
 });

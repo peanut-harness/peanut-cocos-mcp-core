@@ -1,5 +1,5 @@
 {
-  "name": "@peanut/cocos-mcp-creator-host",
+  "name": "@peanut/pod-lite-creator-host",
   "version": "0.1.0",
   "private": false,
   "type": "module",
@@ -13,7 +13,7 @@
     "pack": "npm run build && node scripts/pack-plugin.mjs"
   },
   "dependencies": {
-    "@peanut/cocos-mcp-capability-policy": "file:../mcp-capability-policy"
+    "@peanut/pod-lite-capability-policy": "file:../pod-lite-capability-policy"
   },
   "devDependencies": { "typescript": "^5.9.3" }
 }

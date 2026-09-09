@@ -1,4 +1,4 @@
-# @peanut/cocos-mcp-capability-policy
+# @peanut/pod-lite-capability-policy
 
 Public, dependency-free access-policy primitives shared by the Cocos MCP Hub and capability plugins.
 

@@ -1,11 +1,11 @@
 # Core 安装顺序
 
-`peanut-cocos-mcp-core` 是可独立运行的基础层。它不依赖 Pro、在线许可证、SnowB、设计导入或内容发布服务。
+`peanut-pod-lite` 是可独立运行的基础层。它不依赖 Pro、在线许可证、SnowB、设计导入或内容发布服务。
 
 ## 必需顺序
 
 1. **关闭目标 Creator 项目。** 不得在旧宿主仍持有插件目录或运行期服务时覆盖安装。
-2. **安装 Core 宿主扩展。** 使用 `packages/cocos-creator-core-host-extension` 的发布目录安装到项目 `extensions/peanut-cocos-mcp-core-host/`。该原生 Creator 扩展只发现、校验并加载 `peanut.cocos-mcp-core`，不扫描旧插件目录、不加载 Pro 或商业集成。
+2. **安装 Lite 宿主扩展。** 使用 `packages/cocos-creator-lite-host-extension` 的发布目录安装到项目 `extensions/peanut-pod-lite-host/`。该原生 Creator 扩展只发现、校验并加载 `peanut.pod-lite`，不扫描旧插件目录、不加载 Pro 或商业集成。
 3. **启动 Creator 并等待宿主就绪。** 只接受宿主记录的 `core_host_ready` 状态；未就绪时不得安装或激活能力包。
 4. **安装 Core 能力包。** 安装器必须校验目录包清单和 SHA-256 摘要，并只注册已实现的 Core operation。
 5. **运行只读冒烟测试。** 至少验证 `editor.queryVersion`、`editor.queryProject`、`editor.querySelection`；失败时停止，不继续任何写入测试。
@@ -16,13 +16,13 @@
 先打包两个发布物（`PEANUT_COCOS_EDITOR_ROOT` 指向参考产品的 `editor/` 目录），再严格按扩展、能力包的顺序安装：
 
 ```bash
-PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/cocos-creator-core-host-extension
-PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/mcp-cocos-creator-host
-node /path/to/products/cocos/editor/scripts/install-cocos-extension.mjs --project /path/to/project --package packages/cocos-creator-core-host-extension/release/peanut-cocos-mcp-core-host-0.1.0
-node /path/to/products/cocos/editor/scripts/install-directory-plugin.mjs --project /path/to/project --package packages/mcp-cocos-creator-host/release/peanut.cocos-mcp-core-0.1.0
+PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/cocos-creator-lite-host-extension
+PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/mcp-pod-lite-creator-host
+node /path/to/products/cocos/editor/scripts/install-cocos-extension.mjs --project /path/to/project --package packages/cocos-creator-lite-host-extension/release/peanut-pod-lite-host-0.1.0
+node /path/to/products/cocos/editor/scripts/install-directory-plugin.mjs --project /path/to/project --package packages/mcp-pod-lite-creator-host/release/peanut.pod-lite-0.1.0
 ```
 
-`peanut-cocos-mcp-core-host` 的 `query-status`、`list-tools` 与 `invoke-tool` 是 Creator 消息入口，可用于宿主侧冒烟验证；它不会发现或加载其他插件。
+`peanut-pod-lite-host` 的 `query-status`、`list-tools` 与 `invoke-tool` 是 Creator 消息入口，可用于宿主侧冒烟验证；它不会发现或加载其他插件。
 
 ## Pro 的后置安装
 

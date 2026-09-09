@@ -15,5 +15,5 @@ await mkdir(resolve(outputDirectory, 'dist'), { recursive: true });
 await build({ bundle: true, entryPoints: [resolve(extensionRoot, 'src/main.js')], format: 'cjs', platform: 'node', target: 'node16', outfile: resolve(outputDirectory, 'dist/main.js'), legalComments: 'none' });
 await writeFile(resolve(outputDirectory, 'dist/scene.js'), "'use strict';\nmodule.exports = {};\n", 'utf8');
 await cp(resolve(extensionRoot, 'package.json'), resolve(outputDirectory, 'package.json'));
-await writeFile(resolve(outputDirectory, 'README.md'), '# Peanut Cocos MCP Core Host\n\nInstall this extension before the Core directory package.\n', 'utf8');
+await writeFile(resolve(outputDirectory, 'README.md'), '# Peanut Pod Lite Host\n\nInstall this extension before the Lite directory package.\n', 'utf8');
 process.stdout.write(`${JSON.stringify({ ok: true, outputDirectory }, null, 2)}\n`);

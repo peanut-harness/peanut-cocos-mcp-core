@@ -1,5 +1,5 @@
 {
-    "name": "@peanut/cocos-mcp-capability-policy",
+    "name": "@peanut/pod-lite-capability-policy",
     "version": "0.1.0",
     "description": "Public capability access policy primitives for Peanut Cocos MCP.",
     "license": "Apache-2.0",

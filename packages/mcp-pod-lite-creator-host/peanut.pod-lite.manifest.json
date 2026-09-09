@@ -1,13 +1,13 @@
 {
-  "id": "peanut.cocos-mcp-core",
+  "id": "peanut.pod-lite",
   "version": "0.1.0",
   "kind": "tooling-plugin",
-  "displayName": "Peanut Cocos MCP Core",
+  "displayName": "Peanut Pod Lite",
   "description": {
     "en-US": "Open Cocos Creator editor operations with local approval for writes.",
     "zh-CN": "开源 Cocos Creator 编辑器能力；写入仅需本地审批。"
   },
-  "main": "./peanut.cocos-mcp-core.bundle.js",
+  "main": "./peanut.pod-lite.bundle.js",
   "engines": { "host": "^0.1.0" },
   "activation": { "autoActivate": true, "events": ["onStartup"] },
   "permissions": {},

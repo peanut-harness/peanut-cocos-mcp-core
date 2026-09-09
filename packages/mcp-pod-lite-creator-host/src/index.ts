@@ -2,7 +2,7 @@ import {
     CoreCocosCreatorReadAdapter,
     CoreCocosMcpExecutionDispatcher,
     type ICoreCocosCreatorReadRuntime,
-} from '../../mcp-capability-policy/dist/index.js';
+} from '../../pod-lite-capability-policy/dist/index.js';
 
 /** @description Core MCP 工具的宿主注册定义。 */
 export interface ICoreCocosMcpToolDefinition {
@@ -36,11 +36,11 @@ export interface ICoreCocosCreatorHostActivateContext {
 export class CoreCocosCreatorHostPluginModule {
     /** @description 目录包运行时清单。 */
     public readonly manifest = Object.freeze({
-        id: 'peanut.cocos-mcp-core',
+        id: 'peanut.pod-lite',
         version: '0.1.0',
         kind: 'tooling-plugin',
-        displayName: 'Peanut Cocos MCP Core',
-        main: './peanut.cocos-mcp-core.bundle.js',
+        displayName: 'Peanut Pod Lite',
+        main: './peanut.pod-lite.bundle.js',
         engines: { host: '^0.1.0' },
         activation: { autoActivate: true, events: ['onStartup'] },
         permissions: {},
@@ -57,7 +57,7 @@ export class CoreCocosCreatorHostPluginModule {
                 this.disposers.push(context.mcp.register(definition, async (input): Promise<unknown> => dispatcher.execute(definition.name, input)));
             }
         }
-        context.logger.info('core_cocos_creator_host_ready:3_read_operations');
+        context.logger.info('pod_lite_creator_host_ready:3_read_operations');
     }
 
     /** @description 停用 Core 宿主并注销所有工具。 @returns 停用完成后结束。 */

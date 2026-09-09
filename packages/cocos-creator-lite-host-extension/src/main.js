@@ -4,7 +4,7 @@ const { createHash } = require('crypto');
 const { existsSync, readFileSync } = require('fs');
 const { join, resolve } = require('path');
 
-const CORE_PLUGIN_ID = 'peanut.cocos-mcp-core';
+const CORE_PLUGIN_ID = 'peanut.pod-lite';
 const CORE_MANIFEST_FILE = `${CORE_PLUGIN_ID}.manifest.json`;
 
 let coreModule = null;
@@ -111,14 +111,14 @@ async function load() {
         }
         toolHandlers = new Map();
         coreModule = loaded.createPluginModule();
-        await coreModule.activate({ runtime: createRuntime(), mcp: createRegistry(), logger: { info: (message) => getEditor()?.log?.(`[peanut-cocos-mcp-core] ${message}`) } });
+        await coreModule.activate({ runtime: createRuntime(), mcp: createRegistry(), logger: { info: (message) => getEditor()?.log?.(`[peanut-pod-lite] ${message}`) } });
         hostStatus = Object.freeze({ ready: true, error: null, tools: [...toolHandlers.keys()].sort() });
-        getEditor()?.log?.(`[peanut-cocos-mcp-core] core_host_ready:${hostStatus.tools.length}`);
+        getEditor()?.log?.(`[peanut-pod-lite] lite_host_ready:${hostStatus.tools.length}`);
     } catch (error) {
         coreModule = null;
         toolHandlers = new Map();
         hostStatus = Object.freeze({ ready: false, error: error instanceof Error ? error.message : String(error), tools: [] });
-        getEditor()?.error?.(`[peanut-cocos-mcp-core] core_host_failed:${hostStatus.error}`);
+        getEditor()?.error?.(`[peanut-pod-lite] lite_host_failed:${hostStatus.error}`);
         throw error;
     }
 }
