@@ -1,4 +1,7 @@
 import { CoreCocosMcpCapabilityCatalog, type CoreCocosMcpOperation } from './core-cocos-mcp-capability-catalog.js';
+import { CoreCocosNativeWriteCapabilityCatalog, type CoreCocosNativeWriteOperation } from './core-cocos-native-write-capability-catalog.js';
+
+export type CoreCocosMcpPublicOperation = CoreCocosMcpOperation | CoreCocosNativeWriteOperation;
 
 /**
  * @description 在 Core 公开 operation 与兼容 MCP 工具名之间进行 fail-closed 映射。
@@ -13,7 +16,7 @@ export class CoreCocosMcpToolNameResolver {
      * @returns 兼容工具名；未知或非 Core operation 返回 null。
      */
     public toolName(operation: unknown): string | null {
-        const capability = CoreCocosMcpCapabilityCatalog.find(operation);
+        const capability = CoreCocosMcpCapabilityCatalog.find(operation) ?? CoreCocosNativeWriteCapabilityCatalog.find(operation);
         if (capability == null) {
             return null;
         }
@@ -25,11 +28,11 @@ export class CoreCocosMcpToolNameResolver {
      * @param toolName 未信任的 MCP 工具名。
      * @returns 命中的 Core operation；任何未知或 Pro 工具名返回 null。
      */
-    public operationForToolName(toolName: unknown): CoreCocosMcpOperation | null {
+    public operationForToolName(toolName: unknown): CoreCocosMcpPublicOperation | null {
         if (typeof toolName !== 'string' || !toolName.startsWith(CoreCocosMcpToolNameResolver.toolNamePrefix)) {
             return null;
         }
-        for (const capability of CoreCocosMcpCapabilityCatalog.list()) {
+        for (const capability of [...CoreCocosMcpCapabilityCatalog.list(), ...CoreCocosNativeWriteCapabilityCatalog.list()]) {
             if (this.toolName(capability.operation) === toolName) {
                 return capability.operation;
             }
@@ -42,7 +45,7 @@ export class CoreCocosMcpToolNameResolver {
      * @param operation 已验证的 Core operation。
      * @returns 工具名后缀。
      */
-    private static toKebab(operation: CoreCocosMcpOperation): string {
+    private static toKebab(operation: CoreCocosMcpPublicOperation): string {
         return operation
             .replace(/([a-z0-9])([A-Z])/gu, '$1-$2')
             .replace(/\./gu, '-')

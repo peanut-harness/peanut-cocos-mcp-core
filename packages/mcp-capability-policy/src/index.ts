@@ -11,8 +11,9 @@ export {
     type CoreCocosNativeWriteRisk,
     type ICoreCocosNativeWriteCapability,
 } from './core-cocos-native-write-capability-catalog.js';
-export { CoreCocosMcpToolNameResolver } from './core-cocos-mcp-tool-name-resolver.js';
+export { CoreCocosMcpToolNameResolver, type CoreCocosMcpPublicOperation } from './core-cocos-mcp-tool-name-resolver.js';
 export { CoreCocosMcpReadToolSchemaCatalog, type ICoreMcpJsonSchema } from './core-cocos-mcp-read-tool-schema-catalog.js';
+export { CoreCocosNativeWriteToolSchemaCatalog } from './core-cocos-native-write-tool-schema-catalog.js';
 export { CoreCocosMcpToolDefinitionCatalog, type ICoreCocosMcpToolDefinition } from './core-cocos-mcp-tool-definition-catalog.js';
 export {
     McpApprovalLeaseStore,
