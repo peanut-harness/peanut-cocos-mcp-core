@@ -2,8 +2,7 @@ import { CoreCocosNativeWriteCapabilityCatalog, type CoreCocosNativeWriteOperati
 import type { ICoreMcpJsonSchema } from './core-cocos-mcp-read-tool-schema-catalog.js';
 
 /**
- * @description 已完成精确入参迁移的 Cocos 原生写工具 schema。
- * 该批覆盖编辑器选区、资产、场景和 Prefab 原生写入；其它写入族会按执行适配器成熟度继续加入。
+ * @description 已完成精确入参迁移的 Cocos 原生写工具 schema，覆盖公开账本中的全部原生写入；每个会改变编辑器或项目状态的工具都携带本地审批字段。
  */
 export class CoreCocosNativeWriteToolSchemaCatalog {
     private static readonly schemas: ReadonlyMap<CoreCocosNativeWriteOperation, ICoreMcpJsonSchema> = CoreCocosNativeWriteToolSchemaCatalog.buildSchemas();
@@ -46,6 +45,10 @@ export class CoreCocosNativeWriteToolSchemaCatalog {
         schemas.set('prefab.revert', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
         schemas.set('prefab.unpack', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
         schemas.set('prefab.unlink', this.object({ nodePath: this.string('实例根节点路径或 uuid。'), ...control() }, ['nodePath']));
+        schemas.set('preview.refresh', this.object({ refreshAssets: this.boolean('是否同时请求 AssetDB refresh；默认 true。'), ...control() }));
+        // 旧实现遗漏了截图写盘的审批字段；Core 将它与其它写入统一绑定本地审批租约。
+        schemas.set('preview.capture', this.object({ url: this.string('可选预览 URL；省略时先 preview.query。'), outputRelativePath: this.string('输出相对路径；默认 .peanut-ai/artifacts/preview-capture.png。'), width: this.integer('视口宽；默认 1280。'), height: this.integer('视口高；默认 720。'), waitMs: this.integer('截图前等待毫秒；默认 500。'), scenePath: this.string('可选工程相对 .scene 路径；省略=当前预览行为。提供时尝试无确认框准备该场景，否则 refused。'), assetRelativePath: this.string('scenePath 别名；二者都给时以 scenePath 为准。'), ...control() }));
+        schemas.set('builder.build', this.object({ platform: this.string('平台 id（如 web-desktop）。'), options: this.freeObject('可选构建配置覆盖（透传 Creator）。'), ...control() }, ['platform']));
         return schemas;
     }
 
