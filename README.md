@@ -4,7 +4,7 @@ Open-source foundation for the Peanut Cocos MCP.
 
 This repository contains public contracts, the capability policy model, and safe base execution primitives for native Cocos editor operations. Native editor writes are free and open-source but retain local approval and destructive-action confirmation.
 
-Third-party integrations and commercial workflow packs — including SnowB, Figma/PSD, UI Prefab, Lumen, and reference-resource write integrations — remain private paid-support packages. Donation is voluntary and never gates Core functionality.
+Third-party integrations and commercial workflow packs — including SnowB, Figma/PSD and UI Prefab — remain private paid-support packages. Donation is voluntary and never gates Core functionality.
 
 ## Status
 
