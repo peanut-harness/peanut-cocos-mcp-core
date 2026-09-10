@@ -1,15 +1,18 @@
 'use strict';
 
-const { createHash } = require('crypto');
-const { existsSync, readFileSync, realpathSync } = require('fs');
-const { isAbsolute, join, relative, resolve } = require('path');
+const { CpmPackageStore } = require('./cpm-package-store');
+const { PluginServiceRegistry } = require('./plugin-service-registry');
+const { SystemProtectedKeyStore } = require('./system-protected-key-store');
 
 const CORE_PLUGIN_ID = 'peanut.pod-lite';
-const CORE_MANIFEST_FILE = `${CORE_PLUGIN_ID}.manifest.json`;
+const PRO_PLUGIN_ID = 'peanut.cocos-mcp-pro';
 
 let coreModule = null;
+let proModule = null;
 let toolHandlers = new Map();
-let hostStatus = Object.freeze({ ready: false, error: null, tools: [] });
+const serviceRegistry = new PluginServiceRegistry();
+let protectedKeyStore = null;
+let hostStatus = createStoppedStatus();
 
 function getEditor() {
     return globalThis.Editor;
@@ -20,73 +23,7 @@ function requireProjectPath() {
     if (typeof projectPath !== 'string' || projectPath.trim().length === 0) {
         throw new Error('peanut_cocos_mcp_core_project_path_unavailable');
     }
-    return resolve(projectPath);
-}
-
-function locateInstalledCorePackage(projectPath) {
-    const installedPath = join(projectPath, 'peanut-plugins', 'plugins', CORE_PLUGIN_ID, '0.1.0');
-    if (!existsSync(installedPath)) {
-        throw new Error(`peanut_cocos_mcp_core_package_missing:${installedPath}`);
-    }
-    return installedPath;
-}
-
-function verifyPackage(packagePath) {
-    const manifestPath = join(packagePath, CORE_MANIFEST_FILE);
-    if (!existsSync(manifestPath)) {
-        throw new Error('peanut_cocos_mcp_core_manifest_missing');
-    }
-    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-    if (manifest.id !== CORE_PLUGIN_ID || typeof manifest.main !== 'string') {
-        throw new Error('peanut_cocos_mcp_core_manifest_invalid');
-    }
-    const records = manifest.package?.files;
-    if (!Array.isArray(records) || typeof manifest.package?.digest !== 'string') {
-        throw new Error('peanut_cocos_mcp_core_integrity_missing');
-    }
-    for (const record of records) {
-        if (typeof record?.path !== 'string' || typeof record?.digest !== 'string') {
-            throw new Error('peanut_cocos_mcp_core_integrity_record_invalid');
-        }
-        const filePath = requirePackageFile(packagePath, record.path);
-        const digest = createHash('sha256').update(readFileSync(filePath)).digest('hex');
-        if (digest !== record.digest) {
-            throw new Error(`peanut_cocos_mcp_core_integrity_file_mismatch:${record.path}`);
-        }
-    }
-    const digest = createHash('sha256')
-        .update(
-            [...records]
-                .sort((left, right) => left.path.localeCompare(right.path))
-                .map((record) => `${record.path}:${record.digest}`)
-                .join('\n'),
-        )
-        .digest('hex');
-    if (digest !== manifest.package.digest) {
-        throw new Error('peanut_cocos_mcp_core_integrity_digest_mismatch');
-    }
-    const mainPath = requirePackageFile(packagePath, manifest.main);
-    if (!records.some((record) => resolve(packagePath, record.path) === resolve(packagePath, manifest.main))) {
-        throw new Error('peanut_cocos_mcp_core_entry_not_integrity_checked');
-    }
-    return Object.freeze({ manifest, mainPath });
-}
-
-function requirePackageFile(packagePath, input) {
-    if (typeof input !== 'string' || input.length === 0 || isAbsolute(input) || /^[A-Za-z]:/u.test(input)) {
-        throw new Error('peanut_cocos_mcp_core_integrity_path_invalid');
-    }
-    const root = realpathSync(packagePath);
-    const filePath = resolve(root, input);
-    const child = relative(root, filePath);
-    if (!child || isAbsolute(child) || child === '..' || child.startsWith('../') || child.startsWith('..\\') || !existsSync(filePath)) {
-        throw new Error('peanut_cocos_mcp_core_integrity_file_missing');
-    }
-    const realChild = relative(root, realpathSync(filePath));
-    if (!realChild || isAbsolute(realChild) || realChild === '..' || realChild.startsWith('../') || realChild.startsWith('..\\')) {
-        throw new Error('peanut_cocos_mcp_core_integrity_path_escape');
-    }
-    return filePath;
+    return projectPath;
 }
 
 function createRuntime() {
@@ -101,6 +38,15 @@ function createRuntime() {
             getActiveIds: async () => {
                 const selected = editor?.Selection?.getSelected?.('node');
                 return Array.isArray(selected) ? selected.filter((value) => typeof value === 'string') : [];
+            },
+        }),
+        message: Object.freeze({
+            request: async (target, message, ...args) => {
+                const request = editor?.Message?.request;
+                if (typeof request !== 'function') {
+                    throw new Error('peanut_cocos_mcp_core_message_unavailable');
+                }
+                return request(target, message, ...args);
             },
         }),
     });
@@ -121,40 +67,153 @@ function createRegistry() {
     });
 }
 
-async function load() {
+function loadVerifiedModule(verified, expectedPluginId) {
+    const loaded = require(verified.mainPath);
+    if (typeof loaded.createPluginModule !== 'function') {
+        throw new Error(`peanut_cpm_entry_invalid:${expectedPluginId}`);
+    }
+    const pluginModule = loaded.createPluginModule();
+    if (pluginModule?.manifest?.id !== expectedPluginId || pluginModule.manifest.version !== verified.manifest.version) {
+        throw new Error(`peanut_cpm_module_manifest_mismatch:${expectedPluginId}`);
+    }
+    return pluginModule;
+}
+
+async function activateCore(packageStore) {
+    const verified = packageStore.resolveActivePackage(CORE_PLUGIN_ID, true);
+    toolHandlers = new Map();
+    coreModule = loadVerifiedModule(verified, CORE_PLUGIN_ID);
+    await coreModule.register?.({ logger: createLogger(CORE_PLUGIN_ID) });
+    await coreModule.activate({
+        runtime: createRuntime(),
+        mcp: createRegistry(),
+        logger: createLogger(CORE_PLUGIN_ID),
+    });
+    return verified.manifest.version;
+}
+
+async function activateOptionalPro(packageStore) {
+    let verified;
     try {
-        const packagePath = locateInstalledCorePackage(requireProjectPath());
-        const verified = verifyPackage(packagePath);
-        if (!existsSync(verified.mainPath)) {
-            throw new Error('peanut_cocos_mcp_core_main_missing');
+        verified = packageStore.resolveActivePackage(PRO_PLUGIN_ID, false);
+        if (verified === null) {
+            return Object.freeze({ state: 'absent', version: null, error: null, services: [] });
         }
-        const loaded = require(verified.mainPath);
-        if (typeof loaded.createPluginModule !== 'function') {
-            throw new Error('peanut_cocos_mcp_core_entry_invalid');
-        }
-        toolHandlers = new Map();
-        coreModule = loaded.createPluginModule();
-        await coreModule.activate({
-            runtime: createRuntime(),
-            mcp: createRegistry(),
-            logger: { info: (message) => getEditor()?.log?.(`[peanut-pod-lite] ${message}`) },
+        proModule = loadVerifiedModule(verified, PRO_PLUGIN_ID);
+        protectedKeyStore = new SystemProtectedKeyStore(requireProjectPath(), PRO_PLUGIN_ID, resolveSafeStorage);
+        await proModule.register?.({ logger: createLogger(PRO_PLUGIN_ID) });
+        await proModule.activate({
+            plugin: Object.freeze({ id: PRO_PLUGIN_ID }),
+            protectedKeys: protectedKeyStore,
+            services: serviceRegistry.createApi(PRO_PLUGIN_ID),
         });
-        hostStatus = Object.freeze({ ready: true, error: null, tools: [...toolHandlers.keys()].sort() });
-        getEditor()?.log?.(`[peanut-pod-lite] lite_host_ready:${hostStatus.tools.length}`);
+        return Object.freeze({
+            state: 'active',
+            version: verified.manifest.version,
+            error: null,
+            services: serviceRegistry.list(PRO_PLUGIN_ID),
+        });
     } catch (error) {
-        coreModule = null;
-        toolHandlers = new Map();
-        hostStatus = Object.freeze({ ready: false, error: error instanceof Error ? error.message : String(error), tools: [] });
+        try {
+            await proModule?.deactivate?.();
+        } catch (deactivateError) {
+            getEditor()?.warn?.(`[peanut-pod-lite] pro_deactivate_after_failure_failed:${normalizeError(deactivateError)}`);
+        }
+        proModule = null;
+        serviceRegistry.revokeProvider(PRO_PLUGIN_ID);
+        const message = normalizeError(error);
+        getEditor()?.warn?.(`[peanut-pod-lite] optional_pro_failed:${message}`);
+        return Object.freeze({ state: 'failed', version: verified?.manifest?.version ?? null, error: message, services: [] });
+    }
+}
+
+async function load() {
+    await deactivateModules();
+    try {
+        const packageStore = new CpmPackageStore(requireProjectPath());
+        const coreVersion = await activateCore(packageStore);
+        const pro = await activateOptionalPro(packageStore);
+        hostStatus = Object.freeze({
+            ready: true,
+            error: null,
+            coreVersion,
+            tools: [...toolHandlers.keys()].sort(),
+            pro,
+        });
+        getEditor()?.log?.(`[peanut-pod-lite] lite_host_ready:${hostStatus.tools.length}:pro_${pro.state}`);
+    } catch (error) {
+        await deactivateModules();
+        hostStatus = Object.freeze({
+            ready: false,
+            error: normalizeError(error),
+            coreVersion: null,
+            tools: [],
+            pro: Object.freeze({ state: 'not_checked', version: null, error: null, services: [] }),
+        });
         getEditor()?.error?.(`[peanut-pod-lite] lite_host_failed:${hostStatus.error}`);
         throw error;
     }
 }
 
+async function deactivateModules() {
+    const deactivationErrors = [];
+    try {
+        await proModule?.deactivate?.();
+    } catch (error) {
+        deactivationErrors.push(`pro:${normalizeError(error)}`);
+    } finally {
+        proModule = null;
+        serviceRegistry.revokeProvider(PRO_PLUGIN_ID);
+    }
+    try {
+        await coreModule?.deactivate?.();
+    } catch (error) {
+        deactivationErrors.push(`core:${normalizeError(error)}`);
+    } finally {
+        coreModule = null;
+        toolHandlers = new Map();
+        serviceRegistry.clear();
+        protectedKeyStore?.clear();
+        protectedKeyStore = null;
+    }
+    if (deactivationErrors.length > 0) {
+        getEditor()?.warn?.(`[peanut-pod-lite] host_deactivate_failed:${deactivationErrors.join(',')}`);
+    }
+}
+
 async function unload() {
-    await coreModule?.deactivate?.();
-    coreModule = null;
-    toolHandlers = new Map();
-    hostStatus = Object.freeze({ ready: false, error: null, tools: [] });
+    await deactivateModules();
+    hostStatus = createStoppedStatus();
+}
+
+function createLogger(pluginId) {
+    return Object.freeze({ info: (message) => getEditor()?.log?.(`[${pluginId}] ${message}`) });
+}
+
+function createStoppedStatus() {
+    return Object.freeze({
+        ready: false,
+        error: null,
+        coreVersion: null,
+        tools: [],
+        pro: Object.freeze({ state: 'not_checked', version: null, error: null, services: [] }),
+    });
+}
+
+function normalizeError(error) {
+    return error instanceof Error ? error.message : String(error);
+}
+
+function resolveSafeStorage() {
+    const injected = getEditor()?.App?.safeStorage;
+    if (injected !== undefined) {
+        return injected;
+    }
+    try {
+        return require('electron').safeStorage;
+    } catch {
+        throw new Error('peanut_cpm_system_protected_storage_unavailable');
+    }
 }
 
 const methods = {
@@ -165,9 +224,13 @@ const methods = {
         return hostStatus.tools;
     },
     async invokeTool(name, input = {}) {
-        if (!hostStatus.ready) throw new Error('peanut_cocos_mcp_core_host_not_ready');
+        if (!hostStatus.ready) {
+            throw new Error('peanut_cocos_mcp_core_host_not_ready');
+        }
         const entry = toolHandlers.get(name);
-        if (entry == null) throw new Error(`peanut_cocos_mcp_core_tool_unknown:${name}`);
+        if (entry === undefined) {
+            throw new Error(`peanut_cocos_mcp_core_tool_unknown:${name}`);
+        }
         return entry.handler(input);
     },
 };

@@ -27,6 +27,7 @@ export {
     type ICoreCocosCreatorVersionPort,
     type ICoreCocosCreatorProjectPort,
     type ICoreCocosCreatorSelectionPort,
+    type ICoreCocosCreatorMessageReadPort,
 } from './core-cocos-creator-read-adapter.js';
 export {
     McpApprovalLeaseStore,

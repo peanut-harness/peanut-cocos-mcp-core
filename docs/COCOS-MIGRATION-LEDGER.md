@@ -6,7 +6,7 @@
 
 | 源模块 | 迁入范围 | 当前状态 |
 | --- | --- | --- |
-| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；新宿主仅注册 3 项读取，剩余 80 项待迁入 |
+| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；新宿主已注册 9 项读取，剩余 74 项待迁入 |
 | `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | 缓存识别/请求解析已归入 Lite packages/lumen-template-cache；Creator import/reset/refresh adapter 待迁入 |
 | `ui/panel` | 通用宿主壳与生命周期 | 待迁入 Core Creator host |
 
@@ -31,10 +31,13 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 
 ## 2026-09-09 验证记录
 
-- 83 项目录及 schema 覆盖验证通过；新宿主仍只注册 3 项读取。
+- 83 项目录及 schema 覆盖验证通过；新宿主已注册 9 项读取：版本、工程、选区、当前场景、场景层级、三项 Builder 查询和预览查询。
+- Lite 注册链路改为“工具定义目录 + 适配器支持列表”驱动；新增 Creator Message 只读端口与旧实现一致的版本兼容候选，后续增量实现只需补适配器即可自动暴露对应工具。
 - 增加真实审批租约消费、输入验证、Windows 完整性路径检查及 register 生命周期兼容。
 - Lite 目录包和 Creator 扩展在 Windows 打包成功，制品入口及生命周期回归测试通过。
+- 新增 6 项只读 Message 适配器单测通过；缺少 Message 端口时 fail-closed，候选消息失败不会产生写入副作用。
 - 已安装到用户指定的 `D:/workspaces/peanut-agents/test-demos/cocos-for-agent`，并通过该工程 MCP 的 query-project 确认实际路径。
 - 首次 Creator 3.8.7 加载暴露 `plugin_module_export_missing`，已补 register 并替换测试制品；修正版实机加载仍待工程重启复验。不得记录为 host-verified。
+- 本轮打包时检测到多个 Creator 3.8.7 进程仍在运行，按宿主规范未覆盖测试工程中的活动扩展；9 项新制品已生成，待关闭或重启目标工程后安装复验。
 - 工程当前还存在 `app-qa-wasm-backend.ts` 无法导入 `./app-qa-observe-buffer` 的 QA 资产错误；该资产不属于本轮 Pod 源码变更。
 - 旧测试包保存在工程 `temp/pod-migration-backup/lite-before-register-fix`；现有其它插件和资产未被替换。

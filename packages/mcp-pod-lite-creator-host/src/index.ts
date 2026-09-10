@@ -1,30 +1,10 @@
 import {
     CoreCocosCreatorReadAdapter,
+    CoreCocosMcpToolDefinitionCatalog,
     CoreCocosMcpExecutionDispatcher,
+    type ICoreCocosMcpToolDefinition,
     type ICoreCocosCreatorReadRuntime,
 } from '../../pod-lite-capability-policy/dist/index.js';
-
-/**
- * @description Core MCP 工具的宿主注册定义。
- */
-export interface ICoreCocosMcpToolDefinition {
-    /**
-     * @description MCP 工具稳定名称。
-     */
-    readonly name: string;
-    /**
-     * @description 此首批工具是否只读。
-     */
-    readonly readOnly: true;
-    /**
-     * @description 宿主计算的工具风险。
-     */
-    readonly risk: 'read';
-    /**
-     * @description MCP JSON Schema 输入定义。
-     */
-    readonly inputSchema: Readonly<Record<string, unknown>>;
-}
 
 /**
  * @description Core Creator 宿主提供的最小 MCP 注册端口。
@@ -95,15 +75,20 @@ export class CoreCocosCreatorHostPluginModule {
      */
     public async activate(context: ICoreCocosCreatorHostActivateContext): Promise<void> {
         this.dispose();
-        const dispatcher = new CoreCocosMcpExecutionDispatcher([new CoreCocosCreatorReadAdapter(context.runtime)]);
+        const adapter = new CoreCocosCreatorReadAdapter(context.runtime);
+        const dispatcher = new CoreCocosMcpExecutionDispatcher([adapter]);
+        const definitionCatalog = new CoreCocosMcpToolDefinitionCatalog();
         if (context.mcp != null) {
-            for (const definition of CoreCocosCreatorHostPluginModule.readDefinitions) {
+            for (const definition of definitionCatalog.list().filter(
+                (item): item is ICoreCocosMcpToolDefinition =>
+                    item.readOnly && item.risk === 'read' && adapter.operations.includes(item.operation),
+            )) {
                 this.disposers.push(
                     context.mcp.register(definition, async (input): Promise<unknown> => dispatcher.execute(definition.name, input)),
                 );
             }
         }
-        context.logger.info('pod_lite_creator_host_ready:3_read_operations');
+        context.logger.info(`pod_lite_creator_host_ready:${adapter.operations.length}_read_operations`);
     }
 
     /**
@@ -124,29 +109,6 @@ export class CoreCocosCreatorHostPluginModule {
         }
     }
 
-    /**
-     * @description 首批真实 Creator 读取工具定义。
-     */
-    private static readonly readDefinitions: readonly ICoreCocosMcpToolDefinition[] = Object.freeze([
-        Object.freeze({
-            name: 'editor.queryVersion',
-            readOnly: true,
-            risk: 'read',
-            inputSchema: Object.freeze({ type: 'object', additionalProperties: false }),
-        }),
-        Object.freeze({
-            name: 'editor.queryProject',
-            readOnly: true,
-            risk: 'read',
-            inputSchema: Object.freeze({ type: 'object', additionalProperties: false }),
-        }),
-        Object.freeze({
-            name: 'editor.querySelection',
-            readOnly: true,
-            risk: 'read',
-            inputSchema: Object.freeze({ type: 'object', additionalProperties: false }),
-        }),
-    ]);
 }
 
 /**

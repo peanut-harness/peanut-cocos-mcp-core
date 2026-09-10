@@ -9,7 +9,7 @@
     "scripts": {
         "build": "node scripts/pack-host.mjs",
         "pack": "node scripts/pack-host.mjs",
-        "test": "npm run pack && node --test tests/release-package.test.mjs tests/package-integrity.test.mts"
+        "test": "npm run pack && node --test tests/release-package.test.mjs tests/package-integrity.test.mts tests/optional-pro-host.test.mjs"
     },
     "contributions": {
         "menu": [

@@ -14,6 +14,7 @@ test('directory module satisfies all host lifecycle phases and releases tool reg
             version: { getCurrentVersion: () => '3.8.7' },
             project: { getProjectName: async () => 'test', getProjectPath: async () => 'D:/test' },
             selection: { getActiveIds: async () => [] },
+            message: { request: async () => ({}) },
         },
         mcp: {
             register: (definition: { name: string }) => {
@@ -26,9 +27,9 @@ test('directory module satisfies all host lifecycle phases and releases tool reg
         },
     };
     await plugin.activate(context);
-    assert.equal(registered.size, 3);
+    assert.equal(registered.size, 9);
     await plugin.activate(context);
-    assert.equal(registered.size, 3);
+    assert.equal(registered.size, 9);
     await plugin.deactivate();
     assert.equal(registered.size, 0);
     plugin.dispose();
