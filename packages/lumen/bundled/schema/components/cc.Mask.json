@@ -1,0 +1,49 @@
+{
+    "type": "cc.Mask",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "type",
+            "serializedName": "_type",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "RECT",
+                    "value": 0
+                },
+                {
+                    "name": "ELLIPSE",
+                    "value": 1
+                },
+                {
+                    "name": "GRAPHICS_STENCIL",
+                    "value": 2
+                },
+                {
+                    "name": "SPRITE_STENCIL",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "apiName": "inverted",
+            "serializedName": "_inverted",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "segments",
+            "serializedName": "_segments",
+            "kind": "number"
+        },
+        {
+            "apiName": "alphaThreshold",
+            "serializedName": "_alphaThreshold",
+            "kind": "number"
+        },
+        {
+            "apiName": "spriteFrame",
+            "serializedName": "_spriteFrame",
+            "kind": "uuid"
+        }
+    ]
+}

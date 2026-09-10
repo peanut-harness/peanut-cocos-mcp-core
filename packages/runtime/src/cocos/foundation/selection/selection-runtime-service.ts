@@ -68,5 +68,3 @@ export class SelectionRuntimeService implements ISelectionRuntimeService {
         return adapter;
     }
 }
-
-

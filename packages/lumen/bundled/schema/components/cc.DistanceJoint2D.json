@@ -1,0 +1,37 @@
+{
+    "type": "cc.DistanceJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "maxLength",
+            "serializedName": "_maxLength",
+            "kind": "number"
+        },
+        {
+            "apiName": "autoCalcDistance",
+            "serializedName": "_autoCalcDistance",
+            "kind": "boolean"
+        }
+    ]
+}

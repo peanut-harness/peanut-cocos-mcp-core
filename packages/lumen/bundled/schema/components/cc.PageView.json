@@ -1,0 +1,104 @@
+{
+    "type": "cc.PageView",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "bounceDuration",
+            "serializedName": "bounceDuration",
+            "kind": "number"
+        },
+        {
+            "apiName": "brake",
+            "serializedName": "brake",
+            "kind": "number"
+        },
+        {
+            "apiName": "elastic",
+            "serializedName": "elastic",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "inertia",
+            "serializedName": "inertia",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "horizontal",
+            "serializedName": "horizontal",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "vertical",
+            "serializedName": "vertical",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "cancelInnerEvents",
+            "serializedName": "cancelInnerEvents",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "autoPageTurningThreshold",
+            "serializedName": "autoPageTurningThreshold",
+            "kind": "number"
+        },
+        {
+            "apiName": "pageTurningSpeed",
+            "serializedName": "pageTurningSpeed",
+            "kind": "number"
+        },
+        {
+            "apiName": "sizeMode",
+            "serializedName": "_sizeMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "direction",
+            "serializedName": "_direction",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "HORIZONTAL",
+                    "value": 0
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "apiName": "scrollThreshold",
+            "serializedName": "_scrollThreshold",
+            "kind": "number"
+        },
+        {
+            "apiName": "pageTurningEventTiming",
+            "serializedName": "_pageTurningEventTiming",
+            "kind": "number"
+        },
+        {
+            "apiName": "content",
+            "serializedName": "_content",
+            "kind": "nodeRef"
+        },
+        {
+            "apiName": "horizontalScrollBar",
+            "serializedName": "_horizontalScrollBar",
+            "kind": "componentRef",
+            "refComponentType": "cc.ScrollBar"
+        },
+        {
+            "apiName": "verticalScrollBar",
+            "serializedName": "_verticalScrollBar",
+            "kind": "componentRef",
+            "refComponentType": "cc.ScrollBar"
+        },
+        {
+            "apiName": "indicator",
+            "serializedName": "_indicator",
+            "kind": "componentRef",
+            "refComponentType": "cc.PageViewIndicator"
+        }
+    ]
+}

@@ -46,5 +46,3 @@ export class RuntimeSmokeHarness {
         };
     }
 }
-
-

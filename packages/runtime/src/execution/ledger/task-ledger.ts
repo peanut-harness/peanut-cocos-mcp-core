@@ -86,5 +86,3 @@ export class TaskLedger {
         return this._results.get(taskId) ?? null;
     }
 }
-
-

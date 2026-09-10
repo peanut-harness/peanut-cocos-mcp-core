@@ -1,0 +1,1046 @@
+{
+    "kind": "assets",
+    "entries": [
+        {
+            "assetKind": "material",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".mtl"]
+        },
+        {
+            "assetKind": "animationClip",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".anim"]
+        },
+        {
+            "assetKind": "physicsMaterial",
+            "document": "json-asset",
+            "scaffold": true,
+            "errorPrefix": "lumen_physics_material",
+            "propertyTypePrefix": "lumen",
+            "notEditableIncludesKind": false,
+            "extensions": [".pmtl"],
+            "importers": ["physics-material"],
+            "allowedTypes": ["cc.PhysicsMaterial", "cc.PhysicMaterial"],
+            "scaffoldRecord": {
+                "__type__": "cc.PhysicsMaterial",
+                "_name": "$name",
+                "_objFlags": 0,
+                "_native": "",
+                "_friction": 0.5,
+                "_rollingFriction": 0.1,
+                "_spinningFriction": 0.1,
+                "_restitution": 0.1
+            },
+            "fields": [
+                {
+                    "apiName": "name",
+                    "serializedName": "_name",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "friction",
+                    "serializedName": "_friction",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0.5,
+                    "min": 0,
+                    "errorStyle": "type",
+                    "errorHint": "number>=0"
+                },
+                {
+                    "apiName": "rollingFriction",
+                    "serializedName": "_rollingFriction",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "min": 0,
+                    "errorStyle": "type",
+                    "errorHint": "number>=0"
+                },
+                {
+                    "apiName": "spinningFriction",
+                    "serializedName": "_spinningFriction",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "min": 0,
+                    "errorStyle": "type",
+                    "errorHint": "number>=0"
+                },
+                {
+                    "apiName": "restitution",
+                    "serializedName": "_restitution",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "min": 0,
+                    "errorStyle": "type",
+                    "errorHint": "number>=0"
+                }
+            ]
+        },
+        {
+            "assetKind": "terrain",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".terrain"]
+        },
+        {
+            "assetKind": "image",
+            "document": "custom",
+            "scaffold": false,
+            "extensions": [".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tga", ".gif", ".psd"]
+        },
+        {
+            "assetKind": "effect",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".effect"]
+        },
+        {
+            "assetKind": "effectChunk",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".chunk"]
+        },
+        {
+            "assetKind": "model",
+            "document": "custom",
+            "scaffold": false,
+            "extensions": [".fbx", ".gltf", ".glb"]
+        },
+        {
+            "assetKind": "autoAtlas",
+            "document": "sidecar-meta",
+            "scaffold": true,
+            "writeSource": true,
+            "errorPrefix": "lumen_auto_atlas",
+            "extensions": [".pac"],
+            "importers": ["auto-atlas"],
+            "sourceText": "{\n  \"__type__\": \"cc.SpriteAtlas\"\n}\n",
+            "metaScaffold": {
+                "ver": "1.0.8",
+                "importer": "auto-atlas",
+                "imported": false,
+                "uuid": "$uuid",
+                "files": [".json"],
+                "subMetas": {},
+                "userData": {
+                    "maxWidth": 1024,
+                    "maxHeight": 1024,
+                    "padding": 2,
+                    "allowRotation": true,
+                    "forceSquared": false,
+                    "powerOfTwo": false,
+                    "algorithm": "MaxRects",
+                    "format": "png",
+                    "quality": 80,
+                    "contourBleed": true,
+                    "paddingBleed": true,
+                    "filterUnused": true,
+                    "removeTextureInBundle": true,
+                    "removeImageInBundle": true,
+                    "removeSpriteAtlasInBundle": true,
+                    "useCompressTexture": false,
+                    "presetId": "",
+                    "compressSettings": {},
+                    "textureSetting": {
+                        "wrapModeS": "repeat",
+                        "wrapModeT": "repeat",
+                        "minfilter": "linear",
+                        "magfilter": "linear",
+                        "mipfilter": "none",
+                        "anisotropy": 0
+                    }
+                }
+            },
+            "fields": [
+                {
+                    "apiName": "pack",
+                    "serializedName": "pack",
+                    "kind": "object",
+                    "writable": true,
+                    "flatten": true,
+                    "nestedFields": [
+                        {
+                            "apiName": "maxWidth",
+                            "serializedName": "maxWidth",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 1024,
+                            "min": 1,
+                            "max": 8192,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "maxHeight",
+                            "serializedName": "maxHeight",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 1024,
+                            "min": 1,
+                            "max": 8192,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "padding",
+                            "serializedName": "padding",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 2,
+                            "min": 0,
+                            "max": 64,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "allowRotation",
+                            "serializedName": "allowRotation",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "forceSquared",
+                            "serializedName": "forceSquared",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": false
+                        },
+                        {
+                            "apiName": "powerOfTwo",
+                            "serializedName": "powerOfTwo",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": false
+                        },
+                        {
+                            "apiName": "algorithm",
+                            "serializedName": "algorithm",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "MaxRects",
+                            "enumValues": ["MaxRects"],
+                            "errorStyle": "range",
+                            "errorHint": "MaxRects"
+                        },
+                        {
+                            "apiName": "format",
+                            "serializedName": "format",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "png",
+                            "enumValues": ["png", "jpg", "jpeg", "webp"],
+                            "errorStyle": "range",
+                            "errorHint": "png|jpg|jpeg|webp"
+                        },
+                        {
+                            "apiName": "quality",
+                            "serializedName": "quality",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 80,
+                            "min": 0,
+                            "max": 100,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "contourBleed",
+                            "serializedName": "contourBleed",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "paddingBleed",
+                            "serializedName": "paddingBleed",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "filterUnused",
+                            "serializedName": "filterUnused",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "removeTextureInBundle",
+                            "serializedName": "removeTextureInBundle",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "removeImageInBundle",
+                            "serializedName": "removeImageInBundle",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        },
+                        {
+                            "apiName": "removeSpriteAtlasInBundle",
+                            "serializedName": "removeSpriteAtlasInBundle",
+                            "kind": "boolean",
+                            "writable": true,
+                            "default": true
+                        }
+                    ]
+                },
+                {
+                    "apiName": "texture",
+                    "serializedName": "textureSetting",
+                    "kind": "object",
+                    "writable": true,
+                    "nestedFields": [
+                        {
+                            "apiName": "wrapModeS",
+                            "serializedName": "wrapModeS",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "repeat"
+                        },
+                        {
+                            "apiName": "wrapModeT",
+                            "serializedName": "wrapModeT",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "repeat"
+                        },
+                        {
+                            "apiName": "minfilter",
+                            "serializedName": "minfilter",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "linear"
+                        },
+                        {
+                            "apiName": "magfilter",
+                            "serializedName": "magfilter",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "linear"
+                        },
+                        {
+                            "apiName": "mipfilter",
+                            "serializedName": "mipfilter",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "none"
+                        },
+                        {
+                            "apiName": "anisotropy",
+                            "serializedName": "anisotropy",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 0,
+                            "min": 0,
+                            "max": 16,
+                            "integer": true
+                        }
+                    ]
+                },
+                {
+                    "apiName": "useCompressTexture",
+                    "serializedName": "useCompressTexture",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": false
+                },
+                {
+                    "apiName": "presetId",
+                    "serializedName": "presetId",
+                    "kind": "string",
+                    "writable": true,
+                    "default": "",
+                    "emptyDeletes": true
+                },
+                {
+                    "apiName": "compressSettings",
+                    "serializedName": "compressSettings",
+                    "kind": "compressSettings",
+                    "writable": true
+                }
+            ]
+        },
+        {
+            "assetKind": "labelAtlas",
+            "document": "sidecar-meta",
+            "scaffold": true,
+            "writeSource": true,
+            "errorPrefix": "lumen_label_atlas",
+            "extensions": [".labelatlas"],
+            "importers": ["label-atlas"],
+            "sourceText": "",
+            "metaScaffold": {
+                "ver": "1.0.1",
+                "importer": "label-atlas",
+                "imported": false,
+                "uuid": "$uuid",
+                "files": [".json"],
+                "subMetas": {},
+                "userData": {
+                    "itemWidth": 2,
+                    "itemHeight": 2,
+                    "fontSize": 0,
+                    "startChar": "",
+                    "spriteFrameUuid": "",
+                    "_fntConfig": {}
+                }
+            },
+            "fields": [
+                {
+                    "apiName": "spriteFrameUuid",
+                    "serializedName": "spriteFrameUuid",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "itemWidth",
+                    "serializedName": "itemWidth",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 2,
+                    "min": 1,
+                    "max": 4096,
+                    "integer": true
+                },
+                {
+                    "apiName": "itemHeight",
+                    "serializedName": "itemHeight",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 2,
+                    "min": 1,
+                    "max": 4096,
+                    "integer": true
+                },
+                {
+                    "apiName": "startChar",
+                    "serializedName": "startChar",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "fontSize",
+                    "serializedName": "fontSize",
+                    "kind": "number",
+                    "writable": false,
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "assetKind": "animationGraphVariant",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".animgraphvari"]
+        },
+        {
+            "assetKind": "animationGraph",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".animgraph"]
+        },
+        {
+            "assetKind": "animationMask",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".animask"]
+        },
+        {
+            "assetKind": "renderTexture",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".rt"]
+        },
+        {
+            "assetKind": "renderPipeline",
+            "document": "custom",
+            "scaffold": true,
+            "extensions": [".rpp"]
+        },
+        {
+            "assetKind": "renderFlow",
+            "document": "json-asset",
+            "scaffold": true,
+            "errorPrefix": "lumen_render_flow",
+            "extensions": [".flow"],
+            "importers": ["render-flow"],
+            "allowedTypes": ["RenderFlow", "cc.RenderFlow"],
+            "scaffoldRecord": {
+                "__type__": "RenderFlow",
+                "_name": "$name",
+                "_priority": 0,
+                "_tag": 0,
+                "_stages": []
+            },
+            "fields": [
+                {
+                    "apiName": "type",
+                    "serializedName": "__type__",
+                    "kind": "string",
+                    "writable": false,
+                    "default": "RenderFlow"
+                },
+                {
+                    "apiName": "name",
+                    "serializedName": "_name",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "priority",
+                    "serializedName": "_priority",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "integer": true,
+                    "errorStyle": "type",
+                    "errorHint": "integer"
+                },
+                {
+                    "apiName": "tag",
+                    "serializedName": "_tag",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "integer": true,
+                    "errorStyle": "type",
+                    "errorHint": "integer"
+                },
+                {
+                    "apiName": "stageUuids",
+                    "serializedName": "_stages",
+                    "kind": "uuidArray",
+                    "writable": true
+                }
+            ]
+        },
+        {
+            "assetKind": "renderStage",
+            "document": "json-asset",
+            "scaffold": true,
+            "errorPrefix": "lumen_render_stage",
+            "extensions": [".stg"],
+            "importers": ["render-stage"],
+            "allowedTypes": ["RenderStage", "cc.RenderStage"],
+            "scaffoldRecord": {
+                "__type__": "RenderStage",
+                "_name": "$name",
+                "_priority": 0,
+                "_tag": 0
+            },
+            "fields": [
+                {
+                    "apiName": "type",
+                    "serializedName": "__type__",
+                    "kind": "string",
+                    "writable": false,
+                    "default": "RenderStage"
+                },
+                {
+                    "apiName": "name",
+                    "serializedName": "_name",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "priority",
+                    "serializedName": "_priority",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "integer": true,
+                    "errorStyle": "type",
+                    "errorHint": "integer"
+                },
+                {
+                    "apiName": "tag",
+                    "serializedName": "_tag",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "integer": true,
+                    "errorStyle": "type",
+                    "errorHint": "integer"
+                }
+            ]
+        },
+        {
+            "assetKind": "audio",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_audio",
+            "extensions": [".mp3", ".wav", ".ogg", ".m4a", ".aac"],
+            "importers": ["audio-clip"],
+            "fields": [
+                {
+                    "apiName": "downloadMode",
+                    "serializedName": "downloadMode",
+                    "kind": "enumNumber",
+                    "writable": true,
+                    "default": 0,
+                    "aliases": { "WEB_AUDIO": 0, "DOM_AUDIO": 1 },
+                    "nameField": "downloadModeName",
+                    "errorHint": "0|1|WEB_AUDIO|DOM_AUDIO"
+                }
+            ]
+        },
+        {
+            "assetKind": "video",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_video",
+            "extensions": [".mp4", ".avi", ".mov", ".mkv", ".webm"],
+            "importers": ["video-clip"],
+            "fields": []
+        },
+        {
+            "assetKind": "ttfFont",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_font",
+            "extensions": [".ttf", ".otf"],
+            "importers": ["ttf-font"],
+            "fields": []
+        },
+        {
+            "assetKind": "bitmapFont",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_font",
+            "extensions": [".fnt"],
+            "importers": ["bitmap-font"],
+            "fields": [
+                {
+                    "apiName": "textureUuid",
+                    "serializedName": "textureUuid",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "fontSize",
+                    "serializedName": "fontSize",
+                    "kind": "number",
+                    "writable": true,
+                    "default": 0,
+                    "min": 1,
+                    "max": 512,
+                    "integer": true
+                }
+            ]
+        },
+        {
+            "assetKind": "spine",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_spine",
+            "extensions": [".skel"],
+            "importers": ["spine-data"],
+            "fields": [
+                {
+                    "apiName": "atlasUuid",
+                    "serializedName": "atlasUuid",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "assetKind": "dragonBones",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_dragonbones",
+            "extensions": [".dbbin"],
+            "importers": ["dragonbones"],
+            "fields": []
+        },
+        {
+            "assetKind": "dragonBonesAtlas",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_dragonbones",
+            "importers": ["dragonbones-atlas"],
+            "fields": []
+        },
+        {
+            "assetKind": "cubeMap",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_cubemap",
+            "extensions": [".cubemap"],
+            "importers": ["texture-cube"],
+            "fields": [
+                {
+                    "apiName": "faces",
+                    "serializedName": "faces",
+                    "kind": "object",
+                    "writable": true,
+                    "flatten": true,
+                    "nestedFields": [
+                        {
+                            "apiName": "left",
+                            "serializedName": "left",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        },
+                        {
+                            "apiName": "right",
+                            "serializedName": "right",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        },
+                        {
+                            "apiName": "top",
+                            "serializedName": "top",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        },
+                        {
+                            "apiName": "bottom",
+                            "serializedName": "bottom",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        },
+                        {
+                            "apiName": "front",
+                            "serializedName": "front",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        },
+                        {
+                            "apiName": "back",
+                            "serializedName": "back",
+                            "kind": "string",
+                            "writable": true,
+                            "default": "",
+                            "emptyDeletes": true
+                        }
+                    ]
+                },
+                {
+                    "apiName": "texture",
+                    "serializedName": "texture",
+                    "kind": "object",
+                    "writable": true,
+                    "flatten": true,
+                    "nestedFields": [
+                        {
+                            "apiName": "anisotropy",
+                            "serializedName": "anisotropy",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 1,
+                            "min": 0,
+                            "max": 16,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "faceSize",
+                            "serializedName": "faceSize",
+                            "kind": "number",
+                            "writable": true,
+                            "default": 0,
+                            "min": 0,
+                            "max": 8192,
+                            "integer": true
+                        },
+                        {
+                            "apiName": "wrapModeS",
+                            "serializedName": "wrapModeS",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "repeat",
+                            "enumValues": ["repeat", "clamp-to-edge", "mirrored-repeat"]
+                        },
+                        {
+                            "apiName": "wrapModeT",
+                            "serializedName": "wrapModeT",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "repeat",
+                            "enumValues": ["repeat", "clamp-to-edge", "mirrored-repeat"]
+                        },
+                        {
+                            "apiName": "minfilter",
+                            "serializedName": "minfilter",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "nearest",
+                            "enumValues": ["nearest", "linear"]
+                        },
+                        {
+                            "apiName": "magfilter",
+                            "serializedName": "magfilter",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "nearest",
+                            "enumValues": ["nearest", "linear"]
+                        },
+                        {
+                            "apiName": "mipfilter",
+                            "serializedName": "mipfilter",
+                            "kind": "stringEnum",
+                            "writable": true,
+                            "default": "none",
+                            "enumValues": ["none", "nearest", "linear"]
+                        },
+                        {
+                            "apiName": "mipBakeMode",
+                            "serializedName": "mipBakeMode",
+                            "kind": "enumNumber",
+                            "writable": true,
+                            "default": 1,
+                            "values": [1, 2],
+                            "booleanTrue": 2,
+                            "booleanFalse": 1,
+                            "errorStyle": "type",
+                            "errorHint": "1|2|boolean"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "assetKind": "tiledMap",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_tiledmap",
+            "extensions": [".tmx"],
+            "importers": ["tiled-map"],
+            "fields": []
+        },
+        {
+            "assetKind": "directory",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_directory",
+            "importers": ["directory"],
+            "fields": [
+                {
+                    "apiName": "isBundle",
+                    "serializedName": "isBundle",
+                    "kind": "boolean",
+                    "writable": true
+                },
+                {
+                    "apiName": "bundleName",
+                    "serializedName": "bundleName",
+                    "kind": "string",
+                    "writable": true,
+                    "default": ""
+                },
+                {
+                    "apiName": "priority",
+                    "serializedName": "priority",
+                    "kind": "number",
+                    "writable": true,
+                    "nullable": true,
+                    "min": 0,
+                    "max": 21,
+                    "integer": true
+                },
+                {
+                    "apiName": "compressionType",
+                    "serializedName": "compressionType",
+                    "kind": "numberMap",
+                    "writable": true,
+                    "min": 0,
+                    "max": 16,
+                    "integer": true
+                },
+                {
+                    "apiName": "isRemoteBundle",
+                    "serializedName": "isRemoteBundle",
+                    "kind": "booleanMap",
+                    "writable": true
+                }
+            ]
+        },
+        {
+            "assetKind": "particle",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_particle",
+            "importers": ["particle"],
+            "fields": [
+                {
+                    "apiName": "spriteFrameUuid",
+                    "serializedName": "spriteFrameUuid",
+                    "kind": "string",
+                    "writable": false,
+                    "default": ""
+                }
+            ]
+        },
+        {
+            "assetKind": "spriteAtlas",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_spriteatlas",
+            "importers": ["sprite-atlas"],
+            "fields": [
+                {
+                    "apiName": "spriteFrames",
+                    "serializedName": "subMetas",
+                    "kind": "subMetaList",
+                    "writable": false,
+                    "subMetaImporter": "sprite-frame"
+                }
+            ]
+        },
+        {
+            "assetKind": "json",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_json",
+            "importers": ["json"],
+            "fields": []
+        },
+        {
+            "assetKind": "buffer",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_buffer",
+            "extensions": [".bin"],
+            "importers": ["buffer"],
+            "fields": []
+        },
+        {
+            "assetKind": "text",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_text",
+            "extensions": [
+                ".txt",
+                ".html",
+                ".htm",
+                ".xml",
+                ".css",
+                ".less",
+                ".scss",
+                ".stylus",
+                ".yaml",
+                ".ini",
+                ".csv",
+                ".proto",
+                ".md",
+                ".markdown"
+            ],
+            "importers": ["text"],
+            "fields": []
+        },
+        {
+            "assetKind": "script",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "writeSource": true,
+            "errorPrefix": "lumen_script",
+            "extensions": [".ts"],
+            "importers": ["typescript"],
+            "fields": []
+        },
+        {
+            "assetKind": "javascript",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_javascript",
+            "extensions": [".js"],
+            "importers": ["javascript"],
+            "fields": [
+                {
+                    "apiName": "isPlugin",
+                    "serializedName": "isPlugin",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": false
+                },
+                {
+                    "apiName": "loadPluginInEditor",
+                    "serializedName": "loadPluginInEditor",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": false
+                },
+                {
+                    "apiName": "loadPluginInWeb",
+                    "serializedName": "loadPluginInWeb",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": true
+                },
+                {
+                    "apiName": "loadPluginInNative",
+                    "serializedName": "loadPluginInNative",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": true
+                },
+                {
+                    "apiName": "loadPluginInMiniGame",
+                    "serializedName": "loadPluginInMiniGame",
+                    "kind": "boolean",
+                    "writable": true,
+                    "default": true
+                }
+            ]
+        },
+        {
+            "assetKind": "mesh",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_mesh",
+            "extensions": [".mesh"],
+            "importers": ["instantiation-mesh"],
+            "fields": []
+        },
+        {
+            "assetKind": "skeleton",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_skeleton",
+            "extensions": [".skeleton"],
+            "importers": ["instantiation-skeleton"],
+            "fields": []
+        },
+        {
+            "assetKind": "instantiationAnimation",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_instantiation_animation",
+            "extensions": [".animation"],
+            "importers": ["instantiation-animation"],
+            "fields": []
+        },
+        {
+            "assetKind": "instantiationMaterial",
+            "document": "sidecar-meta",
+            "scaffold": false,
+            "errorPrefix": "lumen_instantiation_material",
+            "extensions": [".material"],
+            "importers": ["instantiation-material"],
+            "fields": []
+        }
+    ]
+}

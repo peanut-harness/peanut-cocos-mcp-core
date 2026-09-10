@@ -14,5 +14,3 @@ export const ADAPTER_35_PHASE = 'creator_3x_early' as const;
  * @description 适配器 id。
  */
 export const ADAPTER_35_ID = 'adapter-35' as const;
-
-

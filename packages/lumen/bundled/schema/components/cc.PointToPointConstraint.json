@@ -1,0 +1,27 @@
+{
+    "type": "cc.PointToPointConstraint",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "connectedBody",
+            "serializedName": "_connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody"
+        },
+        {
+            "apiName": "enableCollision",
+            "serializedName": "_enableCollision",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "pivotA",
+            "serializedName": "_pivotA",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "pivotB",
+            "serializedName": "_pivotB",
+            "kind": "vec3"
+        }
+    ]
+}

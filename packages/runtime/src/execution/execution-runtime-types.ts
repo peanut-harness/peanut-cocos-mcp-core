@@ -299,5 +299,3 @@ export interface IExecutionRuntimeService {
     inspectDiagnostics(): Promise<IExecutionDiagnosticsSnapshot>;
 }
 
-
-

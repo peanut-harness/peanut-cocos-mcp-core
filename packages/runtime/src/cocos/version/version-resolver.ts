@@ -134,5 +134,3 @@ export class VersionResolver implements IVersionResolver {
         return left.patch - right.patch;
     }
 }
-
-

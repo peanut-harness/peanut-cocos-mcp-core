@@ -1,0 +1,92 @@
+import assert from 'assert/strict';
+import test from 'node:test';
+
+import { McpCapabilityRegistry } from '../src/mcp/mcp-capability-registry';
+
+test('MCP capability registry should validate, expose, invoke, and revoke plugin-scoped capabilities', async (): Promise<void> => {
+    const registry = new McpCapabilityRegistry();
+    const dispose = registry.register('peanut.example', {
+        name: 'peanut.example.echo',
+        description: { 'en-US': 'Returns schema-validated text.', 'zh-CN': '返回受 schema 校验的文本。' },
+        category: 'atom',
+        inputSchema: {
+            type: 'object',
+            properties: { text: { type: 'string' } },
+            required: ['text'],
+            additionalProperties: false,
+        },
+        outputSchema: {
+            type: 'object',
+            properties: { text: { type: 'string' } },
+            required: ['text'],
+            additionalProperties: false,
+        },
+        readOnly: true,
+        risk: 'read',
+    }, async (input): Promise<unknown> => ({ text: input.text }));
+
+    assert.equal(registry.getCatalog().revision, 1);
+    assert.deepEqual(registry.getCatalog().capabilities.map((capability) => capability.name), ['peanut.example.echo']);
+    assert.deepEqual(registry.getCatalog().capabilities[0]?.description, { 'en-US': 'Returns schema-validated text.', 'zh-CN': '返回受 schema 校验的文本。' });
+    assert.deepEqual(await registry.invoke('peanut.example.echo', { text: 'hello' }, { connectionId: 'a'.repeat(32) }), { text: 'hello' });
+    await assert.rejects(registry.invoke('peanut.example.echo', { extra: true }, { connectionId: 'a'.repeat(32) }), /mcp_capability_input_invalid/);
+
+    const disposeInvalidOutput = registry.register('peanut.example', {
+        name: 'peanut.example.invalid-output',
+        description: 'Returns output that violates its declared schema.',
+        category: 'atom',
+        inputSchema: { type: 'object', additionalProperties: false },
+        outputSchema: { type: 'object', properties: { count: { type: 'integer' } }, required: ['count'], additionalProperties: false },
+        readOnly: true,
+        risk: 'read',
+    }, async (): Promise<unknown> => ({ count: 'not-an-integer' }));
+    await assert.rejects(registry.invoke('peanut.example.invalid-output', {}, { connectionId: 'a'.repeat(32) }), /mcp_capability_output_invalid/);
+
+    dispose();
+    disposeInvalidOutput();
+    assert.equal(registry.getCatalog().capabilities.length, 0);
+    await assert.rejects(registry.invoke('peanut.example.echo', { text: 'hello' }, { connectionId: 'a'.repeat(32) }), /mcp_capability_unavailable/);
+});
+
+test('invokeForPlugin runs registered write tools when Hub exposure is read_only or disabled', async (): Promise<void> => {
+    const registry = new McpCapabilityRegistry();
+    let seenCaller: string | undefined;
+    registry.register('peanut.example', {
+        name: 'peanut.example.write',
+        description: { 'en-US': 'Write tool.', 'zh-CN': '写工具。' },
+        category: 'workflow',
+        inputSchema: { type: 'object', additionalProperties: false },
+        readOnly: false,
+        risk: 'write',
+    }, async (_input, invocation): Promise<unknown> => {
+        seenCaller = invocation.callerPluginId;
+        return { ok: true };
+    });
+    await assert.rejects(registry.invoke('peanut.example.write', {}, { connectionId: 'a'.repeat(32) }), /mcp_capability_unavailable/);
+    assert.deepEqual(await registry.invokeForPlugin('peanut.ui-prefab', 'peanut.example.write', {}), { ok: true });
+    assert.equal(seenCaller, 'peanut.ui-prefab');
+    registry.setPluginExposure('peanut.example', 'disabled');
+    assert.deepEqual(await registry.invokeForPlugin('peanut.ui-prefab', 'peanut.example.write', {}), { ok: true });
+    await assert.rejects(registry.invokeForPlugin('peanut.ui-prefab', 'peanut.example.missing', {}), /mcp_capability_unregistered/);
+    await assert.rejects(registry.invokeForPlugin('bad', 'peanut.example.write', {}), /mcp_capability_plugin_id_invalid/);
+});
+
+test('MCP capability registry should reject unscoped names and inconsistent risk definitions', (): void => {
+    const registry = new McpCapabilityRegistry();
+    assert.throws(() => registry.register('peanut.example', {
+        name: 'other.echo',
+        description: '无效名称。',
+        category: 'atom',
+        inputSchema: { type: 'object' },
+        readOnly: true,
+        risk: 'read',
+    }, async (): Promise<unknown> => null), /mcp_capability_name_not_plugin_scoped/);
+    assert.throws(() => registry.register('peanut.example', {
+        name: 'peanut.example.write',
+        description: '风险声明错误。',
+        category: 'workflow',
+        inputSchema: { type: 'object' },
+        readOnly: true,
+        risk: 'write',
+    }, async (): Promise<unknown> => null), /mcp_capability_definition_invalid/);
+});

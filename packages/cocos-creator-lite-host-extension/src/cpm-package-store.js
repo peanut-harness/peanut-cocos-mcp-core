@@ -6,7 +6,8 @@ const { isAbsolute, join, relative, resolve, sep } = require('path');
 
 const DIGEST_PATTERN = /^[a-f0-9]{64}$/u;
 const PLUGIN_ID_PATTERN = /^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*$/u;
-const RECORD_PATH_PATTERN = /^[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)*$/u;
+// Creator default prefabs may contain spaces (e.g. "Directional Light.prefab").
+const RECORD_PATH_PATTERN = /^[A-Za-z0-9._\-\s]+(?:\/[A-Za-z0-9._\-\s]+)*$/u;
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/u;
 
 /**
@@ -184,6 +185,9 @@ class CpmPackageStore {
         const records = new Map();
         const visit = (directoryPath) => {
             for (const entry of readdirSync(directoryPath, { withFileTypes: true })) {
+                if (entry.name === '.DS_Store') {
+                    continue;
+                }
                 const absolutePath = join(directoryPath, entry.name);
                 const stat = lstatSync(absolutePath);
                 if (stat.isSymbolicLink()) {
@@ -200,7 +204,9 @@ class CpmPackageStore {
                 if (recordPath === manifestName) {
                     continue;
                 }
-                if (recordPath.endsWith('.manifest.json')) {
+                // Only the package-root integrity manifest is reserved. Nested
+                // product manifests (e.g. bundled/lumen-templates.manifest.json) are payload.
+                if (!recordPath.includes('/') && recordPath.endsWith('.manifest.json')) {
                     throw new Error(`peanut_cpm_manifest_ambiguous:${pluginId}`);
                 }
                 if (!this.isRecordPath(recordPath)) {

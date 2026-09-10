@@ -6,12 +6,13 @@ Cocos Creator 编辑器产品。政策目录 83 操作（36 读、47 需本地�
 
 | 包 | 拥有 |
 | --- | --- |
-| `packages/pod-lite-capability-policy` | 目录、schema、校验、审批租约 |
-| `packages/mcp-pod-lite-creator-host` | Lite 插件模块；打包 `peanut.pod-lite` |
-| `packages/cocos-creator-lite-host-extension` | Creator 3.8 扩展、CPM、账号/升级、可选 Pro |
-| `packages/lumen-template-cache` | 免费缓存包识别 |
+| `pod-lite-capability-policy` | 目录、schema、校验、审批租约、`EditorMcpGatewayAdapter` |
+| `mcp-pod-lite-creator-host` | Lite 插件模块；打包 `peanut.pod-lite`（无需 `PEANUT_COCOS_EDITOR_ROOT`） |
+| `cocos-creator-lite-host-extension` | Creator 3.8 扩展、CPM、账号/升级、可选 Pro |
+| `creator-24-host` / `creator-35-host` | 2.4 / 3.0–3.5 可打包宿主（未 Creator 实机验证） |
+| `editor-mcp` / `asset-catalog` / `runtime` / `lumen` / `lumen-24` / `plugin-core` | 编辑器岛源实现 |
 
-宿主当前只注册 9 个原生读。其余 74 个仍需真实适配器。目录覆盖 ≠ 原生执行。
+Creator host 注入 `grantedRuntime` 后自动接 EditorMcp gateway，注册全部 83 项（排除付费）；无 grant 时回退 9 项只读。目录覆盖 ≠ 全量带参 host-verified。
 
 ## 硬规则
 

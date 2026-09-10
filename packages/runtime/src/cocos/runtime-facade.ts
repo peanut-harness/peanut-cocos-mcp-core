@@ -210,5 +210,3 @@ export class RuntimeFacade implements ICocosRuntime {
     );
   }
 }
-
-

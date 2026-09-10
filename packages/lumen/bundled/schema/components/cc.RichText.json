@@ -1,0 +1,113 @@
+{
+    "type": "cc.RichText",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "string",
+            "serializedName": "_string",
+            "kind": "string"
+        },
+        {
+            "apiName": "fontSize",
+            "serializedName": "_fontSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "fontFamily",
+            "serializedName": "_fontFamily",
+            "kind": "string"
+        },
+        {
+            "apiName": "font",
+            "serializedName": "_font",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "fontColor",
+            "serializedName": "_fontColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "lineHeight",
+            "serializedName": "_lineHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "maxWidth",
+            "serializedName": "_maxWidth",
+            "kind": "number"
+        },
+        {
+            "apiName": "horizontalAlign",
+            "serializedName": "_horizontalAlign",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "LEFT",
+                    "value": 0
+                },
+                {
+                    "name": "CENTER",
+                    "value": 1
+                },
+                {
+                    "name": "RIGHT",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "verticalAlign",
+            "serializedName": "_verticalAlign",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "TOP",
+                    "value": 0
+                },
+                {
+                    "name": "CENTER",
+                    "value": 1
+                },
+                {
+                    "name": "BOTTOM",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "useSystemFont",
+            "serializedName": "_isSystemFontUsed",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "cacheMode",
+            "serializedName": "_cacheMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "BITMAP",
+                    "value": 1
+                },
+                {
+                    "name": "CHAR",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "imageAtlas",
+            "serializedName": "_imageAtlas",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "handleTouchEvent",
+            "serializedName": "_handleTouchEvent",
+            "kind": "boolean"
+        }
+    ]
+}

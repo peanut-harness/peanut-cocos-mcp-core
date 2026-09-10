@@ -155,5 +155,3 @@ export class EditorResourceRestorer {
         return null;
     }
 }
-
-

@@ -1,0 +1,21 @@
+{
+    "type": "cc.TiledMap",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "tmxFile",
+            "serializedName": "_tmxFile",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "enableCulling",
+            "serializedName": "_enableCulling",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "cleanupImageCache",
+            "serializedName": "cleanupImageCache",
+            "kind": "boolean"
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "type": "cc.Terrain",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "asset",
+            "serializedName": "__asset",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "effectAsset",
+            "serializedName": "_effectAsset",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "receiveShadow",
+            "serializedName": "_receiveShadow",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "useNormalmap",
+            "serializedName": "_useNormalmap",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "usePBR",
+            "serializedName": "_usePBR",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "lodBias",
+            "serializedName": "_lodBias",
+            "kind": "number"
+        },
+        {
+            "apiName": "lodEnable",
+            "serializedName": "_lodEnable",
+            "kind": "boolean"
+        }
+    ]
+}

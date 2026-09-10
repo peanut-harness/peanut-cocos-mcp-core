@@ -1,0 +1,41 @@
+{
+    "type": "cc.BoxCollider2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "group",
+            "serializedName": "_group",
+            "kind": "number"
+        },
+        {
+            "apiName": "density",
+            "serializedName": "_density",
+            "kind": "number"
+        },
+        {
+            "apiName": "sensor",
+            "serializedName": "_sensor",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "friction",
+            "serializedName": "_friction",
+            "kind": "number"
+        },
+        {
+            "apiName": "restitution",
+            "serializedName": "_restitution",
+            "kind": "number"
+        },
+        {
+            "apiName": "offset",
+            "serializedName": "_offset",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "size",
+            "serializedName": "_size",
+            "kind": "size"
+        }
+    ]
+}

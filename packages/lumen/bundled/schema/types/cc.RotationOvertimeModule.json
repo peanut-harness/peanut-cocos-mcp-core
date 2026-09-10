@@ -1,0 +1,34 @@
+{
+    "type": "cc.RotationOvertimeModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "separateAxes",
+            "serializedName": "_separateAxes",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "x",
+            "serializedName": "x",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "y",
+            "serializedName": "y",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "z",
+            "serializedName": "z",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

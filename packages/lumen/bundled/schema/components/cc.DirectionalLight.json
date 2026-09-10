@@ -1,0 +1,106 @@
+{
+    "type": "cc.DirectionalLight",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "useColorTemperature",
+            "serializedName": "_useColorTemperature",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "colorTemperature",
+            "serializedName": "_colorTemperature",
+            "kind": "number"
+        },
+        {
+            "apiName": "intensity",
+            "serializedName": "_intensity",
+            "kind": "number"
+        },
+        {
+            "apiName": "csmLevel",
+            "serializedName": "_csmLevel",
+            "kind": "enum"
+        },
+        {
+            "apiName": "csmLayerLambda",
+            "serializedName": "_csmLayerLambda",
+            "kind": "number"
+        },
+        {
+            "apiName": "csmOptimizationMode",
+            "serializedName": "_csmOptimizationMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "shadowFixedArea",
+            "serializedName": "_shadowFixedArea",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "csmAdvancedOptions",
+            "serializedName": "_csmAdvancedOptions",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "csmLayersTransition",
+            "serializedName": "_csmLayersTransition",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "csmTransitionRange",
+            "serializedName": "_csmTransitionRange",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowBias",
+            "serializedName": "_shadowBias",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowDistance",
+            "serializedName": "_shadowDistance",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowEnabled",
+            "serializedName": "_shadowEnabled",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "shadowFar",
+            "serializedName": "_shadowFar",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowInvisibleOcclusionRange",
+            "serializedName": "_shadowInvisibleOcclusionRange",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowNear",
+            "serializedName": "_shadowNear",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowNormalBias",
+            "serializedName": "_shadowNormalBias",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowOrthoSize",
+            "serializedName": "_shadowOrthoSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowSaturation",
+            "serializedName": "_shadowSaturation",
+            "kind": "number"
+        }
+    ]
+}

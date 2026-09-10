@@ -1,0 +1,101 @@
+{
+    "type": "cc.EditBox",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "string",
+            "serializedName": "_string",
+            "kind": "string"
+        },
+        {
+            "apiName": "placeholder",
+            "serializedName": "_placeholder",
+            "kind": "string"
+        },
+        {
+            "apiName": "maxLength",
+            "serializedName": "_maxLength",
+            "kind": "number"
+        },
+        {
+            "apiName": "inputMode",
+            "serializedName": "_inputMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "ANY",
+                    "value": 0
+                },
+                {
+                    "name": "EMAIL_ADDR",
+                    "value": 1
+                },
+                {
+                    "name": "NUMERIC",
+                    "value": 2
+                },
+                {
+                    "name": "PHONE_NUMBER",
+                    "value": 3
+                },
+                {
+                    "name": "URL",
+                    "value": 4
+                },
+                {
+                    "name": "DECIMAL",
+                    "value": 5
+                },
+                {
+                    "name": "SINGLE_LINE",
+                    "value": 6
+                }
+            ]
+        },
+        {
+            "apiName": "inputFlag",
+            "serializedName": "_inputFlag",
+            "kind": "enum"
+        },
+        {
+            "apiName": "returnType",
+            "serializedName": "_returnType",
+            "kind": "enum"
+        },
+        {
+            "apiName": "tabIndex",
+            "serializedName": "_tabIndex",
+            "kind": "number"
+        },
+        {
+            "apiName": "fontSize",
+            "serializedName": "_fontSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "lineHeight",
+            "serializedName": "_lineHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "fontColor",
+            "serializedName": "_fontColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "placeholderFontSize",
+            "serializedName": "_placeholderFontSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "placeholderFontColor",
+            "serializedName": "_placeholderFontColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "backgroundImage",
+            "serializedName": "_backgroundImage",
+            "kind": "uuid"
+        }
+    ]
+}

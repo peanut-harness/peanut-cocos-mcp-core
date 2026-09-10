@@ -267,5 +267,3 @@ export class BatchCommitCoordinator {
         });
     }
 }
-
-

@@ -1,0 +1,43 @@
+{
+    "name": "peanut-pod-24",
+    "version": "0.2.1",
+    "private": true,
+    "description": "Cocos Creator 2.4.x Peanut host: PluginManager + MCP Hub + peanut-plugins (full-stack port).",
+    "author": "Peanut",
+    "main": "main.js",
+    "editor": ">=2.4.0 <3.0.0",
+    "scene-script": "scene-walker.js",
+    "main-menu": {
+        "Packages/Peanut Diagnose": {
+            "message": "peanut-pod-24:diagnose"
+        }
+    },
+    "panel": {
+        "main": "panel/index.js",
+        "type": "dockable",
+        "title": "Peanut Diagnose 2.4",
+        "width": 420,
+        "height": 320,
+        "min-width": 320,
+        "min-height": 240
+    },
+    "scripts": {
+        "build": "node scripts/pack-host.mjs",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "pack": "node scripts/pack-host.mjs",
+        "test": "npm run pack && node --test tests/pack-release.test.mjs"
+    },
+    "dependencies": {
+        "esbuild": "^0.25.12",
+        "peanut-plugin-panel": "file:../plugin-panel",
+        "peanut-runtime": "file:../runtime",
+        "typescript": "^5.9.3"
+    },
+    "peanut": {
+        "role": "example",
+        "productLine": "creator2x",
+        "mvp": "full-stack-port",
+        "verify": true,
+        "verifyImport": false
+    }
+}

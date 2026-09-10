@@ -230,5 +230,3 @@ export interface IPluginPackResult {
      */
     readonly packageMeta: IPluginPackageMeta;
 }
-
-

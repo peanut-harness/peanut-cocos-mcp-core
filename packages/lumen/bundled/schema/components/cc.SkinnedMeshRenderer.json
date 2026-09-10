@@ -1,0 +1,31 @@
+{
+    "type": "cc.SkinnedMeshRenderer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "mesh",
+            "serializedName": "_mesh",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "materials",
+            "serializedName": "_materials",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "skeleton",
+            "serializedName": "_skeleton",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "shadowCastingMode",
+            "serializedName": "_shadowCastingMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "receiveShadow",
+            "serializedName": "_receiveShadow",
+            "kind": "boolean"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "type": "cc.RangedDirectionalLight",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "useColorTemperature",
+            "serializedName": "_useColorTemperature",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "colorTemperature",
+            "serializedName": "_colorTemperature",
+            "kind": "number"
+        },
+        {
+            "apiName": "intensity",
+            "serializedName": "_intensity",
+            "kind": "number"
+        }
+    ]
+}

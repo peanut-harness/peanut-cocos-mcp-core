@@ -1,0 +1,51 @@
+{
+    "type": "cc.RigidBody",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "group",
+            "serializedName": "_group",
+            "kind": "number"
+        },
+        {
+            "apiName": "type",
+            "serializedName": "_type",
+            "kind": "enum"
+        },
+        {
+            "apiName": "mass",
+            "serializedName": "_mass",
+            "kind": "number"
+        },
+        {
+            "apiName": "allowSleep",
+            "serializedName": "_allowSleep",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "linearDamping",
+            "serializedName": "_linearDamping",
+            "kind": "number"
+        },
+        {
+            "apiName": "angularDamping",
+            "serializedName": "_angularDamping",
+            "kind": "number"
+        },
+        {
+            "apiName": "useGravity",
+            "serializedName": "_useGravity",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "linearFactor",
+            "serializedName": "_linearFactor",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "angularFactor",
+            "serializedName": "_angularFactor",
+            "kind": "vec3"
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+{
+    "type": "cc.ProgressBar",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "progress",
+            "serializedName": "_progress",
+            "kind": "number"
+        },
+        {
+            "apiName": "totalLength",
+            "serializedName": "_totalLength",
+            "kind": "number"
+        },
+        {
+            "apiName": "mode",
+            "serializedName": "_mode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "HORIZONTAL",
+                    "value": 0
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 1
+                },
+                {
+                    "name": "FILLED",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "reverse",
+            "serializedName": "_reverse",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "barSprite",
+            "serializedName": "_barSprite",
+            "kind": "componentRef",
+            "refComponentType": "cc.Sprite",
+            "example": "/Root/Bar"
+        }
+    ]
+}

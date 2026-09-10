@@ -1,0 +1,92 @@
+{
+    "type": "sp.Skeleton",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "skeletonData",
+            "serializedName": "_skeletonData",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "defaultSkin",
+            "serializedName": "defaultSkin",
+            "kind": "string",
+            "example": "default"
+        },
+        {
+            "apiName": "defaultAnimation",
+            "serializedName": "defaultAnimation",
+            "kind": "string",
+            "example": "idle"
+        },
+        {
+            "apiName": "premultipliedAlpha",
+            "serializedName": "_premultipliedAlpha",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "timeScale",
+            "serializedName": "_timeScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "defaultCacheMode",
+            "serializedName": "_cacheMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "REALTIME",
+                    "value": 0
+                },
+                {
+                    "name": "SHARED_CACHE",
+                    "value": 1
+                },
+                {
+                    "name": "PRIVATE_CACHE",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "useTint",
+            "serializedName": "_useTint",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "enableBatch",
+            "serializedName": "_enableBatch",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "debugSlots",
+            "serializedName": "_debugSlots",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "debugBones",
+            "serializedName": "_debugBones",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "debugMesh",
+            "serializedName": "_debugMesh",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "customMaterial",
+            "serializedName": "_customMaterial",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "loop",
+            "serializedName": "loop",
+            "kind": "boolean"
+        }
+    ]
+}

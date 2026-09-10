@@ -1,0 +1,16 @@
+{
+    "type": "cc.PostProcess",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "global",
+            "serializedName": "global",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "shadingScale",
+            "serializedName": "_shadingScale",
+            "kind": "number"
+        }
+    ]
+}

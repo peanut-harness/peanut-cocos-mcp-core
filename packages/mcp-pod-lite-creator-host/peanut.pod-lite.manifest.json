@@ -9,7 +9,7 @@
   },
   "main": "./peanut.pod-lite.bundle.js",
   "engines": { "host": "^0.1.0" },
-  "activation": { "autoActivate": true, "events": ["onStartup"] },
+  "activation": { "autoActivate": false, "events": ["onStartup"] },
   "permissions": {},
   "package": { "schemaVersion": 1, "digest": "", "packedAt": "", "files": [], "libraries": [] }
 }

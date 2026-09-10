@@ -1,0 +1,27 @@
+{
+    "type": "cc.UICoordinateTracker",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "target",
+            "serializedName": "_target",
+            "kind": "nodeRef"
+        },
+        {
+            "apiName": "camera",
+            "serializedName": "_camera",
+            "kind": "componentRef",
+            "refComponentType": "cc.Camera"
+        },
+        {
+            "apiName": "useScale",
+            "serializedName": "_useScale",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "distance",
+            "serializedName": "_distance",
+            "kind": "number"
+        }
+    ]
+}

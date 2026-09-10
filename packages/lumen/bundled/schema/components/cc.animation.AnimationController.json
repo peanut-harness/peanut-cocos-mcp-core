@@ -1,0 +1,11 @@
+{
+    "type": "cc.animation.AnimationController",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "graph",
+            "serializedName": "_graph",
+            "kind": "uuid"
+        }
+    ]
+}

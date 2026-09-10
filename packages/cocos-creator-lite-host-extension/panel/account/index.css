@@ -1,0 +1,31 @@
+.account-root {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--color-normal-contrast, #e6e6e6);
+}
+.hint {
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+}
+input {
+    height: 28px;
+}
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+pre {
+    white-space: pre-wrap;
+    font-size: 12px;
+    min-height: 160px;
+}

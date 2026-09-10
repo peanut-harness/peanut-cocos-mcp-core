@@ -1,0 +1,114 @@
+{
+    "type": "cc.ShapeModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "shapeType",
+            "serializedName": "_shapeType",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "Box",
+                    "value": 0
+                },
+                {
+                    "name": "Circle",
+                    "value": 1
+                },
+                {
+                    "name": "Cone",
+                    "value": 2
+                },
+                {
+                    "name": "Sphere",
+                    "value": 3
+                },
+                {
+                    "name": "Hemisphere",
+                    "value": 4
+                }
+            ]
+        },
+        {
+            "apiName": "emitFrom",
+            "serializedName": "emitFrom",
+            "kind": "enum"
+        },
+        {
+            "apiName": "alignToDirection",
+            "serializedName": "alignToDirection",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "randomDirectionAmount",
+            "serializedName": "randomDirectionAmount",
+            "kind": "number"
+        },
+        {
+            "apiName": "sphericalDirectionAmount",
+            "serializedName": "sphericalDirectionAmount",
+            "kind": "number"
+        },
+        {
+            "apiName": "randomPositionAmount",
+            "serializedName": "randomPositionAmount",
+            "kind": "number"
+        },
+        {
+            "apiName": "radius",
+            "serializedName": "radius",
+            "kind": "number"
+        },
+        {
+            "apiName": "radiusThickness",
+            "serializedName": "radiusThickness",
+            "kind": "number"
+        },
+        {
+            "apiName": "arcMode",
+            "serializedName": "arcMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "arcSpread",
+            "serializedName": "arcSpread",
+            "kind": "number"
+        },
+        {
+            "apiName": "length",
+            "serializedName": "length",
+            "kind": "number"
+        },
+        {
+            "apiName": "position",
+            "serializedName": "_position",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "rotation",
+            "serializedName": "_rotation",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "scale",
+            "serializedName": "_scale",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "boxThickness",
+            "serializedName": "boxThickness",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "arcSpeed",
+            "serializedName": "arcSpeed",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "type": "cc.ColorOvertimeModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "color",
+            "kind": "gradientRange",
+            "embeddedType": "cc.GradientRange"
+        }
+    ]
+}

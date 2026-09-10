@@ -1,0 +1,61 @@
+{
+    "type": "cc.VideoPlayer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "resourceType",
+            "serializedName": "_resourceType",
+            "kind": "enum"
+        },
+        {
+            "apiName": "remoteURL",
+            "serializedName": "_remoteURL",
+            "kind": "string"
+        },
+        {
+            "apiName": "clip",
+            "serializedName": "_clip",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "playOnAwake",
+            "serializedName": "_playOnAwake",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "volume",
+            "serializedName": "_volume",
+            "kind": "number"
+        },
+        {
+            "apiName": "mute",
+            "serializedName": "_mute",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "playbackRate",
+            "serializedName": "_playbackRate",
+            "kind": "number"
+        },
+        {
+            "apiName": "loop",
+            "serializedName": "_loop",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "fullScreenOnAwake",
+            "serializedName": "_fullScreenOnAwake",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "stayOnBottom",
+            "serializedName": "_stayOnBottom",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "keepAspectRatio",
+            "serializedName": "_keepAspectRatio",
+            "kind": "boolean"
+        }
+    ]
+}

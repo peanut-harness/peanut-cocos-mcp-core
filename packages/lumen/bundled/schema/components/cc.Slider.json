@@ -1,0 +1,33 @@
+{
+    "type": "cc.Slider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "progress",
+            "serializedName": "_progress",
+            "kind": "number"
+        },
+        {
+            "apiName": "direction",
+            "serializedName": "_direction",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "HORIZONTAL",
+                    "value": 0
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "apiName": "handle",
+            "serializedName": "_handle",
+            "kind": "componentRef",
+            "refComponentType": "cc.Sprite",
+            "example": "/Root/Handle"
+        }
+    ]
+}

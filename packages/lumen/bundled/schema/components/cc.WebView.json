@@ -1,0 +1,11 @@
+{
+    "type": "cc.WebView",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "url",
+            "serializedName": "_url",
+            "kind": "string"
+        }
+    ]
+}

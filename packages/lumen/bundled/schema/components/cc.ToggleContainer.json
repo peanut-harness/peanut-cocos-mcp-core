@@ -1,0 +1,11 @@
+{
+    "type": "cc.ToggleContainer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "allowSwitchOff",
+            "serializedName": "_allowSwitchOff",
+            "kind": "boolean"
+        }
+    ]
+}

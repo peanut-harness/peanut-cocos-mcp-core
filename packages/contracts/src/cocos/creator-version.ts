@@ -36,5 +36,3 @@ export interface ICreatorVersionInfo {
      */
     readonly phase: CreatorPhase;
 }
-
-

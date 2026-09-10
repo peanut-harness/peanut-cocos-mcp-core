@@ -1,0 +1,58 @@
+{
+    "type": "cc.HingeJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D",
+            "example": "/Root/BodyB"
+        },
+        {
+            "apiName": "enableLimit",
+            "serializedName": "_enableLimit",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "lowerAngle",
+            "serializedName": "_lowerAngle",
+            "kind": "number"
+        },
+        {
+            "apiName": "upperAngle",
+            "serializedName": "_upperAngle",
+            "kind": "number"
+        },
+        {
+            "apiName": "enableMotor",
+            "serializedName": "_enableMotor",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "maxMotorTorque",
+            "serializedName": "_maxMotorTorque",
+            "kind": "number"
+        },
+        {
+            "apiName": "motorSpeed",
+            "serializedName": "_motorSpeed",
+            "kind": "number"
+        }
+    ]
+}

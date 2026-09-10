@@ -1,0 +1,56 @@
+{
+    "type": "cc.Line",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "texture",
+            "serializedName": "_texture",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "worldSpace",
+            "serializedName": "_worldSpace",
+            "kind": "boolean",
+            "example": false
+        },
+        {
+            "apiName": "width",
+            "serializedName": "_width",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "positions",
+            "serializedName": "_positions",
+            "kind": "vec3List",
+            "example": [
+                {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                {
+                    "x": 1,
+                    "y": 0,
+                    "z": 0
+                }
+            ]
+        },
+        {
+            "apiName": "tile",
+            "serializedName": "_tile",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "offset",
+            "serializedName": "_offset",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "gradientRange",
+            "embeddedType": "cc.GradientRange"
+        }
+    ]
+}

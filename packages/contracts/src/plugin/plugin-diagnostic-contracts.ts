@@ -79,5 +79,3 @@ export interface IPluginDiagnosticExport {
      */
     readonly eventCount: number;
 }
-
-

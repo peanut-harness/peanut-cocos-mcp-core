@@ -47,5 +47,3 @@ export interface IChangeSetEntry {
      */
     readonly summary: string;
 }
-
-

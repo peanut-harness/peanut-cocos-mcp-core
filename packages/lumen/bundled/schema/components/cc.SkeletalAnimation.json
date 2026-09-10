@@ -1,0 +1,26 @@
+{
+    "type": "cc.SkeletalAnimation",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "playOnLoad",
+            "serializedName": "playOnLoad",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "defaultClip",
+            "serializedName": "_defaultClip",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "clips",
+            "serializedName": "_clips",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "useBakedAnimation",
+            "serializedName": "_useBakedAnimation",
+            "kind": "boolean"
+        }
+    ]
+}

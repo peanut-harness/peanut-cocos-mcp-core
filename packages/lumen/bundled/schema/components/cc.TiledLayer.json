@@ -1,0 +1,16 @@
+{
+    "type": "cc.TiledLayer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "enableCulling",
+            "serializedName": "_enableCulling",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        }
+    ]
+}

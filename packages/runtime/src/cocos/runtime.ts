@@ -51,5 +51,3 @@ export interface ICocosRuntime {
      */
     readonly execution: IExecutionRuntimeService;
 }
-
-

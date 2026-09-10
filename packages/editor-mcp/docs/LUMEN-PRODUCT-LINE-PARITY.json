@@ -1,0 +1,176 @@
+{
+    "schemaVersion": 1,
+    "updated": "2026-09-03",
+    "authority": {
+        "mcpContract": "core/contracts EditorMcpOperationId (lumen.* only — no lumen24.*)",
+        "policy": "core/contracts ProductLineMcpPolicy",
+        "digesters": {
+            "stable": "@peanut/cocos-lumen",
+            "early3x": "@peanut/cocos-lumen (writes refused until host-verified)",
+            "creator2x": "@peanut/cocos-lumen-24 (Lumen24McpBridge; compat EditorMcpLumen24Bridge)"
+        },
+        "panel": "peanut.lumen = template cache only; not Agent write path"
+    },
+    "phases": ["editor_api_stable", "creator_3x_early", "creator_2x"],
+    "operations": {
+        "lumen.schema": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.templates": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.tree": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.inspect": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.validateRefs": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.cocosInfo": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "allow",
+            "creator_2x": "allow",
+            "digester": "both"
+        },
+        "lumen.scaffold": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.structure": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.compileRecipe": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.nodeAdd": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.nodeRm": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.nodeRename": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.nodeReorder": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.nodeSet": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.compAdd": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.compRm": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.compSet": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.assetSet": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.bindClick": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.bindSprite": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.bindSpriteBatch": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.bindRef": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.bindController": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.refresh": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        },
+        "lumen.commit": {
+            "editor_api_stable": "allow",
+            "creator_3x_early": "refuse",
+            "creator_2x": "allow",
+            "digester": "split"
+        }
+    },
+    "addOperationChecklist": [
+        "1. contracts: 只加 lumen.<op>（禁止 lumen24.*）",
+        "2. 本文件 operations 增一行：三 phase × allow|refuse + digester",
+        "3. ProductLineMcpPolicy 与矩阵一致（test:lumen-parity 会拦）",
+        "4. digester=split|both：stable → tools/lumen；creator2x allow → tools/lumen-24 Bridge",
+        "5. editor-mcp router/gateway 只做 phase 分流，不写 2.x 细节",
+        "6. 单测：3.x 必有；creator2x 若 allow 则 lumen-24 必有",
+        "7. 真机：stable / creator2x 各跑对应探针后再钉 verified"
+    ]
+}

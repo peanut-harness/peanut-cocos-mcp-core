@@ -1,0 +1,42 @@
+{
+    "type": "cc.MouseJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "maxForce",
+            "serializedName": "_maxForce",
+            "kind": "number"
+        },
+        {
+            "apiName": "dampingRatio",
+            "serializedName": "_dampingRatio",
+            "kind": "number"
+        },
+        {
+            "apiName": "frequency",
+            "serializedName": "_frequency",
+            "kind": "number"
+        }
+    ]
+}

@@ -18,9 +18,12 @@
         "pack": "npm run build && node scripts/pack-plugin.mjs"
     },
     "dependencies": {
-        "@peanut/pod-lite-capability-policy": "file:../pod-lite-capability-policy"
+        "@peanut/pod-lite-capability-policy": "file:../pod-lite-capability-policy",
+        "peanut-plugin-editor-mcp": "file:../editor-mcp",
+        "peanut-plugin-sdk": "file:../plugin-sdk"
     },
     "devDependencies": {
+        "esbuild": "^0.25.9",
         "typescript": "^5.9.3"
     }
 }

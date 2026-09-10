@@ -274,5 +274,3 @@ function isCreatorWarningLine(line: string): boolean {
   }
   return /\bwarn(?:ing)?\b|slow editor operation/iu.test(line);
 }
-
-

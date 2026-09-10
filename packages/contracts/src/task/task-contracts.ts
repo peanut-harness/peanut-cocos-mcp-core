@@ -270,5 +270,3 @@ export interface ITaskResult<TData = ContractPayload> {
      */
     readonly error?: IPluginError;
 }
-
-

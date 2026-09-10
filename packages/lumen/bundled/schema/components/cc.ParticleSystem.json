@@ -1,0 +1,329 @@
+{
+    "type": "cc.ParticleSystem",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "capacity",
+            "serializedName": "_capacity",
+            "kind": "number"
+        },
+        {
+            "apiName": "prewarm",
+            "serializedName": "_prewarm",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "duration",
+            "serializedName": "duration",
+            "kind": "number"
+        },
+        {
+            "apiName": "loop",
+            "serializedName": "loop",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "playOnAwake",
+            "serializedName": "playOnAwake",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "simulationSpeed",
+            "serializedName": "simulationSpeed",
+            "kind": "number"
+        },
+        {
+            "apiName": "simulationSpace",
+            "serializedName": "_simulationSpace",
+            "kind": "enum"
+        },
+        {
+            "apiName": "scaleSpace",
+            "serializedName": "scaleSpace",
+            "kind": "enum"
+        },
+        {
+            "apiName": "gravityModifier",
+            "serializedName": "gravityModifier",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "rateOverTime",
+            "serializedName": "rateOverTime",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange",
+            "example": {
+                "mode": 1,
+                "keys": [
+                    {
+                        "time": 0,
+                        "value": 10
+                    },
+                    {
+                        "time": 1,
+                        "value": 40
+                    }
+                ]
+            }
+        },
+        {
+            "apiName": "rateOverDistance",
+            "serializedName": "rateOverDistance",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startDelay",
+            "serializedName": "startDelay",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startLifetime",
+            "serializedName": "startLifetime",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startSpeed",
+            "serializedName": "startSpeed",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startSizeX",
+            "serializedName": "startSizeX",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startSize3D",
+            "serializedName": "startSize3D",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "enableCulling",
+            "serializedName": "enableCulling",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "startColor",
+            "serializedName": "startColor",
+            "kind": "gradientRange",
+            "embeddedType": "cc.GradientRange",
+            "example": {
+                "colorKeys": [
+                    {
+                        "time": 0,
+                        "color": {
+                            "r": 255,
+                            "g": 255,
+                            "b": 255,
+                            "a": 255
+                        }
+                    },
+                    {
+                        "time": 1,
+                        "color": {
+                            "r": 255,
+                            "g": 0,
+                            "b": 0,
+                            "a": 255
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiName": "bursts",
+            "serializedName": "bursts",
+            "kind": "objectList",
+            "embeddedType": "cc.Burst",
+            "example": [
+                {
+                    "time": 0,
+                    "repeatCount": 1,
+                    "repeatInterval": 1
+                }
+            ],
+            "typeRef": "cc.Burst"
+        },
+        {
+            "apiName": "shapeModule",
+            "serializedName": "_shapeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.ShapeModule",
+            "example": {
+                "enable": true,
+                "shapeType": 2,
+                "radius": 1,
+                "arcSpeed": 1
+            },
+            "typeRef": "cc.ShapeModule"
+        },
+        {
+            "apiName": "colorOverLifetimeModule",
+            "serializedName": "_colorOverLifetimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.ColorOvertimeModule",
+            "example": {
+                "enable": true,
+                "color": {
+                    "colorKeys": [
+                        {
+                            "time": 0,
+                            "color": {
+                                "r": 255,
+                                "g": 255,
+                                "b": 255,
+                                "a": 255
+                            }
+                        },
+                        {
+                            "time": 1,
+                            "color": {
+                                "r": 255,
+                                "g": 0,
+                                "b": 0,
+                                "a": 0
+                            }
+                        }
+                    ]
+                }
+            },
+            "typeRef": "cc.ColorOvertimeModule"
+        },
+        {
+            "apiName": "sizeOvertimeModule",
+            "serializedName": "_sizeOvertimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.SizeOvertimeModule",
+            "example": {
+                "enable": true,
+                "size": {
+                    "keys": [
+                        {
+                            "time": 0,
+                            "value": 1
+                        },
+                        {
+                            "time": 1,
+                            "value": 0.2
+                        }
+                    ]
+                }
+            },
+            "typeRef": "cc.SizeOvertimeModule"
+        },
+        {
+            "apiName": "velocityOvertimeModule",
+            "serializedName": "_velocityOvertimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.VelocityOvertimeModule",
+            "example": {
+                "enable": true,
+                "x": 0,
+                "y": 8,
+                "z": 0
+            },
+            "typeRef": "cc.VelocityOvertimeModule"
+        },
+        {
+            "apiName": "forceOvertimeModule",
+            "serializedName": "_forceOvertimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.ForceOvertimeModule",
+            "typeRef": "cc.ForceOvertimeModule"
+        },
+        {
+            "apiName": "limitVelocityOvertimeModule",
+            "serializedName": "_limitVelocityOvertimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.LimitVelocityOvertimeModule",
+            "typeRef": "cc.LimitVelocityOvertimeModule"
+        },
+        {
+            "apiName": "rotationOvertimeModule",
+            "serializedName": "_rotationOvertimeModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.RotationOvertimeModule",
+            "typeRef": "cc.RotationOvertimeModule"
+        },
+        {
+            "apiName": "textureAnimationModule",
+            "serializedName": "_textureAnimationModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.TextureAnimationModule",
+            "typeRef": "cc.TextureAnimationModule"
+        },
+        {
+            "apiName": "noiseModule",
+            "serializedName": "_noiseModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.NoiseModule",
+            "typeRef": "cc.NoiseModule"
+        },
+        {
+            "apiName": "trailModule",
+            "serializedName": "_trailModule",
+            "kind": "objectPatch",
+            "embeddedType": "cc.TrailModule",
+            "typeRef": "cc.TrailModule"
+        },
+        {
+            "apiName": "aabbHalfX",
+            "serializedName": "_aabbHalfX",
+            "kind": "number"
+        },
+        {
+            "apiName": "aabbHalfY",
+            "serializedName": "_aabbHalfY",
+            "kind": "number"
+        },
+        {
+            "apiName": "aabbHalfZ",
+            "serializedName": "_aabbHalfZ",
+            "kind": "number"
+        },
+        {
+            "apiName": "dataCulling",
+            "serializedName": "_dataCulling",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "renderCulling",
+            "serializedName": "_renderCulling",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "startRotation3D",
+            "serializedName": "startRotation3D",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "startRotationX",
+            "serializedName": "startRotationX",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startRotationY",
+            "serializedName": "startRotationY",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startSizeY",
+            "serializedName": "startSizeY",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "startSizeZ",
+            "serializedName": "startSizeZ",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+import assert from 'assert/strict';
+import test from 'node:test';
+
+import { McpBatchApprovalStore } from '../src/mcp/mcp-batch-approval-store.js';
+import { ProjectMcpAgentConfig } from '../src/mcp/project-mcp-agent-config.js';
+
+test('McpBatchApprovalStore sessionBound uses longer idle lease', (): void => {
+    const store = new McpBatchApprovalStore();
+    const issued = store.issue({
+        connectionId: 'b'.repeat(32),
+        resources: ['db://assets/ui'],
+        sessionBound: true,
+    });
+    assert.equal(issued.idleLeaseMs, McpBatchApprovalStore.sessionIdleLeaseMs);
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'b'.repeat(32),
+            operation: 'peanut.editor-mcp.lumen-comp-set',
+            resources: ['db://assets/ui'],
+            risk: 'write',
+        }),
+        true,
+    );
+});
+
+test('McpBatchApprovalStore leases resources for idle window', (): void => {
+    const store = new McpBatchApprovalStore();
+    const issued = store.issue({
+        connectionId: 'a'.repeat(32),
+        resources: ['db://assets/ui'],
+        operations: ['peanut.editor-mcp.asset-import'],
+        idleLeaseMs: 10_000,
+    });
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'a'.repeat(32),
+            operation: 'peanut.editor-mcp.asset-import',
+            resources: ['db://assets/ui'],
+            risk: 'write',
+        }),
+        true,
+    );
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'a'.repeat(32),
+            operation: 'peanut.editor-mcp.asset-import',
+            resources: ['db://assets/other'],
+            risk: 'write',
+        }),
+        false,
+    );
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'a'.repeat(32),
+            operation: 'peanut.editor-mcp.asset-import',
+            resources: ['db://assets/ui'],
+            risk: 'destructive',
+        }),
+        false,
+    );
+});
+
+test('ProjectMcpAgentConfig recommends Codex auto after server gates', (): void => {
+    const toml = ProjectMcpAgentConfig.buildCodexToml({
+        mcpUrl: 'http://127.0.0.1:9/mcp',
+    });
+    assert.match(toml, /default_tools_approval_mode = "auto"/);
+    assert.match(toml, /url = "http:\/\/127\.0\.0\.1:9\/mcp"/);
+});

@@ -1,0 +1,21 @@
+{
+    "type": "cc.DOF",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "focusDistance",
+            "serializedName": "_focusDistance",
+            "kind": "number"
+        },
+        {
+            "apiName": "focusRange",
+            "serializedName": "_focusRange",
+            "kind": "number"
+        },
+        {
+            "apiName": "bokehRadius",
+            "serializedName": "_bokehRadius",
+            "kind": "number"
+        }
+    ]
+}

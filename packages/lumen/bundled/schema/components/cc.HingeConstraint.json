@@ -1,0 +1,46 @@
+{
+    "type": "cc.HingeConstraint",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "connectedBody",
+            "serializedName": "_connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody"
+        },
+        {
+            "apiName": "enableCollision",
+            "serializedName": "_enableCollision",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "pivotA",
+            "serializedName": "_pivotA",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "pivotB",
+            "serializedName": "_pivotB",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "axis",
+            "serializedName": "_axis",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "limit",
+            "serializedName": "_limitData",
+            "kind": "objectPatch",
+            "embeddedType": "cc.HingeLimitData",
+            "typeRef": "cc.HingeLimitData"
+        },
+        {
+            "apiName": "motor",
+            "serializedName": "_motorData",
+            "kind": "objectPatch",
+            "embeddedType": "cc.HingeMotorData",
+            "typeRef": "cc.HingeMotorData"
+        }
+    ]
+}

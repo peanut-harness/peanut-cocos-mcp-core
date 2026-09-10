@@ -1,0 +1,302 @@
+:root {
+    color-scheme: dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 0;
+    background: var(--color-normal-fill, #252525);
+    color: var(--color-normal-text, #d8d8d8);
+    font: 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.settings-workbench {
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.settings-header,
+.settings-section,
+.settings-actions {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--color-normal-border, #424242);
+}
+
+.eyebrow {
+    margin: 0 0 4px;
+    color: var(--color-focus-contrast-weakest, #5ba7ff);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 4px;
+    font-size: 22px;
+}
+
+h2 {
+    margin-bottom: 14px;
+    font-size: 15px;
+}
+
+.copy {
+    margin-bottom: 0;
+    color: var(--color-normal-text-weak, #a8a8a8);
+}
+
+.status {
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--color-normal-fill-emphasis, #353535);
+    color: var(--color-normal-text-weak, #a8a8a8);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.settings-form {
+    padding: 8px 0 0;
+}
+
+.settings-section {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-normal-border, #424242);
+}
+
+.field {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.8fr) minmax(220px, 1.2fr);
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+select,
+.button {
+    min-height: 30px;
+    border: 1px solid var(--color-normal-border, #555);
+    border-radius: 4px;
+    background: var(--color-normal-fill-emphasis, #363636);
+    color: inherit;
+    padding: 5px 9px;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.button:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.button-primary {
+    border-color: #2878c7;
+    background: #2878c7;
+    color: #fff;
+}
+
+.button-ghost {
+    background: transparent;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.actions-right {
+    display: flex;
+    gap: 8px;
+}
+
+.error {
+    max-width: 680px;
+    margin: 18px auto 0;
+    color: #ff8585;
+}
+
+@media (max-width: 520px) {
+    .settings-workbench {
+        padding: 16px;
+    }
+
+    .field {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
+
+/* Align the standalone settings surface with the Plugin Manager workbench. */
+html,
+body,
+#pluginManagerSettingsRoot {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.workbench.settings-workbench {
+    --panel-bg: #202225;
+    --surface: #292c30;
+    --surface-hover: #393d43;
+    --line: #44484e;
+    --text: #dedfe1;
+    --text-muted: #a7abb2;
+    --accent: #6ca77d;
+    --accent-soft: #354f3d;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--panel-bg);
+    color: var(--text);
+    font-size: 12px;
+}
+
+.workbench .settings-header {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    max-width: none;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 12px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: #282b2f;
+}
+
+.workbench .settings-header > div {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+}
+
+.workbench .settings-header .eyebrow {
+    margin: 0;
+    color: var(--accent);
+}
+
+.workbench .settings-header h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.workbench .settings-header .copy {
+    display: none;
+}
+
+.workbench .status {
+    margin-left: auto;
+    border-radius: 999px;
+    background: #34383d;
+    color: var(--text-muted);
+}
+
+.workbench .settings-form {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    width: 100%;
+    min-height: 0;
+    padding: 44px 0 0;
+    overflow: auto;
+    background: var(--panel-bg);
+}
+
+.workbench .settings-section {
+    max-width: none;
+    margin: 0;
+    padding: 16px 18px;
+    border-color: var(--line);
+}
+
+.workbench .settings-section:first-of-type {
+    grid-row: span 2;
+    padding: 16px 14px;
+    background: var(--surface);
+}
+
+.workbench .settings-section h2 {
+    color: var(--text);
+}
+
+.workbench .field {
+    grid-template-columns: minmax(120px, 0.7fr) minmax(220px, 1.3fr);
+    color: var(--text-muted);
+}
+
+.workbench select,
+.workbench .button {
+    border-color: var(--line);
+    background: #303338;
+    color: var(--text);
+}
+
+.workbench select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.workbench .button-primary {
+    border-color: #547d60;
+    background: var(--accent-soft);
+}
+
+.workbench .button:hover:not(:disabled) {
+    background: var(--surface-hover);
+}
+
+.workbench .settings-actions,
+.workbench .error {
+    grid-column: 2;
+    max-width: none;
+    width: auto;
+    margin: 0 18px;
+}
+
+@media (max-width: 700px) {
+    .workbench .settings-form {
+        display: block;
+    }
+
+    .workbench .settings-actions,
+    .workbench .error {
+        margin-right: 14px;
+        margin-left: 14px;
+    }
+}

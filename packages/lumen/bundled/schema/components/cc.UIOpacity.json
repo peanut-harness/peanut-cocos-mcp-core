@@ -1,0 +1,11 @@
+{
+    "type": "cc.UIOpacity",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "opacity",
+            "serializedName": "_opacity",
+            "kind": "number"
+        }
+    ]
+}

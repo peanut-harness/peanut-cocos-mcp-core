@@ -1,0 +1,68 @@
+{
+    "type": "cc.TextureAnimationModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "mode",
+            "serializedName": "_mode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "numTilesX",
+            "serializedName": "_numTilesX",
+            "kind": "number"
+        },
+        {
+            "apiName": "numTilesY",
+            "serializedName": "_numTilesY",
+            "kind": "number"
+        },
+        {
+            "apiName": "cycleCount",
+            "serializedName": "cycleCount",
+            "kind": "number"
+        },
+        {
+            "apiName": "flipU",
+            "serializedName": "_flipU",
+            "kind": "number"
+        },
+        {
+            "apiName": "flipV",
+            "serializedName": "_flipV",
+            "kind": "number"
+        },
+        {
+            "apiName": "frameOverTime",
+            "serializedName": "frameOverTime",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "randomRow",
+            "serializedName": "randomRow",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "rowIndex",
+            "serializedName": "rowIndex",
+            "kind": "number"
+        },
+        {
+            "apiName": "startFrame",
+            "serializedName": "startFrame",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "uvChannelMask",
+            "serializedName": "_uvChannelMask",
+            "kind": "number"
+        }
+    ]
+}

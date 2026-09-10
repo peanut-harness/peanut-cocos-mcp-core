@@ -1,0 +1,21 @@
+{
+    "type": "cc.HingeMotorData",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enabled",
+            "serializedName": "_enabled",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "motorVelocity",
+            "serializedName": "_motorVelocity",
+            "kind": "number"
+        },
+        {
+            "apiName": "motorForceLimit",
+            "serializedName": "_motorForceLimit",
+            "kind": "number"
+        }
+    ]
+}

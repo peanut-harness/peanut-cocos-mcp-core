@@ -1,0 +1,26 @@
+{
+    "type": "cc.AudioSource",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "clip",
+            "serializedName": "_clip",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "loop",
+            "serializedName": "_loop",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "playOnAwake",
+            "serializedName": "_playOnAwake",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "volume",
+            "serializedName": "_volume",
+            "kind": "number"
+        }
+    ]
+}

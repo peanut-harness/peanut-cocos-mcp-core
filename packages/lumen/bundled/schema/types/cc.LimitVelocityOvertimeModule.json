@@ -1,0 +1,50 @@
+{
+    "type": "cc.LimitVelocityOvertimeModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "space",
+            "serializedName": "space",
+            "kind": "enum"
+        },
+        {
+            "apiName": "dampen",
+            "serializedName": "dampen",
+            "kind": "number"
+        },
+        {
+            "apiName": "separateAxes",
+            "serializedName": "separateAxes",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "limit",
+            "serializedName": "limit",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "limitX",
+            "serializedName": "limitX",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "limitY",
+            "serializedName": "limitY",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "limitZ",
+            "serializedName": "limitZ",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

@@ -85,5 +85,3 @@ export class EditorApi35Adapter extends BaseCreatorAdapter {
         };
     }
 }
-
-

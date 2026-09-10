@@ -1,0 +1,57 @@
+{
+    "type": "cc.WheelJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "angle",
+            "serializedName": "_angle",
+            "kind": "number"
+        },
+        {
+            "apiName": "enableMotor",
+            "serializedName": "_enableMotor",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "maxMotorTorque",
+            "serializedName": "_maxMotorTorque",
+            "kind": "number"
+        },
+        {
+            "apiName": "motorSpeed",
+            "serializedName": "_motorSpeed",
+            "kind": "number"
+        },
+        {
+            "apiName": "frequency",
+            "serializedName": "_frequency",
+            "kind": "number"
+        },
+        {
+            "apiName": "dampingRatio",
+            "serializedName": "_dampingRatio",
+            "kind": "number"
+        }
+    ]
+}

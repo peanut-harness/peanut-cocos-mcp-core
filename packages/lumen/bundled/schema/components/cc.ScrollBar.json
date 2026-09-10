@@ -1,0 +1,43 @@
+{
+    "type": "cc.ScrollBar",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "direction",
+            "serializedName": "_direction",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "HORIZONTAL",
+                    "value": 0
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "apiName": "enableAutoHide",
+            "serializedName": "_enableAutoHide",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "autoHideTime",
+            "serializedName": "_autoHideTime",
+            "kind": "number"
+        },
+        {
+            "apiName": "handle",
+            "serializedName": "_handle",
+            "kind": "componentRef",
+            "refComponentType": "cc.Sprite"
+        },
+        {
+            "apiName": "scrollView",
+            "serializedName": "_scrollView",
+            "kind": "componentRef",
+            "refComponentType": "cc.ScrollView"
+        }
+    ]
+}

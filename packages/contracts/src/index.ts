@@ -182,5 +182,3 @@ export type {
     PluginInstallActionKind,
     PluginPackageOperationMode,
 } from './plugin/plugin-package-operation-contracts.js';
-
-

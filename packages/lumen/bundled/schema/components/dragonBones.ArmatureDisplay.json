@@ -1,0 +1,61 @@
+{
+    "type": "dragonBones.ArmatureDisplay",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "dragonAsset",
+            "serializedName": "_dragonAsset",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "dragonAtlasAsset",
+            "serializedName": "_dragonAtlasAsset",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "armatureName",
+            "serializedName": "_armatureName",
+            "kind": "string"
+        },
+        {
+            "apiName": "animationName",
+            "serializedName": "_animationName",
+            "kind": "string"
+        },
+        {
+            "apiName": "timeScale",
+            "serializedName": "_timeScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "playTimes",
+            "serializedName": "_playTimes",
+            "kind": "number"
+        },
+        {
+            "apiName": "premultipliedAlpha",
+            "serializedName": "premultipliedAlpha",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "debugBones",
+            "serializedName": "_debugBones",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "enableBatch",
+            "serializedName": "_enableBatch",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "customMaterial",
+            "serializedName": "_customMaterial",
+            "kind": "uuid"
+        }
+    ]
+}

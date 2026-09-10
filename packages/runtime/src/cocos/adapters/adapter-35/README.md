@@ -9,5 +9,3 @@
 - 决策：[`compatibility.matrix.json`](../../../../../../compatibility.matrix.json) `productLines.early3x`
 
 宿主包：`examples/cocos-panel-host-extension-35`（`peanut-pod-35`，装入工程 `extensions/`）。
-
-

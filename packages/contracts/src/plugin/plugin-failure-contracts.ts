@@ -123,5 +123,3 @@ export interface IPluginFailureExport {
      */
     readonly serializedIncident: string;
 }
-
-

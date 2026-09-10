@@ -1,0 +1,76 @@
+{
+    "type": "cc.NoiseModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "strengthX",
+            "serializedName": "_strengthX",
+            "kind": "number"
+        },
+        {
+            "apiName": "strengthY",
+            "serializedName": "_strengthY",
+            "kind": "number"
+        },
+        {
+            "apiName": "strengthZ",
+            "serializedName": "_strengthZ",
+            "kind": "number"
+        },
+        {
+            "apiName": "noiseSpeedX",
+            "serializedName": "_noiseSpeedX",
+            "kind": "number"
+        },
+        {
+            "apiName": "noiseSpeedY",
+            "serializedName": "_noiseSpeedY",
+            "kind": "number"
+        },
+        {
+            "apiName": "noiseSpeedZ",
+            "serializedName": "_noiseSpeedZ",
+            "kind": "number"
+        },
+        {
+            "apiName": "noiseFrequency",
+            "serializedName": "_noiseFrequency",
+            "kind": "number"
+        },
+        {
+            "apiName": "octaveMultiplier",
+            "serializedName": "_octaveMultiplier",
+            "kind": "number"
+        },
+        {
+            "apiName": "octaves",
+            "serializedName": "_octaves",
+            "kind": "number"
+        },
+        {
+            "apiName": "octaveScale",
+            "serializedName": "_octaveScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "remapX",
+            "serializedName": "_remapX",
+            "kind": "number"
+        },
+        {
+            "apiName": "remapY",
+            "serializedName": "_remapY",
+            "kind": "number"
+        },
+        {
+            "apiName": "remapZ",
+            "serializedName": "_remapZ",
+            "kind": "number"
+        }
+    ]
+}

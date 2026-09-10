@@ -1,0 +1,286 @@
+'use strict';
+
+/**
+ * Builds a Lite-oriented IGrantedRuntimeClientSet from the live Creator Editor
+ * global. Reuses the same Message/AssetDB surface as peanut-agents adapter-38,
+ * without booting the full plugin-manager kernel.
+ */
+
+function getEditor() {
+    return globalThis.Editor;
+}
+
+function requireMessageRequest() {
+    const request = getEditor()?.Message?.request;
+    if (typeof request !== 'function') {
+        throw new Error('peanut_lite_editor_message_unavailable');
+    }
+    return request.bind(getEditor().Message);
+}
+
+function parseCreatorVersion(rawVersion) {
+    const raw = typeof rawVersion === 'string' && rawVersion.trim().length > 0 ? rawVersion.trim() : '0.0.0';
+    const match = /(\d+)\.(\d+)\.(\d+)/u.exec(raw);
+    const major = match == null ? 0 : Number(match[1]);
+    const minor = match == null ? 0 : Number(match[2]);
+    const patch = match == null ? 0 : Number(match[3]);
+    let phase = 'editor_api_stable';
+    if (major < 3) {
+        phase = 'creator_2x';
+    } else if (major === 3 && minor < 6) {
+        phase = 'creator_3x_early';
+    }
+    return Object.freeze({ raw, major, minor, patch, phase });
+}
+
+function toAssetDbUrl(pathOrUuid) {
+    if (typeof pathOrUuid !== 'string' || pathOrUuid.trim().length === 0) {
+        return null;
+    }
+    const value = pathOrUuid.trim().replace(/\\/gu, '/');
+    if (value.startsWith('db://') || /^[0-9a-f-]{36}/iu.test(value)) {
+        return value;
+    }
+    if (value.startsWith('assets/') || value === 'assets') {
+        return `db://${value}`;
+    }
+    return `db://assets/${value.replace(/^\/+/u, '')}`;
+}
+
+function readAssetSnapshot(item) {
+    if (item == null || typeof item !== 'object') {
+        return null;
+    }
+    const record = item;
+    const uuid = typeof record.uuid === 'string' ? record.uuid : null;
+    const path = typeof record.path === 'string' ? record.path : typeof record.url === 'string' ? record.url : '';
+    const importer = typeof record.importer === 'string' ? record.importer : '';
+    const name = typeof record.name === 'string' ? record.name : path.split('/').pop() ?? '';
+    if (uuid == null) {
+        return null;
+    }
+    const snapshot = { uuid, path, importer, name };
+    if (record.subAssets != null && typeof record.subAssets === 'object') {
+        snapshot.subAssets = record.subAssets;
+    }
+    return snapshot;
+}
+
+/**
+ * @returns {import('peanut-plugin-sdk').IGrantedRuntimeClientSet}
+ */
+function createLiteGrantedRuntime() {
+    const editor = getEditor();
+    const versionInfo = parseCreatorVersion(editor?.App?.version ?? 'unknown');
+
+    const message = Object.freeze({
+        send: async (target, messageName, ...args) => {
+            const send = editor?.Message?.send;
+            if (typeof send === 'function') {
+                await send(target, messageName, ...args);
+                return;
+            }
+            await requireMessageRequest()(target, messageName, ...args);
+        },
+        request: async (target, messageName, ...args) => requireMessageRequest()(target, messageName, ...args),
+        broadcast: async (messageName, ...args) => {
+            const broadcast = editor?.Message?.broadcast;
+            if (typeof broadcast === 'function') {
+                await broadcast(messageName, ...args);
+                return;
+            }
+            throw new Error('peanut_lite_editor_broadcast_unavailable');
+        },
+    });
+
+    const assetRead = Object.freeze({
+        query: async (pathOrUuid) => {
+            const request = requireMessageRequest();
+            const dbUrl = toAssetDbUrl(pathOrUuid);
+            if (dbUrl == null) {
+                return null;
+            }
+            try {
+                return await request('asset-db', 'query-asset-info', dbUrl);
+            } catch {
+                return null;
+            }
+        },
+        queryAssets: async (options = {}) => {
+            const request = requireMessageRequest();
+            try {
+                const raw = await request('asset-db', 'query-assets', {
+                    pattern: options.pattern ?? 'db://assets/**/*',
+                    importer: options.importer,
+                });
+                if (!Array.isArray(raw)) {
+                    return [];
+                }
+                return raw.map((item) => readAssetSnapshot(item)).filter((item) => item != null);
+            } catch {
+                return [];
+            }
+        },
+    });
+
+    const assetWrite = Object.freeze({
+        writePrefab: async (relativePath, prefab) => {
+            const request = requireMessageRequest();
+            const dbUrl = toAssetDbUrl(relativePath);
+            if (dbUrl == null) {
+                throw new Error('peanut_lite_asset_path_invalid');
+            }
+            const content = JSON.stringify(prefab, null, 4);
+            const existing = await assetRead.query(dbUrl);
+            if (existing == null) {
+                await request('asset-db', 'create-asset', dbUrl, content);
+            } else {
+                await request('asset-db', 'save-asset', dbUrl, content);
+            }
+            await request('asset-db', 'refresh-asset', dbUrl);
+            return assetRead.query(dbUrl);
+        },
+        writeBinary: async (relativePath, content) => {
+            const request = requireMessageRequest();
+            const dbUrl = toAssetDbUrl(relativePath);
+            if (dbUrl == null) {
+                throw new Error('peanut_lite_asset_path_invalid');
+            }
+            const existing = await assetRead.query(dbUrl);
+            if (existing == null) {
+                await request('asset-db', 'create-asset', dbUrl, content);
+            } else {
+                await request('asset-db', 'save-asset', dbUrl, content);
+            }
+            await request('asset-db', 'refresh-asset', dbUrl);
+            return assetRead.query(dbUrl);
+        },
+        refresh: async (relativePath) => {
+            const request = requireMessageRequest();
+            const dbUrl = toAssetDbUrl(relativePath);
+            if (dbUrl == null) {
+                return null;
+            }
+            try {
+                await request('asset-db', 'refresh-asset', dbUrl);
+            } catch {
+                return null;
+            }
+            return assetRead.query(dbUrl);
+        },
+    });
+
+    const assetDelete = Object.freeze({
+        deleteAsset: async (relativePath) => {
+            const request = requireMessageRequest();
+            const dbUrl = toAssetDbUrl(relativePath);
+            if (dbUrl == null) {
+                throw new Error('peanut_lite_asset_path_invalid');
+            }
+            await request('asset-db', 'delete-asset', dbUrl);
+        },
+    });
+
+    const scene = Object.freeze({
+        getManifestField: () => 'contributions.scene.script',
+        getCurrent: async () => {
+            const request = requireMessageRequest();
+            try {
+                return (await request('scene', 'query-current-scene')) ?? null;
+            } catch {
+                try {
+                    return (await request('scene', 'query-scene')) ?? null;
+                } catch {
+                    return null;
+                }
+            }
+        },
+        getHierarchy: async () => {
+            const request = requireMessageRequest();
+            try {
+                const tree = await request('scene', 'query-node-tree');
+                return Array.isArray(tree) ? tree : [];
+            } catch {
+                return [];
+            }
+        },
+        execute: async (packageName, method, args = []) => {
+            const request = requireMessageRequest();
+            return request('scene', 'execute-scene-script', {
+                name: packageName,
+                method,
+                args: [...args],
+            });
+        },
+    });
+
+    const selection = Object.freeze({
+        getActiveIds: async () => {
+            const selected = editor?.Selection?.getSelected?.('node');
+            return Array.isArray(selected) ? selected.filter((value) => typeof value === 'string') : [];
+        },
+        setActiveIds: async (selectionIds) => {
+            const ids = selectionIds.filter((value) => typeof value === 'string');
+            if (typeof editor?.Selection?.select === 'function') {
+                editor.Selection.select('node', ids);
+                return;
+            }
+            throw new Error('peanut_lite_selection_unavailable');
+        },
+    });
+
+    const projectRead = Object.freeze({
+        getProjectPath: async () => {
+            const projectPath = editor?.Project?.path;
+            return typeof projectPath === 'string' && projectPath.trim().length > 0 ? projectPath : null;
+        },
+        getProjectName: async () => editor?.Project?.name ?? '',
+    });
+
+    return Object.freeze({
+        version: Object.freeze({
+            getCurrentVersion: () => versionInfo,
+        }),
+        message,
+        assetRead,
+        assetCatalog: undefined,
+        assetWrite,
+        assetDelete,
+        scene,
+        selection,
+        projectRead,
+        designSources: Object.freeze([]),
+        network: undefined,
+        native: Object.freeze({}),
+    });
+}
+
+/**
+ * Thin read runtime kept for fallback when gateway wiring is unavailable.
+ */
+function createLiteReadRuntime() {
+    const granted = createLiteGrantedRuntime();
+    return Object.freeze({
+        version: Object.freeze({
+            getCurrentVersion: () => granted.version.getCurrentVersion().raw,
+        }),
+        project: Object.freeze({
+            getProjectName: async () => (await granted.projectRead.getProjectName()) ?? getEditor()?.Project?.name ?? '',
+            getProjectPath: async () => {
+                const path = await granted.projectRead.getProjectPath();
+                if (path == null) {
+                    throw new Error('peanut_cocos_mcp_core_project_path_unavailable');
+                }
+                return path;
+            },
+        }),
+        selection: Object.freeze({
+            getActiveIds: async () => granted.selection.getActiveIds(),
+        }),
+        message: Object.freeze({
+            request: async (target, messageName, ...args) => granted.message.request(target, messageName, ...args),
+        }),
+    });
+}
+
+module.exports = { createLiteGrantedRuntime, createLiteReadRuntime, parseCreatorVersion };

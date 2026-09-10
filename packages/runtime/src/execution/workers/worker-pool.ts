@@ -113,5 +113,3 @@ export class WorkerPool {
         return `${task.request.scope}:${task.request.kind}`;
     }
 }
-
-

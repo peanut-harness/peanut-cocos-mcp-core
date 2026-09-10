@@ -1,0 +1,47 @@
+{
+    "type": "cc.SpringJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "frequency",
+            "serializedName": "_frequency",
+            "kind": "number"
+        },
+        {
+            "apiName": "dampingRatio",
+            "serializedName": "_dampingRatio",
+            "kind": "number"
+        },
+        {
+            "apiName": "distance",
+            "serializedName": "_distance",
+            "kind": "number"
+        },
+        {
+            "apiName": "autoCalcDistance",
+            "serializedName": "_autoCalcDistance",
+            "kind": "boolean"
+        }
+    ]
+}

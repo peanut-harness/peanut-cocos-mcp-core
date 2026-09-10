@@ -1,0 +1,31 @@
+{
+    "type": "cc.HBAO",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "radiusScale",
+            "serializedName": "_radiusScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "angleBiasDegree",
+            "serializedName": "_angleBiasDegree",
+            "kind": "number"
+        },
+        {
+            "apiName": "blurSharpness",
+            "serializedName": "_blurSharpness",
+            "kind": "number"
+        },
+        {
+            "apiName": "aoSaturation",
+            "serializedName": "_aoSaturation",
+            "kind": "number"
+        },
+        {
+            "apiName": "needBlur",
+            "serializedName": "_needBlur",
+            "kind": "boolean"
+        }
+    ]
+}

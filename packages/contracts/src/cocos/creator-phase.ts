@@ -75,5 +75,3 @@ export class CreatorPhaseResolver {
         throw new Error(`unsupported_cocos_creator_version:${rawVersion}`);
     }
 }
-
-

@@ -1,0 +1,36 @@
+{
+    "name": "peanut-asset-catalog",
+    "description": "Core asset catalog index for Peanut Cocos: meta scan and optional AssetDB message rebuild into .peanut-ai/asset-catalog.",
+    "version": "0.1.4",
+    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "bin": {
+        "cac": "./dist/cli.js"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "tsx --test --tsconfig tsconfig.json tests/*.test.ts"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.0",
+        "tsx": "4.23.0",
+        "typescript": "6.0.3"
+    },
+    "peanut": {
+        "role": "core",
+        "verify": true
+    }
+}

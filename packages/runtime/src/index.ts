@@ -128,5 +128,3 @@ export type { IVersionResolver } from "./cocos/version/version-resolver.js";
 export { VersionResolver } from "./cocos/version/version-resolver.js";
 export type { IEditorApiAssetBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-asset-bridge-provider.js";
 export { EditorApiHostAssetBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-asset-bridge-provider.js";
-
-

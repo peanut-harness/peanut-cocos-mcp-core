@@ -1,0 +1,26 @@
+{
+    "type": "cc.SphereCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "center",
+            "serializedName": "_center",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "radius",
+            "serializedName": "_radius",
+            "kind": "number"
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

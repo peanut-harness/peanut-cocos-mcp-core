@@ -1,0 +1,35 @@
+{
+    "name": "peanut-plugin-panel",
+    "description": "Cocos editor shell activator, host bridge install templates, and panel static shell mirrors for the Peanut plugin system.",
+    "version": "0.1.1",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "panels"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run typecheck && node --test tests/plugin-manager-panel-message-route.test.mjs"
+    },
+    "dependencies": {
+        "peanut-contracts": "file:../contracts",
+        "peanut-packaging": "file:../packaging",
+        "peanut-plugin-core": "file:../plugin-core",
+        "peanut-runtime": "file:../runtime"
+    },
+    "peanut": {
+        "role": "host-shell",
+        "verify": true
+    }
+}

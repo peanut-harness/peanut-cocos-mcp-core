@@ -1,0 +1,26 @@
+{
+    "type": "cc.PageViewIndicator",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "spacing",
+            "serializedName": "spacing",
+            "kind": "number"
+        },
+        {
+            "apiName": "spriteFrame",
+            "serializedName": "_spriteFrame",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "direction",
+            "serializedName": "_direction",
+            "kind": "enum"
+        },
+        {
+            "apiName": "cellSize",
+            "serializedName": "_cellSize",
+            "kind": "size"
+        }
+    ]
+}

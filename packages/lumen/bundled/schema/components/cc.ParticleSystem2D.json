@@ -1,0 +1,211 @@
+{
+    "type": "cc.ParticleSystem2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "duration",
+            "serializedName": "duration",
+            "kind": "number"
+        },
+        {
+            "apiName": "emissionRate",
+            "serializedName": "emissionRate",
+            "kind": "number"
+        },
+        {
+            "apiName": "life",
+            "serializedName": "life",
+            "kind": "number"
+        },
+        {
+            "apiName": "lifeVar",
+            "serializedName": "lifeVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "angle",
+            "serializedName": "angle",
+            "kind": "number"
+        },
+        {
+            "apiName": "angleVar",
+            "serializedName": "angleVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "startSize",
+            "serializedName": "startSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "startSizeVar",
+            "serializedName": "startSizeVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "endSize",
+            "serializedName": "endSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "endSizeVar",
+            "serializedName": "endSizeVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "speed",
+            "serializedName": "speed",
+            "kind": "number"
+        },
+        {
+            "apiName": "speedVar",
+            "serializedName": "speedVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "gravity",
+            "serializedName": "gravity",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "sourcePos",
+            "serializedName": "sourcePos",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "posVar",
+            "serializedName": "posVar",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "emitterMode",
+            "serializedName": "emitterMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "playOnLoad",
+            "serializedName": "playOnLoad",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "autoRemoveOnFinish",
+            "serializedName": "autoRemoveOnFinish",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "totalParticles",
+            "serializedName": "_totalParticles",
+            "kind": "number"
+        },
+        {
+            "apiName": "file",
+            "serializedName": "_file",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "spriteFrame",
+            "serializedName": "_spriteFrame",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "startColor",
+            "serializedName": "_startColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "endColor",
+            "serializedName": "_endColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "positionType",
+            "serializedName": "_positionType",
+            "kind": "enum"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "custom",
+            "serializedName": "_custom",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "endRadius",
+            "serializedName": "endRadius",
+            "kind": "number"
+        },
+        {
+            "apiName": "endRadiusVar",
+            "serializedName": "endRadiusVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "endSpin",
+            "serializedName": "endSpin",
+            "kind": "number"
+        },
+        {
+            "apiName": "endSpinVar",
+            "serializedName": "endSpinVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "radialAccel",
+            "serializedName": "radialAccel",
+            "kind": "number"
+        },
+        {
+            "apiName": "radialAccelVar",
+            "serializedName": "radialAccelVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "rotatePerS",
+            "serializedName": "rotatePerS",
+            "kind": "number"
+        },
+        {
+            "apiName": "rotatePerSVar",
+            "serializedName": "rotatePerSVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "rotationIsDir",
+            "serializedName": "rotationIsDir",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "startRadius",
+            "serializedName": "startRadius",
+            "kind": "number"
+        },
+        {
+            "apiName": "startRadiusVar",
+            "serializedName": "startRadiusVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "startSpin",
+            "serializedName": "startSpin",
+            "kind": "number"
+        },
+        {
+            "apiName": "startSpinVar",
+            "serializedName": "startSpinVar",
+            "kind": "number"
+        },
+        {
+            "apiName": "tangentialAccel",
+            "serializedName": "tangentialAccel",
+            "kind": "number"
+        },
+        {
+            "apiName": "tangentialAccelVar",
+            "serializedName": "tangentialAccelVar",
+            "kind": "number"
+        }
+    ]
+}

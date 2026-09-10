@@ -1,0 +1,27 @@
+{
+    "type": "cc.FixedConstraint",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "connectedBody",
+            "serializedName": "_connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody"
+        },
+        {
+            "apiName": "enableCollision",
+            "serializedName": "_enableCollision",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "breakForce",
+            "serializedName": "_breakForce",
+            "kind": "number"
+        },
+        {
+            "apiName": "breakTorque",
+            "serializedName": "_breakTorque",
+            "kind": "number"
+        }
+    ]
+}

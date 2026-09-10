@@ -1,0 +1,26 @@
+{
+    "type": "cc.PlaneCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "normal",
+            "serializedName": "_normal",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "constant",
+            "serializedName": "_constant",
+            "kind": "number"
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

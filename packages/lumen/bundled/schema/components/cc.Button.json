@@ -1,0 +1,107 @@
+{
+    "type": "cc.Button",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "interactable",
+            "serializedName": "_interactable",
+            "kind": "boolean",
+            "example": true
+        },
+        {
+            "apiName": "transition",
+            "serializedName": "_transition",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "COLOR",
+                    "value": 1
+                },
+                {
+                    "name": "SPRITE",
+                    "value": 2
+                },
+                {
+                    "name": "SCALE",
+                    "value": 3
+                }
+            ],
+            "example": 3
+        },
+        {
+            "apiName": "duration",
+            "serializedName": "_duration",
+            "kind": "number"
+        },
+        {
+            "apiName": "zoomScale",
+            "serializedName": "_zoomScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "target",
+            "serializedName": "_target",
+            "kind": "nodeRef",
+            "example": "/Root"
+        },
+        {
+            "apiName": "normalColor",
+            "serializedName": "_normalColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "pressedColor",
+            "serializedName": "_pressedColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "hoverColor",
+            "serializedName": "_hoverColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "disabledColor",
+            "serializedName": "_disabledColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "normalSprite",
+            "serializedName": "_normalSprite",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "pressedSprite",
+            "serializedName": "_pressedSprite",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "hoverSprite",
+            "serializedName": "_hoverSprite",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "disabledSprite",
+            "serializedName": "_disabledSprite",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "clickEvents",
+            "serializedName": "clickEvents",
+            "kind": "eventHandlerList",
+            "embeddedType": "cc.ClickEvent",
+            "example": [
+                {
+                    "target": "/Root",
+                    "component": "DemoPanel",
+                    "handler": "onClick",
+                    "customEventData": "",
+                    "componentId": "e56c2BdWQZKnrEob356B/ap"
+                }
+            ]
+        }
+    ]
+}

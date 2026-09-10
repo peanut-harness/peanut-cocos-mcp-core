@@ -1,0 +1,57 @@
+{
+    "type": "cc.RelativeJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "maxForce",
+            "serializedName": "_maxForce",
+            "kind": "number"
+        },
+        {
+            "apiName": "maxTorque",
+            "serializedName": "_maxTorque",
+            "kind": "number"
+        },
+        {
+            "apiName": "correctionFactor",
+            "serializedName": "_correctionFactor",
+            "kind": "number"
+        },
+        {
+            "apiName": "angularOffset",
+            "serializedName": "_angularOffset",
+            "kind": "number"
+        },
+        {
+            "apiName": "linearOffset",
+            "serializedName": "_linearOffset",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "autoCalcOffset",
+            "serializedName": "_autoCalcOffset",
+            "kind": "boolean"
+        }
+    ]
+}

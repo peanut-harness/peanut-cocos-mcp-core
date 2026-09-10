@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Plugin Manager Panel</title>
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body>
+        <div class="workbench">
+            <header class="workbench-topbar">
+                <div class="workbench-brand">
+                    <span class="workbench-kicker">Peanut · Cocos</span>
+                    <strong data-i18n="hero.title">Plugin Manager</strong>
+                </div>
+                <div class="workbench-tabs" role="tablist" aria-label="Plugin manager sections">
+                    <button id="runtimeTabButton" class="workbench-tab is-active" type="button" role="tab" aria-selected="true" data-workbench-tab="runtime" data-i18n="tab.installed">Installed</button>
+                    <button id="packagesTabButton" class="workbench-tab" type="button" role="tab" aria-selected="false" data-workbench-tab="packages" data-i18n="tab.remote">Remote Extensions</button>
+                    <button id="diagnosticsTabButton" class="workbench-tab" type="button" role="tab" aria-selected="false" data-workbench-tab="diagnostics" data-i18n="tab.extensions">Extension Tools</button>
+                    <button id="mcpTabButton" class="workbench-tab" type="button" role="tab" aria-selected="false" data-workbench-tab="mcp" data-i18n="tab.mcp">MCP</button>
+                    <button id="aboutTabButton" class="workbench-tab" type="button" role="tab" aria-selected="false" data-workbench-tab="about" data-i18n="tab.about">About</button>
+                </div>
+                <div class="workbench-toolbar">
+                    <span id="installedVersionSummary" class="installed-version-summary" aria-live="polite"></span>
+                    <span id="statusBadge" class="pill pill-neutral">Preview</span>
+                    <label class="visually-hidden" for="localeSelect" data-i18n="locale.label">Language</label>
+                    <select id="localeSelect" class="toolbar-select" aria-label="Language">
+                        <option value="en-US" data-i18n="locale.en-US">English</option>
+                        <option value="zh-CN" data-i18n="locale.zh-CN">Simplified Chinese</option>
+                    </select>
+                    <button id="legacySettingsButton" type="button" class="button button-ghost button-compact" data-i18n="actions.settings">Settings</button>
+                    <button type="button" class="button button-ghost button-compact" disabled title="当前 v2 不提供旧版插件脚手架能力" data-i18n="actions.createUnavailable">New</button>
+                    <button id="refreshButton" type="button" class="button button-ghost button-compact" data-i18n="actions.refresh">Refresh</button>
+                </div>
+            </header>
+
+            <div class="workbench-panel">
+                <section class="tab-view runtime-view is-active" data-workbench-view="runtime" role="tabpanel">
+                    <aside class="sidebar-pane">
+                        <section class="pane-section pane-section-fill">
+                            <div class="pane-heading">
+                                <div>
+                                    <p class="eyebrow" data-i18n="sidebar.runtimeCatalog">Runtime Catalog</p>
+                                    <h2 data-i18n="sidebar.pluginsTitle">Plugins</h2>
+                                </div>
+                                <strong id="metricPluginCount" class="metric-inline">0</strong>
+                            </div>
+                            <p class="section-copy" data-i18n="sidebar.pluginsCopy">Select a plugin to inspect runtime state and recovery actions.</p>
+                            <div id="pluginList" class="plugin-list scroll-list" aria-live="polite"></div>
+                        </section>
+                        <section class="pane-section pane-section-fill pane-section-border">
+                            <div class="pane-heading">
+                                <div>
+                                    <p class="eyebrow" data-i18n="sidebar.failuresTitle">Failures</p>
+                                    <h2 data-i18n="sidebar.failuresTitle">Failures</h2>
+                                </div>
+                                <span id="failureCountBadge" class="pill pill-neutral">0</span>
+                            </div>
+                            <p class="section-copy" data-i18n="sidebar.failuresCopy">Quarantined incidents that still need cleanup or manual review.</p>
+                            <div id="failureList" class="failure-list scroll-list" aria-live="polite"></div>
+                        </section>
+                    </aside>
+
+                    <main class="runtime-main">
+                        <section class="runtime-summary">
+                            <div class="summary-copy">
+                                <div>
+                                    <p class="eyebrow" data-i18n="hero.controlSurface">Builtin Control Surface</p>
+                                    <h1 data-i18n="hero.title">Plugin Manager</h1>
+                                    <p id="statusMessage" class="section-copy" data-i18n="hero.waitingBridge">Waiting for panel bridge to provide runtime data.</p>
+                                </div>
+                                <div class="summary-stats">
+                                    <span><b id="metricFailureCount">0</b><small data-i18n="summary.failures">Failures</small></span>
+                                    <span><b id="metricSelectedState">none</b><small id="metricSelectedHint" data-i18n="summary.noPluginSelected">no plugin selected</small></span>
+                                    <span><b id="metricQueueCount">0</b><small id="metricQueueHint" data-i18n="summary.idle">idle</small></span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="runtime-content">
+                            <article class="detail-pane scroll-pane">
+                                <div class="pane-heading">
+                                    <div id="detailIcon" class="plugin-logo-placeholder plugin-logo-placeholder--compact" aria-hidden="true">P</div>
+                                    <div>
+                                        <p class="eyebrow" data-i18n="summary.selected">Selected</p>
+                                        <h2 id="detailTitle">Overview</h2>
+                                        <p id="detailSubtitle" class="section-copy" data-i18n="detail.choosePlugin">Choose a plugin from the left to inspect details.</p>
+                                    </div>
+                                    <span id="detailStatePill" class="pill pill-neutral">idle</span>
+                                </div>
+                                <div id="detailGrid" class="detail-grid"></div>
+                                <div class="note-card">
+                                    <span class="detail-label" data-i18n="detail.failureMessage">Failure Message</span>
+                                    <p id="detailIncidentMessage" class="detail-note" data-i18n="detail.noFailureSelected">No failure selected.</p>
+                                </div>
+                            </article>
+
+                            <article class="operations-pane scroll-pane">
+                                <div class="pane-heading">
+                                    <div>
+                                        <p class="eyebrow" data-i18n="actions.title">Actions</p>
+                                        <h2 data-i18n="actions.title">Lifecycle And Recovery</h2>
+                                    </div>
+                                </div>
+                                <div class="action-bar">
+                                    <button id="reloadKernelButton" type="button" class="button button-ghost" disabled data-i18n="actions.reloadKernel">Reload Kernel</button>
+                                    <button id="exportButton" type="button" class="button button-danger" disabled data-i18n="actions.export">Export Failure</button>
+                                    <button id="retryButton" type="button" class="button button-primary" disabled data-i18n="actions.retryCleanup">Retry Cleanup</button>
+                                    <button id="activateButton" type="button" class="button button-ghost" disabled data-i18n="actions.activate">Activate</button>
+                                    <button id="deactivateButton" type="button" class="button button-ghost" disabled data-i18n="actions.deactivate">Deactivate</button>
+                                    <button id="disposeButton" type="button" class="button button-ghost" disabled data-i18n="actions.dispose">Dispose</button>
+                                    <button id="openPanelButton" type="button" class="button button-primary" disabled data-i18n="actions.openPanel">Open Panel</button>
+                                </div>
+                                <p class="section-copy" data-i18n="actions.copy">Available: refresh, export, retry cleanup, activate, deactivate, and dispose. Actions execute through the live panel bridge.</p>
+                            </article>
+                        </section>
+                        <section id="embeddedPanelSection" class="embedded-panel-section" hidden>
+                            <header class="embedded-panel-head">
+                                <div><p class="eyebrow" data-i18n="panel.embedded">Embedded Panel</p><h2 id="embeddedPanelTitle">Plugin Panel</h2><p id="embeddedPanelStatus" class="section-copy" aria-live="polite" data-i18n="panel.loading">Loading plugin panel…</p></div>
+                                <button id="closePanelButton" type="button" class="button button-ghost" data-i18n="actions.closePanel">Back to Manager</button>
+                            </header>
+                            <iframe id="embeddedPanelFrame" class="embedded-panel-frame" title="Plugin Panel"></iframe>
+                        </section>
+                    </main>
+                </section>
+
+                <section class="tab-view package-view" data-workbench-view="packages" role="tabpanel" hidden>
+                    <header class="view-heading">
+                        <div>
+                            <p class="eyebrow" data-i18n="package.title">Package Operations</p>
+                            <h1 data-i18n="package.title">Install, Upgrade, Uninstall</h1>
+                        </div>
+                        <p id="packageActionSummary" class="section-copy" data-i18n="package.pending">Package actions pending.</p>
+                    </header>
+                    <div class="package-workspace">
+                        <section class="source-pane scroll-pane">
+                            <div class="pane-heading"><div><p class="eyebrow" data-i18n="package.sourceRegistry">Source Registry</p><h2 data-i18n="package.sourceRegistry">Manual And Registry Sources</h2></div></div>
+                            <div class="form-stack">
+                                <select id="packageSourceKindSelect" class="package-select"><option value="manual" data-i18n="package.source.manual">Manual</option><option value="registry" data-i18n="package.source.registry">Registry</option></select>
+                                <input id="packageSourcePluginIdInput" class="package-input" type="text" placeholder="plugin id" data-i18n-placeholder="package.pluginIdPlaceholder" />
+                                <input id="packageSourceVersionInput" class="package-input" type="text" placeholder="version" data-i18n-placeholder="package.versionPlaceholder" />
+                                <input id="packageSourcePathInput" class="package-input" type="text" placeholder="source path / registry label" data-i18n-placeholder="package.sourcePathPlaceholder" />
+                                <input id="packageSourcePackagePathInput" class="package-input" type="text" placeholder="package path" data-i18n-placeholder="package.packagePathPlaceholder" />
+                            </div>
+                            <div class="action-bar"><button id="registerPackageSourceButton" type="button" class="button button-ghost" data-i18n="actions.registerSource">Register Source</button><button id="removePackageSourceButton" type="button" class="button button-danger" data-i18n="actions.removeSource">Remove Source</button></div>
+                            <div class="package-path-form"><label class="detail-label" for="packagePathInput" data-i18n="package.packagePath">Package Path</label><input id="packagePathInput" class="package-input" type="text" placeholder="packages/sample.plugin-0.1.0.pcp" data-i18n-placeholder="package.installPathPlaceholder" /></div>
+                            <div class="action-bar"><button id="choosePackageDirectoryButton" type="button" class="button button-ghost" data-i18n="actions.choosePackageDirectory">Choose Plugin Directory</button></div>
+                            <div class="action-bar"><button id="planPackageButton" type="button" class="button button-ghost" data-i18n="actions.plan">Plan</button><button id="installPackageButton" type="button" class="button button-primary" data-i18n="actions.install">Install</button><button id="installAndActivatePackageButton" type="button" class="button button-primary" data-i18n="actions.installActivate">Install + Activate</button><button id="upgradePackageButton" type="button" class="button button-ghost" data-i18n="actions.upgrade">Upgrade</button><button id="upgradeAndActivatePackageButton" type="button" class="button button-ghost" data-i18n="actions.upgradeActivate">Upgrade + Activate</button><button id="uninstallPackageButton" type="button" class="button button-danger" disabled data-i18n="actions.uninstallSelected">Uninstall Selected</button></div>
+                        </section>
+                        <section class="catalog-pane">
+                            <div class="catalog-toolbar"><input id="packageSearchInput" class="package-input" type="search" placeholder="Search plugin id / source / package path" data-i18n-placeholder="package.searchPlaceholder" /><select id="packageFilterSelect" class="package-select"><option value="all" data-i18n="package.filter.all">All Sources</option><option value="installed" data-i18n="package.filter.installed">Installed</option><option value="not-installed" data-i18n="package.filter.not-installed">Not Installed</option><option value="upgrade" data-i18n="package.filter.upgrade">Upgrade Candidates</option></select><select id="packageSortSelect" class="package-select"><option value="plugin-id-asc" data-i18n="package.sort.plugin-id-asc">Plugin Id A-Z</option><option value="plugin-id-desc" data-i18n="package.sort.plugin-id-desc">Plugin Id Z-A</option><option value="source-asc" data-i18n="package.sort.source-asc">Source A-Z</option><option value="recent-first" data-i18n="package.sort.recent-first">Recent First</option></select></div>
+                            <div class="catalog-scroll scroll-pane"><div class="pane-heading"><div><p class="eyebrow">Catalog</p><h2 data-i18n="package.title">Package Operations</h2></div></div><div id="packageCatalog" class="plugin-list"></div><div class="pane-heading section-head--compact"><div><p class="eyebrow" data-i18n="package.recentSources">Recent Sources</p><h2 data-i18n="package.recentSources">Recently Used</h2></div></div><div id="recentPackageCatalog" class="plugin-list"></div></div>
+                        </section>
+                    </div>
+                </section>
+
+                <section class="tab-view diagnostics-view" data-workbench-view="diagnostics" role="tabpanel" hidden>
+                    <header class="view-heading"><div><p class="eyebrow" data-i18n="execution.title">Execution Diagnostics</p><h1 data-i18n="execution.title">Queue, Recent Groups, Trace</h1><p class="section-copy" data-i18n="execution.copy">Filter by priority, inspect recent exceptions, and expand task trace details.</p></div><span id="executionUpdatedBadge" class="pill pill-neutral">unavailable</span></header>
+                    <div class="diagnostics-toolbar"><div id="executionPriorityFilters" class="chip-row"></div><button id="executionExceptionalToggle" type="button" class="button button-ghost" data-i18n="execution.showExceptional">Show Exceptional</button><button id="executionRefreshButton" type="button" class="button button-ghost" data-i18n="execution.refresh">Refresh Diagnostics</button></div>
+                    <div class="diagnostics-workspace">
+                        <section class="diagnostics-groups scroll-pane"><div class="diagnostics-grid"><section class="diagnostics-column"><div class="pane-heading"><div><p class="eyebrow" data-i18n="execution.current">Current</p><h3 data-i18n="execution.planning">Planning</h3></div></div><div id="planningGroups" class="diagnostics-list"></div></section><section class="diagnostics-column"><div class="pane-heading"><div><p class="eyebrow" data-i18n="execution.current">Current</p><h3 data-i18n="execution.pendingCommit">Pending Commit</h3></div></div><div id="pendingGroups" class="diagnostics-list"></div></section><section class="diagnostics-column"><div class="pane-heading"><div><p class="eyebrow" data-i18n="execution.current">Current</p><h3 data-i18n="execution.activeCommit">Active Commit</h3></div></div><div id="activeGroups" class="diagnostics-list"></div></section><section class="diagnostics-column diagnostics-column-wide"><div class="pane-heading"><div><p class="eyebrow" data-i18n="execution.history">History</p><h3 data-i18n="execution.recentGroups">Recent Groups</h3></div></div><div id="recentGroups" class="diagnostics-list"></div></section></div></section>
+                        <section class="diagnostics-detail-pane scroll-pane"><div id="executionDetail" class="detail-card diagnostics-detail"><div class="empty-state">No execution group selected.</div></div><div class="detail-card cleanup-card"><div class="pane-heading"><div><p class="eyebrow">Cleanup Timeline</p><h2>Latest Steps</h2></div><span id="cleanupBadge" class="pill pill-neutral">none</span></div><div id="cleanupTimeline" class="timeline"></div></div><div class="detail-card export-card"><div class="pane-heading"><div><p class="eyebrow">Export Preview</p><h2>Serialized Incident</h2></div></div><pre id="exportPreview" class="export-preview">No export has been generated yet.</pre></div></section>
+                    </div>
+                </section>
+
+                <section class="tab-view mcp-view" data-workbench-view="mcp" role="tabpanel" hidden>
+                    <header class="view-heading"><div><p class="eyebrow" data-i18n="mcp.eyebrow">External Automation</p><h1 data-i18n="mcp.title">MCP Hub</h1><p class="section-copy" data-i18n="mcp.copy">Manage the single local MCP endpoint, shared plugin capabilities, and write approvals.</p></div><span id="mcpStatusBadge" class="pill pill-neutral">unavailable</span></header>
+                    <div class="mcp-workspace">
+                        <section class="detail-card mcp-settings-card"><div class="pane-heading"><div><p class="eyebrow" data-i18n="mcp.settings">Project Setting</p><h2 data-i18n="mcp.settings">Project Setting</h2></div></div><p id="mcpStatusMessage" class="section-copy"></p><label class="mcp-toggle"><input id="mcpEnabledToggle" type="checkbox" /><span data-i18n="mcp.enabled">Enable MCP Hub for this project</span></label><dl id="mcpSummary" class="detail-grid"></dl></section>
+                        <section class="detail-card"><div class="pane-heading"><div><p class="eyebrow" data-i18n="mcp.capabilities">Shared Capabilities</p><h2 data-i18n="mcp.capabilities">Shared Capabilities</h2></div><span id="mcpCapabilityCount" class="pill pill-neutral">0</span></div><div id="mcpCapabilityList" class="mcp-list"></div></section>
+                        <section class="detail-card"><div class="pane-heading"><div><p class="eyebrow" data-i18n="mcp.approvals">Write Approvals</p><h2 data-i18n="mcp.approvals">Write Approvals</h2></div><span id="mcpPendingPlanCount" class="pill pill-neutral">0</span></div><p class="section-copy" data-i18n="mcp.approvalsCopy">Every write request waits here for your explicit approval.</p><div id="mcpPlanList" class="mcp-list"></div></section>
+                    </div>
+                </section>
+
+                <section class="tab-view about-view" data-workbench-view="about" role="tabpanel" hidden>
+                    <article class="about-card">
+                        <p class="eyebrow" data-i18n="about.eyebrow">Peanut Cocos</p>
+                        <h1 data-i18n="about.title">Cocos Plugin Manager</h1>
+                        <p class="section-copy" data-i18n="about.copy">The legacy management surface is backed by the v2 validated panel bridge.</p>
+                        <dl class="about-grid">
+                            <div><dt data-i18n="about.available">Available in v2</dt><dd data-i18n="about.availableCopy">Lifecycle, packages, sources, failure recovery, diagnostics, panel opening, and kernel reload.</dd></div>
+                            <div><dt data-i18n="about.unavailable">Unavailable legacy controls</dt><dd data-i18n="about.unavailableCopy">Plugin scaffolding, remote catalog fetch/install, log-file operations, legacy settings pages, MCP health, and arbitrary version switching remain disabled.</dd></div>
+                        </dl>
+                    </article>
+                </section>
+            </div>
+        </div>
+        <script type="module" src="./index.js"></script>
+    </body>
+</html>

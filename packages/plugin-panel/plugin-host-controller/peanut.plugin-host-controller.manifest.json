@@ -1,0 +1,73 @@
+{
+    "id": "peanut.plugin-host-controller",
+    "version": "0.1.0",
+    "kind": "panel-plugin",
+    "displayName": "Plugin Host Controller",
+    "description": {
+        "en-US": "Route active Peanut web plugins into fixed Cocos Plugin Host slots.",
+        "zh-CN": "将活动 Peanut Web 插件路由至固定的 Cocos Plugin Host 槽位。"
+    },
+    "icon": "./assets/icon.png",
+    "main": "./peanut.plugin-host-controller.bundle.cjs",
+    "panelBridge": "./peanut.plugin-host-controller.panel-bridge.cjs",
+    "engines": {
+        "host": "^0.1.0"
+    },
+    "activation": {
+        "autoActivate": true,
+        "events": [
+            "onStartup"
+        ]
+    },
+    "permissions": {
+        "panel": {
+            "open": true,
+            "embed": true
+        }
+    },
+    "contributions": {
+        "commands": [
+            {
+                "id": "peanut.plugin-host-controller.openPanel",
+                "title": "Open Plugin Host Controller",
+                "handler": "peanut.plugin-host-controller.open-panel"
+            }
+        ],
+        "menus": [
+            {
+                "id": "peanut.plugin-host-controller.menu.openPanel",
+                "title": "Plugin Host Controller",
+                "path": "Tools/Peanut",
+                "commandId": "peanut.plugin-host-controller.openPanel"
+            }
+        ],
+        "panels": [
+            {
+                "id": "peanut.plugin-host-controller.panel",
+                "title": "Plugin Host Controller",
+                "entry": "panels/embedded/index.html",
+                "placement": "utility",
+                "singleton": true,
+                "activationPolicy": "manual",
+                "sessionPolicy": "restore_layout_and_state"
+            }
+        ]
+    },
+    "package": {
+        "schemaVersion": 1,
+        "digest": "",
+        "packedAt": "2026-08-01T00:00:00.000Z",
+        "sdkVersion": "0.1.0",
+        "files": [],
+        "libraries": [],
+        "changelog": [
+            {
+                "version": "0.1.0",
+                "publishedAt": "2026-08-01T00:00:00.000Z",
+                "changes": [
+                    "提供固定 Plugin Host A/B/C 的插件化加载与关闭控制界面。"
+                ]
+            }
+        ]
+    }
+}

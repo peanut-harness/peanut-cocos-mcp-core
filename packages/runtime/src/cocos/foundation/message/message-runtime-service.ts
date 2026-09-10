@@ -140,5 +140,3 @@ export class MessageRuntimeService implements IMessageRuntimeService {
         return adapter;
     }
 }
-
-

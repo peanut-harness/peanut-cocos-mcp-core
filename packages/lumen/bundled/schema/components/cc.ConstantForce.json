@@ -1,0 +1,26 @@
+{
+    "type": "cc.ConstantForce",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "force",
+            "serializedName": "_force",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "localForce",
+            "serializedName": "_localForce",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "torque",
+            "serializedName": "_torque",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "localTorque",
+            "serializedName": "_localTorque",
+            "kind": "vec3"
+        }
+    ]
+}

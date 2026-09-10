@@ -552,12 +552,22 @@ export interface IReferenceQueryImageMcpInput extends ContractPayload {
  * @description 场景参考图设置输入（MVP；无确认框安全 API 时拒绝）。
  */
 export interface IReferenceSetImageMcpInput extends ContractPayload {
-    /** @description 工程相对图片路径或 db://。 */
+    /** @description Absolute / assets-relative / db:// image path. */
     readonly imagePath: string;
-    /** @description 可选场景路径。 */
+    /** @description Optional scene path hint (reference-image binds per scene UUID). */
     readonly scenePath?: string;
-    /** @description 可选透明度 0–1。 */
+    /** @description Optional opacity (0-1 agent scale, or 0-100 Creator scale). */
     readonly opacity?: number;
+    /** @description Optional X offset (Creator set-image-data). */
+    readonly x?: number;
+    /** @description Optional Y offset (Creator set-image-data). */
+    readonly y?: number;
+    /** @description Optional X scale (Creator set-image-data). */
+    readonly sx?: number;
+    /** @description Optional Y scale (Creator set-image-data). */
+    readonly sy?: number;
+    /** @description Optional visibility; false maps to opacity 0 (no dedicated public show message). */
+    readonly visible?: boolean;
 }
 
 /**
@@ -1159,5 +1169,3 @@ export interface IEditorMcpActionResult extends ContractPayload {
     /** @description 实际查询结果；未命中时为 `null`。 */
     readonly data: unknown | null;
 }
-
-

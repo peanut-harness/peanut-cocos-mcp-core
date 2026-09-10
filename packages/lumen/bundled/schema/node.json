@@ -1,0 +1,42 @@
+{
+    "type": "cc.Node",
+    "kind": "node",
+    "fields": [
+        {
+            "apiName": "name",
+            "serializedName": "_name",
+            "kind": "string"
+        },
+        {
+            "apiName": "active",
+            "serializedName": "_active",
+            "kind": "boolean",
+            "example": true
+        },
+        {
+            "apiName": "layer",
+            "serializedName": "_layer",
+            "kind": "number"
+        },
+        {
+            "apiName": "position",
+            "serializedName": "_lpos",
+            "kind": "vec3",
+            "example": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }
+        },
+        {
+            "apiName": "scale",
+            "serializedName": "_lscale",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "euler",
+            "serializedName": "_euler",
+            "kind": "vec3"
+        }
+    ]
+}

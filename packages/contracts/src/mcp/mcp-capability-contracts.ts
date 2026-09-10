@@ -69,5 +69,3 @@ export interface IMcpCapabilityCatalog extends ContractPayload {
     /** @description 当前可调用 capability。 */
     readonly capabilities: readonly IMcpCapabilityDefinition[];
 }
-
-

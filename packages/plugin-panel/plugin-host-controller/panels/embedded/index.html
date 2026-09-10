@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Plugin Host Controller</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <h1>Plugin Host Controller</h1>
+    <p>将已激活插件加载到固定 Host A、B 或 C。切换一个 slot 不会影响其他 slot。</p>
+    <label>插件 ID<input id="pluginId" value="snowb.bmfont" autocomplete="off"></label>
+    <label>目标面板<select id="hostSlotId"><option value="plugin-host-1">Host A</option><option value="plugin-host-2">Host B</option><option value="plugin-host-3">Host C</option></select></label>
+    <div class="actions"><button id="loadButton" type="button">加载到目标面板</button><button id="closeButton" class="secondary" type="button">关闭目标面板</button></div>
+    <p id="status" aria-live="polite">正在连接 Cocos Host…</p>
+    <script src="./index.js"></script>
+</body>
+</html>

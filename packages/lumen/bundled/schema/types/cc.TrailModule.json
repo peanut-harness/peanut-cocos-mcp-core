@@ -1,0 +1,60 @@
+{
+    "type": "cc.TrailModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "minParticleDistance",
+            "serializedName": "_minParticleDistance",
+            "kind": "number"
+        },
+        {
+            "apiName": "space",
+            "serializedName": "_space",
+            "kind": "enum"
+        },
+        {
+            "apiName": "existWithParticles",
+            "serializedName": "existWithParticles",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "widthFromParticle",
+            "serializedName": "widthFromParticle",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "colorFromParticle",
+            "serializedName": "colorFromParticle",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "colorOvertime",
+            "serializedName": "colorOvertime",
+            "kind": "gradientRange",
+            "embeddedType": "cc.GradientRange"
+        },
+        {
+            "apiName": "colorOverTrail",
+            "serializedName": "colorOverTrail",
+            "kind": "gradientRange",
+            "embeddedType": "cc.GradientRange"
+        },
+        {
+            "apiName": "lifeTime",
+            "serializedName": "lifeTime",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "widthRatio",
+            "serializedName": "widthRatio",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

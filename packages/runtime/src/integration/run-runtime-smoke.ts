@@ -7,5 +7,3 @@ import { RuntimeSmokeHarness } from './runtime-smoke-harness.js';
     const /* 保存异步操作的解析结果，供当前流程后续校验、转换或编排使用。 */ runtimeSmokeResult = await runtimeSmokeHarness.run();
     console.log(JSON.stringify(runtimeSmokeResult));
 })();
-
-

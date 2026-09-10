@@ -1,0 +1,16 @@
+{
+    "type": "cc.BlitScreenMaterial",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "enable",
+            "serializedName": "enable",
+            "kind": "boolean"
+        }
+    ]
+}

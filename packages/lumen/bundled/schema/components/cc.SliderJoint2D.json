@@ -1,0 +1,67 @@
+{
+    "type": "cc.SliderJoint2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "anchor",
+            "serializedName": "anchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "connectedAnchor",
+            "serializedName": "connectedAnchor",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "collideConnected",
+            "serializedName": "collideConnected",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "connectedBody",
+            "serializedName": "connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody2D"
+        },
+        {
+            "apiName": "angle",
+            "serializedName": "_angle",
+            "kind": "number"
+        },
+        {
+            "apiName": "autoCalcAngle",
+            "serializedName": "_autoCalcAngle",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "enableMotor",
+            "serializedName": "_enableMotor",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "maxMotorForce",
+            "serializedName": "_maxMotorForce",
+            "kind": "number"
+        },
+        {
+            "apiName": "motorSpeed",
+            "serializedName": "_motorSpeed",
+            "kind": "number"
+        },
+        {
+            "apiName": "enableLimit",
+            "serializedName": "_enableLimit",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "lowerLimit",
+            "serializedName": "_lowerLimit",
+            "kind": "number"
+        },
+        {
+            "apiName": "upperLimit",
+            "serializedName": "_upperLimit",
+            "kind": "number"
+        }
+    ]
+}

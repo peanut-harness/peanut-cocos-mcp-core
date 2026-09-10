@@ -1,0 +1,51 @@
+{
+    "type": "cc.BoxCharacterController",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "group",
+            "serializedName": "_group",
+            "kind": "number"
+        },
+        {
+            "apiName": "minMoveDistance",
+            "serializedName": "_minMoveDistance",
+            "kind": "number"
+        },
+        {
+            "apiName": "center",
+            "serializedName": "_center",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "stepOffset",
+            "serializedName": "_stepOffset",
+            "kind": "number"
+        },
+        {
+            "apiName": "slopeLimit",
+            "serializedName": "_slopeLimit",
+            "kind": "number"
+        },
+        {
+            "apiName": "skinWidth",
+            "serializedName": "_skinWidth",
+            "kind": "number"
+        },
+        {
+            "apiName": "halfHeight",
+            "serializedName": "_halfHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "halfSideExtent",
+            "serializedName": "_halfSideExtent",
+            "kind": "number"
+        },
+        {
+            "apiName": "halfForwardExtent",
+            "serializedName": "_halfForwardExtent",
+            "kind": "number"
+        }
+    ]
+}

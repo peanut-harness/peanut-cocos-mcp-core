@@ -27,5 +27,3 @@ export class ResourceLockManager {
         return this._locks.delete(lockKey);
     }
 }
-
-

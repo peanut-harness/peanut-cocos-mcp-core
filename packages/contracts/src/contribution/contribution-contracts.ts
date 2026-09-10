@@ -219,5 +219,3 @@ export interface IPluginContributionManifest {
     /** @description 设计来源适配器贡献列表。 */
     readonly designSupporters?: readonly IDesignSupporterContribution[];
 }
-
-

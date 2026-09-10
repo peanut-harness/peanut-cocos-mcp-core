@@ -1,0 +1,21 @@
+{
+    "type": "cc.HingeLimitData",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enabled",
+            "serializedName": "_enabled",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "upperLimit",
+            "serializedName": "_upperLimit",
+            "kind": "number"
+        },
+        {
+            "apiName": "lowerLimit",
+            "serializedName": "_lowerLimit",
+            "kind": "number"
+        }
+    ]
+}

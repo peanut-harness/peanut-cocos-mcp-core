@@ -1,0 +1,67 @@
+{
+    "package_version": 2,
+    "name": "peanut-pod-35",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/main.js",
+    "description": "Cocos Creator 3.0–3.5 thin host for Peanut (early-3x MVP).",
+    "editor": ">=3.0.0 <3.6.0",
+    "scripts": {
+        "build": "node scripts/pack-host.mjs",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "pack": "node scripts/pack-host.mjs",
+        "test": "npm run pack && node --test tests/pack-release.test.mjs"
+    },
+    "dependencies": {
+        "esbuild": "^0.25.12",
+        "peanut-runtime": "file:../runtime",
+        "typescript": "^5.9.3"
+    },
+    "panels": {
+        "diagnose": {
+            "title": "Peanut Diagnose 3.x-early",
+            "type": "dockable",
+            "main": "panel/index.js",
+            "size": {
+                "width": 480,
+                "height": 360,
+                "min-width": 360,
+                "min-height": 280
+            }
+        }
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "Extension",
+                "label": "Peanut Diagnose (3.0-3.5)",
+                "message": "diagnose"
+            }
+        ],
+        "messages": {
+            "diagnose": {
+                "methods": [
+                    "diagnose"
+                ]
+            },
+            "query-diagnose": {
+                "methods": [
+                    "queryDiagnose"
+                ]
+            },
+            "query-project": {
+                "methods": [
+                    "queryProject"
+                ]
+            }
+        }
+    },
+    "peanut": {
+        "role": "example",
+        "productLine": "early3x",
+        "mvp": "compatible-host",
+        "verify": true,
+        "verifyImport": false
+    }
+}

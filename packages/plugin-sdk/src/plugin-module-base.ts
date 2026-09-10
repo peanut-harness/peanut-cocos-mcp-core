@@ -38,5 +38,3 @@ export abstract class PluginModuleBase implements IPluginModule {
      */
     public async dispose(): Promise<void> {}
 }
-
-

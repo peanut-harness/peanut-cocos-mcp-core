@@ -1,0 +1,16 @@
+{
+    "type": "cc.LODGroup",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "localBoundaryCenter",
+            "serializedName": "_localBoundaryCenter",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "objectSize",
+            "serializedName": "_objectSize",
+            "kind": "number"
+        }
+    ]
+}

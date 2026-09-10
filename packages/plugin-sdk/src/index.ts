@@ -34,6 +34,7 @@ export type {
     IPluginNetworkRequest,
     IPluginNetworkResponse,
     IPluginPanelApi,
+    IPluginProtectedKeyApi,
     IPluginRegisterContext,
     IPluginRegistrationApi,
     IPluginRegistrationInput,
@@ -47,5 +48,3 @@ export type {
 } from './plugin-module-contracts.js';
 
 export type { PluginDeactivateReason } from 'peanut-contracts';
-
-

@@ -1,0 +1,16 @@
+{
+    "type": "cc.TiledTile",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "x",
+            "serializedName": "_x",
+            "kind": "number"
+        },
+        {
+            "apiName": "y",
+            "serializedName": "_y",
+            "kind": "number"
+        }
+    ]
+}

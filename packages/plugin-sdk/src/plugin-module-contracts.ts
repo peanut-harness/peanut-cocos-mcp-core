@@ -63,6 +63,12 @@ export interface IMcpCapabilityInvocation {
   readonly signal?: AbortSignal;
   /** @description 向已声明 progressToken 的 MCP Client 发送执行进度。 */
   readonly reportProgress?: (progress: IMcpCapabilityProgress) => void;
+  /** @description Hub 根据已注册 capability 与已校验输入计算的真实风险；插件互调时不提供。 */
+  readonly risk?: "read" | "write" | "destructive";
+  /** @description Hub 从已校验输入提取的本机资源标识；仅在 Hub 调用时提供。 */
+  readonly resourceIds?: readonly string[];
+  /** @description 写/破坏性调用是否已由 Hub 的本地审批租约覆盖；仅在 Hub 调用时提供。 */
+  readonly hasLocalApproval?: boolean;
 }
 
 /**
@@ -527,6 +533,19 @@ export interface IPluginStorageApi {
 }
 
 /**
+ * @description 由宿主安全存储支持的插件级 HMAC 密钥访问接口。
+ * 普通插件存储、日志、目录包清单均不得保存或返回该密钥材料。
+ */
+export interface IPluginProtectedKeyApi {
+  /**
+   * @description 返回当前插件和逻辑用途专属的不可导出 HMAC-SHA-256 密钥；不存在时由宿主安全生成并持久化。
+   * @param purpose 受限逻辑用途标识，例如 `mcp-plan-digest-v1`。
+   * @returns 仅可用于 WebCrypto 签名的不可导出密钥。
+   */
+  getOrCreateHmacSha256Key(purpose: string): Promise<CryptoKey>;
+}
+
+/**
  * @description 插件面板辅助接口。
  */
 export interface IPluginPanelApi {
@@ -820,6 +839,9 @@ export interface IPluginActivateContext {
    */
   readonly storage: IPluginStorageApi;
 
+  /** @description 宿主注入的受保护密钥接口；未提供时相关高级能力必须拒绝激活。 */
+  readonly protectedKeys?: IPluginProtectedKeyApi;
+
   /** @description 宿主管理的当前插件缓存与持久化 JSON 配置。 */
   readonly files: IPluginFileStorageApi;
 }
@@ -896,5 +918,3 @@ export interface IPanelBridgeClientFactory {
     panelId: PanelId,
   ): IPanelBridgeClient;
 }
-
-

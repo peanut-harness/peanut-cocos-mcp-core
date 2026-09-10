@@ -28,13 +28,13 @@ test('optional Pro activation and corruption stay isolated from the required Cor
         writeInstalledIndex(projectRoot, [core, pro]);
         globalThis.Editor = createEditor(projectRoot);
         await host.load();
-        assert.deepEqual(host.methods.queryStatus(), {
-            ready: true,
-            error: null,
-            coreVersion: '0.1.0',
-            tools: ['core.read'],
-            pro: { state: 'active', version: '0.1.1', error: null, services: ['mcp.admit'] },
-        });
+        const status = host.methods.queryStatus();
+        assert.equal(status.ready, true);
+        assert.equal(status.coreVersion, '0.1.0');
+        assert.deepEqual(status.tools, ['core.read']);
+        assert.deepEqual(status.pro, { state: 'active', version: '0.1.1', error: null, services: ['mcp.admit'] });
+        assert.equal(status.account.state, 'signed_out');
+        assert.equal(status.account.recommendedAction, 'sign-in');
         writeFileSync(join(pro.packagePath, 'peanut.cocos-mcp-pro.bundle.js'), 'tampered');
         await host.load();
         const recovered = host.methods.queryStatus();

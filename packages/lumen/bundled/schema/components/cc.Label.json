@@ -1,0 +1,208 @@
+{
+    "type": "cc.Label",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "string",
+            "serializedName": "_string",
+            "kind": "string",
+            "example": "Hello"
+        },
+        {
+            "apiName": "horizontalAlign",
+            "serializedName": "_horizontalAlign",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "LEFT",
+                    "value": 0
+                },
+                {
+                    "name": "CENTER",
+                    "value": 1
+                },
+                {
+                    "name": "RIGHT",
+                    "value": 2
+                }
+            ],
+            "example": 1
+        },
+        {
+            "apiName": "verticalAlign",
+            "serializedName": "_verticalAlign",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "TOP",
+                    "value": 0
+                },
+                {
+                    "name": "CENTER",
+                    "value": 1
+                },
+                {
+                    "name": "BOTTOM",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "fontSize",
+            "serializedName": "_fontSize",
+            "kind": "number",
+            "example": 24
+        },
+        {
+            "apiName": "lineHeight",
+            "serializedName": "_lineHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "overflow",
+            "serializedName": "_overflow",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "CLAMP",
+                    "value": 1
+                },
+                {
+                    "name": "SHRINK",
+                    "value": 2
+                },
+                {
+                    "name": "RESIZE_HEIGHT",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "apiName": "enableWrapText",
+            "serializedName": "_enableWrapText",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "fontFamily",
+            "serializedName": "_fontFamily",
+            "kind": "string"
+        },
+        {
+            "apiName": "font",
+            "serializedName": "_font",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "useSystemFont",
+            "serializedName": "_isSystemFontUsed",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isBold",
+            "serializedName": "_isBold",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isItalic",
+            "serializedName": "_isItalic",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isUnderline",
+            "serializedName": "_isUnderline",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "cacheMode",
+            "serializedName": "_cacheMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "BITMAP",
+                    "value": 1
+                },
+                {
+                    "name": "CHAR",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "customMaterial",
+            "serializedName": "_customMaterial",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "enableOutline",
+            "serializedName": "_enableOutline",
+            "kind": "boolean",
+            "since": "3.8.2",
+            "example": true
+        },
+        {
+            "apiName": "outlineColor",
+            "serializedName": "_outlineColor",
+            "kind": "color",
+            "since": "3.8.2"
+        },
+        {
+            "apiName": "outlineWidth",
+            "serializedName": "_outlineWidth",
+            "kind": "number",
+            "since": "3.8.2",
+            "example": 2
+        },
+        {
+            "apiName": "enableShadow",
+            "serializedName": "_enableShadow",
+            "kind": "boolean",
+            "since": "3.8.2"
+        },
+        {
+            "apiName": "shadowColor",
+            "serializedName": "_shadowColor",
+            "kind": "color",
+            "since": "3.8.2"
+        },
+        {
+            "apiName": "shadowOffset",
+            "serializedName": "_shadowOffset",
+            "kind": "vec2",
+            "since": "3.8.2"
+        },
+        {
+            "apiName": "shadowBlur",
+            "serializedName": "_shadowBlur",
+            "kind": "number",
+            "since": "3.8.2"
+        },
+        {
+            "apiName": "underlineHeight",
+            "serializedName": "_underlineHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "spacingX",
+            "serializedName": "_spacingX",
+            "kind": "number"
+        },
+        {
+            "apiName": "actualFontSize",
+            "serializedName": "_actualFontSize",
+            "kind": "number"
+        }
+    ]
+}

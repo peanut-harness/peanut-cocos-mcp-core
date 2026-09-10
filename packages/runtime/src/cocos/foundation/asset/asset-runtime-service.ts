@@ -118,5 +118,3 @@ export class AssetRuntimeService implements IAssetRuntimeService {
         return adapter;
     }
 }
-
-

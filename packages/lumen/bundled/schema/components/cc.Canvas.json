@@ -1,0 +1,18 @@
+{
+    "type": "cc.Canvas",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "alignCanvasWithScreen",
+            "serializedName": "_alignCanvasWithScreen",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "cameraComponent",
+            "serializedName": "_cameraComponent",
+            "kind": "componentRef",
+            "refComponentType": "cc.Camera",
+            "example": "/Root/Camera"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "kind": "deprecated",
+    "builtins": {
+        "cc.LabelOutline": {
+            "deprecatedSince": "3.8.2",
+            "useInstead": "cc.Label.enableOutline/outlineColor/outlineWidth (since 3.8.2)"
+        },
+        "cc.LabelShadow": {
+            "deprecatedSince": "3.8.2",
+            "useInstead": "cc.Label.enableShadow/shadowColor/shadowOffset/shadowBlur (since 3.8.2)"
+        }
+    }
+}

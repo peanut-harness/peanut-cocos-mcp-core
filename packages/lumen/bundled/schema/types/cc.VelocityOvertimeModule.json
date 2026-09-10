@@ -1,0 +1,40 @@
+{
+    "type": "cc.VelocityOvertimeModule",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "enable",
+            "serializedName": "_enable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "space",
+            "serializedName": "space",
+            "kind": "enum"
+        },
+        {
+            "apiName": "x",
+            "serializedName": "x",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "y",
+            "serializedName": "y",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "z",
+            "serializedName": "z",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        },
+        {
+            "apiName": "speedModifier",
+            "serializedName": "speedModifier",
+            "kind": "curveRange",
+            "embeddedType": "cc.CurveRange"
+        }
+    ]
+}

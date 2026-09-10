@@ -174,5 +174,3 @@ export interface IGrantedPermissionSet {
      */
     readonly permissions: IPluginPermissionManifest;
 }
-
-

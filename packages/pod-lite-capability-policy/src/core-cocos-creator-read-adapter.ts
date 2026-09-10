@@ -131,8 +131,28 @@ export class CoreCocosCreatorReadAdapter implements ICoreCocosMcpExecutionAdapte
                     ['builder', 'query-preview-url', []],
                 ]);
             default:
-                throw new Error(`core_cocos_creator_read_operation_unsupported:${request.operation}`);
+                return this.requestGenericRead(request.operation, request.input);
         }
+    }
+
+    /** @description 为已纳入 Lite 目录但暂无专用 facade 的只读 operation 提供受限 Message 兼容路由。 */
+    private async requestGenericRead(operation: CoreCocosMcpPublicOperation, input: Readonly<Record<string, unknown>>): Promise<unknown> {
+        const [domain, action] = operation.split('.');
+        if (domain == null || action == null || this.runtime.message == null) {
+            throw new Error(`core_cocos_creator_read_operation_unsupported:${operation}`);
+        }
+        const message = action.replace(/([a-z0-9])([A-Z])/gu, '$1-$2');
+        const target = domain === 'asset' ? 'asset-db' : domain;
+        const args = Object.keys(input).length === 0 ? [] : [input];
+        const result = await this.requestFirst(`generic_${operation.replace(/\./gu, '_')}`, [
+            [target, message, args],
+            [target, `query-${message}`, args],
+            [target, `get-${message}`, args],
+        ]);
+        if (!result.available) {
+            throw new Error(`core_cocos_creator_read_operation_unsupported:${operation}`);
+        }
+        return result;
     }
 
     /**

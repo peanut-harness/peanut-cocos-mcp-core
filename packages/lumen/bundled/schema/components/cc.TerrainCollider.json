@@ -1,0 +1,21 @@
+{
+    "type": "cc.TerrainCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "terrain",
+            "serializedName": "_terrain",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

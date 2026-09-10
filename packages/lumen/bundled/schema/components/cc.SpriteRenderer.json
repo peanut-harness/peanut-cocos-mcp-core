@@ -1,0 +1,51 @@
+{
+    "type": "cc.SpriteRenderer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "spriteFrame",
+            "serializedName": "_spriteFrame",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "materials",
+            "serializedName": "_materials",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "mode",
+            "serializedName": "_mode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "flipX",
+            "serializedName": "_flipX",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "flipY",
+            "serializedName": "_flipY",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "size",
+            "serializedName": "_size",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "sortLayer",
+            "serializedName": "_sortLayer",
+            "kind": "number"
+        },
+        {
+            "apiName": "sortOrder",
+            "serializedName": "_sortOrder",
+            "kind": "number"
+        }
+    ]
+}

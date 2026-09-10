@@ -1,0 +1,19 @@
+<div class="account-root">
+    <h2>Peanut Account</h2>
+    <p class="hint">Lite 编辑器可独立使用。订阅只用于安装付费版本，不会在本面板写入权益。</p>
+    <label>Pod 服务地址
+        <input id="endpoint" type="url" placeholder="https://pod.example/" />
+    </label>
+    <label>Access token
+        <input id="token" type="password" autocomplete="off" />
+    </label>
+    <div class="actions">
+        <button id="saveEndpoint">保存地址</button>
+        <button id="signIn">登录</button>
+        <button id="signOut">退出</button>
+        <button id="refresh">刷新订阅</button>
+        <button id="upgrade">升级到 Pro</button>
+        <button id="refreshPro">重新加载 Pro 包</button>
+    </div>
+    <pre id="status"></pre>
+</div>

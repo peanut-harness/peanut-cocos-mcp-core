@@ -1,0 +1,19 @@
+{
+    "type": "cc.BlitScreen",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "activeMaterials",
+            "serializedName": "_activeMaterials",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "materials",
+            "serializedName": "_materials",
+            "kind": "objectList",
+            "embeddedType": "cc.BlitScreenMaterial",
+            "inlineItems": true,
+            "typeRef": "cc.BlitScreenMaterial"
+        }
+    ]
+}

@@ -23,10 +23,13 @@
         "typecheck": "tsc -p tsconfig.json --noEmit",
         "test": "tsx --test --tsconfig tsconfig.json tests/contracts-smoke.test.ts tests/contracts-shared.test.ts tests/contracts-panel.test.ts tests/contracts-task.test.ts tests/creator-phase.test.ts"
     },
+    "devDependencies": {
+        "@types/node": "^24.0.0",
+        "tsx": "4.23.0",
+        "typescript": "^5.9.3"
+    },
     "peanut": {
         "role": "core",
         "verify": true
     }
 }
-
-

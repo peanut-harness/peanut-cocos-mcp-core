@@ -141,5 +141,3 @@ export class PrefabEditorRootResolver {
         return rootName.trim();
     }
 }
-
-

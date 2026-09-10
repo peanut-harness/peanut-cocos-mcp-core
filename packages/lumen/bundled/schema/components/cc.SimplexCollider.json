@@ -1,0 +1,50 @@
+{
+    "type": "cc.SimplexCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "center",
+            "serializedName": "_center",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "shapeType",
+            "serializedName": "_shapeType",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "VERTEX",
+                    "value": 1
+                },
+                {
+                    "name": "LINE",
+                    "value": 2
+                },
+                {
+                    "name": "TRIANGLE",
+                    "value": 3
+                },
+                {
+                    "name": "TETRAHEDRON",
+                    "value": 4
+                }
+            ],
+            "example": 4
+        },
+        {
+            "apiName": "vertices",
+            "serializedName": "_vertices",
+            "kind": "vec3List"
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

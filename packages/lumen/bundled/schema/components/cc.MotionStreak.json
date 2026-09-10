@@ -1,0 +1,41 @@
+{
+    "type": "cc.MotionStreak",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "preview",
+            "serializedName": "_preview",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "fadeTime",
+            "serializedName": "_fadeTime",
+            "kind": "number"
+        },
+        {
+            "apiName": "minSeg",
+            "serializedName": "_minSeg",
+            "kind": "number"
+        },
+        {
+            "apiName": "stroke",
+            "serializedName": "_stroke",
+            "kind": "number"
+        },
+        {
+            "apiName": "texture",
+            "serializedName": "_texture",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "fastMode",
+            "serializedName": "_fastMode",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        }
+    ]
+}

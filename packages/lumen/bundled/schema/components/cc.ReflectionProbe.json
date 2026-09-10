@@ -1,0 +1,51 @@
+{
+    "type": "cc.ReflectionProbe",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "resolution",
+            "serializedName": "_resolution",
+            "kind": "enum"
+        },
+        {
+            "apiName": "clearFlag",
+            "serializedName": "_clearFlag",
+            "kind": "enum"
+        },
+        {
+            "apiName": "backgroundColor",
+            "serializedName": "_backgroundColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "visibility",
+            "serializedName": "_visibility",
+            "kind": "number"
+        },
+        {
+            "apiName": "probeType",
+            "serializedName": "_probeType",
+            "kind": "enum"
+        },
+        {
+            "apiName": "cubemap",
+            "serializedName": "_cubemap",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "size",
+            "serializedName": "_size",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "probeId",
+            "serializedName": "_probeId",
+            "kind": "number"
+        },
+        {
+            "apiName": "fastBake",
+            "serializedName": "_fastBake",
+            "kind": "boolean"
+        }
+    ]
+}

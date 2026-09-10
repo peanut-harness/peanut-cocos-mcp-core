@@ -1,0 +1,28 @@
+{
+    "type": "cc.Toggle",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isChecked",
+            "serializedName": "_isChecked",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "interactable",
+            "serializedName": "_interactable",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "target",
+            "serializedName": "_target",
+            "kind": "nodeRef"
+        },
+        {
+            "apiName": "checkMark",
+            "serializedName": "_checkMark",
+            "kind": "componentRef",
+            "refComponentType": "cc.Sprite",
+            "example": "/Root/Checkmark"
+        }
+    ]
+}

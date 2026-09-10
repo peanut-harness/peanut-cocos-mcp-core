@@ -116,5 +116,3 @@ export interface IPanelBridgeClient {
      */
     dispose(): Promise<void>;
 }
-
-

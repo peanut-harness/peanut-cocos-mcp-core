@@ -7,22 +7,39 @@
 1. **关闭目标 Creator 项目。** 不得在旧宿主仍持有插件目录或运行期服务时覆盖安装。
 2. **安装 Lite 宿主扩展。** 使用 `packages/cocos-creator-lite-host-extension` 的发布目录安装到项目 `extensions/peanut-pod-lite-host/`。该原生 Creator 扩展从 CPM `peanut-plugins/installed.json` 读取活动版本，完整校验后加载必需的 `peanut.pod-lite` 与可选的 `peanut.cocos-mcp-pro`；不扫描旧插件目录。
 3. **通过 CPM 安装 Core 能力包。** 安装器必须先校验目录包、原子写入插件目录和 schema v2 活动版本索引，再允许 Creator host 加载。不得手工伪造成功索引。
-4. **启动 Creator 并等待宿主就绪。** 只接受 `query-status` 返回 `ready: true` 且日志出现 `lite_host_ready`；未就绪时不得继续能力验收。
+4. **启动 Creator 并等待宿主就绪。** 打开方式遵循 Hub `knowledge/cocos-creator-open.md`：3.x 用 `--project <abs> --nologin`；本工程已有 GUI 则 attach，不要再 spawn / 强杀；装宿主扩展后必须重启 Creator。只接受 `query-status` 返回 `ready: true`（gateway 接入后 `tools` 应为 83）且日志出现 `lite_host_ready`；未就绪时不得继续能力验收。
 5. **运行只读冒烟测试。** 验证 `editor.queryVersion`、`editor.queryProject`、`editor.querySelection`、`scene.getCurrent`、`scene.getHierarchy`、`builder.queryPlatforms`、`builder.querySchema`、`builder.queryDefaultConfig` 与 `preview.query`；失败时停止，不继续任何写入测试。
 6. **运行本地审批写入测试。** 先申请一次性审批租约，再执行一个可恢复的原生写操作；Core 不接受在线签名计划作为替代审批。
 
 ## 构建候选与 CPM 安装
 
-本地可先构建宿主扩展与 Core CPM 目录包；宿主打包暂时仍从参考编辑器工程取得固定版本的 esbuild：
+本地可先构建宿主扩展与 Core CPM 目录包。宿主与 MCP 目录包均使用本仓 esbuild，不再读取 `PEANUT_COCOS_EDITOR_ROOT`：
 
 ```bash
-PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/cocos-creator-lite-host-extension
-PEANUT_COCOS_EDITOR_ROOT=/path/to/products/cocos/editor npm run pack --prefix packages/mcp-pod-lite-creator-host
+npm install --prefix packages/cocos-creator-lite-host-extension
+npm run pack --prefix packages/cocos-creator-lite-host-extension
+npm install --prefix packages/mcp-pod-lite-creator-host
+npm run pack --prefix packages/mcp-pod-lite-creator-host
+# 可选产品线宿主（未 Creator 实机验证）
+npm test --prefix packages/creator-35-host
+npm test --prefix packages/creator-24-host
 ```
+
+2.4 宿主安装到项目 `packages/peanut-pod-24/`；3.0–3.5 宿主安装到 `extensions/peanut-pod-35/`。
 
 生成的目录包必须交给 CPM / Peanut Packaging 安装。当前公共 `cpm-install` 尚无签名 release，不能把旧仓库的直接安装脚本或手工复制当作正式 CPM 安装证据。
 
-`peanut-pod-lite-host` 的 `query-status`、`list-tools` 与 `invoke-tool` 是 Creator 消息入口。`query-status.pro.state` 为 `absent`、`active` 或 `failed`；Pro 的版本、错误和已注册服务可独立诊断。
+`peanut-pod-lite-host` 的 `query-status`、`list-tools` 与 `invoke-tool` 是 Creator 消息入口。`query-status.pro.state` 为 `absent`、`active` 或 `failed`；Pro 的版本、错误和已注册服务可独立诊断。`query-status.account` 描述登录与订阅快照，不得把订阅状态当成写盘许可。
+
+## 订阅升级
+
+Lite 可在未订阅时完整使用编辑器能力。升级入口在 Extension > Peanut Account：
+
+1. 保存 HTTPS Pod 服务地址并登录（OIDC access token 由宿主加密保存）。
+2. 查看订阅快照。未订阅时 `recommendedAction` 为 `upgrade`，打开 Server 签发的 checkout URL。
+3. 账单成功后由 Pod Server webhook 写入权益；Creator 客户端不能自授。
+4. 已授权但未安装 Pro 时 `recommendedAction` 为 `install-pro`。用 CPM 安装 `peanut.cocos-mcp-pro` 后调用 `refresh-pro`。
+5. Pro 激活失败只更新 `query-status.pro`，Lite 工具表保持不变。
 
 ## Pro 的后置安装
 

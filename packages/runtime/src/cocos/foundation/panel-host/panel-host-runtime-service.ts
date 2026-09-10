@@ -179,5 +179,3 @@ export class PanelHostRuntimeService implements IPanelHostRuntimeService {
         return adapter;
     }
 }
-
-

@@ -1,0 +1,20 @@
+{
+    "type": "cc.UISkew",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "skew",
+            "serializedName": "_skew",
+            "kind": "vec2",
+            "example": {
+                "x": 10,
+                "y": 0
+            }
+        },
+        {
+            "apiName": "rotational",
+            "serializedName": "_rotational",
+            "kind": "boolean"
+        }
+    ]
+}

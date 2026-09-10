@@ -1,0 +1,11 @@
+{
+    "type": "cc.FSR",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "sharpness",
+            "serializedName": "_sharpness",
+            "kind": "number"
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+{
+    "type": "cc.UITransform",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "contentSize",
+            "serializedName": "_contentSize",
+            "kind": "size",
+            "example": {
+                "width": 200,
+                "height": 40
+            }
+        },
+        {
+            "apiName": "width",
+            "serializedName": "_contentSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "height",
+            "serializedName": "_contentSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "anchorPoint",
+            "serializedName": "_anchorPoint",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "anchorX",
+            "serializedName": "_anchorPoint",
+            "kind": "number"
+        },
+        {
+            "apiName": "anchorY",
+            "serializedName": "_anchorPoint",
+            "kind": "number"
+        },
+        {
+            "apiName": "priority",
+            "serializedName": "_priority",
+            "kind": "number"
+        }
+    ]
+}

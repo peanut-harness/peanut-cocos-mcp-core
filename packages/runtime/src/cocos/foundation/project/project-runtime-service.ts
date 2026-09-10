@@ -84,5 +84,3 @@ export class ProjectRuntimeService implements IProjectRuntimeService {
         return adapter;
     }
 }
-
-

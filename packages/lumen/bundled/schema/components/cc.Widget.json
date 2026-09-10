@@ -1,0 +1,96 @@
+{
+    "type": "cc.Widget",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "top",
+            "serializedName": "_top",
+            "kind": "number"
+        },
+        {
+            "apiName": "bottom",
+            "serializedName": "_bottom",
+            "kind": "number"
+        },
+        {
+            "apiName": "left",
+            "serializedName": "_left",
+            "kind": "number"
+        },
+        {
+            "apiName": "right",
+            "serializedName": "_right",
+            "kind": "number"
+        },
+        {
+            "apiName": "horizontalCenter",
+            "serializedName": "_horizontalCenter",
+            "kind": "number"
+        },
+        {
+            "apiName": "verticalCenter",
+            "serializedName": "_verticalCenter",
+            "kind": "number"
+        },
+        {
+            "apiName": "alignMode",
+            "serializedName": "_alignMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "alignFlags",
+            "serializedName": "_alignFlags",
+            "kind": "number"
+        },
+        {
+            "apiName": "target",
+            "serializedName": "_target",
+            "kind": "nodeRef"
+        },
+        {
+            "apiName": "isAbsBottom",
+            "serializedName": "_isAbsBottom",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAbsHorizontalCenter",
+            "serializedName": "_isAbsHorizontalCenter",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAbsLeft",
+            "serializedName": "_isAbsLeft",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAbsRight",
+            "serializedName": "_isAbsRight",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAbsTop",
+            "serializedName": "_isAbsTop",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAbsVerticalCenter",
+            "serializedName": "_isAbsVerticalCenter",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "lockFlags",
+            "serializedName": "_lockFlags",
+            "kind": "number"
+        },
+        {
+            "apiName": "originalHeight",
+            "serializedName": "_originalHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "originalWidth",
+            "serializedName": "_originalWidth",
+            "kind": "number"
+        }
+    ]
+}

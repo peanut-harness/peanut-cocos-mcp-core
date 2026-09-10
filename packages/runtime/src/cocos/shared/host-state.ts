@@ -494,5 +494,3 @@ export class CreatorHostState {
         };
     }
 }
-
-

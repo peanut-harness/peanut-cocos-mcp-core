@@ -1,0 +1,16 @@
+{
+    "type": "cc.TAA",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "sampleScale",
+            "serializedName": "_sampleScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "feedback",
+            "serializedName": "_feedback",
+            "kind": "number"
+        }
+    ]
+}

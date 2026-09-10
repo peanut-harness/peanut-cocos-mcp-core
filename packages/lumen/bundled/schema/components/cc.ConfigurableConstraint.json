@@ -1,0 +1,52 @@
+{
+    "type": "cc.ConfigurableConstraint",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "connectedBody",
+            "serializedName": "_connectedBody",
+            "kind": "componentRef",
+            "refComponentType": "cc.RigidBody"
+        },
+        {
+            "apiName": "enableCollision",
+            "serializedName": "_enableCollision",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "axis",
+            "serializedName": "_axis",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "secondaryAxis",
+            "serializedName": "_secondaryAxis",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "pivotA",
+            "serializedName": "_pivotA",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "pivotB",
+            "serializedName": "_pivotB",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "autoPivotB",
+            "serializedName": "_autoPivotB",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "breakForce",
+            "serializedName": "_breakForce",
+            "kind": "number"
+        },
+        {
+            "apiName": "breakTorque",
+            "serializedName": "_breakTorque",
+            "kind": "number"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "declaration": true,
+        "noEmitOnError": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "types": ["node"]
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["src/integration/**"]
+}

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "ignoreDeprecations": "6.0",
+        "rootDir": "source",
+        "outDir": "dist",
+        "strict": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "types": ["node"]
+    },
+    "include": ["source/**/*.ts"]
+}

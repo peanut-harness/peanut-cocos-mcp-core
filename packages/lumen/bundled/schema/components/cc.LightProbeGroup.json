@@ -1,0 +1,36 @@
+{
+    "type": "cc.LightProbeGroup",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "method",
+            "serializedName": "_method",
+            "kind": "enum"
+        },
+        {
+            "apiName": "minPos",
+            "serializedName": "_minPos",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "maxPos",
+            "serializedName": "_maxPos",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "nProbesX",
+            "serializedName": "_nProbesX",
+            "kind": "number"
+        },
+        {
+            "apiName": "nProbesY",
+            "serializedName": "_nProbesY",
+            "kind": "number"
+        },
+        {
+            "apiName": "nProbesZ",
+            "serializedName": "_nProbesZ",
+            "kind": "number"
+        }
+    ]
+}

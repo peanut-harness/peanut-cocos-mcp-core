@@ -1,0 +1,16 @@
+{
+    "type": "cc.ColorGrading",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "contribute",
+            "serializedName": "_contribute",
+            "kind": "number"
+        },
+        {
+            "apiName": "colorGradingMap",
+            "serializedName": "_colorGradingMap",
+            "kind": "uuid"
+        }
+    ]
+}

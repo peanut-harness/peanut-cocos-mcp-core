@@ -30,6 +30,12 @@ export {
     type ICoreCocosCreatorMessageReadPort,
 } from './core-cocos-creator-read-adapter.js';
 export {
+    EditorMcpGatewayAdapter,
+    isProExclusiveCocosOperation,
+    listLitePublicOperations,
+    type EditorMcpGatewayExecute,
+} from './editor-mcp-gateway-adapter.js';
+export {
     McpApprovalLeaseStore,
     type IMcpApprovalLeaseRequest,
     type IMcpApprovalLeaseUse,

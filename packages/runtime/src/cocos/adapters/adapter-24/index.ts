@@ -21,5 +21,3 @@ export const ADAPTER_24_PHASE = 'creator_2x' as const;
  * @description 适配器 id。
  */
 export const ADAPTER_24_ID = 'adapter-24' as const;
-
-

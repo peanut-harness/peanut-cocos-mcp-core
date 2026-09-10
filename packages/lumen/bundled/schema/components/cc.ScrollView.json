@@ -1,0 +1,59 @@
+{
+    "type": "cc.ScrollView",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "horizontal",
+            "serializedName": "horizontal",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "vertical",
+            "serializedName": "vertical",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "inertia",
+            "serializedName": "inertia",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "brake",
+            "serializedName": "brake",
+            "kind": "number"
+        },
+        {
+            "apiName": "elastic",
+            "serializedName": "elastic",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "bounceDuration",
+            "serializedName": "bounceDuration",
+            "kind": "number"
+        },
+        {
+            "apiName": "cancelInnerEvents",
+            "serializedName": "cancelInnerEvents",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "content",
+            "serializedName": "_content",
+            "kind": "nodeRef",
+            "example": "/Root/view/content"
+        },
+        {
+            "apiName": "horizontalScrollBar",
+            "serializedName": "_horizontalScrollBar",
+            "kind": "componentRef",
+            "refComponentType": "cc.ScrollBar"
+        },
+        {
+            "apiName": "verticalScrollBar",
+            "serializedName": "_verticalScrollBar",
+            "kind": "componentRef",
+            "refComponentType": "cc.ScrollBar"
+        }
+    ]
+}

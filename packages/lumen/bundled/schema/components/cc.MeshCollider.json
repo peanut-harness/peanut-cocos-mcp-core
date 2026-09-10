@@ -1,0 +1,31 @@
+{
+    "type": "cc.MeshCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "center",
+            "serializedName": "_center",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "mesh",
+            "serializedName": "_mesh",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "convex",
+            "serializedName": "_convex",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

@@ -21,5 +21,3 @@
 宿主包：`examples/cocos-panel-host-extension-24`（`peanut-pod-24`，装入工程 `packages/`）。
 
 权威写盘进度：[`tools/lumen-24/LANDING.md`](../../../../tools/lumen-24/LANDING.md)。
-
-

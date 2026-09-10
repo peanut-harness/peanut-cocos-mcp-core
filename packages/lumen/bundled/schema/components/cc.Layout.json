@@ -1,0 +1,132 @@
+{
+    "type": "cc.Layout",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "type",
+            "serializedName": "_layoutType",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "HORIZONTAL",
+                    "value": 1
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 2
+                },
+                {
+                    "name": "GRID",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "apiName": "resizeMode",
+            "serializedName": "_resizeMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "NONE",
+                    "value": 0
+                },
+                {
+                    "name": "CONTAINER",
+                    "value": 1
+                },
+                {
+                    "name": "CHILDREN",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "cellSize",
+            "serializedName": "_cellSize",
+            "kind": "size",
+            "example": {
+                "width": 40,
+                "height": 40
+            }
+        },
+        {
+            "apiName": "startAxis",
+            "serializedName": "_startAxis",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "HORIZONTAL",
+                    "value": 0
+                },
+                {
+                    "name": "VERTICAL",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "apiName": "paddingLeft",
+            "serializedName": "_paddingLeft",
+            "kind": "number"
+        },
+        {
+            "apiName": "paddingRight",
+            "serializedName": "_paddingRight",
+            "kind": "number"
+        },
+        {
+            "apiName": "paddingTop",
+            "serializedName": "_paddingTop",
+            "kind": "number"
+        },
+        {
+            "apiName": "paddingBottom",
+            "serializedName": "_paddingBottom",
+            "kind": "number"
+        },
+        {
+            "apiName": "spacingX",
+            "serializedName": "_spacingX",
+            "kind": "number"
+        },
+        {
+            "apiName": "spacingY",
+            "serializedName": "_spacingY",
+            "kind": "number"
+        },
+        {
+            "apiName": "verticalDirection",
+            "serializedName": "_verticalDirection",
+            "kind": "enum"
+        },
+        {
+            "apiName": "horizontalDirection",
+            "serializedName": "_horizontalDirection",
+            "kind": "enum"
+        },
+        {
+            "apiName": "constraint",
+            "serializedName": "_constraint",
+            "kind": "enum"
+        },
+        {
+            "apiName": "constraintNum",
+            "serializedName": "_constraintNum",
+            "kind": "number"
+        },
+        {
+            "apiName": "affectedByScale",
+            "serializedName": "_affectedByScale",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "isAlign",
+            "serializedName": "_isAlign",
+            "kind": "boolean"
+        }
+    ]
+}

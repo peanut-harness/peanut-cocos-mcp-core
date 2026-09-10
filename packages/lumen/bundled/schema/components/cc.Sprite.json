@@ -1,0 +1,98 @@
+{
+    "type": "cc.Sprite",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "spriteFrame",
+            "serializedName": "_spriteFrame",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "atlas",
+            "serializedName": "_atlas",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "type",
+            "serializedName": "_type",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "SIMPLE",
+                    "value": 0
+                },
+                {
+                    "name": "SLICED",
+                    "value": 1
+                },
+                {
+                    "name": "TILED",
+                    "value": 2
+                },
+                {
+                    "name": "FILLED",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "apiName": "sizeMode",
+            "serializedName": "_sizeMode",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "CUSTOM",
+                    "value": 0
+                },
+                {
+                    "name": "TRIMMED",
+                    "value": 1
+                },
+                {
+                    "name": "RAW",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "trim",
+            "serializedName": "_isTrimmedMode",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "grayscale",
+            "serializedName": "_useGrayscale",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "fillType",
+            "serializedName": "_fillType",
+            "kind": "enum"
+        },
+        {
+            "apiName": "fillCenter",
+            "serializedName": "_fillCenter",
+            "kind": "vec2"
+        },
+        {
+            "apiName": "fillStart",
+            "serializedName": "_fillStart",
+            "kind": "number"
+        },
+        {
+            "apiName": "fillRange",
+            "serializedName": "_fillRange",
+            "kind": "number"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "customMaterial",
+            "serializedName": "_customMaterial",
+            "kind": "uuid"
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+{
+    "type": "cc.Camera",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "projection",
+            "serializedName": "_projection",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "ORTHO",
+                    "value": 0
+                },
+                {
+                    "name": "PERSPECTIVE",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "apiName": "priority",
+            "serializedName": "_priority",
+            "kind": "number"
+        },
+        {
+            "apiName": "fov",
+            "serializedName": "_fov",
+            "kind": "number"
+        },
+        {
+            "apiName": "orthoHeight",
+            "serializedName": "_orthoHeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "near",
+            "serializedName": "_near",
+            "kind": "number"
+        },
+        {
+            "apiName": "far",
+            "serializedName": "_far",
+            "kind": "number"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        },
+        {
+            "apiName": "depth",
+            "serializedName": "_depth",
+            "kind": "number"
+        },
+        {
+            "apiName": "stencil",
+            "serializedName": "_stencil",
+            "kind": "number"
+        },
+        {
+            "apiName": "clearFlags",
+            "serializedName": "_clearFlags",
+            "kind": "enum"
+        },
+        {
+            "apiName": "rect",
+            "serializedName": "_rect",
+            "kind": "rect"
+        },
+        {
+            "apiName": "visibility",
+            "serializedName": "_visibility",
+            "kind": "number"
+        },
+        {
+            "apiName": "targetDisplay",
+            "serializedName": "_targetDisplay",
+            "kind": "number"
+        },
+        {
+            "apiName": "screenScale",
+            "serializedName": "_screenScale",
+            "kind": "number"
+        },
+        {
+            "apiName": "usePostProcess",
+            "serializedName": "_usePostProcess",
+            "kind": "boolean"
+        }
+    ]
+}

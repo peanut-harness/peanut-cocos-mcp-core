@@ -1,0 +1,32 @@
+{
+    "type": "cc.Bloom",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "enableAlphaMask",
+            "serializedName": "_enableAlphaMask",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "useHdrIlluminance",
+            "serializedName": "_useHdrIlluminance",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "threshold",
+            "serializedName": "_threshold",
+            "kind": "number"
+        },
+        {
+            "apiName": "iterations",
+            "serializedName": "_iterations",
+            "kind": "number"
+        },
+        {
+            "apiName": "intensity",
+            "serializedName": "_intensity",
+            "kind": "number",
+            "example": 2.3
+        }
+    ]
+}

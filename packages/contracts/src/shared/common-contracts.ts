@@ -27,5 +27,3 @@ export type TaskId = string;
  * @description 插件语义版本字符串。
  */
 export type PluginVersion = string;
-
-

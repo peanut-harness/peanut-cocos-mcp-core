@@ -387,5 +387,3 @@ export interface IPluginRuntimeRecord {
      */
     readonly failureIncident?: IPluginFailureIncident;
 }
-
-

@@ -1,0 +1,11 @@
+{
+    "type": "cc.TiledObjectGroup",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "premultiplyAlpha",
+            "serializedName": "_premultiplyAlpha",
+            "kind": "boolean"
+        }
+    ]
+}

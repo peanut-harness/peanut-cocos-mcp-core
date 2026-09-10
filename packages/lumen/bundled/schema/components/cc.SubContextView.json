@@ -1,0 +1,16 @@
+{
+    "type": "cc.SubContextView",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "designResolutionSize",
+            "serializedName": "_designResolutionSize",
+            "kind": "size"
+        },
+        {
+            "apiName": "fps",
+            "serializedName": "_fps",
+            "kind": "number"
+        }
+    ]
+}

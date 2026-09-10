@@ -1,0 +1,66 @@
+{
+    "type": "cc.MeshRenderer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "mesh",
+            "serializedName": "_mesh",
+            "kind": "uuid"
+        },
+        {
+            "apiName": "materials",
+            "serializedName": "_materials",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "shadowCastingMode",
+            "serializedName": "_shadowCastingMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "receiveShadow",
+            "serializedName": "_receiveShadow",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "bakeSettings",
+            "serializedName": "bakeSettings",
+            "kind": "objectPatch"
+        },
+        {
+            "apiName": "enabledGlobalStandardSkinObject",
+            "serializedName": "_enabledGlobalStandardSkinObject",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "enableMorph",
+            "serializedName": "_enableMorph",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "reflectionProbeBlendId",
+            "serializedName": "_reflectionProbeBlendId",
+            "kind": "number"
+        },
+        {
+            "apiName": "reflectionProbeBlendWeight",
+            "serializedName": "_reflectionProbeBlendWeight",
+            "kind": "number"
+        },
+        {
+            "apiName": "reflectionProbeId",
+            "serializedName": "_reflectionProbeId",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowBias",
+            "serializedName": "_shadowBias",
+            "kind": "number"
+        },
+        {
+            "apiName": "shadowNormalBias",
+            "serializedName": "_shadowNormalBias",
+            "kind": "number"
+        }
+    ]
+}

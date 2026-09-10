@@ -1,0 +1,11 @@
+{
+    "type": "cc.SafeArea",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "symmetric",
+            "serializedName": "_symmetric",
+            "kind": "boolean"
+        }
+    ]
+}

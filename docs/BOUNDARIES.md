@@ -1,9 +1,18 @@
 # Core / Pro Boundary
 
-`peanut-pod-lite` is the public foundation. It contains protocol contracts, input validation, capability policy primitives, safe execution abstractions, and test fixtures.
+`peanut-pod-lite` is the Cocos Creator editor product. It contains editor
+contracts, capability policy, local approval, Creator hosts, Lumen, and the
+subscription upgrade surface.
 
-`peanut-cocos-mcp-pro` is private. It contains signed-plan verification, entitlement enforcement, advanced Cocos workflows, proprietary rules, and encrypted rule-pack delivery.
+`peanut-pod-pro` is the paid edition. It contains signed-plan verification,
+entitlement-gated workflows, and proprietary generators. It must not become a
+second editor kernel.
 
-Core must never import Pro or rely on a private registry. Pro may only use documented, versioned Core APIs.
+Lite must never import Pro or rely on a private registry. Pro may only use
+documented, versioned Lite APIs. Missing Pro, a signed-out account, or a failed
+upgrade must not block Lite editor capabilities.
 
-The initial public catalog is deliberately read-only and fail-closed. Existing write operations, Lumen mutation operations, import orchestration, build execution, and workflow composition remain in the legacy source until they have a reviewed Pro migration target.
+Lite may advertise paid operations and open a Pod Server checkout URL. It must
+not execute those operations, accept a client-supplied entitlement, or treat a
+subscription as a write approval. Billing webhooks on `peanut-pod-server` are
+the only grant path.

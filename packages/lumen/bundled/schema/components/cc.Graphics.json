@@ -1,0 +1,41 @@
+{
+    "type": "cc.Graphics",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "lineWidth",
+            "serializedName": "_lineWidth",
+            "kind": "number"
+        },
+        {
+            "apiName": "lineJoin",
+            "serializedName": "_lineJoin",
+            "kind": "enum"
+        },
+        {
+            "apiName": "lineCap",
+            "serializedName": "_lineCap",
+            "kind": "enum"
+        },
+        {
+            "apiName": "miterLimit",
+            "serializedName": "_miterLimit",
+            "kind": "number"
+        },
+        {
+            "apiName": "strokeColor",
+            "serializedName": "_strokeColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "fillColor",
+            "serializedName": "_fillColor",
+            "kind": "color"
+        },
+        {
+            "apiName": "color",
+            "serializedName": "_color",
+            "kind": "color"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "name": "@peanut/cocos-lumen",
+    "version": "0.0.31",
+    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "bin": {
+        "lumen": "./dist/cli.js"
+    },
+    "files": [
+        "dist",
+        "bundled",
+        "README.md"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        },
+        "./plugin-runtime": {
+            "types": "./dist/plugin-runtime.d.ts",
+            "require": "./dist/plugin-runtime.js",
+            "default": "./dist/plugin-runtime.js"
+        }
+    },
+    "scripts": {
+        "bundle:templates": "node scripts/bundle-default-prefab.cjs",
+        "build": "npm run bundle:templates && tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run bundle:templates && tsx --test --tsconfig tsconfig.json tests/*.test.ts"
+    },
+    "dependencies": {
+        "peanut-asset-catalog": "file:../asset-catalog"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.0",
+        "tsx": "4.23.0",
+        "typescript": "6.0.3"
+    },
+    "peanut": {
+        "role": "tool",
+        "verify": true,
+        "verifyImport": true
+    }
+}

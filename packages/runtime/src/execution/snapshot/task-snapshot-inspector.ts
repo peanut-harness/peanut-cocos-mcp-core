@@ -135,5 +135,3 @@ export class TaskSnapshotInspector {
         }).join(',')}}`;
     }
 }
-
-

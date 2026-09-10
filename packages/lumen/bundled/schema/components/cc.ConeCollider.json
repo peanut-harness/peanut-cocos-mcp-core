@@ -1,0 +1,50 @@
+{
+    "type": "cc.ConeCollider",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "isTrigger",
+            "serializedName": "_isTrigger",
+            "kind": "boolean"
+        },
+        {
+            "apiName": "center",
+            "serializedName": "_center",
+            "kind": "vec3"
+        },
+        {
+            "apiName": "radius",
+            "serializedName": "_radius",
+            "kind": "number"
+        },
+        {
+            "apiName": "height",
+            "serializedName": "_height",
+            "kind": "number"
+        },
+        {
+            "apiName": "direction",
+            "serializedName": "_direction",
+            "kind": "enum",
+            "enumHints": [
+                {
+                    "name": "X_AXIS",
+                    "value": 0
+                },
+                {
+                    "name": "Y_AXIS",
+                    "value": 1
+                },
+                {
+                    "name": "Z_AXIS",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "apiName": "material",
+            "serializedName": "_material",
+            "kind": "uuid"
+        }
+    ]
+}

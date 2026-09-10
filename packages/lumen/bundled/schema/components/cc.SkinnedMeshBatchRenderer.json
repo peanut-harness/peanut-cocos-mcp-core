@@ -1,0 +1,31 @@
+{
+    "type": "cc.SkinnedMeshBatchRenderer",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "atlasSize",
+            "serializedName": "atlasSize",
+            "kind": "number"
+        },
+        {
+            "apiName": "batchableTextureNames",
+            "serializedName": "batchableTextureNames",
+            "kind": "stringList"
+        },
+        {
+            "apiName": "materials",
+            "serializedName": "_materials",
+            "kind": "uuidList"
+        },
+        {
+            "apiName": "shadowCastingMode",
+            "serializedName": "_shadowCastingMode",
+            "kind": "enum"
+        },
+        {
+            "apiName": "receiveShadow",
+            "serializedName": "_receiveShadow",
+            "kind": "boolean"
+        }
+    ]
+}

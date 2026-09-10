@@ -1,0 +1,16 @@
+{
+    "type": "cc.Sorting2D",
+    "kind": "component",
+    "fields": [
+        {
+            "apiName": "sortingLayer",
+            "serializedName": "_sortingLayer",
+            "kind": "number"
+        },
+        {
+            "apiName": "sortingOrder",
+            "serializedName": "_sortingOrder",
+            "kind": "number"
+        }
+    ]
+}

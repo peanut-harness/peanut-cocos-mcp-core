@@ -136,5 +136,3 @@ export class ProductLineMcpPolicy {
         return `product_line_mcp_refused:${phase}:${operation}:await_host_verified`;
     }
 }
-
-

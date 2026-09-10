@@ -1,0 +1,21 @@
+{
+    "type": "cc.Burst",
+    "kind": "embedded",
+    "fields": [
+        {
+            "apiName": "time",
+            "serializedName": "_time",
+            "kind": "number"
+        },
+        {
+            "apiName": "repeatCount",
+            "serializedName": "_repeatCount",
+            "kind": "number"
+        },
+        {
+            "apiName": "repeatInterval",
+            "serializedName": "repeatInterval",
+            "kind": "number"
+        }
+    ]
+}
