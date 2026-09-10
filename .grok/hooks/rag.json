@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ../peanut-hub/tools/knowledge/rag.mjs hook-session-start",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "search_replace|Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ../peanut-hub/tools/knowledge/rag.mjs hook-post-edit",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ../peanut-hub/tools/knowledge/rag.mjs hook-stop",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
