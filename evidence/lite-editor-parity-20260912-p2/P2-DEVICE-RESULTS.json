@@ -1,0 +1,79 @@
+{
+  "at": "2026-09-12 01:22:38 UTC+8",
+  "passed": 10,
+  "total": 10,
+  "failedCases": [],
+  "rows": [
+    {
+      "case": "directWriteEnabled",
+      "pass": true,
+      "enable": {
+        "directWriteEnabled": true
+      },
+      "statusDw": true
+    },
+    {
+      "case": "schema-probe:open-accepts-control",
+      "error": "core_cocos_mcp_execution_approval_required:asset.open",
+      "pass": true,
+      "slice": "{\"http\": 400, \"ok\": false, \"error\": \"core_cocos_mcp_execution_approval_required:asset.open\"}"
+    },
+    {
+      "case": "schema-probe:importPlan-rejects-control",
+      "error": "mcp_capability_input_invalid:peanut.editor-mcp.asset-import-plan",
+      "pass": true,
+      "slice": "{\"http\": 400, \"ok\": false, \"error\": \"mcp_capability_input_invalid:peanut.editor-mcp.asset-import-plan\"}"
+    },
+    {
+      "case": "schema-probe:managedStatus-rejects-control",
+      "error": "mcp_capability_input_invalid:peanut.editor-mcp.asset-managed-status",
+      "pass": true,
+      "slice": "{\"http\": 400, \"ok\": false, \"error\": \"mcp_capability_input_invalid:peanut.editor-mcp.asset-managed-status\"}"
+    },
+    {
+      "case": "importPlan:no-lease",
+      "pass": true,
+      "error": null,
+      "quiet": true,
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"layers\": [[{\"source\": \"D:/peanut-workspace/peanut-pod-lite-wt-smoke-ab/evidence/lite-editor-parity-20260912-p2/_import_src/p2-import-probe.txt\", \"dependencies\": [], \"dependentCount\": 0, \"role\": \"independent\", \"kind\": \"other\"}]], \"missingDependencies\": [], \"cycles\": [], \"expandedSources\": [\"D:/peanut-workspace/peanut-pod-lite-wt-smoke-ab/evidence/lite-editor-parity-20260912-p2/_import_src/p2-import-probe.txt\"], \"planId\": \"f3ee97a2-c1fb-4469-b786-031a83cbf148\"",
+      "note": "result.planId is import-plan ticket, not Hub write plan"
+    },
+    {
+      "case": "managedStatus:no-lease",
+      "pass": true,
+      "error": null,
+      "quiet": true,
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"statuses\": [{\"target\": \"db://assets\", \"mode\": \"new-assets\", \"managed\": false, \"grandfathered\": false, \"verified\": false, \"uuidMatched\": false, \"sourceChanged\": false, \"reason\": \"UNMANAGED_ASSET\"}], \"allVerified\": false}}"
+    },
+    {
+      "case": "asset.open:no-lease-directWrite",
+      "pass": true,
+      "error": "core_cocos_mcp_execution_approval_required:asset.open",
+      "quiet": true,
+      "badLines": [],
+      "plan": false,
+      "slice": "{\"http\": 400, \"ok\": false, \"error\": \"core_cocos_mcp_execution_approval_required:asset.open\"}"
+    },
+    {
+      "case": "asset.open:with-lease",
+      "pass": true,
+      "error": null,
+      "tokenPresent": true,
+      "quiet": true,
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"available\": true, \"source\": \"live\", \"message\": \"asset_open_ok:assets.open\", \"uuid\": \"12447077-7cb9-4ec3-a5c2-ed11e934cfc0\", \"url\": \"db://assets/ui/peanut-cocos-figma-export/ChallengePlayingRules/assets\", \"availability\": \"live\", \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\workspaces\\\\peanut-agents\\\\test-demos\\\\cocos-for-agent\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "case": "asset.open:with-approvalId",
+      "pass": true,
+      "error": null,
+      "tokenPresent": true,
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"available\": true, \"source\": \"live\", \"message\": \"asset_open_ok:assets.open\", \"uuid\": \"12447077-7cb9-4ec3-a5c2-ed11e934cfc0\", \"url\": \"db://assets/ui/peanut-cocos-figma-export/ChallengePlayingRules/assets\", \"availability\": \"live\", \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\workspaces\\\\peanut-agents\\\\test-demos\\\\cocos-for-agent\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "case": "asset.open:hub-plan-path-no-directWrite",
+      "pass": true,
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"planId\": \"9bd9033ea849a7b7ecf25cc19bcdbf5c\", \"name\": \"peanut.editor-mcp.asset-open\", \"readOnly\": false, \"risk\": \"write\", \"expiresAt\": 1789147618769, \"confirmationRequired\": true}}"
+    }
+  ],
+  "note": "importPlan.no-lease reclassified: business planId is success"
+}

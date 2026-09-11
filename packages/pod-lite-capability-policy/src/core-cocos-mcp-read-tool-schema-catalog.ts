@@ -76,6 +76,21 @@ export class CoreCocosMcpReadToolSchemaCatalog {
             }),
         );
         schemas.set(
+            'asset.importPlan',
+            this.object(
+                {
+                    sources: this.stringArray('待分析的源文件路径列表。'),
+                    dependencyMap: this.freeObject('显式依赖表。'),
+                    expandClosure: this.boolean('是否从磁盘展开依赖闭包；默认 true。'),
+                },
+                ['sources'],
+            ),
+        );
+        schemas.set(
+            'asset.managedStatus',
+            this.object({ targets: this.stringArray('目标 db://assets/... 路径列表。') }, ['targets']),
+        );
+        schemas.set(
             'asset.queryDependencies',
             this.object({
                 dbPath: this.string('db://assets/... 路径。'),

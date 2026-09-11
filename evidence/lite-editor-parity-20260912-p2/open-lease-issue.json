@@ -1,0 +1,14 @@
+{
+  "http": 200,
+  "ok": true,
+  "result": {
+    "approvalId": "e5aaacf0b52ee2fb3614a357279cb0cc3c2874a36ce86d0e2fe79f13f6cac867",
+    "approvalToken": "e5aaacf0b52ee2fb3614a357279cb0cc3c2874a36ce86d0e2fe79f13f6cac867",
+    "token": "e5aaacf0b52ee2fb3614a357279cb0cc3c2874a36ce86d0e2fe79f13f6cac867",
+    "expiresAt": 1789147378394,
+    "idleLeaseMs": 10000,
+    "maxHoldMs": 60000,
+    "sessionBound": false,
+    "connectionId": "ee256053859ace56f9591765384f836e"
+  }
+}

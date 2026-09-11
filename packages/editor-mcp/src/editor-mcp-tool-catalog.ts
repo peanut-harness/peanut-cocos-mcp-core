@@ -262,6 +262,7 @@ export class EditorMcpToolCatalog {
                 uuid: this._string('标准或压缩 uuid。'),
                 path: this._string('db:// 或相对路径。'),
                 url: this._string('与 path 同义。'),
+                ...this._writeControl(),
             }),
         );
         map.set(

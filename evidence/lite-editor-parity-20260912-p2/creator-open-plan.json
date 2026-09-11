@@ -1,0 +1,15 @@
+{
+  "reason": "reload after P2 control/reclassify",
+  "startedAtLocal": "2026-09-12 01:20:06 UTC+8",
+  "pathChoice": "worktree_host+worktree_core",
+  "attachOrSpawn": "spawn",
+  "pid": 34848,
+  "bin": "C:\\ProgramData\\cocos\\editors\\Creator\\3.8.7\\CocosCreator.exe",
+  "project": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
+  "args": [
+    "--project",
+    "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
+    "--nologin"
+  ],
+  "baselineWrittenAt": "2026-09-11T17:00:46.554Z"
+}

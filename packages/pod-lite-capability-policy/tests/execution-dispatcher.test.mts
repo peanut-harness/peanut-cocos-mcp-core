@@ -161,3 +161,81 @@ test('write schema accepts confirmDestructive without schema_invalid', async () 
     assert.equal(calls, 1);
 });
 
+
+test('P2: importPlan/managedStatus are read-only (no lease); asset.open requires control()+lease', async () => {
+    const { CoreCocosMcpToolDefinitionCatalog } = await import('../dist/index.js');
+    const catalog = new CoreCocosMcpToolDefinitionCatalog();
+
+    const importPlan = catalog.findByOperation('asset.importPlan');
+    const managedStatus = catalog.findByOperation('asset.managedStatus');
+    const open = catalog.findByOperation('asset.open');
+    assert.ok(importPlan);
+    assert.ok(managedStatus);
+    assert.ok(open);
+    assert.equal(importPlan.readOnly, true);
+    assert.equal(importPlan.requiresLocalApproval, false);
+    assert.equal(importPlan.risk, 'read');
+    assert.equal(managedStatus.readOnly, true);
+    assert.equal(managedStatus.requiresLocalApproval, false);
+    assert.equal(managedStatus.risk, 'read');
+    assert.equal(open.readOnly, false);
+    assert.equal(open.requiresLocalApproval, true);
+    assert.equal(open.risk, 'write');
+    for (const key of ['approvalId', 'approvalToken', 'confirmDestructive', 'resources']) {
+        assert.ok(open.inputSchema.properties?.[key], `asset.open schema missing ${key}`);
+        assert.equal(importPlan.inputSchema.properties?.[key], undefined);
+        assert.equal(managedStatus.inputSchema.properties?.[key], undefined);
+    }
+
+    let planCalls = 0;
+    let statusCalls = 0;
+    let openCalls = 0;
+    const leases = new McpApprovalLeaseStore();
+    const dispatcher = new CoreCocosMcpExecutionDispatcher(
+        [
+            {
+                operations: ['asset.importPlan', 'asset.managedStatus', 'asset.open'],
+                execute: async (request) => {
+                    if (request.operation === 'asset.importPlan') {
+                        return ++planCalls;
+                    }
+                    if (request.operation === 'asset.managedStatus') {
+                        return ++statusCalls;
+                    }
+                    return ++openCalls;
+                },
+            },
+        ],
+        leases,
+    );
+
+    // read-only: no lease, no approval fields
+    assert.equal(await dispatcher.execute('asset.importPlan', { sources: ['D:/tmp/a.png'] }), 1);
+    assert.equal(await dispatcher.execute('asset.managedStatus', { targets: ['db://assets/a.png'] }), 1);
+    // read-only must reject unexpected control fields (additionalProperties:false)
+    await assert.rejects(
+        dispatcher.execute('asset.importPlan', { sources: ['D:/tmp/a.png'], approvalToken: 'x' }),
+        /schema_invalid/u,
+    );
+
+    const context = { connectionId: 'local-a', resources: ['db://assets/Main.scene'] };
+    await assert.rejects(dispatcher.execute('asset.open', { path: 'db://assets/Main.scene' }, context), /approval_required/u);
+    assert.equal(openCalls, 0);
+
+    const lease = leases.issue({ ...context, operations: ['asset.open'], maxRisk: 'write' });
+    assert.equal(
+        await dispatcher.execute(
+            'asset.open',
+            {
+                path: 'db://assets/Main.scene',
+                approvalToken: lease.token,
+                resources: ['db://assets/Main.scene'],
+            },
+            context,
+        ),
+        1,
+    );
+    assert.equal(openCalls, 1);
+    assert.equal(planCalls, 1);
+    assert.equal(statusCalls, 1);
+});

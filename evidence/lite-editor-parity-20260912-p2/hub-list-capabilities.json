@@ -1,0 +1,5 @@
+{
+  "http": 400,
+  "ok": false,
+  "error": "cocos_mcp_hub_action_invalid"
+}

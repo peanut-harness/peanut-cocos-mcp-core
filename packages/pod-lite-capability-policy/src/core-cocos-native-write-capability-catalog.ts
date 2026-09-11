@@ -7,7 +7,7 @@ import { McpCapabilityPolicy, type IMcpCapabilityPolicy } from './mcp-capability
  */
 export type CoreCocosNativeWriteOperation =
     | 'editor.setSelection'
-    | 'asset.catalog.refresh' | 'asset.importPlan' | 'asset.import' | 'asset.managedStatus' | 'asset.replaceReferences'
+    | 'asset.catalog.refresh' | 'asset.import' | 'asset.replaceReferences'
     | 'asset.open' | 'asset.copy' | 'asset.move' | 'asset.rename' | 'asset.createFolder' | 'asset.delete' | 'asset.reimport' | 'asset.writeText' | 'asset.ensureSpriteFramesBatch'
     | 'scene.restoreEditorResource' | 'scene.open' | 'scene.save' | 'scene.reload' | 'scene.focusNode' | 'scene.createNode'
     | 'prefab.createFromNode' | 'prefab.apply' | 'prefab.revert' | 'prefab.unpack' | 'prefab.unlink'
@@ -34,7 +34,7 @@ export class CoreCocosNativeWriteCapabilityCatalog {
     private static readonly destructive = new Set<CoreCocosNativeWriteOperation>(['asset.delete', 'asset.replaceReferences', 'lumen.nodeRm', 'lumen.compRm']);
     private static readonly operations: readonly CoreCocosNativeWriteOperation[] = Object.freeze([
         'editor.setSelection',
-        'asset.catalog.refresh', 'asset.importPlan', 'asset.import', 'asset.managedStatus', 'asset.replaceReferences',
+        'asset.catalog.refresh', 'asset.import', 'asset.replaceReferences',
         'asset.open', 'asset.copy', 'asset.move', 'asset.rename', 'asset.createFolder', 'asset.delete', 'asset.reimport', 'asset.writeText', 'asset.ensureSpriteFramesBatch',
         'scene.restoreEditorResource', 'scene.open', 'scene.save', 'scene.reload', 'scene.focusNode', 'scene.createNode',
         'prefab.createFromNode', 'prefab.apply', 'prefab.revert', 'prefab.unpack', 'prefab.unlink',

@@ -10,6 +10,8 @@ export type CoreCocosMcpOperation =
     | 'asset.queryInfo'
     | 'asset.catalog.summary'
     | 'asset.catalog.lookup'
+    | 'asset.importPlan'
+    | 'asset.managedStatus'
     | 'asset.queryDependencies'
     | 'asset.waitReady'
     | 'asset.scanMissingReferences'
@@ -63,6 +65,8 @@ export class CoreCocosMcpCapabilityCatalog {
         'asset.queryInfo',
         'asset.catalog.summary',
         'asset.catalog.lookup',
+        'asset.importPlan',
+        'asset.managedStatus',
         'asset.queryDependencies',
         'asset.waitReady',
         'asset.scanMissingReferences',
