@@ -82,5 +82,5 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 - 盘点：缺实现类 P0 = 0；补写 schema `resources` 字段（policy + editor-mcp tool catalog）。
 - 单测：`@peanut/pod-lite-capability-policy` 13/13。
 - 真机：pack 安装 worktree host/core → 软关 Creator → 重启；device-verify-resources 7/7。
-- 不对齐项登记：`sessionBound`（P1）、prefab/builder 全表真机（P1）；Pro 面维持禁入。
+- P1（2026-09-12 01:07:25 UTC+8）：`sessionBound` 已对齐；prefab/builder/import/preview 真机矩阵见 `evidence/lite-editor-parity-20260912-p1/`（42/42）；剩余 P2：open/importPlan/managedStatus 无 control（旧岛同构）、文档措辞；Pro 面维持禁入。
 - 证据目录：`evidence/lite-editor-parity-20260912/`。

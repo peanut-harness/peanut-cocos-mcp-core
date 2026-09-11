@@ -74,7 +74,7 @@ export class McpBatchApprovalStore {
         readonly maxHoldMs?: number;
         /** @description 为 true 时使用会话级租约（可被显式 idle/max 覆盖）。 */
         readonly sessionBound?: boolean;
-    }): { readonly token: string; readonly expiresAt: number; readonly idleLeaseMs: number } {
+    }): { readonly token: string; readonly expiresAt: number; readonly idleLeaseMs: number; readonly maxHoldMs: number } {
         this.sweep();
         const connectionId = this._readNonEmpty(input.connectionId, 'connectionId');
         const resources = this._normalizeResources(input.resources);
@@ -115,7 +115,7 @@ export class McpBatchApprovalStore {
             lastUsedAt: now,
         };
         this._tokens.set(token, record);
-        return { token, expiresAt: record.expiresAt, idleLeaseMs };
+        return { token, expiresAt: record.expiresAt, idleLeaseMs, maxHoldMs };
     }
 
     /**

@@ -135,6 +135,7 @@ function registerLocalApprovalLeaseTool() {
                 maxRisk: Object.freeze({ type: 'string', description: 'write or destructive.' }),
                 idleLeaseMs: Object.freeze({ type: 'number', description: 'Idle lease ms.' }),
                 maxHoldMs: Object.freeze({ type: 'number', description: 'Max hold ms from issue.' }),
+                sessionBound: Object.freeze({ type: 'boolean', description: 'When true, use session-bound lease defaults (idle 5min / max 30min); explicit idle/max still win.' }),
             }),
             required: Object.freeze(['resources']),
             additionalProperties: false,
@@ -168,12 +169,16 @@ function registerLocalApprovalLeaseTool() {
                 maxRisk: input.maxRisk === 'destructive' ? 'destructive' : 'write',
                 idleLeaseMs: typeof input.idleLeaseMs === 'number' ? input.idleLeaseMs : undefined,
                 maxHoldMs: typeof input.maxHoldMs === 'number' ? input.maxHoldMs : undefined,
+                sessionBound: input.sessionBound === true,
             });
             return Object.freeze({
                 approvalId: issued.token,
                 approvalToken: issued.token,
                 token: issued.token,
                 expiresAt: issued.expiresAt,
+                idleLeaseMs: issued.idleLeaseMs,
+                maxHoldMs: issued.maxHoldMs,
+                sessionBound: input.sessionBound === true,
                 connectionId,
             });
         },

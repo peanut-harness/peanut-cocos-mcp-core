@@ -56,8 +56,9 @@ export interface ICocosMcpHubOptions {
         readonly maxRisk?: 'write' | 'destructive';
         readonly idleLeaseMs?: number;
         readonly maxHoldMs?: number;
+        readonly sessionBound?: boolean;
         readonly preferredToken?: string;
-    }) => { readonly token: string; readonly expiresAt: number } | null;
+    }) => { readonly token: string; readonly expiresAt: number; readonly idleLeaseMs?: number; readonly maxHoldMs?: number } | null;
 }
 
 interface IMcpHubSettingsRecord {
@@ -832,8 +833,9 @@ export class CocosMcpHub implements IMcpHubControl {
             [plan.name],
             maxRisk,
             issued.token,
-            options?.idleLeaseMs,
-            options?.maxHoldMs,
+            issued.idleLeaseMs,
+            issued.maxHoldMs,
+            options?.sessionBound === true,
         );
         return {
             approvalToken: issued.token,
@@ -1361,6 +1363,7 @@ export class CocosMcpHub implements IMcpHubControl {
         hubToken: string,
         idleLeaseMs?: number,
         maxHoldMs?: number,
+        sessionBound?: boolean,
     ): string | null {
         const mirror = this._localApprovalLeaseMirror ?? this._options.mirrorLocalApprovalLease;
         if (mirror == null) {
@@ -1373,8 +1376,12 @@ export class CocosMcpHub implements IMcpHubControl {
                 operations,
                 maxRisk,
                 preferredToken: hubToken,
+                // Prefer resolved durations from BatchStore so sessionBound (5m/30m) stays in sync.
                 ...(idleLeaseMs == null ? {} : { idleLeaseMs }),
                 ...(maxHoldMs == null ? {} : { maxHoldMs }),
+                ...(sessionBound === true && idleLeaseMs == null && maxHoldMs == null
+                    ? { sessionBound: true }
+                    : {}),
             });
             return issued != null && typeof issued.token === 'string' && issued.token.length > 0
                 ? issued.token
@@ -1423,8 +1430,9 @@ export class CocosMcpHub implements IMcpHubControl {
             operations,
             maxRisk,
             issued.token,
-            idleLeaseMs,
-            maxHoldMs,
+            issued.idleLeaseMs,
+            issued.maxHoldMs,
+            payload.sessionBound === true,
         );
         return {
             approvalToken: issued.token,

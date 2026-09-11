@@ -161,4 +161,4 @@ Lite 的公开边界、风险目录、输入 schema、本地审批和 **83 项�
 - **行为差 P0 已修**：写工具 `control()` 增加 `resources`（与旧岛 Hub `_writeControl` 对齐），避免旧客户端带 `resources` 时 `mcp_capability_input_invalid`。
 - 真机抽样（cocos-for-agent 3.8.7）：`asset.catalog.refresh` / `asset.createFolder` / `asset.delete` 带 `resources`+租约 PASS；无租约仍 `approval_required`。
 - 证据：`evidence/lite-editor-parity-20260912/`（GAP-MATRIX / FIXED / REMAINING / CONCLUSION / device-verify-resources）。
-- 免费面对齐度粗估 **~94%**；剩余 P1：`sessionBound`、prefab/builder/import 全表真机。
+- 免费面对齐度粗估 **~97%**（P1 @ 2026-09-12 01:07:25 UTC+8）；`sessionBound` 已对齐；prefab/builder/import/preview 真机 42/42；剩余见 `evidence/lite-editor-parity-20260912-p1/REMAINING-zh.md`。

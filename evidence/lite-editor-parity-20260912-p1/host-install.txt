@@ -1,0 +1,8 @@
+{
+  "host_src": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\cocos-creator-lite-host-extension\\release\\peanut-pod-lite-host-0.1.0",
+  "host_dst": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\extensions\\peanut-pod-lite-host",
+  "copiedAt": "2026-09-12T01:00:19.738843+08:00",
+  "host_main_bytes": 1056433,
+  "main_path": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\extensions\\peanut-pod-lite-host\\dist\\main.js",
+  "sessionBoundInMain": true
+}

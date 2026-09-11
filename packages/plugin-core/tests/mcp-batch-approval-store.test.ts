@@ -12,6 +12,7 @@ test('McpBatchApprovalStore sessionBound uses longer idle lease', (): void => {
         sessionBound: true,
     });
     assert.equal(issued.idleLeaseMs, McpBatchApprovalStore.sessionIdleLeaseMs);
+    assert.equal(issued.maxHoldMs, McpBatchApprovalStore.sessionMaxHoldMs);
     assert.equal(
         store.tryConsume(issued.token, {
             connectionId: 'b'.repeat(32),

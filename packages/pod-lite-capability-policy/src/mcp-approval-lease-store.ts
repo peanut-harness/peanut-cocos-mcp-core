@@ -20,6 +20,11 @@ export interface IMcpApprovalLeaseRequest {
     /** @description 从签发开始的最长持有时长；缺省使用安全默认值。 */
     readonly maxHoldMs?: number;
     /**
+     * @description 为 true 时使用会话级租约（空闲 5min / 最长 30min；可被显式 idle/max 覆盖）。
+     * 与旧岛 Hub `McpBatchApprovalStore.sessionBound` 对齐。
+     */
+    readonly sessionBound?: boolean;
+    /**
      * @description 可选预置 token（Hub 双写时与 BatchStore approvalToken 对齐）；非法时回退随机签发。
      */
     readonly preferredToken?: string;
@@ -57,6 +62,10 @@ export class McpApprovalLeaseStore {
     public static readonly defaultIdleLeaseMs = 10_000;
     /** @description 默认最长持有时间。 */
     public static readonly defaultMaxHoldMs = 60_000;
+    /** @description 会话绑定空闲租约（与旧岛 BatchStore 对齐，降打扰）。 */
+    public static readonly sessionIdleLeaseMs = 5 * 60_000;
+    /** @description 会话绑定最长持有。 */
+    public static readonly sessionMaxHoldMs = 30 * 60_000;
     /** @description 活动租约；Hub 进程退出即失效。 */
     private readonly leases = new Map<string, IApprovalLeaseRecord>();
 
@@ -65,15 +74,27 @@ export class McpApprovalLeaseStore {
      * @param request 已由编辑器 UI 确认范围的输入。
      * @returns 不可预测租约 token 与绝对过期时间。
      */
-    public issue(request: IMcpApprovalLeaseRequest): { readonly token: string; readonly expiresAt: number } {
+    public issue(request: IMcpApprovalLeaseRequest): {
+        readonly token: string;
+        readonly expiresAt: number;
+        readonly idleLeaseMs: number;
+        readonly maxHoldMs: number;
+    } {
         const connectionId = this.requireText(request.connectionId, 'connection');
         const resources = this.normalize(request.resources);
         if (resources.size === 0) {
             throw new Error('mcp_approval_lease_resources_required');
         }
         const now = Date.now();
-        const idleLeaseMs = this.duration(request.idleLeaseMs, McpApprovalLeaseStore.defaultIdleLeaseMs);
-        const maxHoldMs = Math.max(idleLeaseMs, this.duration(request.maxHoldMs, McpApprovalLeaseStore.defaultMaxHoldMs));
+        const sessionDefaults = request.sessionBound === true;
+        const defaultIdle = sessionDefaults
+            ? McpApprovalLeaseStore.sessionIdleLeaseMs
+            : McpApprovalLeaseStore.defaultIdleLeaseMs;
+        const defaultMax = sessionDefaults
+            ? McpApprovalLeaseStore.sessionMaxHoldMs
+            : McpApprovalLeaseStore.defaultMaxHoldMs;
+        const idleLeaseMs = this.duration(request.idleLeaseMs, defaultIdle);
+        const maxHoldMs = Math.max(idleLeaseMs, this.duration(request.maxHoldMs, defaultMax));
         const preferred =
             typeof request.preferredToken === 'string' ? request.preferredToken.trim() : '';
         const token =
@@ -87,7 +108,7 @@ export class McpApprovalLeaseStore {
             expiresAt: now + maxHoldMs,
             lastUsedAt: now,
         });
-        return { token, expiresAt: now + maxHoldMs };
+        return { token, expiresAt: now + maxHoldMs, idleLeaseMs, maxHoldMs };
     }
 
     /**

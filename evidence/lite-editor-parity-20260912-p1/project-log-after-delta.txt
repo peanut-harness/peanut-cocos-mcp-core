@@ -1,0 +1,24 @@
+2026-9-12 01:05:39 - error: [Window] Can not change the asset "db://assets/__parity_p1_tmp/p1-note-renamed.txt", because the original asset is not exist. Maybe it is a new asset.Error: [Window] Can not change the asset "db://assets/__parity_p1_tmp/p1-note-renamed.txt", because the original asset is not exist. Maybe it is a new asset.
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\build\cjs\utils-hoist\instrument\console.js:38:14)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree-data.ccc:1:4030)
+    at VueComponent.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree.ccc:1:6870)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\panel.ccc:1:9401)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5083
+    at new Promise (<anonymous>)
+    at EventEmitter.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5044)
+    at EventEmitter.emit (node:events:519:28)
+    at IpcRenderer.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@base\electron-base-ipc\dist\renderer.ccc:1:3858)
+    at IpcRenderer.emit (node:events:519:28)
+    at Object.onMessage (node:electron/js2c/renderer_init:2:8837)
+2026-9-12 01:05:46 - error: [Window] Can not change the asset "db://assets/__parity_p1_tmp/p1-note-moved.txt", because the original asset is not exist. Maybe it is a new asset.Error: [Window] Can not change the asset "db://assets/__parity_p1_tmp/p1-note-moved.txt", because the original asset is not exist. Maybe it is a new asset.
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\build\cjs\utils-hoist\instrument\console.js:38:14)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree-data.ccc:1:4030)
+    at VueComponent.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree.ccc:1:6870)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\panel.ccc:1:9401)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5083
+    at new Promise (<anonymous>)
+    at EventEmitter.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5044)
+    at EventEmitter.emit (node:events:519:28)
+    at IpcRenderer.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@base\electron-base-ipc\dist\renderer.ccc:1:3858)
+    at IpcRenderer.emit (node:events:519:28)
+    at Object.onMessage (node:electron/js2c/renderer_init:2:8837)
