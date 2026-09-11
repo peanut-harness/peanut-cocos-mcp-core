@@ -1,0 +1,4 @@
+path_choice=worktree_host_release+worktree_core_release
+host=worktree_release
+core=worktree_release
+note=module_load_file_url_fix_in_plugin-core_bundled_into_host

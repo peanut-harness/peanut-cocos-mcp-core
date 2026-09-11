@@ -1,0 +1,29 @@
+{
+  "writtenAt": "2026-09-11T11:42:53.714Z",
+  "ready": true,
+  "error": null,
+  "coreVersion": "0.1.0",
+  "toolCount": 9,
+  "tools": [
+    "peanut.editor-mcp.builder-query-default-config",
+    "peanut.editor-mcp.builder-query-platforms",
+    "peanut.editor-mcp.builder-query-schema",
+    "peanut.editor-mcp.editor-query-project",
+    "peanut.editor-mcp.editor-query-selection",
+    "peanut.editor-mcp.editor-query-version",
+    "peanut.editor-mcp.preview-query",
+    "peanut.editor-mcp.scene-get-current",
+    "peanut.editor-mcp.scene-get-hierarchy"
+  ],
+  "pro": {
+    "state": "absent",
+    "version": null,
+    "error": null,
+    "services": []
+  },
+  "account": {
+    "state": "signed_out",
+    "recommendedAction": "sign-in",
+    "error": null
+  }
+}

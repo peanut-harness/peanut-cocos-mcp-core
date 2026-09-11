@@ -75,10 +75,35 @@ test('node package module resolver should load an installed CommonJS entry witho
     }
 });
 
-test('node package module resolver should use filesystem paths inside Electron and file URLs in Node ESM', (): void => {
-    const entryPath = join(tmpdir(), 'peanut.ui-prefab.bundle.js');
-    assert.equal(NodePluginPackageModuleResolver.toImportSpecifier(entryPath, '22.3.0'), entryPath);
-    assert.equal(NodePluginPackageModuleResolver.toImportSpecifier(entryPath), pathToFileURL(entryPath).href);
+test('toImportSpecifier always uses pathToFileURL for filesystem paths (win32, posix) and is idempotent for file URLs', (): void => {
+    const win32Path = 'D:\\peanut\\plugins\\main.js';
+    const posixPath = '/var/peanut/plugins/main.js';
+
+    // Delegate to Node pathToFileURL — no hand-rolled drive-letter URLs.
+    assert.equal(
+        NodePluginPackageModuleResolver.toImportSpecifier(win32Path),
+        pathToFileURL(win32Path).href,
+    );
+    assert.equal(
+        NodePluginPackageModuleResolver.toImportSpecifier(posixPath),
+        pathToFileURL(posixPath).href,
+    );
+
+    // Electron must also get file:// (Creator 3.8 ESM loader rejects bare "D:" protocol).
+    assert.equal(
+        NodePluginPackageModuleResolver.toImportSpecifier(win32Path, '22.3.0'),
+        pathToFileURL(win32Path).href,
+    );
+    assert.equal(
+        NodePluginPackageModuleResolver.toImportSpecifier(posixPath, '37.2.1'),
+        pathToFileURL(posixPath).href,
+    );
+    assert.match(NodePluginPackageModuleResolver.toImportSpecifier(win32Path, '22.3.0'), /^file:/);
+
+    // Already file:// — idempotent.
+    const fileUrl = pathToFileURL(win32Path).href;
+    assert.equal(NodePluginPackageModuleResolver.toImportSpecifier(fileUrl), fileUrl);
+    assert.equal(NodePluginPackageModuleResolver.toImportSpecifier(fileUrl, '22.3.0'), fileUrl);
 });
 
 test('node package module resolver should reload an installed CommonJS bundle after its content changes on disk', async (): Promise<void> => {

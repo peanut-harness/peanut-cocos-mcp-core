@@ -1,0 +1,21 @@
+{
+  "status": {
+    "ok": true,
+    "result": {
+      "isAvailable": true,
+      "isEnabled": true,
+      "port": 52935,
+      "preferredPort": 52935,
+      "catalogRevision": 0,
+      "capabilities": [],
+      "disabledPluginIds": [],
+      "writeEnabledPluginIds": [
+        "peanut.editor-mcp"
+      ],
+      "directWriteEnabled": true,
+      "recentCalls": []
+    }
+  },
+  "toolsCount": 0,
+  "listOk": false
+}

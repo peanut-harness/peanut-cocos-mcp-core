@@ -1,0 +1,422 @@
+[
+  {
+    "at": "2026-09-11T12:06:28.765Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:32.782Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:36.789Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:40.810Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:44.822Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:48.838Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:52.856Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:06:56.864Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:00.885Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:04.897Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:08.912Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:12.927Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:16.940Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:20.955Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:24.963Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:28.981Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:32.990Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:37.002Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:41.015Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:45.033Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:49.047Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:53.059Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:07:57.077Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:01.094Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:05.101Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:09.111Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:13.123Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:17.134Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:21.155Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:25.169Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:29.179Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:33.195Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:37.210Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:41.220Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:45.231Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:49.244Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:53.251Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:08:57.265Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:01.276Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:05.285Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:09.304Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:13.322Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:17.340Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:21.358Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:25.376Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:29.396Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:33.404Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:37.619Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:41.635Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:45.646Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:49.660Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:53.670Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:09:57.681Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:01.698Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:05.709Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:09.727Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:13.739Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:17.746Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:21.753Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  },
+  {
+    "at": "2026-09-11T12:10:25.761Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
+  }
+]
