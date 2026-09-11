@@ -112,7 +112,15 @@ const shellMethods = {
     },
 };
 
+function getPluginManagerKernel() {
+    if (!loaded) {
+        return null;
+    }
+    return pluginPanelActivator.getEditorEntry().getPluginManager();
+}
+
 module.exports = {
+    getPluginManagerKernel,
     EXTENSION_NAME,
     async loadPluginManagerShell() {
         // Do not activateInstalledPackages here: peanut.pod-lite is loaded by the

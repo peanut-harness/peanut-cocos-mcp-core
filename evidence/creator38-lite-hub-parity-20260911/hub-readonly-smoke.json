@@ -1,0 +1,242 @@
+{
+  "startedAt": "2026-09-11T12:33:16Z",
+  "hubPort": 52935,
+  "catalogCount": 83,
+  "installation": {
+    "rows": [
+      {
+        "operation": "editor.queryVersion",
+        "tool": "peanut.editor-mcp.editor-query-version",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 12,
+        "slice": "{\"ok\": true, \"result\": {\"raw\": \"3.8.7\", \"major\": 3, \"minor\": 8, \"patch\": 7, \"phase\": \"editor_api_stable\"}}",
+        "inCatalog": true
+      },
+      {
+        "operation": "editor.queryProject",
+        "tool": "peanut.editor-mcp.editor-query-project",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 22,
+        "slice": "{\"ok\": true, \"result\": {\"name\": \"cocos-for-agent\", \"path\": \"D:\\\\workspaces\\\\peanut-agents\\\\test-demos\\\\cocos-for-agent\"}}",
+        "inCatalog": true
+      },
+      {
+        "operation": "editor.querySelection",
+        "tool": "peanut.editor-mcp.editor-query-selection",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 2,
+        "slice": "{\"ok\": true, \"result\": {\"ids\": [], \"items\": [], \"count\": 0}}",
+        "inCatalog": true
+      },
+      {
+        "operation": "scene.getCurrent",
+        "tool": "peanut.editor-mcp.scene-get-current",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 3,
+        "slice": "{\"ok\": true, \"result\": \"58a22c51-24fd-48b5-97e9-123afedff2f2\"}",
+        "inCatalog": true
+      },
+      {
+        "operation": "scene.getHierarchy",
+        "tool": "peanut.editor-mcp.scene-get-hierarchy",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 400,
+        "slice": "{\"ok\": true, \"result\": {\"nodes\": [{\"uuid\": \"58a22c51-24fd-48b5-97e9-123afedff2f2\", \"name\": \"Scene\", \"active\": true, \"path\": \"Scene\", \"children\": []}, {\"uuid\": \"1esj+q5IpMrKfIwU09zNLS\", \"name\": \"Main Light\", \"active\": true, \"path\": \"Scene/Main Light\", \"children\": []}, {\"uuid\": \"6e5rOWu7hAD4WILx/Qixuo\", \"name\": \"Main Camera\", \"active\": true, \"path\": \"Scene/Main Camera\", \"children\": []}], \"count\": 3, \"availability\": \"fallback\"}}",
+        "inCatalog": true
+      },
+      {
+        "operation": "builder.queryPlatforms",
+        "tool": "peanut.editor-mcp.builder-query-platforms",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 15,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"message\": \"builder_query_platforms_ok:query-platform-config\", \"data\": {\"order\": [\"android\", \"google-play\", \"ohos\", \"harmonyos-next\", \"huawei-agc\", \"ios\", \"windows\", \"mac\", \"alipay-mini-game\", \"taobao-mini-game\", \"bytedance-mini-game\", \"oppo-mini-game\", \"huawei-quick-game\", \"migu-mini-game\", \"honor-mini-game\", \"vivo-mini-game\", \"xiaomi-quick-game\", \"wechatgame\", \"fb-instant-games\", \"web-desktop\", \"web-mobile\"], \"native\": [\"android\", \"google-play\", \"ohos",
+        "inCatalog": true
+      },
+      {
+        "operation": "builder.querySchema",
+        "tool": "peanut.editor-mcp.builder-query-schema",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 15,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"message\": \"builder_query_schema_ok:query-platform-config\", \"data\": {\"order\": [\"android\", \"google-play\", \"ohos\", \"harmonyos-next\", \"huawei-agc\", \"ios\", \"windows\", \"mac\", \"alipay-mini-game\", \"taobao-mini-game\", \"bytedance-mini-game\", \"oppo-mini-game\", \"huawei-quick-game\", \"migu-mini-game\", \"honor-mini-game\", \"vivo-mini-game\", \"xiaomi-quick-game\", \"wechatgame\", \"fb-instant-games\", \"web-desktop\", \"web-mobile\"], \"native\": [\"android\", \"google-play\", \"ohos\", ",
+        "inCatalog": true
+      },
+      {
+        "operation": "builder.queryDefaultConfig",
+        "tool": "peanut.editor-mcp.builder-query-default-config",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 15,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"message\": \"builder_query_default_config_ok:query-tasks-info\", \"data\": {\"queue\": {}, \"list\": [], \"free\": true}, \"availability\": \"live\"}}",
+        "inCatalog": true
+      },
+      {
+        "operation": "preview.query",
+        "tool": "peanut.editor-mcp.preview-query",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 174,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"source\": \"live\", \"message\": \"preview_query_ok:preview.query-preview-url\", \"url\": \"http://192.168.1.146:7456\", \"startScene\": \"c4e9fdbf-a89c-4605-9a7f-cd8e4a24006d\", \"startScenePath\": \"assets/start/startScene.scene\", \"startSceneDbPath\": \"db://assets/start/startScene.scene\", \"availability\": \"live\"}}",
+        "inCatalog": true
+      }
+    ],
+    "pass": 9,
+    "fail": 0
+  },
+  "batchAReadonly": {
+    "rows": [
+      {
+        "batch": "A-readonly",
+        "operation": "editor.queryVersion",
+        "tool": "peanut.editor-mcp.editor-query-version",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 25,
+        "slice": "{\"ok\": true, \"result\": {\"raw\": \"3.8.7\", \"major\": 3, \"minor\": 8, \"patch\": 7, \"phase\": \"editor_api_stable\"}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "editor.queryProject",
+        "tool": "peanut.editor-mcp.editor-query-project",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 14,
+        "slice": "{\"ok\": true, \"result\": {\"name\": \"cocos-for-agent\", \"path\": \"D:\\\\workspaces\\\\peanut-agents\\\\test-demos\\\\cocos-for-agent\"}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "editor.querySelection",
+        "tool": "peanut.editor-mcp.editor-query-selection",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 15,
+        "slice": "{\"ok\": true, \"result\": {\"ids\": [], \"items\": [], \"count\": 0}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "scene.getCurrent",
+        "tool": "peanut.editor-mcp.scene-get-current",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 17,
+        "slice": "{\"ok\": true, \"result\": \"58a22c51-24fd-48b5-97e9-123afedff2f2\"}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "scene.getHierarchy",
+        "tool": "peanut.editor-mcp.scene-get-hierarchy",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 386,
+        "slice": "{\"ok\": true, \"result\": {\"nodes\": [{\"uuid\": \"58a22c51-24fd-48b5-97e9-123afedff2f2\", \"name\": \"Scene\", \"active\": true, \"path\": \"Scene\", \"children\": []}, {\"uuid\": \"1esj+q5IpMrKfIwU09zNLS\", \"name\": \"Main Light\", \"active\": true, \"path\": \"Scene/Main Light\", \"children\": []}, {\"uuid\": \"6e5rOWu7hAD4WILx/Qixuo\", \"name\": \"Main Camera\", \"active\": true, \"path\": \"Scene/Main Camera\", \"children\": []}], \"count\": 3, \"availability\": \"fallback\"}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "scene.queryCurrentEditorResource",
+        "tool": "peanut.editor-mcp.scene-query-current-editor-resource",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 28,
+        "slice": "{\"ok\": true, \"result\": {\"uuid\": null, \"url\": null, \"resource\": null, \"restorePlan\": {\"kind\": \"skip\", \"reason\": \"editor_resource_restore_skipped:unresolved\"}, \"canOpenAsScene\": false}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "scene.resolvePrefabRootUuid",
+        "tool": "peanut.editor-mcp.scene-resolve-prefab-root-uuid",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 13,
+        "slice": "{\"ok\": true, \"result\": {\"rootName\": \"BatchPanel_01\", \"rootUuid\": null, \"unresolved\": true}}",
+        "inCatalog": true,
+        "inputNote": "retried with prefabRelativePath"
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "scene.queryNode",
+        "tool": "peanut.editor-mcp.scene-query-node",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 390,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"message\": \"scene_query_node_not_found\", \"data\": {\"path\": \"/\", \"node\": null}, \"availabilityHint\": \"fallback\", \"availability\": \"fallback\"}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "asset.waitReady",
+        "tool": "peanut.editor-mcp.asset-wait-ready",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 14,
+        "slice": "{\"ok\": true, \"result\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 0, \"status\": \"ready\"}}",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "asset.catalog.summary",
+        "tool": "peanut.editor-mcp.asset-catalog-summary",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 16,
+        "slice": "{\"ok\": true, \"result\": {\"generatedAt\": \"2026-09-06T00:16:35.557Z\", \"counts\": {\"script\": 1246, \"image\": 354, \"spriteFrame\": 345, \"texture\": 354, \"prefab\": 90, \"scene\": 33, \"config\": 205, \"audio\": 23, \"video\": 0, \"spine\": 9, \"dragonBones\": 0, \"cubeMap\": 0, \"tiledMap\": 0, \"particle\": 1, \"spriteAtlas\": 1, \"autoAtlas\": 22, \"font\": 13, \"directory\": 503, \"material\": 2, \"animationClip\": 3, \"animationGraph\": 0, \"physicsMaterial\": 0, \"terrain\": 0, \"effect\": 1, \"model\": 0, \"mesh\": 0, \"renderTexture\": 0, \"r",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "builder.queryPlatforms",
+        "tool": "peanut.editor-mcp.builder-query-platforms",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 15,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"message\": \"builder_query_platforms_ok:query-platform-config\", \"data\": {\"order\": [\"android\", \"google-play\", \"ohos\", \"harmonyos-next\", \"huawei-agc\", \"ios\", \"windows\", \"mac\", \"alipay-mini-game\", \"taobao-mini-game\", \"bytedance-mini-game\", \"oppo-mini-game\", \"huawei-quick-game\", \"migu-mini-game\", \"honor-mini-game\", \"vivo-mini-game\", \"xiaomi-quick-game\", \"wechatgame\", \"fb-instant-games\", \"web-desktop\", \"web-mobile\"], \"native\": [\"android\", \"google-play\", \"ohos",
+        "inCatalog": true
+      },
+      {
+        "batch": "A-readonly",
+        "operation": "preview.query",
+        "tool": "peanut.editor-mcp.preview-query",
+        "httpStatus": 200,
+        "ok": true,
+        "error": null,
+        "ms": 157,
+        "slice": "{\"ok\": true, \"result\": {\"available\": true, \"source\": \"live\", \"message\": \"preview_query_ok:preview.query-preview-url\", \"url\": \"http://192.168.1.146:7456\", \"startScene\": \"c4e9fdbf-a89c-4605-9a7f-cd8e4a24006d\", \"startScenePath\": \"assets/start/startScene.scene\", \"startSceneDbPath\": \"db://assets/start/startScene.scene\", \"availability\": \"live\"}}",
+        "inCatalog": true
+      }
+    ],
+    "pass": 12,
+    "fail": 0,
+    "missingFromCatalog": 0
+  },
+  "finishedAt": "2026-09-11T12:33:18Z"
+}

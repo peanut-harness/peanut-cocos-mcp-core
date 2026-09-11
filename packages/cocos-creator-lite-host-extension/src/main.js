@@ -7,6 +7,7 @@ const { LiteAccountController, createSignedOutAccount } = require('./account-con
 const { CpmPackageStore } = require('./cpm-package-store');
 const { createLiteGrantedRuntime, createLiteReadRuntime } = require('./lite-granted-runtime');
 const {
+    getPluginManagerKernel,
     getPluginManagerMethods,
     loadPluginManagerShell,
     unloadPluginManagerShell,
@@ -17,11 +18,14 @@ const { SystemProtectedKeyStore } = require('./system-protected-key-store');
 
 const CORE_PLUGIN_ID = 'peanut.pod-lite';
 const PRO_PLUGIN_ID = 'peanut.cocos-mcp-pro';
+const HUB_CAPABILITY_PLUGIN_ID = 'peanut.editor-mcp';
 const RUNTIME_DIR_NAME = 'runtime';
 
 let coreModule = null;
 let proModule = null;
 let toolHandlers = new Map();
+let hubCapabilityDisposers = [];
+let hubPublishedCount = 0;
 const serviceRegistry = new PluginServiceRegistry();
 let protectedKeyStore = null;
 let accountController = null;
@@ -41,6 +45,90 @@ function requireProjectPath() {
 
 function createRuntime() {
     return createLiteReadRuntime();
+}
+
+
+function disposeHubCapabilityRegistrations() {
+    while (hubCapabilityDisposers.length > 0) {
+        const dispose = hubCapabilityDisposers.pop();
+        try {
+            dispose?.();
+        } catch (error) {
+            getEditor()?.warn?.(`[peanut-pod-lite] hub_capability_dispose_failed:${normalizeError(error)}`);
+        }
+    }
+    hubPublishedCount = 0;
+}
+
+function toHubCapabilityDefinition(definition) {
+    if (definition == null || typeof definition.name !== 'string') {
+        throw new Error('peanut_cocos_mcp_core_hub_definition_invalid');
+    }
+    if (!definition.name.startsWith(`${HUB_CAPABILITY_PLUGIN_ID}.`)) {
+        throw new Error(`peanut_cocos_mcp_core_hub_name_not_scoped:${definition.name}`);
+    }
+    const readOnly = definition.readOnly === true;
+    const risk = definition.risk === 'destructive' || definition.risk === 'write' || definition.risk === 'read'
+        ? definition.risk
+        : (readOnly ? 'read' : 'write');
+    if ((risk === 'read') !== readOnly) {
+        throw new Error(`peanut_cocos_mcp_core_hub_risk_mismatch:${definition.name}`);
+    }
+    return Object.freeze({
+        name: definition.name,
+        description: typeof definition.description === 'string' && definition.description.trim().length > 0
+            ? definition.description
+            : `Lite capability: ${definition.name}`,
+        category: 'cocos',
+        inputSchema: definition.inputSchema,
+        readOnly,
+        risk,
+    });
+}
+
+/**
+ * Bridge Lite CPM toolHandlers into Plugin Manager McpCapabilityRegistry so
+ * CocosMcpHub (:52935) can list/call the same public surface as host-status.
+ * pluginId must be peanut.editor-mcp because tool names are scoped that way
+ * (same as the reference editor-mcp island + writeEnabledPluginIds settings).
+ */
+function publishToolsToHubRegistry() {
+    disposeHubCapabilityRegistrations();
+    const pluginManager = getPluginManagerKernel();
+    if (pluginManager == null) {
+        getEditor()?.warn?.('[peanut-pod-lite] hub_capability_registry_unavailable');
+        return Object.freeze({ published: 0, error: 'plugin_manager_kernel_unavailable' });
+    }
+    const registry = pluginManager.getMcpCapabilityRegistry();
+    if (registry == null || typeof registry.register !== 'function') {
+        getEditor()?.warn?.('[peanut-pod-lite] hub_capability_registry_missing');
+        return Object.freeze({ published: 0, error: 'mcp_capability_registry_missing' });
+    }
+    // Keep Hub settings as source of truth for write exposure (already applied at shell bootstrap).
+    // Re-assert peanut.editor-mcp exposure if settings enabled writes so catalog is not read-only-only.
+    try {
+        const hubControl = pluginManager.getMcpHubControl?.();
+        const writeEnabled = hubControl?.getStatus?.()?.writeEnabledPluginIds ?? [];
+        if (Array.isArray(writeEnabled) && writeEnabled.includes(HUB_CAPABILITY_PLUGIN_ID)) {
+            registry.setPluginExposure?.(HUB_CAPABILITY_PLUGIN_ID, 'all');
+        }
+    } catch (error) {
+        getEditor()?.warn?.(`[peanut-pod-lite] hub_exposure_reassert_failed:${normalizeError(error)}`);
+    }
+    let published = 0;
+    for (const entry of toolHandlers.values()) {
+        const definition = toHubCapabilityDefinition(entry.definition);
+        const handler = entry.handler;
+        hubCapabilityDisposers.push(
+            registry.register(HUB_CAPABILITY_PLUGIN_ID, definition, async (input, invocation) => {
+                return handler(input, invocation);
+            }),
+        );
+        published += 1;
+    }
+    hubPublishedCount = published;
+    getEditor()?.log?.(`[peanut-pod-lite] hub_capabilities_published:${published}`);
+    return Object.freeze({ published, error: null });
 }
 
 function createRegistry() {
@@ -143,6 +231,9 @@ async function load() {
         await loadPluginManagerShell();
         const packageStore = new CpmPackageStore(requireProjectPath());
         const coreVersion = await activateCore(packageStore);
+        // Publish first-class tools into Plugin Manager registry so Hub list/status
+        // matches host toolCount (reference island path: editor-mcp context.mcp.register).
+        publishToolsToHubRegistry();
         const pro = await activateOptionalPro(packageStore);
         accountController = new LiteAccountController({
             projectPath: requireProjectPath(),
@@ -202,6 +293,7 @@ async function deactivateModules() {
     } catch (error) {
         deactivationErrors.push(`core:${normalizeError(error)}`);
     } finally {
+        disposeHubCapabilityRegistrations();
         coreModule = null;
         toolHandlers = new Map();
         serviceRegistry.clear();
@@ -261,6 +353,7 @@ function writeHostStatusReport() {
             error: hostStatus.error,
             coreVersion: hostStatus.coreVersion,
             toolCount: hostStatus.tools.length,
+            hubPublishedCount,
             tools: hostStatus.tools,
             pro: hostStatus.pro,
             account: {
@@ -309,6 +402,7 @@ async function runStartupSmokeAndWriteReport() {
         startedAt,
         ready: hostStatus.ready,
         toolCount: hostStatus.tools.length,
+        hubPublishedCount,
         gatewayWired: hostStatus.tools.length >= 83,
         passed: results.filter((item) => item.ok).length,
         failed: failed.length,

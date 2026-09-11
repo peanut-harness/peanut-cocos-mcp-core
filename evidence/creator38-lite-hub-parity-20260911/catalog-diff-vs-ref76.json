@@ -1,0 +1,30 @@
+{
+  "liteCount": 83,
+  "refCount": 76,
+  "overlap": 69,
+  "onlyInReference": [
+    "peanut.content-delivery.get-capabilities",
+    "peanut.content-delivery.verify-manifest",
+    "peanut.editor-mcp.preview-capture",
+    "peanut.editor-mcp.snowb-bmfont-export",
+    "peanut.sdf-font.generate",
+    "peanut.ui-prefab.get-capabilities",
+    "snowb.bmfont.inspect-font"
+  ],
+  "onlyInLite": [
+    "peanut.editor-mcp.asset-copy",
+    "peanut.editor-mcp.asset-create-folder",
+    "peanut.editor-mcp.asset-delete",
+    "peanut.editor-mcp.asset-ensure-sprite-frames-batch",
+    "peanut.editor-mcp.asset-move",
+    "peanut.editor-mcp.asset-reimport",
+    "peanut.editor-mcp.asset-rename",
+    "peanut.editor-mcp.asset-replace-references",
+    "peanut.editor-mcp.asset-wait-ready",
+    "peanut.editor-mcp.asset-write-text",
+    "peanut.editor-mcp.lumen-bind-controller",
+    "peanut.editor-mcp.lumen-lod-recalc-bounds",
+    "peanut.editor-mcp.reference-query-image",
+    "peanut.editor-mcp.reference-set-image"
+  ]
+}
