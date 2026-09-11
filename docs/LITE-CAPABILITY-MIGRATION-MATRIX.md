@@ -1,14 +1,14 @@
 # Lite 能力迁移矩阵
 
-更新时间：2026-09-10。源实现参考为 `peanut-agents/products/cocos/editor/plugins/integrations/editor-mcp`；状态统计当前 `peanut-pod-lite` Creator host 是否已把 Lite 公开 operation 接到 `EditorMcpGatewayAdapter`。Creator 3.8 实机冒烟仍未验证。
+更新时间：2026-09-12。源实现参考为 `peanut-agents/products/cocos/editor/plugins/integrations/editor-mcp`；状态统计当前 `peanut-pod-lite` Creator host 是否已把 Lite 公开 operation 接到 `EditorMcpGatewayAdapter`。 **Creator 3.8.7 实机冒烟/毕业（host-verified）已具备证据**：`evidence/creator38-lite-graduation-20260912/`（83/83 带参全表；网关齐；quiet-gate；Pro 未注册）。诚实边界：host-verified 指网关/租约/执行路径打通，不等于每条业务语义零错误。
 
 ## 总览
 
 | 范围 | 总数 | 网关已接入 | 尚未接入 | 说明 |
 | --- | ---: | ---: | ---: | --- |
-| 只读 | 36 | 36 | 0 | 有网关时由 `EditorMcpGatewayAdapter` 注册；无网关时仍回退 9 项 `CoreCocosCreatorReadAdapter` |
-| 本地审批写入/破坏性 | 47 | 47 | 0 | 写入走 dispatcher 审批租约 + 网关 router 端口 |
-| Lite 合计 | 83 | 83 | 0 | 83 项网关已接线；Creator 实机冒烟仍未验证 |
+| 只读 | 38 | 38 | 0 | 含 `asset.importPlan`/`asset.managedStatus`（P2 迁回 read）；有网关时由 `EditorMcpGatewayAdapter` 注册；无网关时仍回退 9 项 `CoreCocosCreatorReadAdapter` |
+| 本地审批写入/破坏性 | 45 | 45 | 0 | 写入走 dispatcher 审批租约 + 网关 router 端口 |
+| Lite 合计 | 83 | 83 | 0 | 83 项网关已接线；**Creator 3.8.7 host-verified 毕业证据已落盘** |
 
 `preview.capture` 不在 Lite 范围内，属于 Pro；SnowB 同样排除，不得注册。
 

@@ -6,7 +6,7 @@
 
 | 源模块 | 迁入范围 | 当前状态 |
 | --- | --- | --- |
-| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；Creator host 在注入 `EditorMcpGatewayAdapter` 时注册全部 83 项（排除 preview.capture 与 snowb）；无网关时回退 9 项读取。Creator 实机冒烟仍未验证 |
+| `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；Creator host 在注入 `EditorMcpGatewayAdapter` 时注册全部 83 项（排除 preview.capture 与 snowb）；无网关时回退 9 项读取。 **Creator 3.8.7 实机冒烟/毕业（host-verified）证据**：`evidence/creator38-lite-graduation-20260912/`（83/83；读最小必填 + 写无租约拒批/有租约执行；quiet-gate；builder web-desktop+）。边界：路径打通 ≠ 业务语义全绿 |
 | `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | `packages/lumen` + `lumen-24` 已迁入并可构建；模板随 Lite 目录包打包；缓存识别仍在 lumen-template-cache |
 | `ui/panel` | 通用宿主壳与生命周期 | `packages/plugin-panel` 已迁入；`creator-24-host` / `creator-35-host` / 3.8 host 可打包（24/35 未 Creator 实机验证） |
 
@@ -46,7 +46,7 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 - 空参只读冒烟：约 20 项无参可读通过（version/project/scene/builder/catalog.summary 等）；其余缺必填字段的只读为预期 skip/schema refuse，不是网关未接线。
 - Pro `state=active`，9 个付费服务均已注册；非 editor-mcp 调用方拒绝；无本地审批时 `preview.capture` fail-closed。
 - 写入仍需本地审批租约；不得把空参写入失败记成回归。
-- 未对全部 83 项做带参 parity / Creator GUI 人工验收；不得夸大成全量 host-verified。
+- 2026-09-12 已对全部 83 项做 Creator 3.8.7 带参 host-verified 毕业全表（`evidence/creator38-lite-graduation-20260912/`）；仍勿夸大为「业务语义全绿 / GUI 人工验收完成」。
 
 ## 2026-09-09 验证记录
 
@@ -56,7 +56,7 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 - Lite 目录包和 Creator 扩展在 Windows 打包成功，制品入口及生命周期回归测试通过。
 - 新增 6 项只读 Message 适配器单测通过；缺少 Message 端口时 fail-closed，候选消息失败不会产生写入副作用。
 - 已安装到用户指定的 `D:/workspaces/peanut-agents/test-demos/cocos-for-agent`，并通过该工程 MCP 的 query-project 确认实际路径。
-- 首次 Creator 3.8.7 加载暴露 `plugin_module_export_missing`，已补 register 并替换测试制品；修正版实机加载仍待工程重启复验。不得记录为 host-verified。
+- 首次 Creator 3.8.7 加载暴露 `plugin_module_export_missing`，已补 register 并替换测试制品；后续软关重启与 2026-09-12 毕业全表已覆盖复验（见 graduation 证据）。
 - 本轮打包时检测到多个 Creator 3.8.7 进程仍在运行，按宿主规范未覆盖测试工程中的活动扩展；9 项新制品已生成，待关闭或重启目标工程后安装复验。
 - 工程当前还存在 `app-qa-wasm-backend.ts` 无法导入 `./app-qa-observe-buffer` 的 QA 资产错误；该资产不属于本轮 Pod 源码变更。
 - 旧测试包保存在工程 `temp/pod-migration-backup/lite-before-register-fix`；现有其它插件和资产未被替换。
@@ -75,7 +75,7 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 - 无网关时保持原 9 项 `CoreCocosCreatorReadAdapter` 读取，兼容既有 mock runtime 测试。
 - 写入注册时把 `connectionId` + 解析后的 `resources` 交给 dispatcher，继续消费本地审批租约。
 - 目录包打包改为本包 esbuild JS API，不再读取 `PEANUT_COCOS_EDITOR_ROOT`。
-- Creator 3.8.7 实机冒烟仍未验证；不得记录为 host-verified。
+- Creator 3.8.7 实机冒烟/毕业（host-verified）证据已落盘：`evidence/creator38-lite-graduation-20260912/`（83/83；路径打通 ≠ 业务语义全绿）。
 
 ## 2026-09-12 Lite↔editor 免费面对齐
 
