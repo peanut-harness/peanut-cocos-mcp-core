@@ -1,0 +1,2851 @@
+{
+  "status": {
+    "ok": true,
+    "result": {
+      "isAvailable": true,
+      "isEnabled": true,
+      "port": 52935,
+      "preferredPort": 52935,
+      "catalogRevision": 84,
+      "capabilities": [
+        {
+          "name": "peanut.editor-mcp.asset-audit-unmanaged-writes",
+          "description": "Read-only Cocos MCP capability: asset.auditUnmanagedWrites.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pathContains": {
+                "type": "string",
+                "description": "路径子串过滤。"
+              },
+              "modifiedSince": {
+                "type": "string",
+                "description": "仅报告该 ISO 时间之后修改的文件。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限（默认 50，最大 200）。"
+              },
+              "includeGit": {
+                "type": "boolean",
+                "description": "为 true 时尽力附加 git status --porcelain assets。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-catalog-lookup",
+          "description": "Read-only Cocos MCP capability: asset.catalog.lookup.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "精确 UUID；提供时忽略其它过滤条件。"
+              },
+              "type": {
+                "type": "string",
+                "description": "类型分桶，如 script/prefab/spriteFrame。"
+              },
+              "name": {
+                "type": "string",
+                "description": "文件名子串。"
+              },
+              "path": {
+                "type": "string",
+                "description": "路径子串。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限（默认 20，最大 50）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-catalog-refresh",
+          "description": "Locally-approved Cocos MCP capability: asset.catalog.refresh.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-catalog-summary",
+          "description": "Read-only Cocos MCP capability: asset.catalog.summary.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-copy",
+          "description": "Locally-approved Cocos MCP capability: asset.copy.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "待复制资源相对路径列表（种子；依赖闭包会一并复制并换新 uuid）。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "targetDirectory": {
+                "type": "string",
+                "description": "复制产物根目录（db://assets/... 或工程相对路径）。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "paths",
+              "targetDirectory"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-create-folder",
+          "description": "Locally-approved Cocos MCP capability: asset.createFolder.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "待创建文件夹相对路径；缺失的父目录会一并创建。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-delete",
+          "description": "Locally-approved Cocos MCP capability: asset.delete.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "待删除资源相对路径列表（文件或文件夹，递归）。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "paths"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "destructive"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-ensure-sprite-frames-batch",
+          "description": "Locally-approved Cocos MCP capability: asset.ensureSpriteFramesBatch.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "dbPaths": {
+                "type": "array",
+                "description": "db://assets/... 或 assets/... 的 PNG 路径列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "refreshRoot": {
+                "type": "string",
+                "description": "可选批量刷新根；省略则逐项 refresh-asset 并等待就绪。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "dbPaths"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-find-referencing-nodes",
+          "description": "Read-only Cocos MCP capability: asset.findReferencingNodes.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "目标资源 uuid；missingOnly 时可省略或作二次筛选。"
+              },
+              "missingOnly": {
+                "type": "boolean",
+                "description": "为 true 时只返回引用 unresolved uuid 的节点。"
+              },
+              "assetPath": {
+                "type": "string",
+                "description": "限定 Prefab/Scene 路径。"
+              },
+              "nodeNameContains": {
+                "type": "string",
+                "description": "按节点名称子串二次筛选。"
+              },
+              "nodePathContains": {
+                "type": "string",
+                "description": "按节点路径子串二次筛选。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限（默认 50，最大 200）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-import",
+          "description": "Locally-approved Cocos MCP capability: asset.import.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sources": {
+                "type": "array",
+                "description": "待导入的源文件路径列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "target": {
+                "type": "string",
+                "description": "目标 db://assets/... 目录。"
+              },
+              "mode": {
+                "type": "string",
+                "description": "覆盖模式；override 等价 overwrite:true。"
+              },
+              "overwrite": {
+                "type": "boolean",
+                "description": "是否覆盖已有资源（destructive）。"
+              },
+              "dependencyMap": {
+                "type": "object",
+                "description": "显式依赖表。",
+                "additionalProperties": true
+              },
+              "concurrency": {
+                "type": "integer",
+                "description": "层内并发度（1–8）。"
+              },
+              "refreshAfter": {
+                "type": "boolean",
+                "description": "层后是否刷新并等待 AssetDB；默认 true。"
+              },
+              "allowMissingDependencies": {
+                "type": "boolean",
+                "description": "是否允许缺失依赖继续；默认 false。"
+              },
+              "expandClosure": {
+                "type": "boolean",
+                "description": "是否展开依赖闭包；默认 true。"
+              },
+              "planId": {
+                "type": "string",
+                "description": "asset.importPlan 返回的 planId；受管模式建议提供。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "sources",
+              "target"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-import-plan",
+          "description": "Locally-approved Cocos MCP capability: asset.importPlan.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "sources": {
+                "type": "array",
+                "description": "待分析的源文件路径列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "dependencyMap": {
+                "type": "object",
+                "description": "显式依赖表。",
+                "additionalProperties": true
+              },
+              "expandClosure": {
+                "type": "boolean",
+                "description": "是否从磁盘展开依赖闭包；默认 true。"
+              }
+            },
+            "required": [
+              "sources"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-managed-status",
+          "description": "Locally-approved Cocos MCP capability: asset.managedStatus.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "targets": {
+                "type": "array",
+                "description": "目标 db://assets/... 路径列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              }
+            },
+            "required": [
+              "targets"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-move",
+          "description": "Locally-approved Cocos MCP capability: asset.move.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "description": "源相对路径（文件或文件夹）。"
+              },
+              "to": {
+                "type": "string",
+                "description": "目标相对路径；不得已存在。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-open",
+          "description": "Locally-approved Cocos MCP capability: asset.open.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "标准或压缩 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "db:// 或相对路径。"
+              },
+              "url": {
+                "type": "string",
+                "description": "与 path 同义。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-query-compatible-types",
+          "description": "Read-only Cocos MCP capability: asset.queryCompatibleTypes.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "typeName": {
+                "type": "string",
+                "description": "显式类型名，如 SpriteFrame / cc.Node。"
+              },
+              "scriptRelativePath": {
+                "type": "string",
+                "description": "脚本相对路径；与 field 联用。"
+              },
+              "field": {
+                "type": "string",
+                "description": "脚本字段名。"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "资源 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "资源 path。"
+              },
+              "url": {
+                "type": "string",
+                "description": "与 path 同义。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "catalog 命中上限。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-query-dependencies",
+          "description": "Read-only Cocos MCP capability: asset.queryDependencies.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "dbPath": {
+                "type": "string",
+                "description": "db://assets/... 路径。"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "标准或压缩 uuid。"
+              },
+              "direction": {
+                "type": "string",
+                "description": "查询方向。",
+                "enum": [
+                  "dependencies",
+                  "dependents",
+                  "both"
+                ]
+              },
+              "refreshIndex": {
+                "type": "boolean",
+                "description": "是否强制重建索引。"
+              },
+              "expand": {
+                "type": "array",
+                "description": "依赖展开；目前支持 materialTextures（材质→贴图二跳）。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-query-info",
+          "description": "Read-only Cocos MCP capability: asset.queryInfo.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pathOrUuid": {
+                "type": "string",
+                "description": "资源路径或 UUID。"
+              },
+              "paths": {
+                "type": "array",
+                "description": "批量路径列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "uuids": {
+                "type": "array",
+                "description": "批量 UUID 列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-query-inheritance",
+          "description": "Read-only Cocos MCP capability: asset.queryInheritance.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "标准或压缩 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "db:// 或相对路径。"
+              },
+              "url": {
+                "type": "string",
+                "description": "与 path 同义的 url。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-query-property-schema",
+          "description": "Read-only Cocos MCP capability: asset.queryPropertySchema.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "标准或压缩 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "db:// 或相对路径。"
+              },
+              "url": {
+                "type": "string",
+                "description": "与 path 同义的 url。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-reimport",
+          "description": "Locally-approved Cocos MCP capability: asset.reimport.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "可选相对路径列表；省略则刷新 db://assets。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "path": {
+                "type": "string",
+                "description": "单路径别名；会并入 paths。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-rename",
+          "description": "Locally-approved Cocos MCP capability: asset.rename.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "待重命名资源相对路径（文件或文件夹）。"
+              },
+              "newName": {
+                "type": "string",
+                "description": "新文件/文件夹名（不含路径分隔符）。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "path",
+              "newName"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-replace-references",
+          "description": "Locally-approved Cocos MCP capability: asset.replaceReferences.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fromUuid": {
+                "type": "string",
+                "description": "被替换 uuid（可带 @sub）。"
+              },
+              "toUuid": {
+                "type": "string",
+                "description": "目标 uuid（可带 @sub）。"
+              },
+              "pathContains": {
+                "type": "string",
+                "description": "路径子串过滤。"
+              },
+              "dryRun": {
+                "type": "boolean",
+                "description": "只报告不写盘。"
+              },
+              "allowMissingTarget": {
+                "type": "boolean",
+                "description": "允许目标 uuid 不在 catalog。"
+              },
+              "refreshIndex": {
+                "type": "boolean",
+                "description": "强制重建依赖索引。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "fromUuid",
+              "toUuid"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "destructive"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-resolve",
+          "description": "Read-only Cocos MCP capability: asset.resolve.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "标准或压缩 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "db:// 或相对路径。"
+              },
+              "url": {
+                "type": "string",
+                "description": "与 path 同义的 url。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-scan-missing-references",
+          "description": "Read-only Cocos MCP capability: asset.scanMissingReferences.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pathContains": {
+                "type": "string",
+                "description": "路径子串过滤。"
+              },
+              "type": {
+                "type": "string",
+                "description": "类型分桶过滤。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限（默认 50，最大 200）。"
+              },
+              "refreshIndex": {
+                "type": "boolean",
+                "description": "是否强制重建索引。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-search",
+          "description": "Read-only Cocos MCP capability: asset.search.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "description": "搜索模式。",
+                "enum": [
+                  "name",
+                  "uuid",
+                  "path",
+                  "type",
+                  "dependencies",
+                  "dependents",
+                  "missing",
+                  "bundle"
+                ]
+              },
+              "query": {
+                "type": "string",
+                "description": "查询文本（name/path/bundle/type）或 uuid。"
+              },
+              "path": {
+                "type": "string",
+                "description": "依赖查询目标 path。"
+              },
+              "uuid": {
+                "type": "string",
+                "description": "依赖查询目标 uuid。"
+              },
+              "pathContains": {
+                "type": "string",
+                "description": "路径子串过滤（文件夹范围，如 assets/ui）。"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限（默认 20，最大 50）。"
+              }
+            },
+            "required": [
+              "mode"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-wait-ready",
+          "description": "Read-only Cocos MCP capability: asset.waitReady.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "timeoutMs": {
+                "type": "integer",
+                "description": "最长等待毫秒；默认 1500。"
+              },
+              "intervalMs": {
+                "type": "integer",
+                "description": "轮询间隔毫秒；默认 40。"
+              },
+              "throwOnTimeout": {
+                "type": "boolean",
+                "description": "超时是否抛错；默认 false。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.asset-write-text",
+          "description": "Locally-approved Cocos MCP capability: asset.writeText.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "单文件相对路径（assets/...）；与 files 二选一。"
+              },
+              "content": {
+                "type": "string",
+                "description": "单文件 UTF-8 内容；与 path 成对。"
+              },
+              "files": {
+                "type": "array",
+                "description": "批量文本文件；提供时忽略 path/content。",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "description": "相对路径（assets/...）。"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "UTF-8 文本。"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "content"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.builder-build",
+          "description": "Locally-approved Cocos MCP capability: builder.build.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "description": "平台 id（如 web-desktop）。"
+              },
+              "options": {
+                "type": "object",
+                "description": "可选构建配置覆盖（透传 Creator）。",
+                "additionalProperties": true
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "platform"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.builder-query-default-config",
+          "description": "Read-only Cocos MCP capability: builder.queryDefaultConfig.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "description": "平台 id。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.builder-query-platforms",
+          "description": "Read-only Cocos MCP capability: builder.queryPlatforms.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "可选平台名子串过滤。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.builder-query-schema",
+          "description": "Read-only Cocos MCP capability: builder.querySchema.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "description": "平台 id；省略时返回通用 schema。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.editor-query-project",
+          "description": "Read-only Cocos MCP capability: editor.queryProject.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.editor-query-selection",
+          "description": "Read-only Cocos MCP capability: editor.querySelection.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.editor-query-version",
+          "description": "Read-only Cocos MCP capability: editor.queryVersion.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.editor-set-selection",
+          "description": "Locally-approved Cocos MCP capability: editor.setSelection.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "节点路径列表（优先）。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "ids": {
+                "type": "array",
+                "description": "节点 uuid / id 列表。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "clear": {
+                "type": "boolean",
+                "description": "为 true 时清空选区。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.issue-local-approval-lease",
+          "description": "Issue a one-shot local approval lease for Lite native writes (approvalId / approvalToken aliases).",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "connectionId": {
+                "type": "string",
+                "description": "Bridge connection id (32-hex). Defaults to invocation connectionId."
+              },
+              "resources": {
+                "type": "array",
+                "description": "Normalized resources this lease may touch.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "operations": {
+                "type": "array",
+                "description": "Optional operation/tool whitelist; empty means any write on this connection.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "maxRisk": {
+                "type": "string",
+                "description": "write or destructive."
+              },
+              "idleLeaseMs": {
+                "type": "number",
+                "description": "Idle lease ms."
+              },
+              "maxHoldMs": {
+                "type": "number",
+                "description": "Max hold ms from issue."
+              }
+            },
+            "required": [
+              "resources"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-asset-set",
+          "description": "Locally-approved Cocos MCP capability: lumen.assetSet.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "props": {
+                "type": "object",
+                "description": "独立资产 Inspector 字段补丁对象。",
+                "additionalProperties": true
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "props"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-bind-click",
+          "description": "Locally-approved Cocos MCP capability: lumen.bindClick.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "buttonNodePath": {
+                "type": "string",
+                "description": "Button 节点路径，必须以 / 开头。"
+              },
+              "targetNodePath": {
+                "type": "string",
+                "description": "目标节点路径，必须以 / 开头。"
+              },
+              "component": {
+                "type": "string",
+                "description": "脚本路径、文件名、uuid 或唯一 @ccclass。"
+              },
+              "handler": {
+                "type": "string",
+                "description": "回调方法名。"
+              },
+              "customEventData": {
+                "type": "string",
+                "description": "自定义事件数据。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "buttonNodePath",
+              "targetNodePath",
+              "component",
+              "handler"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-bind-controller",
+          "description": "Locally-approved Cocos MCP capability: lumen.bindController.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "scriptRelativePath": {
+                "type": "string",
+                "description": "控制器脚本项目相对路径。"
+              },
+              "className": {
+                "type": "string",
+                "description": "脚本类名。"
+              },
+              "propertyBindings": {
+                "type": "object",
+                "description": "属性名 -> 节点路径或节点名。",
+                "additionalProperties": true
+              },
+              "propertyComponents": {
+                "type": "object",
+                "description": "属性名 -> cc 组件类型。",
+                "additionalProperties": true
+              },
+              "buttonEvents": {
+                "type": "array",
+                "description": "按钮点击绑定列表。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "scriptRelativePath",
+              "className",
+              "propertyBindings"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-bind-ref",
+          "description": "Locally-approved Cocos MCP capability: lumen.bindRef.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "持有字段的节点路径。"
+              },
+              "componentType": {
+                "type": "string",
+                "description": "组件类型。"
+              },
+              "field": {
+                "type": "string",
+                "description": "字段名。"
+              },
+              "nodeRef": {
+                "type": "string",
+                "description": "节点引用路径；与 componentRef 二选一。"
+              },
+              "componentRef": {
+                "type": "object",
+                "description": "组件引用 { nodePath, type }；与 nodeRef 二选一。",
+                "additionalProperties": true
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "componentType",
+              "field"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-bind-sprite",
+          "description": "Locally-approved Cocos MCP capability: lumen.bindSprite.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "Sprite 节点路径，必须以 / 开头。"
+              },
+              "spriteFrameUuid": {
+                "type": "string",
+                "description": "SpriteFrame uuid。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "spriteFrameUuid"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-bind-sprite-batch",
+          "description": "Locally-approved Cocos MCP capability: lumen.bindSpriteBatch.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "bindings": {
+                "type": "array",
+                "description": "绑定项列表，元素含 nodePath 与 spriteFrameUuid。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "bindings"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-cocos-info",
+          "description": "Read-only Cocos MCP capability: lumen.cocosInfo.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "engineRoot": {
+                "type": "string",
+                "description": "可选引擎根或 cc.d.ts 路径（可为绝对路径）。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "gapOffset": {
+                "type": "integer",
+                "description": "缺口列表起始偏移；缺省 0。"
+              },
+              "gapLimit": {
+                "type": "integer",
+                "description": "缺口列表每页条数；缺省 40，最大 200。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-commit",
+          "description": "Locally-approved Cocos MCP capability: lumen.commit.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "可选项目相对路径列表；省略则刷新 db://assets。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-comp-add",
+          "description": "Locally-approved Cocos MCP capability: lumen.compAdd.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，必须以 / 开头。"
+              },
+              "builtinType": {
+                "type": "string",
+                "description": "内置组件类型；与 scriptName 二选一。"
+              },
+              "scriptName": {
+                "type": "string",
+                "description": "脚本路径或文件名。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-comp-rm",
+          "description": "Locally-approved Cocos MCP capability: lumen.compRm.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，必须以 / 开头。"
+              },
+              "componentType": {
+                "type": "string",
+                "description": "组件类型。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "componentType"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "destructive"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-comp-set",
+          "description": "Locally-approved Cocos MCP capability: lumen.compSet.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，必须以 / 开头。"
+              },
+              "componentType": {
+                "type": "string",
+                "description": "组件类型。"
+              },
+              "props": {
+                "type": "object",
+                "description": "白名单内的组件属性补丁对象。",
+                "additionalProperties": true
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "componentType",
+              "props"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-compile-recipe",
+          "description": "Read-only Cocos MCP capability: lumen.compileRecipe.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对 Prefab 路径；禁止绝对路径与 ..。"
+              },
+              "rootName": {
+                "type": "string",
+                "description": "空壳根节点名。"
+              },
+              "mode": {
+                "type": "string",
+                "description": "replaceRoot 替换根；appendChildren 挂到空根下。",
+                "enum": [
+                  "replaceRoot",
+                  "appendChildren"
+                ]
+              },
+              "recipe": {
+                "type": "object",
+                "description": "replaceRoot 的根配方。",
+                "additionalProperties": true
+              },
+              "recipes": {
+                "type": "array",
+                "description": "appendChildren 的同级子配方列表。"
+              },
+              "rootContentSize": {
+                "type": "object",
+                "properties": {
+                  "width": {
+                    "type": "number",
+                    "description": "数值。"
+                  },
+                  "height": {
+                    "type": "number",
+                    "description": "数值。"
+                  }
+                },
+                "required": [],
+                "additionalProperties": false
+              },
+              "rootAnchorPoint": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number",
+                    "description": "数值。"
+                  },
+                  "y": {
+                    "type": "number",
+                    "description": "数值。"
+                  }
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "rootName",
+              "mode"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-inspect",
+          "description": "Read-only Cocos MCP capability: lumen.inspect.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，如 /Root/Title，必须以 / 开头；独立资产可省略。"
+              },
+              "region": {
+                "type": "object",
+                "description": "仅 .terrain：顶点盒或本地圆区域。",
+                "additionalProperties": true
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-lod-recalc-bounds",
+          "description": "Read-only Cocos MCP capability: lumen.lodRecalcBounds.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "可选节点路径。"
+              },
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-node-add",
+          "description": "Locally-approved Cocos MCP capability: lumen.nodeAdd.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "parentPath": {
+                "type": "string",
+                "description": "父节点路径，必须以 / 开头。"
+              },
+              "template": {
+                "type": "string",
+                "description": "模板 id。"
+              },
+              "name": {
+                "type": "string",
+                "description": "可选子节点名。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "parentPath",
+              "template"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-node-rename",
+          "description": "Locally-approved Cocos MCP capability: lumen.nodeRename.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，必须以 / 开头。"
+              },
+              "name": {
+                "type": "string",
+                "description": "新名称。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-node-reorder",
+          "description": "Locally-approved Cocos MCP capability: lumen.nodeReorder.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "parentPath": {
+                "type": "string",
+                "description": "父节点路径，必须以 / 开头。"
+              },
+              "childName": {
+                "type": "string",
+                "description": "子节点名。"
+              },
+              "index": {
+                "type": "integer",
+                "description": "目标下标（从 0 起）。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "parentPath",
+              "childName",
+              "index"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-node-rm",
+          "description": "Locally-approved Cocos MCP capability: lumen.nodeRm.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "要删除的节点路径，必须以 / 开头。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "destructive"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-node-set",
+          "description": "Locally-approved Cocos MCP capability: lumen.nodeSet.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "nodePath": {
+                "type": "string",
+                "description": "节点路径，必须以 / 开头。"
+              },
+              "props": {
+                "type": "object",
+                "description": "节点属性补丁对象。",
+                "additionalProperties": true
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "nodePath",
+              "props"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-refresh",
+          "description": "Locally-approved Cocos MCP capability: lumen.refresh.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "paths": {
+                "type": "array",
+                "description": "可选项目相对路径列表；省略则刷新 db://assets。",
+                "items": {
+                  "type": "string",
+                  "description": "字符串值。"
+                }
+              },
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-scaffold",
+          "description": "Locally-approved Cocos MCP capability: lumen.scaffold.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "rootName": {
+                "type": "string",
+                "description": "根节点名。"
+              },
+              "template": {
+                "type": "string",
+                "description": "模板 id，如 empty / ui/Label / standard / forward。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "reset": {
+                "type": "boolean",
+                "description": "目标已存在时先删源文件与 .meta 再重建；默认 false。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-schema",
+          "description": "Read-only Cocos MCP capability: lumen.schema.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "组件类型，如 cc.Label；省略时返回清单。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-structure",
+          "description": "Locally-approved Cocos MCP capability: lumen.structure.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "parentPath": {
+                "type": "string",
+                "description": "父节点路径，必须以 / 开头。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              },
+              "autoCommit": {
+                "type": "boolean",
+                "description": "为 true 时写盘后自动执行 lumen.commit。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "prefabRelativePath",
+              "parentPath",
+              "recipe"
+            ],
+            "additionalProperties": true
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-templates",
+          "description": "Read-only Cocos MCP capability: lumen.templates.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-tree",
+          "description": "Read-only Cocos MCP capability: lumen.tree.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              },
+              "cocosVersion": {
+                "type": "string",
+                "description": "可选 Creator 版本覆盖。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.lumen-validate-refs",
+          "description": "Read-only Cocos MCP capability: lumen.validateRefs.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "项目相对路径；禁止绝对路径与 ..；也可用 assetRelativePath 别名。"
+              },
+              "assetRelativePath": {
+                "type": "string",
+                "description": "prefabRelativePath 的别名；二者同时提供时必须相等。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-apply",
+          "description": "Locally-approved Cocos MCP capability: prefab.apply.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "实例根节点路径或 uuid。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-create-from-node",
+          "description": "Locally-approved Cocos MCP capability: prefab.createFromNode.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "源节点路径或 uuid。"
+              },
+              "prefabPath": {
+                "type": "string",
+                "description": "目标 Prefab db://assets/.../*.prefab。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "nodePath",
+              "prefabPath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-get-info",
+          "description": "Read-only Cocos MCP capability: prefab.getInfo.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "pathOrUuid": {
+                "type": "string",
+                "description": "Prefab 路径 / uuid，或实例节点 path。"
+              }
+            },
+            "required": [
+              "pathOrUuid"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-revert",
+          "description": "Locally-approved Cocos MCP capability: prefab.revert.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "实例根节点路径或 uuid。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-unlink",
+          "description": "Locally-approved Cocos MCP capability: prefab.unlink.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "实例根节点路径或 uuid。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.prefab-unpack",
+          "description": "Locally-approved Cocos MCP capability: prefab.unpack.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodePath": {
+                "type": "string",
+                "description": "实例根节点路径或 uuid。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "nodePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.preview-query",
+          "description": "Read-only Cocos MCP capability: preview.query.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "description": "预留平台提示，如 browser。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.preview-query-errors",
+          "description": "Read-only Cocos MCP capability: preview.queryErrors.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "limit": {
+                "type": "integer",
+                "description": "返回条数上限；默认 50。"
+              },
+              "contains": {
+                "type": "string",
+                "description": "错误行关键字过滤（大小写不敏感）。"
+              },
+              "sinceOffset": {
+                "type": "integer",
+                "description": "仅返回 project.log 该字节偏移之后的新增错误；用上次返回的 logOffset。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.preview-refresh",
+          "description": "Locally-approved Cocos MCP capability: preview.refresh.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "refreshAssets": {
+                "type": "boolean",
+                "description": "是否同时请求 AssetDB refresh；默认 true。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.reference-query-image",
+          "description": "Read-only Cocos MCP capability: reference.queryImage.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "scenePath": {
+                "type": "string",
+                "description": "可选场景路径（当前拒绝）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.reference-set-image",
+          "description": "Locally-approved Cocos MCP capability: reference.setImage.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "imagePath": {
+                "type": "string",
+                "description": "Required image path (absolute / assets-relative / db://)."
+              },
+              "scenePath": {
+                "type": "string",
+                "description": "Optional scene path hint."
+              },
+              "opacity": {
+                "type": "number",
+                "description": "Optional opacity (0-1 or 0-100)."
+              },
+              "x": {
+                "type": "number",
+                "description": "Optional X offset."
+              },
+              "y": {
+                "type": "number",
+                "description": "Optional Y offset."
+              },
+              "sx": {
+                "type": "number",
+                "description": "Optional X scale."
+              },
+              "sy": {
+                "type": "number",
+                "description": "Optional Y scale."
+              },
+              "visible": {
+                "type": "boolean",
+                "description": "Optional; false maps to opacity 0."
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "imagePath"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-create-node",
+          "description": "Locally-approved Cocos MCP capability: scene.createNode.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "parentPath": {
+                "type": "string",
+                "description": "父节点路径；省略时挂场景根。"
+              },
+              "name": {
+                "type": "string",
+                "description": "节点名。"
+              },
+              "type": {
+                "type": "string",
+                "description": "类型提示：empty / Camera / Light 等。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-focus-node",
+          "description": "Locally-approved Cocos MCP capability: scene.focusNode.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "节点路径或 uuid。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-get-current",
+          "description": "Read-only Cocos MCP capability: scene.getCurrent.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-get-hierarchy",
+          "description": "Read-only Cocos MCP capability: scene.getHierarchy.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "includeEditorNodes": {
+                "type": "boolean",
+                "description": "是否包含编辑器内部节点；默认 false。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-open",
+          "description": "Locally-approved Cocos MCP capability: scene.open.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "场景 db:// 或项目相对路径。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-query-current-editor-resource",
+          "description": "Read-only Cocos MCP capability: scene.queryCurrentEditorResource.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-query-node",
+          "description": "Read-only Cocos MCP capability: scene.queryNode.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "节点路径或节点名。"
+              },
+              "includeEditorNodes": {
+                "type": "boolean",
+                "description": "是否包含编辑器内部节点；默认 false。"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-reload",
+          "description": "Locally-approved Cocos MCP capability: scene.reload.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "soft": {
+                "type": "boolean",
+                "description": "是否软重载；默认 true。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-resolve-prefab-root-uuid",
+          "description": "Read-only Cocos MCP capability: scene.resolvePrefabRootUuid.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "rootName": {
+                "type": "string",
+                "description": "根节点名；省略时从 prefabRelativePath 推导。"
+              },
+              "prefabRelativePath": {
+                "type": "string",
+                "description": "Prefab 相对路径，用于推导根名。"
+              },
+              "timeoutMs": {
+                "type": "number",
+                "description": "等待超时毫秒；默认 10000。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": true,
+          "risk": "read"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-restore-editor-resource",
+          "description": "Locally-approved Cocos MCP capability: scene.restoreEditorResource.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "资源 uuid；与 url 至少一个，或都省略表示恢复「当前」。"
+              },
+              "url": {
+                "type": "string",
+                "description": "资源 url / db 路径。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        },
+        {
+          "name": "peanut.editor-mcp.scene-save",
+          "description": "Locally-approved Cocos MCP capability: scene.save.",
+          "category": "cocos",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "可选场景路径；省略时保存当前打开场景。"
+              },
+              "approvalId": {
+                "type": "string",
+                "description": "本地审批租约 ID（与 approvalToken 等价，指向同一 McpApprovalLeaseStore 租约）。"
+              },
+              "approvalToken": {
+                "type": "string",
+                "description": "本地审批租约 token（与 approvalId 等价；双传时优先 approvalId）。"
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "readOnly": false,
+          "risk": "write"
+        }
+      ],
+      "disabledPluginIds": [],
+      "writeEnabledPluginIds": [
+        "peanut.editor-mcp"
+      ],
+      "directWriteEnabled": true,
+      "recentCalls": []
+    }
+  },
+  "toolsCount": 0,
+  "listOk": false
+}

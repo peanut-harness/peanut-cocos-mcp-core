@@ -96,7 +96,7 @@ function toHubCapabilityDefinition(definition) {
 /**
  * Expose one-shot Lite local approval lease issuance to Hub callers.
  * Marked readOnly so Hub can issue a lease without already holding one.
- * Token is consumed via write-tool input.approvalId (Lite dispatcher).
+ * Token is consumed via write-tool input.approvalId or approvalToken (Lite dispatcher; id preferred).
  */
 function registerLocalApprovalLeaseTool() {
     const name = `${HUB_CAPABILITY_PLUGIN_ID}.issue-local-approval-lease`;
@@ -105,7 +105,7 @@ function registerLocalApprovalLeaseTool() {
     }
     const definition = Object.freeze({
         name,
-        description: 'Issue a one-shot local approval lease for Lite native writes (approvalId).',
+        description: 'Issue a one-shot local approval lease for Lite native writes (approvalId / approvalToken aliases).',
         inputSchema: Object.freeze({
             type: 'object',
             properties: Object.freeze({
@@ -151,6 +151,7 @@ function registerLocalApprovalLeaseTool() {
             });
             return Object.freeze({
                 approvalId: issued.token,
+                approvalToken: issued.token,
                 token: issued.token,
                 expiresAt: issued.expiresAt,
                 connectionId,
@@ -645,7 +646,13 @@ const methods = {
         if (!hostStatus.ready || coreModule == null || typeof coreModule.issueApprovalLease !== 'function') {
             throw new Error('pod_lite_approval_leases_unavailable');
         }
-        return coreModule.issueApprovalLease(request);
+        const issued = coreModule.issueApprovalLease(request);
+        return Object.freeze({
+            token: issued.token,
+            approvalId: issued.token,
+            approvalToken: issued.token,
+            expiresAt: issued.expiresAt,
+        });
     },
     async invokeTool(name, input = {}) {
         if (!hostStatus.ready) {

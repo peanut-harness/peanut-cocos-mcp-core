@@ -1,0 +1,422 @@
+[
+  {
+    "at": "2026-09-11T13:43:00.532Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:04.549Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:08.570Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:12.584Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:16.603Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:20.618Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:24.634Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:28.657Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:32.677Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:36.696Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:40.711Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:44.720Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:48.741Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:52.761Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:43:56.770Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:00.782Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:04.804Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:08.812Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:12.825Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:16.835Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:20.846Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:24.864Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:28.882Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:32.904Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:36.927Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:40.949Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:44.967Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:48.982Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:52.992Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:44:57.002Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:01.014Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:05.034Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:09.062Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:13.081Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:17.098Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:21.109Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:25.118Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:29.136Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:33.148Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:37.162Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:41.185Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:45.201Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:49.212Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:53.222Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:45:57.238Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:01.259Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:05.275Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:09.286Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:13.296Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:17.315Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:21.327Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:25.341Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:29.352Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:33.367Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:37.385Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:41.404Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:45.415Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:49.428Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:53.437Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  },
+  {
+    "at": "2026-09-11T13:46:57.447Z",
+    "http": 200,
+    "ok": true,
+    "toolsCount": 0,
+    "slice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":84,\"capabilities\":[{\"name\":\"peanut.editor-mcp.asset-audit-unmanaged-writes\",\"description\":\"Read-only Cocos MCP capability: asset.auditUnmanagedWrites.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"pathContains\":{\"type\":\"string\",\"description\":\"路径子串过滤。\"},\"modifiedSince\":{\"type\":\"string\",\"description\":\"仅报告该 ISO 时间之后修改的文件。\"},\"limit\":{\"type\":\"integer\",\"description\":\"返回条数上限（默认 50，最大 200）。\"},\"includeGit\":{\"type\":\"boolean\",\"description\":\"为 true 时尽力附加 git status --porcelain assets。\"}},\"required\":[],\"additionalProperties\":false},\"readOnly\":true,\"risk\":\"read\"},{\"name\":\"peanut.editor-mcp.asset-catalog-lookup\",\"description\":\"Read-only Cocos MCP capability: asset.catalog.lookup.\",\"category\":\"cocos\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"uuid\":{\"type\":\"string\",\"description\":\"精确 UUID；提供时忽略其它过滤条件。\"},\"type\":{\"type\":\"string\",\"description\":\"类型分桶，如 script/prefab/spriteFra"
+  }
+]

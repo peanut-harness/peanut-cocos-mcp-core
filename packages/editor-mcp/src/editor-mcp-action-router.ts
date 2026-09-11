@@ -784,7 +784,7 @@ export class EditorMcpActionRouter {
         }
         // bindController 由 router 直连 2.4/离线路径，不经 3.x lumen gateway。
         if (request.operation === 'lumen.bindController') {
-            this._readLumenBindControllerInput(request.input);
+            this._readLumenBindControllerInput(this._stripHubControlFields(request.input));
             return;
         }
         if (EditorMcpLumenGateway.isLumenOperation(request.operation)) {
@@ -854,7 +854,7 @@ export class EditorMcpActionRouter {
      */
     private async _executeLumenBindController(input: ContractPayload | undefined): Promise<unknown> {
         const projectRoot = await this._requireProjectPath();
-        const request = this._readLumenBindControllerInput(input);
+        const request = this._readLumenBindControllerInput(this._stripHubControlFields(input));
         if (Lumen24McpBridge.isCreator2x()) {
             return Lumen24McpBridge.bindController(projectRoot, {
                 prefabRelativePath: request.prefabRelativePath,
@@ -1069,6 +1069,7 @@ export class EditorMcpActionRouter {
         const cleaned: Record<string, unknown> = { ...input };
         delete cleaned.confirmDestructive;
         delete cleaned.approvalToken;
+        delete cleaned.approvalId;
         delete cleaned.resources;
         return cleaned;
     }

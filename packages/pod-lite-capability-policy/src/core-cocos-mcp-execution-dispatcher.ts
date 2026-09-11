@@ -120,12 +120,14 @@ export class CoreCocosMcpExecutionDispatcher {
         if (!definition.requiresLocalApproval) {
             return;
         }
+        const leaseId = CoreCocosMcpExecutionDispatcher.resolveLeaseId(input);
         if (
             context == null ||
             context.resources.length === 0 ||
             context.resources.some((resource) => typeof resource !== 'string' || resource.trim().length === 0) ||
             this.approvalLeases == null ||
-            !this.approvalLeases.consume(input.approvalId, {
+            leaseId == null ||
+            !this.approvalLeases.consume(leaseId, {
                 connectionId: context.connectionId,
                 resources: context.resources,
                 operation: definition.operation,
@@ -134,6 +136,22 @@ export class CoreCocosMcpExecutionDispatcher {
         ) {
             throw new Error(`core_cocos_mcp_execution_approval_required:${definition.operation}`);
         }
+    }
+
+    /**
+     * @description 从写工具输入解析本地租约 ID；双传时优先 approvalId，其次 approvalToken（二者等价）。
+     * @param input 已通过 schema 检查的参数。
+     * @returns 非空 trim 后的租约串，或 null。
+     */
+    private static resolveLeaseId(input: Readonly<Record<string, unknown>>): string | null {
+        const pick = (value: unknown): string | null => {
+            if (typeof value !== 'string') {
+                return null;
+            }
+            const trimmed = value.trim();
+            return trimmed.length > 0 ? trimmed : null;
+        };
+        return pick(input.approvalId) ?? pick(input.approvalToken);
     }
 
     /**
