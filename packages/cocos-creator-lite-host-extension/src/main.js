@@ -92,6 +92,72 @@ function toHubCapabilityDefinition(definition) {
  * pluginId must be peanut.editor-mcp because tool names are scoped that way
  * (same as the reference editor-mcp island + writeEnabledPluginIds settings).
  */
+
+/**
+ * Expose one-shot Lite local approval lease issuance to Hub callers.
+ * Marked readOnly so Hub can issue a lease without already holding one.
+ * Token is consumed via write-tool input.approvalId (Lite dispatcher).
+ */
+function registerLocalApprovalLeaseTool() {
+    const name = `${HUB_CAPABILITY_PLUGIN_ID}.issue-local-approval-lease`;
+    if (toolHandlers.has(name)) {
+        return;
+    }
+    const definition = Object.freeze({
+        name,
+        description: 'Issue a one-shot local approval lease for Lite native writes (approvalId).',
+        inputSchema: Object.freeze({
+            type: 'object',
+            properties: Object.freeze({
+                connectionId: Object.freeze({ type: 'string', description: 'Bridge connection id (32-hex). Defaults to invocation connectionId.' }),
+                resources: Object.freeze({ type: 'array', description: 'Normalized resources this lease may touch.', items: Object.freeze({ type: 'string' }) }),
+                operations: Object.freeze({ type: 'array', description: 'Optional operation/tool whitelist; empty means any write on this connection.', items: Object.freeze({ type: 'string' }) }),
+                maxRisk: Object.freeze({ type: 'string', description: 'write or destructive.' }),
+                idleLeaseMs: Object.freeze({ type: 'number', description: 'Idle lease ms.' }),
+                maxHoldMs: Object.freeze({ type: 'number', description: 'Max hold ms from issue.' }),
+            }),
+            required: Object.freeze(['resources']),
+            additionalProperties: false,
+        }),
+        readOnly: true,
+        risk: 'read',
+        requiresLocalApproval: false,
+        operation: 'approval.issueLocalLease',
+    });
+    toolHandlers.set(name, Object.freeze({
+        definition,
+        handler: async (input = {}, invocation = {}) => {
+            if (coreModule == null || typeof coreModule.issueApprovalLease !== 'function') {
+                throw new Error('pod_lite_approval_leases_unavailable');
+            }
+            const connectionId =
+                (typeof input.connectionId === 'string' && input.connectionId.trim().length > 0
+                    ? input.connectionId.trim()
+                    : null) ||
+                (typeof invocation.connectionId === 'string' && invocation.connectionId.trim().length > 0
+                    ? invocation.connectionId.trim()
+                    : null) ||
+                'creator-local';
+            if (!Array.isArray(input.resources) || input.resources.length === 0) {
+                throw new Error('mcp_approval_lease_resources_required');
+            }
+            const issued = coreModule.issueApprovalLease({
+                connectionId,
+                resources: input.resources,
+                operations: Array.isArray(input.operations) ? input.operations : [],
+                maxRisk: input.maxRisk === 'destructive' ? 'destructive' : 'write',
+                idleLeaseMs: typeof input.idleLeaseMs === 'number' ? input.idleLeaseMs : undefined,
+                maxHoldMs: typeof input.maxHoldMs === 'number' ? input.maxHoldMs : undefined,
+            });
+            return Object.freeze({
+                approvalId: issued.token,
+                token: issued.token,
+                expiresAt: issued.expiresAt,
+                connectionId,
+            });
+        },
+    }));
+}
 function publishToolsToHubRegistry() {
     disposeHubCapabilityRegistrations();
     const pluginManager = getPluginManagerKernel();
@@ -233,6 +299,7 @@ async function load() {
         const coreVersion = await activateCore(packageStore);
         // Publish first-class tools into Plugin Manager registry so Hub list/status
         // matches host toolCount (reference island path: editor-mcp context.mcp.register).
+        registerLocalApprovalLeaseTool();
         publishToolsToHubRegistry();
         const pro = await activateOptionalPro(packageStore);
         accountController = new LiteAccountController({
@@ -574,6 +641,12 @@ const methods = {
     async openAccount() {
         await getEditor()?.Panel?.open?.('peanut-pod-lite-host.account');
     },
+        issueApprovalLease(request = {}) {
+        if (!hostStatus.ready || coreModule == null || typeof coreModule.issueApprovalLease !== 'function') {
+            throw new Error('pod_lite_approval_leases_unavailable');
+        }
+        return coreModule.issueApprovalLease(request);
+    },
     async invokeTool(name, input = {}) {
         if (!hostStatus.ready) {
             throw new Error('peanut_cocos_mcp_core_host_not_ready');
@@ -597,3 +670,4 @@ function withAccount(account) {
 }
 
 module.exports = { load, unload, methods };
+

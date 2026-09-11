@@ -75,55 +75,94 @@
         ],
         "messages": {
             "open-panel": {
-                "methods": ["openPanel"]
+                "methods": [
+                    "openPanel"
+                ]
             },
             "open-plugin-manager": {
-                "methods": ["openPluginManagerPanel"]
+                "methods": [
+                    "openPluginManagerPanel"
+                ]
             },
             "open-plugin-manager-settings": {
-                "methods": ["openPluginManagerSettingsPanel"]
+                "methods": [
+                    "openPluginManagerSettingsPanel"
+                ]
             },
             "request-panel-bridge": {
-                "methods": ["requestPanelBridge"]
+                "methods": [
+                    "requestPanelBridge"
+                ]
             },
             "post-panel-bridge": {
-                "methods": ["postPanelBridge"]
+                "methods": [
+                    "postPanelBridge"
+                ]
             },
             "get-current-locale": {
-                "methods": ["getCurrentLocale"]
+                "methods": [
+                    "getCurrentLocale"
+                ]
             },
             "query-status": {
-                "methods": ["queryStatus"]
+                "methods": [
+                    "queryStatus"
+                ]
             },
             "list-tools": {
-                "methods": ["listTools"]
+                "methods": [
+                    "listTools"
+                ]
             },
             "invoke-tool": {
-                "methods": ["invokeTool"]
+                "methods": [
+                    "invokeTool"
+                ]
             },
             "query-premium-offer": {
-                "methods": ["queryPremiumOffer"]
+                "methods": [
+                    "queryPremiumOffer"
+                ]
             },
             "set-pod-endpoint": {
-                "methods": ["setPodEndpoint"]
+                "methods": [
+                    "setPodEndpoint"
+                ]
             },
             "set-access-token": {
-                "methods": ["setAccessToken"]
+                "methods": [
+                    "setAccessToken"
+                ]
             },
             "clear-account": {
-                "methods": ["clearAccount"]
+                "methods": [
+                    "clearAccount"
+                ]
             },
             "query-subscription": {
-                "methods": ["querySubscription"]
+                "methods": [
+                    "querySubscription"
+                ]
             },
             "start-checkout": {
-                "methods": ["startCheckout"]
+                "methods": [
+                    "startCheckout"
+                ]
             },
             "refresh-pro": {
-                "methods": ["refreshPro"]
+                "methods": [
+                    "refreshPro"
+                ]
             },
             "open-account": {
-                "methods": ["openAccount"]
+                "methods": [
+                    "openAccount"
+                ]
+            },
+            "issue-approval-lease": {
+                "methods": [
+                    "issueApprovalLease"
+                ]
             }
         }
     }
