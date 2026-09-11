@@ -118,6 +118,27 @@ test('a write lease cannot authorize destructive work', async () => {
     assert.equal(calls, 0);
 });
 
+
+test('write schema accepts resources without schema_invalid', async () => {
+    let calls = 0;
+    const leases = new McpApprovalLeaseStore();
+    const dispatcher = new CoreCocosMcpExecutionDispatcher([{ operations: ['asset.catalog.refresh'], execute: async () => ++calls }], leases);
+    const context = { connectionId: 'local-a', resources: ['db://assets/tmp'] };
+    const lease = leases.issue({ ...context, operations: ['asset.catalog.refresh'], maxRisk: 'write' });
+    assert.equal(
+        await dispatcher.execute(
+            'asset.catalog.refresh',
+            {
+                approvalToken: lease.token,
+                resources: ['db://assets/tmp', 'db://assets'],
+            },
+            context,
+        ),
+        1,
+    );
+    assert.equal(calls, 1);
+});
+
 test('write schema accepts confirmDestructive without schema_invalid', async () => {
     let calls = 0;
     const leases = new McpApprovalLeaseStore();

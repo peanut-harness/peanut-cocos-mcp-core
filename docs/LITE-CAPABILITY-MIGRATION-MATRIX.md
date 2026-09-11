@@ -153,3 +153,12 @@
 ## 当前结论
 
 Lite 的公开边界、风险目录、输入 schema、本地审批和 **83 项网关接线**已经完整（`EditorMcpGatewayAdapter`；无网关时回退 9 项读取）。`preview.capture` 与 SnowB 始终排除。Creator 3.8.7 实机冒烟仍未验证，不得记录为 host-verified。后续按 A→B→C→D→E→F→G 做 fixture parity 与 `company-tests` 冒烟。
+
+## 2026-09-12 免费面对齐盘点（lite-editor-parity）
+
+- 对照旧岛 `products/cocos/editor`：公开 **83** 项网关/schema 仍全齐；Hub 实机 **84**（+ `issue-local-approval-lease`）。
+- Pro 排除不变：`preview.capture` / snowb / ui-prefab / sdf / AVM / content-delivery / Figma·PSD。
+- **行为差 P0 已修**：写工具 `control()` 增加 `resources`（与旧岛 Hub `_writeControl` 对齐），避免旧客户端带 `resources` 时 `mcp_capability_input_invalid`。
+- 真机抽样（cocos-for-agent 3.8.7）：`asset.catalog.refresh` / `asset.createFolder` / `asset.delete` 带 `resources`+租约 PASS；无租约仍 `approval_required`。
+- 证据：`evidence/lite-editor-parity-20260912/`（GAP-MATRIX / FIXED / REMAINING / CONCLUSION / device-verify-resources）。
+- 免费面对齐度粗估 **~94%**；剩余 P1：`sessionBound`、prefab/builder/import 全表真机。

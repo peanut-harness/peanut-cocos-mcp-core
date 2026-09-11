@@ -1,0 +1,14 @@
+{
+  "reason": "reload after resources schema parity fix",
+  "startedAtLocal": "2026-09-12 00:51:26 UTC+8",
+  "pathChoice": "worktree_host+worktree_core",
+  "attachOrSpawn": "spawn",
+  "pid": 37648,
+  "bin": "C:\\ProgramData\\cocos\\editors\\Creator\\3.8.7\\CocosCreator.exe",
+  "project": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
+  "args": [
+    "--project",
+    "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
+    "--nologin"
+  ]
+}

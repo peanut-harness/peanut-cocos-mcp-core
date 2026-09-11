@@ -76,3 +76,11 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 - 写入注册时把 `connectionId` + 解析后的 `resources` 交给 dispatcher，继续消费本地审批租约。
 - 目录包打包改为本包 esbuild JS API，不再读取 `PEANUT_COCOS_EDITOR_ROOT`。
 - Creator 3.8.7 实机冒烟仍未验证；不得记录为 host-verified。
+
+## 2026-09-12 Lite↔editor 免费面对齐
+
+- 盘点：缺实现类 P0 = 0；补写 schema `resources` 字段（policy + editor-mcp tool catalog）。
+- 单测：`@peanut/pod-lite-capability-policy` 13/13。
+- 真机：pack 安装 worktree host/core → 软关 Creator → 重启；device-verify-resources 7/7。
+- 不对齐项登记：`sessionBound`（P1）、prefab/builder 全表真机（P1）；Pro 面维持禁入。
+- 证据目录：`evidence/lite-editor-parity-20260912/`。

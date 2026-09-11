@@ -949,7 +949,8 @@ export class EditorMcpToolCatalog {
     private _writeControl(): Readonly<Record<string, IMcpJsonSchema>> {
         return {
             confirmDestructive: this._boolean('destructive 操作必须显式传 true。'),
-            approvalToken: this._string('批次审批令牌（由 Hub 面板签发）。'),
+            approvalId: this._string('本地审批租约 ID（与 approvalToken 等价）。'),
+            approvalToken: this._string('批次审批令牌 / 本地租约 token（与 approvalId 等价；双传时优先 approvalId）。'),
             resources: this._stringArray('本次授权资源集合。'),
         };
     }
