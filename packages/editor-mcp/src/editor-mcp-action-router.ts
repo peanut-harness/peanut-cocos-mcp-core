@@ -11,6 +11,7 @@ import type {
     ISnowbBmfontExportMcpInput,
     LocalizedText,
 } from 'peanut-contracts';
+import { McpControlFlowRefusal } from 'peanut-plugin-core';
 import { EditorMcpExecutionLaneResolver, ProductLineMcpPolicy } from 'peanut-contracts';
 import type { IGrantedRuntimeClientSet, IPluginServiceApi } from 'peanut-plugin-sdk';
 import { AssetCatalogFastLookupApi, type IAssetCatalogFastLookup } from 'peanut-asset-catalog';
@@ -226,11 +227,11 @@ export class EditorMcpActionRouter {
         this._validateOperationInput(request);
         const phase = this._runtime.version.getCurrentVersion().phase;
         if (ProductLineMcpPolicy.decide(phase, request.operation) === 'refuse') {
-            throw new Error(ProductLineMcpPolicy.refuseError(phase, request.operation));
+            McpControlFlowRefusal.reject(ProductLineMcpPolicy.refuseError(phase, request.operation));
         }
         const planned = this.plan(request);
         if (planned.risk === 'destructive' && this._readConfirmDestructive(request.input) !== true) {
-            throw new Error('editor_mcp_destructive_confirmation_required');
+            McpControlFlowRefusal.reject('editor_mcp_destructive_confirmation_required');
         }
         switch (request.operation) {
             case 'editor.queryVersion':

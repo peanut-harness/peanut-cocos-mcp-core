@@ -563,7 +563,9 @@ export class EditorMcpLumenGateway {
             });
             return this._decorateWriteResult({ ...result }, result.prefab);
         }
-        const session = await this._createSession(input.cocosVersion == null ? {} : { cocosVersion: input.cocosVersion });
+        // Create-then-edit: wire AssetDB refresh and await import/ready before returning,
+        // otherwise Creator Window logs "original asset is not exist" on the new prefab.
+        const session = await this._createSession(input.cocosVersion == null ? {} : { cocosVersion: input.cocosVersion }, true);
         const prefab = session.scaffoldPrefab({
             prefabRelativePath: input.prefabRelativePath,
             rootName: input.rootName ?? 'Root',
@@ -571,8 +573,15 @@ export class EditorMcpLumenGateway {
             writeMetaIfMissing: true,
             ...(input.reset === true ? { reset: true } : {}),
         });
+        const editorRefresh = await session.requestEditorRefreshBarrier([prefab]);
         return this._decorateWriteResult(
-            { phase: session.phase, prefab, cocos: session.cocosVersion.toString(), kind: session.openedAssetKind },
+            {
+                phase: session.phase,
+                prefab,
+                cocos: session.cocosVersion.toString(),
+                kind: session.openedAssetKind,
+                editorRefresh,
+            },
             prefab,
         );
     }

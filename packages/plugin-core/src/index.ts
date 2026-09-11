@@ -53,6 +53,7 @@ export { PermissionManager } from './permissions/permission-manager.js';
 export { PluginRegistry } from './registry/plugin-registry.js';
 export { DefaultPluginLogger } from './shared/default-plugin-logger.js';
 export { PluginDiagnosticReporter } from './diagnostics/plugin-diagnostic-reporter.js';
+export { McpControlFlowRefusal, isMcpControlFlowRefusal, isMcpControlFlowRefusalCode, mcpControlFlowRefusalCode } from './mcp/mcp-control-flow-refusal.js';
 export { PluginEventBus } from './shared/plugin-event-bus.js';
 export { PluginFileStorage, UnavailablePluginFileStorage } from './shared/plugin-file-storage.js';
 export { PluginStorage } from './shared/plugin-storage.js';

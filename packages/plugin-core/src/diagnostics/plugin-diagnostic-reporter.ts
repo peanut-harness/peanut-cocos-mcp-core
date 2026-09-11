@@ -3,6 +3,8 @@ import { join, resolve } from 'path';
 
 import type { IPluginDiagnosticEvent, IPluginDiagnosticExport, PluginDiagnosticSource } from 'peanut-contracts';
 
+import { isMcpControlFlowRefusalCode } from '../mcp/mcp-control-flow-refusal.js';
+
 /**
  * @description 插件边界诊断服务；负责归一化、脱敏、内存查询及项目日志导出。
  */
@@ -62,8 +64,9 @@ export class PluginDiagnosticReporter {
         while (this._events.length > this._maxEvents) this._events.shift();
         // 契约/护栏拒绝（缺确认、未解析等）属预期业务结果，不得刷 Creator project.log 的 error；
         // 只用单行字符串 warn，避免第二参被 Creator 打成 `Error: ...` 噪音。
-        if (isExpectedMcpPolicyRejection(event.errorMessage)) {
-            console.warn(
+        if (isMcpControlFlowRefusalCode(event.errorMessage) || isExpectedMcpPolicyRejection(event.errorMessage)) {
+            // Expected control-flow: info only — never console.error / Error object.
+            console.info(
                 `[plugin:${event.pluginId ?? 'host'}] policy:${event.errorMessage} incident=${event.incidentId}`,
             );
         } else {
@@ -180,7 +183,10 @@ export class PluginDiagnosticReporter {
 function isExpectedMcpPolicyRejection(message: string): boolean {
     const code = message.split(':')[0] ?? message;
     return (
+        message.startsWith('core_cocos_mcp_execution_approval_required:') ||
+        code === 'core_cocos_mcp_execution_approval_required' ||
         message === 'editor_mcp_destructive_confirmation_required' ||
+        message === 'cocos_mcp_destructive_confirmation_required' ||
         message.startsWith('editor_mcp_prefab_root_uuid_unresolved:') ||
         message === 'cocos_editor_scene_hierarchy_invalid' ||
         message.startsWith('editor_mcp_operation_unsupported:') ||

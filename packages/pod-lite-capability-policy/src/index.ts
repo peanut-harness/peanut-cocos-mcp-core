@@ -41,3 +41,5 @@ export {
     type IMcpApprovalLeaseUse,
     type McpExecutionRisk,
 } from './mcp-approval-lease-store.js';
+
+export { McpControlFlowRefusal, isMcpControlFlowRefusal } from './mcp-control-flow-refusal.js';

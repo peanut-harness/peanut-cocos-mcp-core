@@ -1,0 +1,11 @@
+{
+  "http": 200,
+  "ok": true,
+  "result": {
+    "approvalId": "98d31e22da30ac8a67c94d4dd64c2906bba8e4c8ee8e471aeca74df971c99c5b",
+    "approvalToken": "98d31e22da30ac8a67c94d4dd64c2906bba8e4c8ee8e471aeca74df971c99c5b",
+    "token": "98d31e22da30ac8a67c94d4dd64c2906bba8e4c8ee8e471aeca74df971c99c5b",
+    "expiresAt": 1789144232569,
+    "connectionId": "c576235bf65b8811d4bd2c97b5fd78d6"
+  }
+}

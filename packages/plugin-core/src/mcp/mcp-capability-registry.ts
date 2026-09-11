@@ -1,6 +1,8 @@
 import type { IMcpCapabilityCatalog, IMcpCapabilityDefinition, LocalizedText } from 'peanut-contracts';
 import type { IMcpCapabilityInvocation, IMcpCapabilityProgress, McpCapabilityHandler } from 'peanut-plugin-sdk';
 
+import { isMcpControlFlowRefusal } from './mcp-control-flow-refusal.js';
+
 export type { IMcpCapabilityInvocation, IMcpCapabilityProgress, McpCapabilityHandler } from 'peanut-plugin-sdk';
 
 /** @description 插件 MCP capability 面向外部 Hub 的公开级别。 */
@@ -261,11 +263,14 @@ export class McpCapabilityRegistry {
         try {
             output = await registration.handler(this._asHandlerInput(input), invocation);
         } catch (error) {
-            this._reporter?.(registration.pluginId, error, {
-                capability: name,
-                connectionId: invocation.connectionId,
-                callerPluginId: invocation.callerPluginId,
-            });
+            // Expected gate/policy refusal: Hub gets structured ok:false; do not console.error via diagnostic.
+            if (!isMcpControlFlowRefusal(error)) {
+                this._reporter?.(registration.pluginId, error, {
+                    capability: name,
+                    connectionId: invocation.connectionId,
+                    callerPluginId: invocation.callerPluginId,
+                });
+            }
             throw error;
         }
         if (registration.definition.outputSchema != null && !this._matchesSchema(output, registration.definition.outputSchema)) {

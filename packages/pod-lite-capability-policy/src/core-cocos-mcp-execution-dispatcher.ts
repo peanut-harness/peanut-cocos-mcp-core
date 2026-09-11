@@ -2,6 +2,7 @@ import { CoreCocosMcpToolDefinitionCatalog, type ICoreCocosMcpToolDefinition } f
 import type { CoreCocosMcpPublicOperation } from './core-cocos-mcp-tool-name-resolver.js';
 import { CoreMcpInputValidator } from './core-mcp-input-validator.js';
 import type { McpApprovalLeaseStore } from './mcp-approval-lease-store.js';
+import { McpControlFlowRefusal } from './mcp-control-flow-refusal.js';
 
 /**
  * @description 由宿主计算的调用身份与资源范围，不能从 MCP 输入字段直接填入。
@@ -134,7 +135,7 @@ export class CoreCocosMcpExecutionDispatcher {
                 risk: definition.risk,
             })
         ) {
-            throw new Error(`core_cocos_mcp_execution_approval_required:${definition.operation}`);
+            McpControlFlowRefusal.reject(`core_cocos_mcp_execution_approval_required:${definition.operation}`);
         }
     }
 

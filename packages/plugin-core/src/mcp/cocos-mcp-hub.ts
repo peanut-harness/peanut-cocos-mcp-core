@@ -19,6 +19,7 @@ import {
     type McpHubCallStatus,
 } from './mcp-hub-control.js';
 import { ensureAbortControllerPolyfill } from './abort-controller-polyfill.js';
+import { McpControlFlowRefusal } from './mcp-control-flow-refusal.js';
 
 ensureAbortControllerPolyfill();
 
@@ -596,7 +597,7 @@ export class CocosMcpHub implements IMcpHubControl {
             hasLocalApproval = true;
         }
         if (risk === 'destructive' && this._readConfirmDestructive(input) !== true) {
-            throw new Error('cocos_mcp_destructive_confirmation_required');
+            McpControlFlowRefusal.reject('cocos_mcp_destructive_confirmation_required');
         }
         const recentCall = this._createRecentCall(definition, 'approved');
         try {

@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "at": "2026-09-12T00:29:32.586377+08:00",
+    "no_lease_refused": true,
+    "no_lease_errors": [
+      "core_cocos_mcp_execution_approval_required:asset.catalog.refresh",
+      "core_cocos_mcp_execution_approval_required:lumen.scaffold"
+    ],
+    "project_log_error_approval_hits": 0,
+    "project_log_approval_lines": [],
+    "window_original_asset_hits_in_delta": 0,
+    "delta_chars": 0,
+    "pass_quiet_gate": true,
+    "pass_with_lease": true,
+    "with_lease_error": null,
+    "with_lease_createFolder_ok": false,
+    "with_lease_lumen_refresh_ok": false,
+    "with_lease_catalog_refresh_ok": true,
+    "after_tail_error_approval_hits": 0,
+    "after_tail_any_approval_lines": 0,
+    "after_tail_window_hits": 0
+  },
+  "results": [
+    {
+      "tag": "no_lease",
+      "name": "peanut.editor-mcp.asset-catalog-refresh",
+      "response": {
+        "http": 400,
+        "ok": false,
+        "error": "core_cocos_mcp_execution_approval_required:asset.catalog.refresh"
+      }
+    },
+    {
+      "tag": "no_lease",
+      "name": "peanut.editor-mcp.lumen-scaffold",
+      "response": {
+        "http": 400,
+        "ok": false,
+        "error": "core_cocos_mcp_execution_approval_required:lumen.scaffold"
+      }
+    },
+    {
+      "tag": "with_lease",
+      "name": "peanut.editor-mcp.asset-catalog-refresh",
+      "response": {
+        "http": 400,
+        "ok": false,
+        "error": "mcp_capability_input_invalid:peanut.editor-mcp.asset-catalog-refresh"
+      }
+    }
+  ]
+}

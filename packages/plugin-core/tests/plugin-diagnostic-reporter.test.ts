@@ -34,17 +34,23 @@ test('diagnostic reporter should write a plugin-scoped export under peanut-plugi
 test('policy rejections are recorded but classified as expected MCP policy', (): void => {
     const projectPath = mkdtempSync(join(tmpdir(), 'peanut-plugin-diagnostic-policy-'));
     const errors: unknown[] = [];
-    const warns: unknown[] = [];
+    const infos: unknown[] = [];
     const originalError = console.error;
-    const originalWarn = console.warn;
+    const originalInfo = console.info;
     console.error = (...args: unknown[]): void => {
         errors.push(args);
     };
-    console.warn = (...args: unknown[]): void => {
-        warns.push(args);
+    console.info = (...args: unknown[]): void => {
+        infos.push(args);
     };
     try {
         const reporter = new PluginDiagnosticReporter(projectPath);
+        reporter.record({
+            pluginId: 'peanut.editor-mcp',
+            source: 'mcp_capability',
+            error: new Error('core_cocos_mcp_execution_approval_required:asset.catalog.refresh'),
+            context: { capability: 'peanut.editor-mcp.asset-catalog-refresh' },
+        });
         reporter.record({
             pluginId: 'peanut.editor-mcp',
             source: 'mcp_capability',
@@ -76,18 +82,18 @@ test('policy rejections are recorded but classified as expected MCP policy', ():
             source: 'mcp_capability',
             error: new Error('real_crash_should_stay_error'),
         });
-        assert.equal(warns.length, 5);
+        assert.equal(infos.length, 6);
         assert.equal(errors.length, 1);
-        for (const warnArgs of warns) {
-            assert.ok(Array.isArray(warnArgs));
-            assert.equal(warnArgs.length, 1, 'policy warn must be a single string (no Error object)');
-            assert.equal(typeof warnArgs[0], 'string');
-            assert.match(String(warnArgs[0]), /^\[plugin:peanut\.editor-mcp\] policy:/);
+        for (const infoArgs of infos) {
+            assert.ok(Array.isArray(infoArgs));
+            assert.equal(infoArgs.length, 1, 'policy info must be a single string (no Error object)');
+            assert.equal(typeof infoArgs[0], 'string');
+            assert.match(String(infoArgs[0]), /^\[plugin:peanut\.editor-mcp\] policy:/);
         }
-        assert.equal(reporter.list('peanut.editor-mcp').length, 6);
+        assert.equal(reporter.list('peanut.editor-mcp').length, 7);
     } finally {
         console.error = originalError;
-        console.warn = originalWarn;
+        console.info = originalInfo;
         rmSync(projectPath, { recursive: true, force: true });
     }
 });

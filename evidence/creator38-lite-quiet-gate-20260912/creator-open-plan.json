@@ -1,0 +1,9 @@
+{
+  "reason": "reload after quiet-gate fix",
+  "startedAtLocal": "2026-09-12 00:23:20 UTC+8",
+  "pathChoice": "worktree_host+worktree_core",
+  "attachOrSpawn": "spawn",
+  "pid": 23544,
+  "bin": "C:\\ProgramData\\Cocos\\editors\\Creator\\3.8.7\\CocosCreator.exe",
+  "project": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent"
+}

@@ -1,0 +1,77 @@
+{
+  "lease": {
+    "ok": true,
+    "result": {
+      "approvalId": "9b4e1d8c7715cab2b5fe6de444054a37e34ad0ca6f36de0b068ef1926f80b829",
+      "approvalToken": "9b4e1d8c7715cab2b5fe6de444054a37e34ad0ca6f36de0b068ef1926f80b829",
+      "token": "9b4e1d8c7715cab2b5fe6de444054a37e34ad0ca6f36de0b068ef1926f80b829",
+      "expiresAt": 1789144348793,
+      "connectionId": "c576235bf65b8811d4bd2c97b5fd78d6"
+    }
+  },
+  "createFolder": {
+    "ok": false,
+    "error": "core_cocos_mcp_execution_approval_required:asset.createFolder"
+  },
+  "lease2": {
+    "ok": true,
+    "result": {
+      "approvalId": "902c7bbbef4e7c9489f4b8b18a8f2ab4f4410521749eeb354877481cce06b472",
+      "approvalToken": "902c7bbbef4e7c9489f4b8b18a8f2ab4f4410521749eeb354877481cce06b472",
+      "token": "902c7bbbef4e7c9489f4b8b18a8f2ab4f4410521749eeb354877481cce06b472",
+      "expiresAt": 1789144348824,
+      "connectionId": "c576235bf65b8811d4bd2c97b5fd78d6"
+    }
+  },
+  "catalogRefresh": {
+    "ok": true,
+    "result": {
+      "summaryPath": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\.peanut-ai\\asset-catalog\\summary.json",
+      "generatedAt": "2026-09-11T16:31:28.940Z",
+      "counts": {
+        "script": 1249,
+        "image": 354,
+        "spriteFrame": 345,
+        "texture": 354,
+        "prefab": 91,
+        "scene": 33,
+        "config": 205,
+        "audio": 23,
+        "video": 0,
+        "spine": 9,
+        "dragonBones": 0,
+        "cubeMap": 0,
+        "tiledMap": 0,
+        "particle": 1,
+        "spriteAtlas": 1,
+        "autoAtlas": 22,
+        "font": 13,
+        "directory": 506,
+        "material": 2,
+        "animationClip": 3,
+        "animationGraph": 0,
+        "physicsMaterial": 0,
+        "terrain": 0,
+        "effect": 1,
+        "model": 0,
+        "mesh": 0,
+        "renderTexture": 0,
+        "renderPipeline": 0,
+        "renderFlow": 0,
+        "renderStage": 0,
+        "buffer": 0,
+        "other": 12
+      },
+      "conflictCount": 0,
+      "postflight": {
+        "logChecked": true,
+        "logPath": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\temp\\logs\\project.log",
+        "newErrorCount": 0,
+        "newWarningCount": 0,
+        "newErrors": [],
+        "newWarnings": [],
+        "verified": true
+      }
+    }
+  }
+}

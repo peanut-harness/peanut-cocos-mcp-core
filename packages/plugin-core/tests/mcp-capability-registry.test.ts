@@ -2,6 +2,7 @@ import assert from 'assert/strict';
 import test from 'node:test';
 
 import { McpCapabilityRegistry } from '../src/mcp/mcp-capability-registry';
+import { McpControlFlowRefusal } from '../src/mcp/mcp-control-flow-refusal';
 
 test('MCP capability registry should validate, expose, invoke, and revoke plugin-scoped capabilities', async (): Promise<void> => {
     const registry = new McpCapabilityRegistry();
@@ -89,4 +90,46 @@ test('MCP capability registry should reject unscoped names and inconsistent risk
         readOnly: true,
         risk: 'write',
     }, async (): Promise<unknown> => null), /mcp_capability_definition_invalid/);
+});
+
+test('control-flow refusal must not report diagnostic / still rejects invoke', async (): Promise<void> => {
+    const reports: unknown[] = [];
+    const registry = new McpCapabilityRegistry((pluginId, error, context) => {
+        reports.push({ pluginId, error, context });
+    });
+    registry.register('peanut.example', {
+        name: 'peanut.example.gated',
+        description: { 'en-US': 'Gated write.', 'zh-CN': 'gate write' },
+        category: 'workflow',
+        inputSchema: { type: 'object', additionalProperties: false },
+        readOnly: false,
+        risk: 'write',
+    }, async (): Promise<unknown> => {
+        McpControlFlowRefusal.reject('core_cocos_mcp_execution_approval_required:asset.catalog.refresh');
+    });
+    registry.setPluginExposure('peanut.example', 'all');
+    await assert.rejects(
+        registry.invoke('peanut.example.gated', {}, { connectionId: 'a'.repeat(32) }),
+        /core_cocos_mcp_execution_approval_required:asset\.catalog\.refresh/,
+    );
+    assert.equal(reports.length, 0, 'expected gate refusal must not hit diagnostic reporter');
+});
+
+test('unexpected handler Error still reports diagnostic', async (): Promise<void> => {
+    const reports: unknown[] = [];
+    const registry = new McpCapabilityRegistry((pluginId, error) => {
+        reports.push({ pluginId, error });
+    });
+    registry.register('peanut.example', {
+        name: 'peanut.example.boom',
+        description: { 'en-US': 'Boom.', 'zh-CN': 'boom' },
+        category: 'atom',
+        inputSchema: { type: 'object', additionalProperties: false },
+        readOnly: true,
+        risk: 'read',
+    }, async (): Promise<unknown> => {
+        throw new Error('module_load_failed:boom');
+    });
+    await assert.rejects(registry.invoke('peanut.example.boom', {}, { connectionId: 'a'.repeat(32) }), /module_load_failed/);
+    assert.equal(reports.length, 1);
 });
