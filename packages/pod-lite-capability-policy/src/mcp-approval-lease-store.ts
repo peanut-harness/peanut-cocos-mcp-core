@@ -19,6 +19,10 @@ export interface IMcpApprovalLeaseRequest {
     readonly idleLeaseMs?: number;
     /** @description 从签发开始的最长持有时长；缺省使用安全默认值。 */
     readonly maxHoldMs?: number;
+    /**
+     * @description 可选预置 token（Hub 双写时与 BatchStore approvalToken 对齐）；非法时回退随机签发。
+     */
+    readonly preferredToken?: string;
 }
 
 /**
@@ -70,7 +74,10 @@ export class McpApprovalLeaseStore {
         const now = Date.now();
         const idleLeaseMs = this.duration(request.idleLeaseMs, McpApprovalLeaseStore.defaultIdleLeaseMs);
         const maxHoldMs = Math.max(idleLeaseMs, this.duration(request.maxHoldMs, McpApprovalLeaseStore.defaultMaxHoldMs));
-        const token = this.createToken();
+        const preferred =
+            typeof request.preferredToken === 'string' ? request.preferredToken.trim() : '';
+        const token =
+            preferred.length >= 32 && /^[0-9a-f]+$/iu.test(preferred) ? preferred : this.createToken();
         this.leases.set(token, {
             connectionId,
             resources,

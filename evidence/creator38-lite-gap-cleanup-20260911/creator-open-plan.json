@@ -1,0 +1,8 @@
+{
+  "attachOrSpawn": "spawn",
+  "pathChoice": "worktree_host+worktree_core",
+  "reason": "reload after gap-cleanup empty+confirmDestructive+hub-lite-lease-mirror",
+  "project": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
+  "bin": "C:\\ProgramData\\Cocos\\editors\\Creator\\3.8.7\\CocosCreator.exe",
+  "startedAtLocal": "2026-09-11 22:21:17 UTC+8"
+}

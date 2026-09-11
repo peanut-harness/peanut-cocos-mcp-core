@@ -4410,3 +4410,27 @@ function assertUniqueFileIds(entries: ReadonlyArray<Record<string, unknown>>): v
     const fileIds = entries.flatMap((entry) => (typeof entry.fileId === 'string' ? [entry.fileId] : []));
     assert.equal(new Set(fileIds).size, fileIds.length);
 }
+
+test('addChildFromTemplate empty is logical (no empty.prefab required)', (): void => {
+    const root = createProject('lumen-empty-node-add-');
+    try {
+        const session = new LumenSession({ projectRoot: root });
+        session.scaffoldPrefab({
+            prefabRelativePath: 'assets/ui/EmptyChild.prefab',
+            rootName: 'Root',
+            template: 'empty',
+        });
+        const path = session.addChildFromTemplate({
+            parentPath: '/Root',
+            template: 'empty',
+            name: 'ChildEmpty',
+        });
+        assert.equal(path, '/Root/ChildEmpty');
+        session.save();
+        const inspected = session.inspectNode('/Root/ChildEmpty');
+        assert.equal(inspected.name, 'ChildEmpty');
+        assert.ok(inspected.components.some((component) => component.type === 'cc.UITransform'));
+    } finally {
+        rmSync(root, { recursive: true, force: true });
+    }
+});

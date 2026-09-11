@@ -474,6 +474,15 @@ export class LumenSession {
      */
     public addChildFromTemplate(options: ILumenAddChildFromTemplateOptions): string {
         this._assertHierarchyDocument();
+        const normalizedTemplate = LumenTemplateAlias.normalize(options.template);
+        // `empty` is a logical template (createEmpty / recipe path); no bundled empty.prefab.
+        if (normalizedTemplate === 'empty') {
+            const childName = options.name != null && options.name.trim().length > 0 ? options.name.trim() : 'Node';
+            return this.addChildFromSpec({
+                parentPath: options.parentPath,
+                spec: { name: childName, components: ['cc.UITransform'] },
+            });
+        }
         const templatePath = this._resolveTemplatePath(options.template);
         const path = this._document!.addChildFromTemplate(options.parentPath, templatePath, options.name);
         return path;

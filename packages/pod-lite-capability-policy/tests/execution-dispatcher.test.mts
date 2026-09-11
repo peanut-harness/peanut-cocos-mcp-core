@@ -117,3 +117,26 @@ test('a write lease cannot authorize destructive work', async () => {
     );
     assert.equal(calls, 0);
 });
+
+test('write schema accepts confirmDestructive without schema_invalid', async () => {
+    let calls = 0;
+    const leases = new McpApprovalLeaseStore();
+    const dispatcher = new CoreCocosMcpExecutionDispatcher([{ operations: ['lumen.nodeRm'], execute: async () => ++calls }], leases);
+    const context = { connectionId: 'local-a', resources: ['db://assets/ui/Demo.prefab'] };
+    const lease = leases.issue({ ...context, operations: ['lumen.nodeRm'], maxRisk: 'destructive' });
+    assert.equal(
+        await dispatcher.execute(
+            'lumen.nodeRm',
+            {
+                prefabRelativePath: 'assets/ui/Demo.prefab',
+                nodePath: '/Demo/Child',
+                approvalToken: lease.token,
+                confirmDestructive: true,
+            },
+            context,
+        ),
+        1,
+    );
+    assert.equal(calls, 1);
+});
+

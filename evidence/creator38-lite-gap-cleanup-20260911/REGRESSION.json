@@ -1,0 +1,99 @@
+{
+  "startedAtLocal": "2026-09-11T14:24:54.034Z",
+  "hubPort": 52935,
+  "connectionId": "678c437e9cb2bcaf86105685b932be96",
+  "summary": {
+    "PASS": 7,
+    "REFUSED_AS_EXPECTED": 2
+  },
+  "failCount": 0,
+  "rows": [
+    {
+      "phase": "issueApprovalToken",
+      "operation": "hub.issueApprovalToken#catalog",
+      "expect": "pass",
+      "ok": true,
+      "error": null,
+      "approvalToken": "e0f55fab6d9d6f65abef0996c1c9c719",
+      "approvalId": "e0f55fab6d9d6f65abef0996c1c9c719",
+      "liteMirrored": true,
+      "dualSame": true,
+      "verdict": "PASS"
+    },
+    {
+      "phase": "no-lease",
+      "operation": "asset.catalog.refresh",
+      "expect": "refuse",
+      "ok": false,
+      "error": "core_cocos_mcp_execution_approval_required:asset.catalog.refresh",
+      "verdict": "REFUSED_AS_EXPECTED"
+    },
+    {
+      "phase": "with-lease",
+      "operation": "asset.catalog.refresh",
+      "expect": "pass",
+      "ok": true,
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "phase": "issueApprovalToken",
+      "operation": "hub.issueApprovalToken#lumen",
+      "expect": "pass",
+      "ok": true,
+      "error": null,
+      "approvalToken": "6f609d1bcc966553e7373f01e1b6fa96",
+      "approvalId": "6f609d1bcc966553e7373f01e1b6fa96",
+      "liteMirrored": true,
+      "dualSame": true,
+      "verdict": "PASS"
+    },
+    {
+      "phase": "with-lease",
+      "operation": "lumen.scaffold",
+      "expect": "pass_or_business",
+      "ok": true,
+      "error": null,
+      "resultSlice": "{\"phase\":\"scaffolded\",\"prefab\":\"assets/peanut-gap-smoke/GapEmpty.prefab\",\"cocos\":\"3.8.7\",\"kind\":\"prefab\",\"recommendedNext\":{\"operation\":\"lumen.commit\",\"input\":{\"paths\":[\"assets/peanut-gap-smoke/GapEmp",
+      "verdict": "PASS"
+    },
+    {
+      "phase": "with-lease",
+      "operation": "lumen.nodeAdd",
+      "expect": "pass",
+      "ok": true,
+      "error": null,
+      "resultSlice": "{\"phase\":\"scaffolded\",\"path\":\"/GapRoot/ChildEmpty\",\"prefab\":\"assets/peanut-gap-smoke/GapEmpty.prefab\",\"kind\":\"prefab\",\"recommendedNext\":{\"operation\":\"lumen.commit\",\"input\":{\"paths\":[\"assets/peanut-gap",
+      "verdict": "PASS"
+    },
+    {
+      "phase": "destructive-no-confirm",
+      "operation": "lumen.nodeRm",
+      "expect": "refuse",
+      "ok": false,
+      "error": "cocos_mcp_destructive_confirmation_required",
+      "verdict": "REFUSED_AS_EXPECTED"
+    },
+    {
+      "phase": "issueApprovalToken",
+      "operation": "hub.issueApprovalToken#destructive",
+      "expect": "pass",
+      "ok": true,
+      "error": null,
+      "approvalToken": "2be501b3eb117fba01044a6392bc33f6",
+      "approvalId": "2be501b3eb117fba01044a6392bc33f6",
+      "liteMirrored": true,
+      "dualSame": true,
+      "verdict": "PASS"
+    },
+    {
+      "phase": "destructive-with-confirm",
+      "operation": "lumen.nodeRm",
+      "expect": "pass_or_business",
+      "ok": true,
+      "error": null,
+      "resultSlice": "{\"phase\":\"scaffolded\",\"removed\":\"/GapRoot/ChildEmpty\",\"skipped\":false,\"prefab\":\"assets/peanut-gap-smoke/GapEmpty.prefab\",\"kind\":\"prefab\",\"recommendedNext\":{\"operation\":\"lumen.commit\",\"input\":{\"paths\":",
+      "verdict": "PASS"
+    }
+  ]
+}

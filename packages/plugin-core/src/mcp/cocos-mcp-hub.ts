@@ -44,6 +44,19 @@ export interface ICocosMcpHubOptions {
      * @description 全局并发写 capability 上限（保护 AssetDB）；默认 16，范围 1–32。
      */
     readonly maxConcurrentWrites?: number;
+    /**
+     * @description 可选：将 Hub approvalToken 顺带写入 Lite McpApprovalLeaseStore（同 connection/resources/ops/risk）。
+     * 不自动免审；仅镜像租约。返回 Lite token（通常与 Hub token 相同）。
+     */
+    readonly mirrorLocalApprovalLease?: (request: {
+        readonly connectionId: string;
+        readonly resources: readonly string[];
+        readonly operations?: readonly string[];
+        readonly maxRisk?: 'write' | 'destructive';
+        readonly idleLeaseMs?: number;
+        readonly maxHoldMs?: number;
+        readonly preferredToken?: string;
+    }) => { readonly token: string; readonly expiresAt: number } | null;
 }
 
 interface IMcpHubSettingsRecord {
@@ -142,6 +155,10 @@ export class CocosMcpHub implements IMcpHubControl {
     private _directWriteEnabled: boolean;
     /** @description 批次 approvalToken 与资源空闲租约。 */
     private readonly _batchApprovals = new McpBatchApprovalStore();
+    /**
+     * @description 晚绑定的 Lite 本地租约镜像（coreModule 就绪后由 host 注入；可选）。
+     */
+    private _localApprovalLeaseMirror: ICocosMcpHubOptions['mirrorLocalApprovalLease'] | null = null;
     /** @description 当前在飞的写 capability 数量。 */
     private _writeInFlight = 0;
     /** @description 等待写槽位的回调队列。 */
@@ -160,6 +177,7 @@ export class CocosMcpHub implements IMcpHubControl {
         }
         this._pluginManagerProvider = pluginManagerProvider;
         this._options = options;
+        this._localApprovalLeaseMirror = options.mirrorLocalApprovalLease ?? null;
         this._descriptorPath = join(resolve(options.projectPath), '.peanut-ai', 'cocos-mcp.json');
         this._settingsPath = join(resolve(options.projectPath), '.peanut-ai', 'cocos-mcp-settings.json');
         const settings = this._readSettings();
@@ -788,7 +806,7 @@ export class CocosMcpHub implements IMcpHubControl {
             readonly idleLeaseMs?: number;
             readonly maxHoldMs?: number;
         },
-    ): { readonly approvalToken: string; readonly expiresAt: number; readonly idleLeaseMs: number } | null {
+    ): { readonly approvalToken: string; readonly approvalId: string; readonly expiresAt: number; readonly idleLeaseMs: number; readonly liteMirrored: boolean } | null {
         this._removeExpiredPlans();
         const plan = this._plans.get(planId);
         if (plan == null) {
@@ -797,19 +815,31 @@ export class CocosMcpHub implements IMcpHubControl {
         plan.approved = true;
         this._updateRecentCallStatus(plan.auditId, 'approved');
         const definition = this._requirePluginManager().getMcpCapabilityRegistry().getDefinition(plan.name);
+        const maxRisk = definition?.risk === 'destructive' ? 'destructive' : 'write';
         const issued = this._batchApprovals.issue({
             connectionId: plan.connectionId,
             resources,
             operations: [plan.name],
-            maxRisk: definition?.risk === 'destructive' ? 'destructive' : 'write',
+            maxRisk,
             sessionBound: options?.sessionBound === true,
             ...(options?.idleLeaseMs == null ? {} : { idleLeaseMs: options.idleLeaseMs }),
             ...(options?.maxHoldMs == null ? {} : { maxHoldMs: options.maxHoldMs }),
         });
+        const approvalId = this._mirrorLocalApprovalLease(
+            plan.connectionId,
+            resources,
+            [plan.name],
+            maxRisk,
+            issued.token,
+            options?.idleLeaseMs,
+            options?.maxHoldMs,
+        );
         return {
             approvalToken: issued.token,
+            approvalId: approvalId ?? issued.token,
             expiresAt: issued.expiresAt,
             idleLeaseMs: issued.idleLeaseMs,
+            liteMirrored: approvalId != null,
         };
     }
 
@@ -1299,10 +1329,64 @@ export class CocosMcpHub implements IMcpHubControl {
      * @param payload 请求体。
      * @returns 令牌摘要。
      */
+
+    /**
+     * @description 晚绑定 Lite 本地审批租约镜像（不自动免审；仅双写租约存储）。
+     * @param mirror 镜像函数；传 null 清除。
+     */
+    public setLocalApprovalLeaseMirror(
+        mirror: ICocosMcpHubOptions['mirrorLocalApprovalLease'] | null,
+    ): void {
+        this._localApprovalLeaseMirror = mirror;
+    }
+
+
+    /**
+     * @description 将 Hub 已签发 token 顺带写入 Lite 本地租约存储（若已绑定镜像）。
+     * @param connectionId 连接。
+     * @param resources 资源。
+     * @param operations 操作白名单。
+     * @param maxRisk 风险。
+     * @param hubToken Hub BatchStore token（作为 preferredToken）。
+     * @param idleLeaseMs 可选空闲租约。
+     * @param maxHoldMs 可选最长持有。
+     * @returns Lite token；未绑定或失败时返回 null。
+     */
+    private _mirrorLocalApprovalLease(
+        connectionId: string,
+        resources: readonly string[],
+        operations: readonly string[] | undefined,
+        maxRisk: 'write' | 'destructive',
+        hubToken: string,
+        idleLeaseMs?: number,
+        maxHoldMs?: number,
+    ): string | null {
+        const mirror = this._localApprovalLeaseMirror ?? this._options.mirrorLocalApprovalLease;
+        if (mirror == null) {
+            return null;
+        }
+        try {
+            const issued = mirror({
+                connectionId,
+                resources,
+                operations,
+                maxRisk,
+                preferredToken: hubToken,
+                ...(idleLeaseMs == null ? {} : { idleLeaseMs }),
+                ...(maxHoldMs == null ? {} : { maxHoldMs }),
+            });
+            return issued != null && typeof issued.token === 'string' && issued.token.length > 0
+                ? issued.token
+                : null;
+        } catch {
+            return null;
+        }
+    }
+
     private _issueApprovalToken(
         connectionId: string,
         payload: Record<string, unknown>,
-    ): { readonly approvalToken: string; readonly expiresAt: number; readonly idleLeaseMs: number } {
+    ): { readonly approvalToken: string; readonly approvalId: string; readonly expiresAt: number; readonly idleLeaseMs: number; readonly liteMirrored: boolean } {
         if (!Array.isArray(payload.resources)) {
             throw new Error('cocos_mcp_approval_resources_required');
         }
@@ -1322,19 +1406,31 @@ export class CocosMcpHub implements IMcpHubControl {
             typeof payload.maxHoldMs === 'number' && Number.isFinite(payload.maxHoldMs)
                 ? payload.maxHoldMs
                 : undefined;
+        const maxRisk = payload.maxRisk === 'destructive' ? 'destructive' : 'write';
         const issued = this._batchApprovals.issue({
             connectionId,
             resources,
             operations,
-            maxRisk: payload.maxRisk === 'destructive' ? 'destructive' : 'write',
+            maxRisk,
             sessionBound: payload.sessionBound === true,
             ...(idleLeaseMs == null ? {} : { idleLeaseMs }),
             ...(maxHoldMs == null ? {} : { maxHoldMs }),
         });
+        const approvalId = this._mirrorLocalApprovalLease(
+            connectionId,
+            resources,
+            operations,
+            maxRisk,
+            issued.token,
+            idleLeaseMs,
+            maxHoldMs,
+        );
         return {
             approvalToken: issued.token,
+            approvalId: approvalId ?? issued.token,
             expiresAt: issued.expiresAt,
             idleLeaseMs: issued.idleLeaseMs,
+            liteMirrored: approvalId != null,
         };
     }
 

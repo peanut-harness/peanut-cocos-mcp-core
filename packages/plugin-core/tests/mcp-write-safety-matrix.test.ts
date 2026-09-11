@@ -36,6 +36,15 @@ async function startHub(
             request(target: string, message: string, ...args: unknown[]): Promise<unknown>;
         };
         readonly requirePostflightVerified?: boolean;
+        readonly mirrorLocalApprovalLease?: (request: {
+            readonly connectionId: string;
+            readonly resources: readonly string[];
+            readonly operations?: readonly string[];
+            readonly maxRisk?: 'write' | 'destructive';
+            readonly idleLeaseMs?: number;
+            readonly maxHoldMs?: number;
+            readonly preferredToken?: string;
+        }) => { readonly token: string; readonly expiresAt: number } | null;
     } = {},
 ): Promise<{
     readonly hub: CocosMcpHub;
@@ -363,3 +372,47 @@ test('matrix: issueApprovalToken hub action then consume on write call', async (
         rmSync(projectPath, { recursive: true, force: true });
     }
 });
+
+test('matrix: issueApprovalToken mirrors Lite lease when hook bound', async (): Promise<void> => {
+    const projectPath = createProject('peanut-mcp-matrix-mirror-lease-');
+    const liteLeases = new Map<string, { connectionId: string; resources: readonly string[]; operations?: readonly string[]; maxRisk?: string }>();
+    const { hub, pluginManager, request, connectionId } = await startHub(projectPath, {
+        mirrorLocalApprovalLease: (req) => {
+            const token =
+                typeof req.preferredToken === 'string' && req.preferredToken.length >= 32
+                    ? req.preferredToken
+                    : 'f'.repeat(64);
+            liteLeases.set(token, {
+                connectionId: req.connectionId,
+                resources: req.resources,
+                operations: req.operations,
+                maxRisk: req.maxRisk,
+            });
+            return { token, expiresAt: Date.now() + 60_000 };
+        },
+    });
+    try {
+        const issued = await request({
+            action: 'issueApprovalToken',
+            connectionId,
+            resources: ['db://assets/ui'],
+            operations: ['peanut.matrix.batch-write'],
+            maxRisk: 'write',
+        });
+        assert.equal(issued.ok, true);
+        const result = issued.result as Record<string, unknown>;
+        const token = result.approvalToken as string;
+        assert.equal(result.approvalId, token);
+        assert.equal(result.liteMirrored, true);
+        assert.ok(liteLeases.has(token));
+        const mirrored = liteLeases.get(token)!;
+        assert.equal(mirrored.connectionId, connectionId);
+        assert.deepEqual([...mirrored.resources], ['db://assets/ui']);
+        assert.deepEqual([...(mirrored.operations ?? [])], ['peanut.matrix.batch-write']);
+        assert.equal(mirrored.maxRisk, 'write');
+    } finally {
+        await hub.stop();
+        rmSync(projectPath, { recursive: true, force: true });
+    }
+});
+

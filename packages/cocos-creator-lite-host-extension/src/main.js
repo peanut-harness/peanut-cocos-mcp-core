@@ -98,6 +98,26 @@ function toHubCapabilityDefinition(definition) {
  * Marked readOnly so Hub can issue a lease without already holding one.
  * Token is consumed via write-tool input.approvalId or approvalToken (Lite dispatcher; id preferred).
  */
+
+/**
+ * Late-bind Hub → Lite lease mirror so issueApprovalToken / approvePlanAndIssueToken
+ * also write McpApprovalLeaseStore (same connection/resources/ops/risk). Not auto-approve.
+ */
+function bindHubLocalApprovalLeaseMirror() {
+    const pluginManager = getPluginManagerKernel();
+    const hubControl = pluginManager?.getMcpHubControl?.();
+    if (hubControl == null || typeof hubControl.setLocalApprovalLeaseMirror !== 'function') {
+        return false;
+    }
+    hubControl.setLocalApprovalLeaseMirror((request = {}) => {
+        if (coreModule == null || typeof coreModule.issueApprovalLease !== 'function') {
+            return null;
+        }
+        return coreModule.issueApprovalLease(request);
+    });
+    return true;
+}
+
 function registerLocalApprovalLeaseTool() {
     const name = `${HUB_CAPABILITY_PLUGIN_ID}.issue-local-approval-lease`;
     if (toolHandlers.has(name)) {
@@ -301,6 +321,7 @@ async function load() {
         // Publish first-class tools into Plugin Manager registry so Hub list/status
         // matches host toolCount (reference island path: editor-mcp context.mcp.register).
         registerLocalApprovalLeaseTool();
+        bindHubLocalApprovalLeaseMirror();
         publishToolsToHubRegistry();
         const pro = await activateOptionalPro(packageStore);
         accountController = new LiteAccountController({

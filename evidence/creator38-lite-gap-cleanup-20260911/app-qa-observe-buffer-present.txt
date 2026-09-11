@@ -1,0 +1,6 @@
+True
+
+FullName : D:\workspaces\peanut-agents\test-demos\cocos-for-agent\assets\peanut\extensions\debug\app-qa\app-qa-observe-buffer.ts
+Length   : 3544
+
+
