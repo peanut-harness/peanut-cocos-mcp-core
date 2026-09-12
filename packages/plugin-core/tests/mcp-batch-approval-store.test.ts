@@ -68,3 +68,42 @@ test('ProjectMcpAgentConfig recommends Codex auto after server gates', (): void 
     assert.match(toml, /default_tools_approval_mode = "auto"/);
     assert.match(toml, /url = "http:\/\/127\.0\.0\.1:9\/mcp"/);
 });
+
+
+test('McpBatchApprovalStore empty resources fail-closed on write', (): void => {
+    const store = new McpBatchApprovalStore();
+    const issued = store.issue({
+        connectionId: 'conn-1',
+        resources: ['db://assets/ui'],
+        operations: ['asset.createFolder'],
+        maxRisk: 'write',
+    });
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'conn-1',
+            operation: 'asset.createFolder',
+            resources: [],
+            risk: 'write',
+        }),
+        false,
+    );
+});
+
+test('McpBatchApprovalStore assets/ and db://assets/ interop', (): void => {
+    const store = new McpBatchApprovalStore();
+    const issued = store.issue({
+        connectionId: 'conn-1',
+        resources: ['assets/ui/x'],
+        operations: ['asset.createFolder'],
+        maxRisk: 'write',
+    });
+    assert.equal(
+        store.tryConsume(issued.token, {
+            connectionId: 'conn-1',
+            operation: 'asset.createFolder',
+            resources: ['db://assets/ui/x'],
+            risk: 'write',
+        }),
+        true,
+    );
+});

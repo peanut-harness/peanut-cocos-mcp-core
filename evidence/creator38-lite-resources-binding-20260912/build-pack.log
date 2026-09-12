@@ -1,0 +1,89 @@
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\contracts :: npm run build =====
+
+> peanut-contracts@0.1.1 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\packaging :: npm run build =====
+
+> peanut-packaging@0.1.0 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\asset-catalog :: npm run build =====
+
+> peanut-asset-catalog@0.1.4 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\runtime :: npm run build =====
+
+> peanut-runtime@0.1.2 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\plugin-sdk :: npm run build =====
+
+> peanut-plugin-sdk@0.1.0 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\lumen :: npm run build =====
+
+> @peanut/cocos-lumen@0.0.31 build
+> npm run bundle:templates && tsc -p tsconfig.json
+
+
+> @peanut/cocos-lumen@0.0.31 bundle:templates
+> node scripts/bundle-default-prefab.cjs
+
+{
+  "ok": true,
+  "skipped": true,
+  "reason": "bundled_present",
+  "bundledTemplates": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\lumen\\bundled\\default_prefab",
+  "manifestPath": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\lumen\\bundled\\lumen-templates.manifest.json"
+}
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\pod-lite-capability-policy :: npm run build =====
+
+> @peanut/pod-lite-capability-policy@0.1.0 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\editor-mcp :: npm run build =====
+
+> peanut-plugin-editor-mcp@0.1.115 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\plugin-core :: npm run build =====
+
+> peanut-plugin-core@0.1.7 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\plugin-panel :: npm run build =====
+
+> peanut-plugin-panel@0.1.1 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\mcp-pod-lite-creator-host :: npm run build =====
+
+> @peanut/pod-lite-creator-host@0.1.0 build
+> tsc -p tsconfig.json
+
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\mcp-pod-lite-creator-host :: npm run pack =====
+
+> @peanut/pod-lite-creator-host@0.1.0 pack
+> npm run build && node scripts/pack-plugin.mjs
+
+
+> @peanut/pod-lite-creator-host@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "ok": true,
+  "outputDirectory": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\mcp-pod-lite-creator-host\\release\\peanut.pod-lite-0.1.0"
+}
+===== D:\peanut-workspace\peanut-pod-lite-wt-smoke-ab\packages\cocos-creator-lite-host-extension :: npm run pack =====
+
+> peanut-pod-lite-host@0.1.0 pack
+> node scripts/pack-host.mjs
+
+{
+  "ok": true,
+  "outputDirectory": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\cocos-creator-lite-host-extension\\release\\peanut-pod-lite-host-0.1.0"
+}
+BUILD_PACK_DONE

@@ -43,3 +43,15 @@ export {
 } from './mcp-approval-lease-store.js';
 
 export { McpControlFlowRefusal, isMcpControlFlowRefusal } from './mcp-control-flow-refusal.js';
+
+export {
+    normalizeResourceKey,
+    normalizeResourceKeySet,
+    normalizeResourceKeys,
+    type INormalizeResourceKeyOptions,
+} from './normalize-resource-key.js';
+export {
+    extractWriteResources,
+    readDeclaredResources,
+    resolveAuthorizedResources,
+} from './write-resource-authorization.js';

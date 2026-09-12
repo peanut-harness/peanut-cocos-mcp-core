@@ -1,0 +1,58 @@
+status ok True caps 39 at 2026-09-12 09:22:11 UTC+8
+no-lease:asset.catalog.refresh asset.catalog.refresh refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+no-lease:asset.createFolder asset.createFolder refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+no-lease:asset.delete asset.delete refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-delete
+no-lease:asset.move asset.move refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-move
+no-lease:asset.copy asset.copy refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-copy
+no-lease:asset.import asset.import refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-import
+no-lease:asset.rename asset.rename refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-rename
+no-lease:asset.writeText asset.writeText refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-write-text
+no-lease:asset.reimport asset.reimport refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-reimport
+no-lease:asset.open asset.open refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-open
+no-lease:asset.ensureSpriteFramesBatch asset.ensureSpriteFramesBatch refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-ensure-sprite-frames-batch
+no-lease:asset.replaceReferences asset.replaceReferences refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-replace-references
+A1-parent-no-prefix asset.createFolder refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+A2-exact-createFolder asset.createFolder pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+A3-declared-override-refuse asset.createFolder refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+A13-normalize-open asset.open pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-open
+wrong-bind-refresh asset.catalog.refresh refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+A11-refresh-sentinel asset.catalog.refresh pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+A12-refresh-narrow-refuse asset.catalog.refresh refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+A16-writeText asset.writeText pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-write-text
+rename-exact asset.rename pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-rename
+A6-move asset.move pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-move
+A7-copy asset.copy pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-copy
+A8-import asset.import pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-import
+reimport-exact asset.reimport pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-reimport
+ensureSpriteFramesBatch-bound PASS mcp_capability_unavailable:peanut.editor-mcp.asset-ensure-sprite-frames-batch
+A10-replaceReferences-uuid-bind PASS mcp_capability_unavailable:peanut.editor-mcp.asset-replace-references
+replaceReferences-wrong-uuid asset.replaceReferences refuse FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-replace-references
+A4-delete asset.delete pass FAIL mcp_capability_unavailable:peanut.editor-mcp.asset-delete
+SUMMARY 2 / 29 failed 27
+FAIL no-lease:asset.catalog.refresh mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+FAIL no-lease:asset.createFolder mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+FAIL no-lease:asset.delete mcp_capability_unavailable:peanut.editor-mcp.asset-delete
+FAIL no-lease:asset.move mcp_capability_unavailable:peanut.editor-mcp.asset-move
+FAIL no-lease:asset.copy mcp_capability_unavailable:peanut.editor-mcp.asset-copy
+FAIL no-lease:asset.import mcp_capability_unavailable:peanut.editor-mcp.asset-import
+FAIL no-lease:asset.rename mcp_capability_unavailable:peanut.editor-mcp.asset-rename
+FAIL no-lease:asset.writeText mcp_capability_unavailable:peanut.editor-mcp.asset-write-text
+FAIL no-lease:asset.reimport mcp_capability_unavailable:peanut.editor-mcp.asset-reimport
+FAIL no-lease:asset.open mcp_capability_unavailable:peanut.editor-mcp.asset-open
+FAIL no-lease:asset.ensureSpriteFramesBatch mcp_capability_unavailable:peanut.editor-mcp.asset-ensure-sprite-frames-batch
+FAIL no-lease:asset.replaceReferences mcp_capability_unavailable:peanut.editor-mcp.asset-replace-references
+FAIL A1-parent-no-prefix mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+FAIL A2-exact-createFolder mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+FAIL A3-declared-override-refuse mcp_capability_unavailable:peanut.editor-mcp.asset-create-folder
+FAIL A13-normalize-open mcp_capability_unavailable:peanut.editor-mcp.asset-open
+FAIL wrong-bind-refresh mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+FAIL A11-refresh-sentinel mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+FAIL A12-refresh-narrow-refuse mcp_capability_unavailable:peanut.editor-mcp.asset-catalog-refresh
+FAIL A16-writeText mcp_capability_unavailable:peanut.editor-mcp.asset-write-text
+FAIL rename-exact mcp_capability_unavailable:peanut.editor-mcp.asset-rename
+FAIL A6-move mcp_capability_unavailable:peanut.editor-mcp.asset-move
+FAIL A7-copy mcp_capability_unavailable:peanut.editor-mcp.asset-copy
+FAIL A8-import mcp_capability_unavailable:peanut.editor-mcp.asset-import
+FAIL reimport-exact mcp_capability_unavailable:peanut.editor-mcp.asset-reimport
+FAIL replaceReferences-wrong-uuid mcp_capability_unavailable:peanut.editor-mcp.asset-replace-references
+FAIL A4-delete mcp_capability_unavailable:peanut.editor-mcp.asset-delete

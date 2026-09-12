@@ -1071,6 +1071,16 @@ export class EditorMcpActionRouter {
         delete cleaned.confirmDestructive;
         delete cleaned.approvalToken;
         delete cleaned.approvalId;
+        // P2 审计：剥离前保留 resources 摘要（网关不消费；便于排查绑定）
+        if (Array.isArray(cleaned.resources)) {
+            const summary = cleaned.resources
+                .filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+                .map((item) => item.trim().replace(/\\/gu, '/'))
+                .slice(0, 32);
+            if (summary.length > 0) {
+                cleaned.__peanutResourcesAudit = Object.freeze(summary);
+            }
+        }
         delete cleaned.resources;
         return cleaned;
     }

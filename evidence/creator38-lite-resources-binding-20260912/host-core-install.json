@@ -1,0 +1,9 @@
+{
+  "core_has_resolveAuthorized": true,
+  "host_src": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\cocos-creator-lite-host-extension\\release\\peanut-pod-lite-host-0.1.0",
+  "host_has_batch_fail_closed": true,
+  "host_main_bytes": 1058380,
+  "core_has_normalizeResourceKey": true,
+  "host_dst": "D:\\mcp-test\\extensions\\peanut-pod-lite-host",
+  "installed_at": "2026-09-12T09:18:10.2792900+08:00"
+}

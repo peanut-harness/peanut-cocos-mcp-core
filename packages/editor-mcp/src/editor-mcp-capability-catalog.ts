@@ -144,7 +144,7 @@ export const EDITOR_MCP_CAPABILITY_SEEDS: readonly EditorMcpCapabilitySeed[] = [
     {
         operation: 'asset.replaceReferences',
         readOnly: false,
-        risk: 'write',
+        risk: 'destructive',
         description: {
             'en-US':
                 'Batch-replace __uuid__ references from A to B in serialized assets (prefab/scene/mtl/…). Supports @sub and dryRun; then refresh changed paths.',

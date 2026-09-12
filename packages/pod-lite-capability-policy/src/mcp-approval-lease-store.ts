@@ -1,6 +1,8 @@
 /**
  * @description MCP 执行风险等级；读取不需要审批租约。
  */
+import { normalizeResourceKeySet } from './normalize-resource-key.js';
+
 export type McpExecutionRisk = 'read' | 'write' | 'destructive';
 
 /**
@@ -176,13 +178,7 @@ export class McpApprovalLeaseStore {
      * @returns 去重后的规范化集合。
      */
     private normalize(values: readonly string[]): Set<string> {
-        const result = new Set<string>();
-        for (const value of values) {
-            if (typeof value === 'string' && value.trim().length > 0) {
-                result.add(value.trim().replace(/\\/gu, '/'));
-            }
-        }
-        return result;
+        return normalizeResourceKeySet(values);
     }
 
     /**

@@ -154,12 +154,14 @@ export class McpBatchApprovalStore {
         if (record.operations.size > 0 && !record.operations.has(request.operation)) {
             return false;
         }
+        // fail-closed：写/破坏性消费无有效资源则拒（与 Lite 对齐；不再空集跳过）
         const requested = this._normalizeResources(request.resources);
-        if (requested.size > 0) {
-            for (const resource of requested) {
-                if (!record.resources.has(resource)) {
-                    return false;
-                }
+        if (requested.size === 0) {
+            return false;
+        }
+        for (const resource of requested) {
+            if (!record.resources.has(resource)) {
+                return false;
             }
         }
         record.lastUsedAt = now;
@@ -201,12 +203,39 @@ export class McpBatchApprovalStore {
             if (typeof item !== 'string') {
                 continue;
             }
-            const trimmed = item.trim().replace(/\\/gu, '/');
-            if (trimmed.length > 0) {
-                result.add(trimmed);
+            const key = this._normalizeResourceKey(item);
+            if (key.length > 0) {
+                result.add(key);
             }
         }
         return result;
+    }
+
+    /**
+     * @description 与 Lite `normalizeResourceKey` 对齐（精确匹配；assets ↔ db://assets；uuid 无解析器则保持）。
+     * @param value 原始键。
+     * @returns 归一键。
+     */
+    private _normalizeResourceKey(value: string): string {
+        const trimmed = value.trim().replace(/\\/gu, '/');
+        if (trimmed.length === 0) {
+            return '';
+        }
+        const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:@[\w.-]+)?$/iu;
+        if (uuidRe.test(trimmed)) {
+            const at = trimmed.indexOf('@');
+            if (at < 0) {
+                return trimmed.toLowerCase();
+            }
+            return `${trimmed.slice(0, at).toLowerCase()}${trimmed.slice(at)}`;
+        }
+        if (trimmed === 'assets' || trimmed.startsWith('assets/')) {
+            return `db://${trimmed}`;
+        }
+        if (trimmed === 'db://assets' || trimmed.startsWith('db://assets/')) {
+            return trimmed;
+        }
+        return trimmed;
     }
 
     /**

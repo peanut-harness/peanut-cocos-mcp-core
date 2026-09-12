@@ -8,6 +8,7 @@ import {
     EditorMcpGatewayAdapter,
     isProExclusiveCocosOperation,
     McpApprovalLeaseStore,
+    resolveAuthorizedResources,
     type ICoreCocosMcpToolDefinition,
     type ICoreCocosCreatorReadRuntime,
     type ICoreCocosMcpExecutionContext,
@@ -269,82 +270,8 @@ function resolveWriteExecutionContext(
         (typeof invocation?.connectionId === 'string' && invocation.connectionId.trim().length > 0
             ? invocation.connectionId.trim()
             : context.connectionId) ?? 'local';
-    const resources =
-        invocation?.resourceIds != null && invocation.resourceIds.length > 0
-            ? invocation.resourceIds
-            : extractWriteResources(operation, input);
+    // 推导业务资源 ∪ 声明 resources；声明不得单独放行越权写（策略 A：归一后精确 ⊆，无前缀）
+    const resources = resolveAuthorizedResources(operation, input, invocation?.resourceIds);
     return { connectionId, resources };
 }
 
-/**
- * @description 从写入输入提取资源范围；缺省按域给出稳定作用域。
- * @param operation 稳定 operation。
- * @param input 已校验输入。
- * @returns 规范化资源列表。
- */
-function extractWriteResources(operation: string, input: Readonly<Record<string, unknown>>): readonly string[] {
-    const collected: string[] = [];
-    const push = (value: unknown): void => {
-        if (typeof value === 'string' && value.trim().length > 0) {
-            collected.push(value.trim().replace(/\\/gu, '/'));
-            return;
-        }
-        if (Array.isArray(value)) {
-            for (const item of value) {
-                if (typeof item === 'string') {
-                    push(item);
-                    continue;
-                }
-                if (typeof item === 'object' && item != null && 'path' in item) {
-                    push((item as { path: unknown }).path);
-                }
-            }
-        }
-    };
-    for (const key of [
-        'resources',
-        'paths',
-        'sources',
-        'targets',
-        'dbPaths',
-        'files',
-        'path',
-        'from',
-        'to',
-        'target',
-        'targetDirectory',
-        'uuid',
-        'url',
-        'prefabRelativePath',
-        'assetRelativePath',
-        'imagePath',
-        'scenePath',
-        'nodePath',
-        'prefabPath',
-        'parentPath',
-        'scriptRelativePath',
-        'platform',
-    ]) {
-        push(input[key]);
-    }
-    if (collected.length > 0) {
-        return Object.freeze([...new Set(collected)]);
-    }
-    const domain = operation.split('.')[0] ?? operation;
-    if (domain === 'scene') {
-        return Object.freeze(['scene:active']);
-    }
-    if (domain === 'asset' || domain === 'lumen' || domain === 'prefab') {
-        return Object.freeze(['db://assets']);
-    }
-    if (domain === 'preview') {
-        return Object.freeze(['preview']);
-    }
-    if (domain === 'builder') {
-        return Object.freeze(['builder']);
-    }
-    if (domain === 'reference') {
-        return Object.freeze(['reference']);
-    }
-    return Object.freeze(['editor']);
-}

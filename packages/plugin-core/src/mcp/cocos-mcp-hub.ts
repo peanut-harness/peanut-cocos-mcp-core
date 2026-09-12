@@ -1499,24 +1499,65 @@ export class CocosMcpHub implements IMcpHubControl {
         }
         const record = input as Record<string, unknown>;
         const collected: string[] = [];
-        if (typeof record.target === 'string' && record.target.trim().length > 0) {
-            collected.push(record.target.trim());
-        }
-        if (Array.isArray(record.resources)) {
-            for (const item of record.resources) {
+        const push = (value: unknown): void => {
+            if (typeof value === 'string' && value.trim().length > 0) {
+                collected.push(value.trim());
+                return;
+            }
+            if (!Array.isArray(value)) {
+                return;
+            }
+            for (const item of value) {
                 if (typeof item === 'string' && item.trim().length > 0) {
                     collected.push(item.trim());
+                    continue;
+                }
+                if (typeof item === 'object' && item != null && 'path' in item) {
+                    push((item as { path: unknown }).path);
                 }
             }
+        };
+        // 与 Lite extract 业务键对齐（含 replaceReferences uuid）；声明 resources 一并采集
+        for (const key of [
+            'resources',
+            'paths',
+            'sources',
+            'targets',
+            'dbPaths',
+            'files',
+            'path',
+            'from',
+            'to',
+            'target',
+            'targetDirectory',
+            'uuid',
+            'url',
+            'fromUuid',
+            'toUuid',
+            'prefabRelativePath',
+            'assetRelativePath',
+            'imagePath',
+            'scenePath',
+            'prefabPath',
+            'parentPath',
+            'scriptRelativePath',
+        ]) {
+            push(record[key]);
         }
-        if (Array.isArray(record.sources)) {
-            for (const item of record.sources) {
-                if (typeof item === 'string' && item.trim().length > 0) {
-                    collected.push(item.trim());
-                }
+        // 归一：assets ↔ db://assets（与 Lite/BatchStore 对齐）
+        const normalized = new Set<string>();
+        for (const item of collected) {
+            const trimmed = item.replace(/\\/gu, '/');
+            if (trimmed.length === 0) {
+                continue;
+            }
+            if (trimmed === 'assets' || trimmed.startsWith('assets/')) {
+                normalized.add(`db://${trimmed}`);
+            } else {
+                normalized.add(trimmed);
             }
         }
-        return collected;
+        return [...normalized];
     }
 
     /**
