@@ -1,6 +1,6 @@
 # Peanut Pod Lite
 
-Cocos Creator editor product. The current policy and schema catalogs cover 83 free operations: 36 reads and 47 writes/destructive operations. Native writes require a real local approval lease. Lite can sign in and upgrade a subscription; paid execution still requires the Pro package.
+Cocos Creator editor product. The current policy and schema catalogs cover 83 free operations: 38 reads and 45 writes/destructive operations. Native writes require a real local approval lease. Lite can sign in and upgrade a subscription; paid execution still requires the Pro package.
 
 ## Packages
 

@@ -1536,6 +1536,10 @@ test('Editor MCP plugin should execute silent asset lifecycle on disk', async ()
             projectPath: root,
             lumenGateway: {
                 validate() {},
+                async refreshForCommit(paths) {
+                    refreshCalls.push({ paths });
+                    return { phase: 'editor_refreshed', result: { triggered: true } };
+                },
                 async execute(operation, input) {
                     if (operation === 'lumen.refresh') {
                         refreshCalls.push(input);
@@ -1570,13 +1574,14 @@ test('Editor MCP plugin should execute silent asset lifecycle on disk', async ()
             input: { paths: ['assets/out/Renamed.png'] },
         });
         assert.equal(reimport.data.phase, 'editor_refreshed');
+        assert.equal(reimport.data.via, 'watcher_settle_skip_refresh_for_images');
 
         await pluginModule.dispatchMcpAction('cocos.call', {
             operation: 'asset.delete',
             input: { paths: ['assets/out/Renamed.png'], confirmDestructive: true },
         });
         assert.equal(existsSync(join(root, 'assets/out/Renamed.png')), false);
-        assert.ok(refreshCalls.length >= 2);
+        assert.deepEqual(refreshCalls, [{ paths: ['assets/out/Icon.png'] }]);
     } finally {
         rmSync(root, { recursive: true, force: true });
     }

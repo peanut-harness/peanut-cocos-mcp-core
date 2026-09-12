@@ -63,7 +63,7 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 
 ## 2026-09-10 Lite 基础能力复核
 
-- Lite 目录完整性通过：36 项只读、47 项本地审批写入，合计 83 项；36 项只读 schema 与 47 项写入 schema 全覆盖。
+- Lite 目录完整性通过：38 项只读、45 项本地审批写入，合计 83 项；38 项只读 schema 与 45 项写入 schema 全覆盖。
 - `company-tests`（Creator 3.8.7）已移除旧 `peanut.cocos-mcp-core` 系统并安装 `peanut-pod-lite-host` 与 `peanut.pod-lite@0.1.0`；旧文件备份在外部临时目录。
 - 修复 Creator host 注册回调把工具名误传给 dispatcher 的问题；现在改为传入稳定 operation，9 项已迁入读取均可实际调用。
 - 9 项读取 mock Creator 回归通过：版本、工程、选区、当前场景、场景层级、3 项 Builder 查询和预览查询均命中兼容 Message 路由。

@@ -153,8 +153,8 @@ test('gateway mock registers all 83 Lite public tools and never preview.capture 
     });
     assert.equal(registered.size, 83);
     assert.equal([...registered.values()].some((item) => item.operation === 'preview.capture' || item.operation.includes('snowb')), false);
-    assert.equal([...registered.values()].filter((item) => item.readOnly).length, 36);
-    assert.equal([...registered.values()].filter((item) => !item.readOnly).length, 47);
+    assert.equal([...registered.values()].filter((item) => item.readOnly).length, 38);
+    assert.equal([...registered.values()].filter((item) => !item.readOnly).length, 45);
     const versionTool = [...registered.entries()].find(([, item]) => item.operation === 'editor.queryVersion');
     assert.notEqual(versionTool, undefined);
     assert.deepEqual(await handlers.get(versionTool![0])!({}), { operation: 'editor.queryVersion', input: {} });
