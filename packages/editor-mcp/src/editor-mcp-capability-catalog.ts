@@ -652,9 +652,9 @@ export const EDITOR_MCP_CAPABILITY_SEEDS: readonly EditorMcpCapabilitySeed[] = [
         risk: 'read',
         description: {
             'en-US':
-                'Check prefab/scene for missing UUIDs, unbound sprites, empty clicks/refs. Engine/default_prefab builtins are ignored (ignoredEngineDefaultUuid). Call after write before preview.',
+                'Validate prefab/scene UUIDs, serialized __id__ graph, ownership, script reference types, sprite asset types, and click targets. Engine/default_prefab builtins are ignored (ignoredEngineDefaultUuid). Call after write before preview.',
             'zh-CN':
-                '查 Prefab/Scene 缺失 UUID、未绑 Sprite、空点击/引用；引擎/default_prefab 内置 uuid 计入 ignoredEngineDefaultUuid。写后、预览前调用。',
+                '校验 Prefab/Scene UUID、序列化 __id__ 图、节点组件归属、脚本引用类型、Sprite 资源类型与点击目标；引擎/default_prefab 内置 uuid 计入 ignoredEngineDefaultUuid。写后、预览前调用。',
         },
         requiresInput: true,
     },

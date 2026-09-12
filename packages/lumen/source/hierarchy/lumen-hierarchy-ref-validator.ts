@@ -4,6 +4,7 @@ import { extname, join, resolve } from "path";
 import { AssetCatalogBuilder } from "peanut-asset-catalog";
 
 import { LumenEngineDefaultUuidCatalog } from "./lumen-engine-default-uuid-catalog.js";
+import { LumenSerializedBindingValidator } from "./lumen-serialized-binding-validator.js";
 
 /**
  * @description Prefab/Scene 引用校验输入。
@@ -23,7 +24,12 @@ export interface ILumenRefIssue {
     | "unboundSprite"
     | "emptyClickEvent"
     | "emptyNodeRef"
-    | "badAnimPath";
+    | "badAnimPath"
+    | "danglingId"
+    | "wrongReferenceType"
+    | "brokenOwnership"
+    | "invalidClickEvent"
+    | "wrongAssetType";
   /** @description 节点路径。 */
   readonly nodePath: string;
   /** @description 组件类型。 */
@@ -53,6 +59,11 @@ export interface ILumenValidateRefsResult {
     emptyClickEvent: number;
     emptyNodeRef: number;
     badAnimPath: number;
+    danglingId: number;
+    wrongReferenceType: number;
+    brokenOwnership: number;
+    invalidClickEvent: number;
+    wrongAssetType: number;
     ignoredEngineDefaultUuid: number;
   }>;
   /** @description 因引擎/default_prefab 内置资源而忽略的缺失 uuid 条数说明。 */
@@ -60,7 +71,7 @@ export interface ILumenValidateRefsResult {
 }
 
 /**
- * @description 对磁盘 Prefab/Scene 做引用健康检查（缺失 uuid / 未绑图 / 空点击 / 空节点引用）。
+ * @description 对磁盘 Prefab/Scene 做资源引用和序列化绑定图健康检查。
  */
 export class LumenHierarchyRefValidator {
   /**
@@ -100,6 +111,7 @@ export class LumenHierarchyRefValidator {
     }
     const pathByNodeIndex = this._buildNodePaths(records);
     const issues: ILumenRefIssue[] = [];
+    issues.push(...new LumenSerializedBindingValidator().validate(projectRoot, records, catalog, pathByNodeIndex));
     for (let index = 0; index < records.length; index += 1) {
       const record = records[index];
       if (record == null) {
@@ -218,6 +230,18 @@ export class LumenHierarchyRefValidator {
       emptyNodeRef: reported.filter((item) => item.kind === "emptyNodeRef")
         .length,
       badAnimPath: reported.filter((item) => item.kind === "badAnimPath")
+        .length,
+      danglingId: reported.filter((item) => item.kind === "danglingId").length,
+      wrongReferenceType: reported.filter(
+        (item) => item.kind === "wrongReferenceType",
+      ).length,
+      brokenOwnership: reported.filter(
+        (item) => item.kind === "brokenOwnership",
+      ).length,
+      invalidClickEvent: reported.filter(
+        (item) => item.kind === "invalidClickEvent",
+      ).length,
+      wrongAssetType: reported.filter((item) => item.kind === "wrongAssetType")
         .length,
       ignoredEngineDefaultUuid: ignoredEngineDefaults.length,
     };

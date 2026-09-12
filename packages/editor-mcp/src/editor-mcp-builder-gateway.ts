@@ -139,18 +139,19 @@ export class EditorMcpBuilderGateway {
      * @returns 结果。
      */
     public async queryDefaultConfig(input: IBuilderQueryDefaultConfigMcpInput): Promise<IEditorMcpBuilderResult> {
-        const platform = input.platform?.trim();
-        const args = platform == null || platform.length === 0 ? [] : [platform];
-        return this._requestFirst(
-            [
-                ['query-tasks-info', []],
-                ['query-platform-config', []],
-                ['query-default-config', args],
-                ['get-default-build-options', args],
-                ['query-build-options', args],
-            ],
-            'builder_query_default_config',
-        );
+        const platform = input.platform?.trim() ?? '';
+        const resolved = await this._queryBuildOptionsTemplate(platform);
+        if (resolved == null) {
+            return this._finalize({
+                available: false,
+                message: 'builder_query_default_config_unavailable:no_executable_default_options',
+            });
+        }
+        return this._finalize({
+            available: true,
+            message: `builder_query_default_config_ok:${resolved.messageName}`,
+            data: resolved.options,
+        });
     }
 
     /**
@@ -243,18 +244,13 @@ export class EditorMcpBuilderGateway {
                     // ignore
                 }
             }
-            try {
-                const info = await message.request('builder', 'query-tasks-info');
-                const template = pickTaskOptionsTemplate(info, platform);
-                if (template != null) {
-                    for (const [key, value] of Object.entries(template)) {
-                        if (!(key in merged) && value != null) {
-                            merged[key] = value;
-                        }
+            const resolved = await this._queryBuildOptionsTemplate(platform);
+            if (resolved != null) {
+                for (const [key, value] of Object.entries(resolved.options)) {
+                    if (!(key in merged) && value != null) {
+                        merged[key] = value;
                     }
                 }
-            } catch {
-                // template optional
             }
         }
         if (typeof merged.buildPath !== 'string' || merged.buildPath.trim().length === 0) {
@@ -262,9 +258,54 @@ export class EditorMcpBuilderGateway {
             merged.buildPath = 'project://build';
         }
         if (typeof merged.debug !== 'boolean') {
-            merged.debug = true;
+            merged.debug = false;
+        }
+        if (typeof merged.outputName !== 'string' || merged.outputName.trim().length === 0) {
+            merged.outputName = platform;
+        }
+        if (typeof merged.taskName !== 'string' || merged.taskName.trim().length === 0) {
+            merged.taskName = platform;
+        }
+        if (
+            (platform === 'web-desktop' || platform === 'web-mobile') &&
+            (typeof merged.mainBundleCompressionType !== 'string' || merged.mainBundleCompressionType.trim().length === 0)
+        ) {
+            merged.mainBundleCompressionType = 'merge_dep';
         }
         return merged;
+    }
+
+    /**
+     * @description Query Creator messages until one yields executable build options.
+     * @param platform Target platform; empty means Creator-wide defaults.
+     * @returns Resolved options and source message, or null.
+     */
+    private async _queryBuildOptionsTemplate(
+        platform: string,
+    ): Promise<{ readonly messageName: string; readonly options: Record<string, unknown> } | null> {
+        const message = this._runtime.message;
+        if (message == null) {
+            return null;
+        }
+        const platformArgs = platform.length === 0 ? [] : [platform];
+        const candidates: readonly (readonly [string, readonly unknown[]])[] = [
+            ['query-default-config', platformArgs],
+            ['get-default-build-options', platformArgs],
+            ['query-build-options', platformArgs],
+            ['query-tasks-info', []],
+        ];
+        for (const [messageName, args] of candidates) {
+            try {
+                const rawTemplate = await message.request('builder', messageName, ...args);
+                const template = pickBuildOptionsTemplate(rawTemplate, platform);
+                if (template != null) {
+                    return { messageName, options: template };
+                }
+            } catch {
+                // optional Creator message
+            }
+        }
+        return null;
     }
 
     /**
@@ -480,17 +521,21 @@ function extractPlatformIds(raw: unknown): string[] {
 }
 
 /**
- * @description Pick build options template from query-tasks-info payload.
- * @param raw Creator tasks info.
+ * @description Pick build options template from Creator default-config or task payloads.
+ * @param raw Creator builder payload.
  * @param platform Target platform.
  * @returns Template options or null.
  * @oopException Pure helper
  */
-function pickTaskOptionsTemplate(raw: unknown, platform: string): Record<string, unknown> | null {
+function pickBuildOptionsTemplate(raw: unknown, platform: string): Record<string, unknown> | null {
     if (raw == null || typeof raw !== 'object') {
         return null;
     }
     const record = raw as Record<string, unknown>;
+    const direct = pickDirectBuildOptions(record, platform);
+    if (direct != null) {
+        return direct;
+    }
     const lists: unknown[] = [];
     if (Array.isArray(record.list)) {
         lists.push(...record.list);
@@ -528,4 +573,41 @@ function pickTaskOptionsTemplate(raw: unknown, platform: string): Record<string,
         }
     }
     return null;
+}
+
+/**
+ * @description Read a direct build-options object from common Creator response wrappers.
+ * @param record Creator response record.
+ * @param platform Target platform.
+ * @returns Direct options or null.
+ * @oopException Pure helper
+ */
+function pickDirectBuildOptions(record: Record<string, unknown>, platform: string): Record<string, unknown> | null {
+    for (const key of ['options', 'rawOptions', 'config', 'defaultConfig', 'buildOptions']) {
+        const value = record[key];
+        if (value == null || typeof value !== 'object' || Array.isArray(value)) {
+            continue;
+        }
+        const candidate = value as Record<string, unknown>;
+        const platformValue = candidate[platform];
+        if (platformValue != null && typeof platformValue === 'object' && !Array.isArray(platformValue)) {
+            return { ...(platformValue as Record<string, unknown>), platform };
+        }
+        if (looksLikeBuildOptions(candidate)) {
+            return { ...candidate, platform };
+        }
+    }
+    return looksLikeBuildOptions(record) ? { ...record, platform } : null;
+}
+
+/**
+ * @description Decide whether an object contains executable build options rather than platform schema metadata.
+ * @param value Candidate record.
+ * @returns Whether the record looks like build options.
+ * @oopException Pure helper
+ */
+function looksLikeBuildOptions(value: Readonly<Record<string, unknown>>): boolean {
+    return ['platform', 'buildPath', 'outputName', 'taskName', 'mainBundleCompressionType', 'scenes', 'debug'].some(
+        (key) => key in value,
+    );
 }

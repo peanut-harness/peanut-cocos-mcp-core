@@ -217,6 +217,8 @@ export type { ILumenStandaloneAssetDocument, ILumenStandaloneInspect } from './s
 export { LumenPrefabDocument } from './hierarchy/prefab-document';
 export { LumenHierarchyRefValidator } from './hierarchy/lumen-hierarchy-ref-validator';
 export type { ILumenRefIssue, ILumenValidateRefsInput, ILumenValidateRefsResult } from './hierarchy/lumen-hierarchy-ref-validator';
+export { LumenSerializedBindingValidator } from './hierarchy/lumen-serialized-binding-validator';
+export type { ILumenSerializedBindingIssue } from './hierarchy/lumen-serialized-binding-validator';
 export { LumenEngineDefaultUuidCatalog } from './hierarchy/lumen-engine-default-uuid-catalog';
 export { LumenRecipeMemoryCompiler } from './hierarchy/recipe-memory-compiler';
 export type { ILumenRecipeMemoryCompileInput, ILumenRecipeMemoryCompileResult } from './hierarchy/recipe-memory-compiler';

@@ -1153,14 +1153,15 @@ export class LumenSession {
      * @returns 绝对 prefab 路径
      */
     private _resolveTemplatePath(template: string): string {
-        const normalizedTemplate = LumenTemplateAlias.normalize(template);
-        if (isAbsolute(normalizedTemplate) || normalizedTemplate.endsWith('.prefab')) {
-            const absolute = this._resolveAbsolute(normalizedTemplate);
+        const trimmedTemplate = template.trim();
+        if (isAbsolute(trimmedTemplate) || trimmedTemplate.endsWith('.prefab')) {
+            const absolute = this._resolveAbsolute(trimmedTemplate);
             if (!existsSync(absolute)) {
                 throw new Error(`lumen_template_missing:${absolute}`);
             }
             return absolute;
         }
+        const normalizedTemplate = LumenTemplateAlias.normalize(template);
         if (this._templateRoot == null) {
             throw new Error('lumen_template_root_required:pass_templateRoot_or_use_empty');
         }

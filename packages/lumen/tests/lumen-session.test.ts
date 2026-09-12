@@ -4434,3 +4434,31 @@ test('addChildFromTemplate empty is logical (no empty.prefab required)', (): voi
         rmSync(root, { recursive: true, force: true });
     }
 });
+
+test('addChildFromTemplate accepts an absolute prefab path with its extension', (): void => {
+    const root = createProject('lumen-absolute-template-');
+    try {
+        const source = new LumenSession({ projectRoot: root });
+        const templatePath = source.scaffoldPrefab({
+            prefabRelativePath: 'assets/PlayerPanel.prefab',
+            rootName: 'PlayerPanel',
+            template: 'empty',
+        });
+        source.save();
+
+        const scene = new LumenSession({ projectRoot: root });
+        scene.scaffoldPrefab({
+            prefabRelativePath: 'assets/BindingVerification.scene',
+            rootName: 'BindingVerification',
+            template: 'ui/Canvas',
+        });
+        const childPath = scene.addChildFromTemplate({
+            parentPath: '/BindingVerification/Canvas',
+            template: join(root, templatePath),
+        });
+
+        assert.equal(childPath, '/BindingVerification/Canvas/PlayerPanel');
+    } finally {
+        rmSync(root, { recursive: true, force: true });
+    }
+});

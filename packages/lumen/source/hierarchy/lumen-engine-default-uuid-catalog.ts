@@ -10,6 +10,12 @@ export class LumenEngineDefaultUuidCatalog {
   /** @description 进程内缓存：模板根 → uuid 集合。 */
   private static readonly _cache = new Map<string, ReadonlySet<string>>();
 
+  /** @description `LumenSceneScaffold` 使用的 Creator 内置天空盒资源。 */
+  private static readonly _sceneBuiltinUuids = [
+    "d032ac98-05e1-4090-88bb-eb640dcb5fc1@b47c0",
+    "6f01cf7f-81bf-4a7e-bd5d-0afc19696480@b47c0",
+  ] as const;
+
   /**
    * @description 判断 uuid（可含 `@sub`）是否为引擎 / 内置模板默认资源。
    * @param uuid 标准或压缩 uuid；可含 `@` 子资源后缀。
@@ -48,6 +54,9 @@ export class LumenEngineDefaultUuidCatalog {
       return cached;
     }
     const uuids = new Set<string>();
+    for (const uuid of this._sceneBuiltinUuids) {
+      this._addUuid(uuid, uuids);
+    }
     this._scanDirectory(root, uuids);
     this._cache.set(root, uuids);
     return uuids;
