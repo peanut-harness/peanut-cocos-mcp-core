@@ -1,0 +1,54 @@
+{
+  "http": 200,
+  "ok": true,
+  "result": {
+    "deleted": [
+      {
+        "path": "assets/__quiet_asset_ops_tmp",
+        "uuid": "d80edbb7-8580-43cb-b8e6-e79ed4b69efe",
+        "isDirectory": true
+      },
+      {
+        "path": "assets/__quiet_asset_ops_tmp/child",
+        "uuid": "97372ac5-65ec-4d13-add7-4e0e618f7a53",
+        "isDirectory": true
+      },
+      {
+        "path": "assets/__quiet_asset_ops_tmp/subdir",
+        "uuid": "bd751c8a-33db-4868-8048-263446caacb4",
+        "isDirectory": true
+      },
+      {
+        "path": "assets/__quiet_asset_ops_tmp/subdir/note-moved.txt",
+        "uuid": "ef2fcb9d-d377-4a25-a661-24bcc42cafae",
+        "isDirectory": false
+      }
+    ],
+    "refresh": {
+      "phase": "editor_refreshed",
+      "result": {
+        "triggered": true,
+        "message": "lumen_asset_db_refresh:db://assets/|settle:0/0:43ms/budget:2000ms",
+        "settle": {
+          "waitedMs": 43,
+          "budgetMs": 2000,
+          "overBudget": false,
+          "registered": 0,
+          "pending": 0,
+          "ready": true,
+          "softFailCount": 0
+        }
+      },
+      "barrier": true
+    },
+    "postflight": {
+      "logChecked": true,
+      "logPath": "D:\\mcp-test\\temp\\logs\\project.log",
+      "newErrorCount": 0,
+      "newWarningCount": 0,
+      "newErrors": [],
+      "newWarnings": [],
+      "verified": true
+    }
+  }
+}

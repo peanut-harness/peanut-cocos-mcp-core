@@ -1,0 +1,52 @@
+2026-9-12 09:47:41 - error: [plugin:peanut.editor-mcp] silent_delete_source_missing:assets/__quiet_asset_ops_tmp Error: silent_delete_source_missing:assets/__quiet_asset_ops_tmp
+    at SilentAssetDelete2.delete (D:\mcp-test\peanut-plugins\plugins\peanut.pod-lite\0.1.0\peanut.pod-lite.bundle.js:3098:19)
+    at D:\mcp-test\peanut-plugins\plugins\peanut.pod-lite\0.1.0\peanut.pod-lite.bundle.js:37593:81
+    at _LumenResourceWriteLock._runExclusiveManyOrdered (D:\mcp-test\peanut-plugins\plugins\peanut.pod-lite\0.1.0\peanut.pod-lite.bundle.js:21561:18)
+    at D:\mcp-test\peanut-plugins\plugins\peanut.pod-lite\0.1.0\peanut.pod-lite.bundle.js:21567:50
+    at _LumenResourceWriteLock.runExclusive (D:\mcp-test\peanut-plugins\plugins\peanut.pod-lite\0.1.0\peanut.pod-lite.bundle.js:21534:24)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  source: 'mcp_capability',
+  phase: undefined,
+  incidentId: 'plugin-diagnostic-1789177661487-939a58c5b7d2',
+  context: {
+    capability: 'peanut.editor-mcp.asset-delete',
+    connectionId: 'c01a242008db8672dba9977b3e6d9788',
+    callerPluginId: undefined
+  }
+}
+2026-9-12 09:47:48 - error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/child", because the original asset is not exist. Maybe it is a new asset.Error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/child", because the original asset is not exist. Maybe it is a new asset.
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\build\cjs\utils-hoist\instrument\console.js:38:14)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree-data.ccc:1:4030)
+    at VueComponent.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree.ccc:1:6870)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\panel.ccc:1:9401)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5083
+    at new Promise (<anonymous>)
+    at EventEmitter.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5044)
+    at EventEmitter.emit (node:events:519:28)
+    at IpcRenderer.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@base\electron-base-ipc\dist\renderer.ccc:1:3858)
+    at IpcRenderer.emit (node:events:519:28)
+    at Object.onMessage (node:electron/js2c/renderer_init:2:8837)
+2026-9-12 09:47:51 - error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/note-renamed.txt", because the original asset is not exist. Maybe it is a new asset.Error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/note-renamed.txt", because the original asset is not exist. Maybe it is a new asset.
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\build\cjs\utils-hoist\instrument\console.js:38:14)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree-data.ccc:1:4030)
+    at VueComponent.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree.ccc:1:6870)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\panel.ccc:1:9401)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5083
+    at new Promise (<anonymous>)
+    at EventEmitter.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5044)
+    at EventEmitter.emit (node:events:519:28)
+    at IpcRenderer.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@base\electron-base-ipc\dist\renderer.ccc:1:3858)
+    at IpcRenderer.emit (node:events:519:28)
+    at Object.onMessage (node:electron/js2c/renderer_init:2:8837)
+2026-9-12 09:47:59 - error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/subdir/note-moved.txt", because the original asset is not exist. Maybe it is a new asset.Error: [Window] Can not change the asset "db://assets/__quiet_asset_ops_tmp/subdir/note-moved.txt", because the original asset is not exist. Maybe it is a new asset.
+    at console.error (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\build\cjs\utils-hoist\instrument\console.js:38:14)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree-data.ccc:1:4030)
+    at VueComponent.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\components\tree.ccc:1:6870)
+    at Object.changed (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\modules\editor-extensions\extensions\assets\dist\panel.ccc:1:9401)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5083
+    at new Promise (<anonymous>)
+    at EventEmitter.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@editor\panel\lib\element.ccc:1:5044)
+    at EventEmitter.emit (node:events:519:28)
+    at IpcRenderer.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@base\electron-base-ipc\dist\renderer.ccc:1:3858)
+    at IpcRenderer.emit (node:events:519:28)
+    at Object.onMessage (node:electron/js2c/renderer_init:2:8837)

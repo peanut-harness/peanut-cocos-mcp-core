@@ -198,6 +198,9 @@ function isExpectedMcpPolicyRejection(message: string): boolean {
         code === 'RESOURCE_CHANGED_OUTSIDE_MCP' ||
         code === 'IMPORT_NOT_VERIFIED' ||
         code.startsWith('silent_asset_') ||
+        code.startsWith('silent_replace_') ||
+        code.startsWith('silent_delete_') ||
+        code.startsWith('silent_move_') ||
         /^editor_mcp_lumen_[A-Za-z0-9]+_field_unsupported:confirmDestructive$/.test(message) ||
         /^editor_mcp_lumen_[A-Za-z0-9]+_field_unsupported:approvalToken$/.test(message) ||
         /^editor_mcp_lumen_[A-Za-z0-9]+_field_unsupported:resources$/.test(message) ||

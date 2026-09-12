@@ -1,7 +1,7 @@
 /**
  * @description 静默资产生命周期与 import / waitReady 编排（从 action-router peel）。
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 import type {
@@ -41,6 +41,7 @@ import {
     normalizeResourceDirectoryLockKey,
     normalizeResourceLockKey,
 } from '@peanut/cocos-lumen';
+import { McpControlFlowRefusal } from 'peanut-plugin-core';
 import { ProjectLogPostflightMonitor } from 'peanut-runtime';
 
 import { Lumen24McpBridge } from './editor-mcp-lumen-24-bridge.js';
@@ -75,6 +76,50 @@ export class EditorMcpSilentAssetGateway {
         this._host = host;
     }
 
+
+    /**
+     * @description create/write/rename 后统一走 commit 级 AssetDB barrier（flush coalesce + refresh + hierarchy settle），
+     * 避免 Creator 未登记完就改路径触发 Window「original asset is not exist」。
+     * @param paths 相对路径列表。
+     * @returns barrier 刷新结果。
+     */
+    private async _awaitAssetDbRefreshBarrier(paths: readonly string[]): Promise<unknown> {
+        return this._host.lumen.refreshForCommit(paths);
+    }
+
+
+    /**
+     * @description 新建目录/资源登记等待：只 waitReady + 短 settle，不对新建目录 force refresh-asset。
+     * 3.8.x 对刚 create 的目录 refresh-asset 会稳定刷 Window「original asset is not exist」。
+     * @param paths 新建相对路径。
+     * @returns ready 等待结果。
+     */
+    private async _awaitNewAssetReadyWithoutForceRefresh(paths: readonly string[]): Promise<unknown> {
+        const ready =
+            this._host.runtime.message == null
+                ? {
+                      ready: true,
+                      polls: 0,
+                      waitedMs: 0,
+                      status: 'unsupported',
+                      message: 'editor_mcp_asset_wait_ready_no_message_port',
+                  }
+                : await new LumenAssetDbReadyWaiter(this._host.runtime.message).wait({
+                      timeoutMs: 8000,
+                      throwOnTimeout: false,
+                  });
+        // Give Assets panel a beat to ingest watcher events without refresh-asset.
+        await new Promise<void>((resolve) => {
+            setTimeout(resolve, 600);
+        });
+        return {
+            phase: 'new_asset_ready_without_force_refresh',
+            paths: [...paths],
+            ready,
+            skippedForceRefresh: true,
+        };
+    }
+
     /**
      * @description 静默把资产依赖闭包复制到目标目录（磁盘为真源，换新 uuid，不弹 AssetDB 覆盖确认），随后刷新受影响路径。
      * @param input 未校验输入。
@@ -91,13 +136,10 @@ export class EditorMcpSilentAssetGateway {
                 targetDirectoryRelative: request.targetDirectory,
             });
             FileAssetDependencyIndex.invalidate(projectRoot);
-            const refreshPaths = [
-                ...new Set([request.targetDirectory, ...result.items.map((item: ISilentAssetClosureCopyItem) => item.toPath)]),
-            ];
-            const refresh = await this._host.lumen.execute('lumen.refresh', {
-                paths: refreshPaths,
-            });
-            return { ...result, refresh };
+            const copiedPaths = [...new Set(result.items.map((item: ISilentAssetClosureCopyItem) => item.toPath))];
+            const dirReady = await this._awaitNewAssetReadyWithoutForceRefresh([request.targetDirectory]);
+            const refresh = await this._awaitAssetDbRefreshBarrier(copiedPaths);
+            return { ...result, dirReady, refresh };
         });
     }
 
@@ -214,44 +256,34 @@ export class EditorMcpSilentAssetGateway {
      */
     private async _refreshAfterSilentMoveOrRename(fromRelativePath: string, toRelativePath: string): Promise<unknown> {
         if (fromRelativePath === toRelativePath) {
-            return this._host.lumen.execute('lumen.refresh', {
-                paths: [fromRelativePath],
-            });
+            return this._awaitNewAssetReadyWithoutForceRefresh([fromRelativePath]);
         }
-        const waitMs = this._isImageSidecarAsset(toRelativePath) ? 4500 : 2000;
+        // 3.8.x：磁盘 rename/move 本身通常不刷 Window；随后立刻 refresh-asset 才会
+        // 稳定触发「original asset is not exist」。统一走 watcher settle + waitReady，
+        // 图片与文本同源策略（禁止 post-rename force refresh-asset）。
+        const waitMs = this._isImageSidecarAsset(toRelativePath) ? 4500 : 2200;
         await new Promise<void>((resolve) => {
             setTimeout(resolve, waitMs);
         });
-        // 图片 sidecar：监视器对齐后禁止再 refresh-asset。
-        // 再刷会打 texture/spriteFrame 子资源，稳定触发 Window「原资产不存在」。
-        if (this._isImageSidecarAsset(toRelativePath)) {
-            return {
-                phase: 'watcher_settle_skip_refresh',
-                waitedMs: waitMs,
-                from: fromRelativePath,
-                to: toRelativePath,
-                triggered: false,
-                next: 'image rename/move settled via Creator watcher; skipped refresh-asset to avoid Window race on sub-assets',
-            };
-        }
-        // 非图片：监视器对齐后再刷目标路径一次。
-        const refreshNew = await this._host.lumen.execute('lumen.refresh', {
-            paths: [toRelativePath],
-        });
+        const ready =
+            this._host.runtime.message == null
+                ? null
+                : await new LumenAssetDbReadyWaiter(this._host.runtime.message).wait({
+                      timeoutMs: 4000,
+                      throwOnTimeout: false,
+                  });
         return {
-            phase: 'watcher_settle_then_target_refresh',
+            phase: 'watcher_settle_skip_refresh',
             waitedMs: waitMs,
             from: fromRelativePath,
             to: toRelativePath,
-            refresh: refreshNew,
+            triggered: false,
+            ready,
+            next: 'rename/move settled via Creator watcher + AssetDB ready; skipped refresh-asset to avoid Window original-asset race',
         };
     }
 
-    /**
-     * @description 判断是否为带 sidecar meta 的图片资源（rename/move 后需分段 refresh）。
-     * @param relativePath 项目相对路径。
-     * @returns 是否图片 sidecar 资源。
-     */
+
     private _isImageSidecarAsset(relativePath: string): boolean {
         return /\.(png|jpe?g|webp|bmp|tga|gif|psd|pac)$/iu.test(relativePath.replace(/\\/g, '/').trim());
     }
@@ -292,6 +324,9 @@ export class EditorMcpSilentAssetGateway {
             normalizeResourceDirectoryLockKey(toRelativePath),
         ];
         return LumenResourceWriteLock.shared().runExclusiveMany(lockKeys, async () => {
+            // create → AssetDB ready → then rename/move. Do NOT refresh-asset here:
+            // pre-move force refresh + disk rename still races Assets panel on 3.8.x.
+            await this._awaitNewAssetReadyWithoutForceRefresh([fromRelativePath]);
             const result = new SilentAssetMoveRename().moveOrRename({
                 projectRoot,
                 fromRelativePath,
@@ -315,9 +350,7 @@ export class EditorMcpSilentAssetGateway {
         return LumenResourceWriteLock.shared().runExclusive(lockKey, async () => {
             if (Lumen24McpBridge.isCreator2x()) {
                 const created = await Lumen24McpBridge.createFolder(projectRoot, request.path);
-                const refresh = await this._host.lumen.execute('lumen.refresh', {
-                    paths: [created.path],
-                });
+                const refresh = await this._awaitNewAssetReadyWithoutForceRefresh([created.path]);
                 return { ...created, refresh, source: 'editor.assetdb' };
             }
             const folder = new SilentAssetCreateFolder();
@@ -344,9 +377,7 @@ export class EditorMcpSilentAssetGateway {
                 });
                 result = { ...ensured, existed: true };
             }
-            const refresh = await this._host.lumen.execute('lumen.refresh', {
-                paths: [result.path],
-            });
+            const refresh = await this._awaitNewAssetReadyWithoutForceRefresh([result.path]);
             return { ...result, refresh };
         });
     }
@@ -378,19 +409,30 @@ export class EditorMcpSilentAssetGateway {
             if (Lumen24McpBridge.isCreator2x()) {
                 const result = await Lumen24McpBridge.deleteAssets(projectRoot, request.paths);
                 FileAssetDependencyIndex.invalidate(projectRoot);
-                const refresh = await this._host.lumen.execute('lumen.refresh', {
-                    paths: this._lifecycleRefreshPathsAfterDelete(request.paths),
-                });
+                const refresh = await this._awaitAssetDbRefreshBarrier(this._lifecycleRefreshPathsAfterDelete(request.paths),);
                 return { ...result, refresh, source: 'editor.assetdb' };
             }
-            const result = new SilentAssetDelete().delete({
-                projectRoot,
-                relativePaths: request.paths,
-            });
+            let result;
+            try {
+                result = new SilentAssetDelete().delete({
+                    projectRoot,
+                    relativePaths: request.paths,
+                });
+            } catch (error: unknown) {
+                const message = error instanceof Error ? error.message : String(error);
+                if (
+                    message.startsWith('silent_delete_source_missing:') ||
+                    message.startsWith('silent_delete_') ||
+                    message.startsWith('silent_asset_')
+                ) {
+                    McpControlFlowRefusal.reject(message);
+                }
+                throw error instanceof Error ? error : new Error(message);
+            }
             FileAssetDependencyIndex.invalidate(projectRoot);
-            const refresh = await this._host.lumen.execute('lumen.refresh', {
-                paths: this._lifecycleRefreshPathsAfterDelete(request.paths),
-            });
+            const refresh = await this._awaitNewAssetReadyWithoutForceRefresh(
+                this._lifecycleRefreshPathsAfterDelete(request.paths),
+            );
             return { ...result, refresh };
         });
     }
@@ -434,7 +476,7 @@ export class EditorMcpSilentAssetGateway {
                 via: 'watcher_settle_skip_refresh_for_images',
             };
         }
-        return this._host.lumen.execute('lumen.refresh', { paths: request.paths });
+        return this._awaitAssetDbRefreshBarrier(request.paths);
     }
 
     /**
@@ -467,15 +509,33 @@ export class EditorMcpSilentAssetGateway {
                 writeFileSync(absolutePath, file.content, 'utf8');
                 written.push(file.path);
             }
-            const refreshPaths = [...createdDirectories, ...written];
-            const refresh = await this._host.lumen.execute('lumen.refresh', {
-                paths: refreshPaths,
-            });
+            // 新建目录只 waitReady（禁止 force refresh-asset）；文件走 barrier 登记。
+            const dirReady =
+                createdDirectories.length > 0
+                    ? await this._awaitNewAssetReadyWithoutForceRefresh(createdDirectories)
+                    : null;
+            const refresh = await this._awaitAssetDbRefreshBarrier(written);
+            // Ensure sidecar .meta exists before callers rename/move (uuid continuity).
+            const metaReady: string[] = [];
+            const deadline = Date.now() + 5000;
+            for (const relative of written) {
+                const metaAbsolute = join(projectRoot, `${relative}.meta`);
+                while (Date.now() < deadline) {
+                    if (existsSync(metaAbsolute)) {
+                        metaReady.push(relative);
+                        break;
+                    }
+                    await new Promise<void>((resolve) => setTimeout(resolve, 50));
+                }
+            }
+            await this._awaitNewAssetReadyWithoutForceRefresh(written);
             return {
                 written,
                 createdDirectories,
                 byteCount: request.files.reduce((sum, file) => sum + Buffer.byteLength(file.content, 'utf8'), 0),
+                dirReady,
                 refresh,
+                metaReady,
             };
         });
     }
@@ -816,21 +876,38 @@ export class EditorMcpSilentAssetGateway {
                 ? [normalizeResourceDirectoryLockKey(request.pathContains)]
                 : [normalizeResourceDirectoryLockKey('assets')];
         return LumenResourceWriteLock.shared().runExclusiveMany(lockKeys, async () => {
-            const result = new SilentAssetReferenceReplace().replace({
-                projectRoot,
-                fromUuid: request.fromUuid,
-                toUuid: request.toUuid,
-                pathContains: request.pathContains,
-                dryRun: request.dryRun,
-                allowMissingTarget: request.allowMissingTarget,
-                refreshIndex: request.refreshIndex,
-            });
+            let result;
+            try {
+                result = new SilentAssetReferenceReplace().replace({
+                    projectRoot,
+                    fromUuid: request.fromUuid,
+                    toUuid: request.toUuid,
+                    pathContains: request.pathContains,
+                    dryRun: request.dryRun,
+                    allowMissingTarget: request.allowMissingTarget,
+                    refreshIndex: request.refreshIndex,
+                });
+            } catch (error: unknown) {
+                const message = error instanceof Error ? error.message : String(error);
+                // Expected business miss (fake/missing target uuid): structured control-flow, never console.error.
+                if (message.startsWith('silent_replace_target_not_found:')) {
+                    McpControlFlowRefusal.reject(message);
+                }
+                if (
+                    message === 'silent_replace_from_to_required' ||
+                    message === 'silent_replace_from_equals_to' ||
+                    message.startsWith('silent_replace_')
+                ) {
+                    McpControlFlowRefusal.reject(message);
+                }
+                throw error instanceof Error ? error : new Error(message);
+            }
             if (result.dryRun || result.files.length === 0) {
                 return result;
             }
-            const refresh = await this._host.lumen.execute('lumen.refresh', {
-                paths: result.files.map((file: { path: string }) => file.path),
-            });
+            const refresh = await this._awaitAssetDbRefreshBarrier(
+                result.files.map((file: { path: string }) => file.path),
+            );
             return { ...result, refresh };
         });
     }

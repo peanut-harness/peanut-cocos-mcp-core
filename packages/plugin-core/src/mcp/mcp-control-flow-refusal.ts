@@ -86,6 +86,9 @@ export function isMcpControlFlowRefusalCode(message: string): boolean {
         code === 'RESOURCE_CHANGED_OUTSIDE_MCP' ||
         code === 'IMPORT_NOT_VERIFIED' ||
         code.startsWith('silent_asset_') ||
+        code.startsWith('silent_replace_') ||
+        code.startsWith('silent_delete_') ||
+        code.startsWith('silent_move_') ||
         ((code.startsWith('lumen_') || code.startsWith('editor_mcp_lumen_') || code.startsWith('editor_mcp_bind_')) &&
             !/^(lumen_internal_|lumen_assert_|lumen_invariant_)/u.test(code)) ||
         code === 'mcp_capability_input_invalid' ||

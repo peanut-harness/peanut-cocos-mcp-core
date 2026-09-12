@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-12T01:56:15.984Z",
+  "validation": {
+    "ok": true,
+    "issues": [],
+    "warnings": [
+      "package_signature_missing"
+    ]
+  },
+  "installResult": {
+    "operation": "install",
+    "pluginId": "peanut.pod-lite",
+    "version": "0.1.0",
+    "installed": true,
+    "installPath": "D:\\mcp-test\\peanut-plugins\\plugins\\peanut.pod-lite\\0.1.0",
+    "stagedPath": "D:\\mcp-test\\peanut-plugins\\staging\\peanut.pod-lite\\0.1.0",
+    "previousVersion": null,
+    "warnings": [
+      "package_signature_missing"
+    ]
+  },
+  "installError": null
+}

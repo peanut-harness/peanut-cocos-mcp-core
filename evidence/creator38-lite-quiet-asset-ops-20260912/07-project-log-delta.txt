@@ -1,0 +1,8 @@
+2026-9-12 09:56:30 - log: [Scene] meshopt wasm decoder initialized
+2026-9-12 09:56:30 - log: [Scene] [box2d]:box2d wasm lib loaded.
+2026-9-12 09:56:30 - log: [Scene] [bullet]:bullet wasm lib loaded.
+2026-9-12 09:56:30 - log: [Scene] [PHYSICS]: using builtin.
+2026-9-12 09:56:30 - log: [Scene] Cocos Creator v3.8.7
+2026-9-12 09:56:30 - log: [Scene] Using custom pipeline: Builtin
+2026-9-12 09:56:30 - log: [Scene] [PHYSICS]: switch from builtin to bullet.
+2026-9-12 09:56:30 - log: [Scene] [PHYSICS2D]: switch from builtin to box2d.

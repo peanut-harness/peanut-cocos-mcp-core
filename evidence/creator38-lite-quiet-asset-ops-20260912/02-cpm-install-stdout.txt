@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "pluginId": "peanut.pod-lite",
+  "installPath": "D:\\mcp-test\\peanut-plugins\\plugins\\peanut.pod-lite\\0.1.0",
+  "installError": null
+}
+
+---STDERR---

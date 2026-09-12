@@ -115,6 +115,29 @@ test('control-flow refusal must not report diagnostic / still rejects invoke', a
     assert.equal(reports.length, 0, 'expected gate refusal must not hit diagnostic reporter');
 });
 
+test('silent_replace_target_not_found Error is control-flow (no diagnostic)', async (): Promise<void> => {
+    const reports: unknown[] = [];
+    const registry = new McpCapabilityRegistry((pluginId, error, context) => {
+        reports.push({ pluginId, error, context });
+    });
+    registry.register('peanut.example', {
+        name: 'peanut.example.replace',
+        description: { 'en-US': 'Replace.', 'zh-CN': 'replace' },
+        category: 'workflow',
+        inputSchema: { type: 'object', additionalProperties: false },
+        readOnly: false,
+        risk: 'destructive',
+    }, async (): Promise<unknown> => {
+        throw new Error('silent_replace_target_not_found:ffffffff-bbbb-cccc-dddd-eeeeeeeeeeee');
+    });
+    registry.setPluginExposure('peanut.example', 'all');
+    await assert.rejects(
+        registry.invoke('peanut.example.replace', {}, { connectionId: 'a'.repeat(32) }),
+        /silent_replace_target_not_found:ffffffff-bbbb-cccc-dddd-eeeeeeeeeeee/,
+    );
+    assert.equal(reports.length, 0, 'expected missing-target replace must not hit diagnostic reporter');
+});
+
 test('unexpected handler Error still reports diagnostic', async (): Promise<void> => {
     const reports: unknown[] = [];
     const registry = new McpCapabilityRegistry((pluginId, error) => {

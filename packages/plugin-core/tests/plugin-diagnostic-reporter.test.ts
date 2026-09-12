@@ -80,9 +80,14 @@ test('policy rejections are recorded but classified as expected MCP policy', ():
         reporter.record({
             pluginId: 'peanut.editor-mcp',
             source: 'mcp_capability',
+            error: new Error('silent_replace_target_not_found:ffffffff-bbbb-cccc-dddd-eeeeeeeeeeee'),
+        });
+        reporter.record({
+            pluginId: 'peanut.editor-mcp',
+            source: 'mcp_capability',
             error: new Error('real_crash_should_stay_error'),
         });
-        assert.equal(infos.length, 6);
+        assert.equal(infos.length, 7);
         assert.equal(errors.length, 1);
         for (const infoArgs of infos) {
             assert.ok(Array.isArray(infoArgs));
@@ -90,7 +95,7 @@ test('policy rejections are recorded but classified as expected MCP policy', ():
             assert.equal(typeof infoArgs[0], 'string');
             assert.match(String(infoArgs[0]), /^\[plugin:peanut\.editor-mcp\] policy:/);
         }
-        assert.equal(reporter.list('peanut.editor-mcp').length, 7);
+        assert.equal(reporter.list('peanut.editor-mcp').length, 8);
     } finally {
         console.error = originalError;
         console.info = originalInfo;

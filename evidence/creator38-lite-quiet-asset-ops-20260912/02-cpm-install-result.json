@@ -1,0 +1,1098 @@
+{
+  "at": "2026-09-12T01:50:36.168Z",
+  "projectRoot": "D:\\mcp-test",
+  "packagePath": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\mcp-pod-lite-creator-host\\release\\peanut.pod-lite-0.1.0",
+  "inspect": {
+    "packagePath": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\mcp-pod-lite-creator-host\\release\\peanut.pod-lite-0.1.0",
+    "manifest": {
+      "id": "peanut.pod-lite",
+      "version": "0.1.0",
+      "kind": "tooling-plugin",
+      "displayName": "Peanut Pod Lite",
+      "description": {
+        "en-US": "Open Cocos Creator editor operations with local approval for writes.",
+        "zh-CN": "开源 Cocos Creator 编辑器能力；写入仅需本地审批。"
+      },
+      "main": "./peanut.pod-lite.bundle.js",
+      "engines": {
+        "host": "^0.1.0"
+      },
+      "activation": {
+        "autoActivate": false,
+        "events": [
+          "onStartup"
+        ]
+      },
+      "permissions": {},
+      "package": {
+        "schemaVersion": 1,
+        "digest": "38c968bb37aea99c5d52205e84c3a1d5a4a54dab7858b7cf14a3abc0554ddf88",
+        "packedAt": "2026-09-12T01:50:33.071Z",
+        "files": [
+          {
+            "path": "bundled/default_prefab_24/2d-camera.prefab",
+            "digest": "dd14d45eac08e79c496728a92b4bd66008a4913bf4fc00cddc6e8226788229ac"
+          },
+          {
+            "path": "bundled/default_prefab_24/3d-camera.prefab",
+            "digest": "3756ba2328828fe95b50f8dc24646b1ba3f4e70db9d44eaec57efc5803717950"
+          },
+          {
+            "path": "bundled/default_prefab_24/3d-particle.prefab",
+            "digest": "68b1b3b9a066a785c42e0c008b6974a6ec3596f859203f01958b8afe329ec91a"
+          },
+          {
+            "path": "bundled/default_prefab_24/3d-stage.prefab",
+            "digest": "9d8ea0f047a7baae04b5512cb4c3b8854a2a4e9f69e35de90fb726d3710dcb0d"
+          },
+          {
+            "path": "bundled/default_prefab_24/button.prefab",
+            "digest": "77e8d0a81e9c8bb6ef81eb73901179f875e1f72ec14a3736d118c84587584adc"
+          },
+          {
+            "path": "bundled/default_prefab_24/canvas.prefab",
+            "digest": "54fc682b0e74aab3038caee389f8ff624de79d342e65a5382b3b61e3111e23a6"
+          },
+          {
+            "path": "bundled/default_prefab_24/editbox.prefab",
+            "digest": "b5b2072c73cd80703f37620bd42d62f563867e384ede2127e086e8a30e7ece8f"
+          },
+          {
+            "path": "bundled/default_prefab_24/label.prefab",
+            "digest": "27fb5e26d8f8aa9bcc78f074a0d91e228fd63533dedb16e9bc54e9ab566adf5f"
+          },
+          {
+            "path": "bundled/default_prefab_24/layout.prefab",
+            "digest": "e9bebc9572326adc94132b70557c8364773bdff86a6cc883069652da5a865e52"
+          },
+          {
+            "path": "bundled/default_prefab_24/light/ambient.prefab",
+            "digest": "03ead56c0678b00dc46b16ae337d4f94c5f288ac8c2a6389e3bdb2413f686953"
+          },
+          {
+            "path": "bundled/default_prefab_24/light/directional.prefab",
+            "digest": "eaec611af5dc88731a23895f4b0503cb3ed896d44e229fca2fdf714d9e75f61d"
+          },
+          {
+            "path": "bundled/default_prefab_24/light/point.prefab",
+            "digest": "ca5b4ed87287a99c0f38c713d07d9d62b92c55b0ca256ead9cf445dc7a9687e8"
+          },
+          {
+            "path": "bundled/default_prefab_24/light/spot.prefab",
+            "digest": "d8205efdabd6258aea8772e2665549c9f7214f7f5323bb0ad5c92036dc878797"
+          },
+          {
+            "path": "bundled/default_prefab_24/pageview.prefab",
+            "digest": "d2d03e136ac4ca375aeb1d8a67450dbf39587f71c24155bb78f8d6f96353adbb"
+          },
+          {
+            "path": "bundled/default_prefab_24/particlesystem.prefab",
+            "digest": "94455815381a879bf03a868837dfcc8c671f43592589af4acb437d9a1e0b6dfa"
+          },
+          {
+            "path": "bundled/default_prefab_24/progressBar.prefab",
+            "digest": "6cf1d2801378839f9fd31be51e17faabbc7ab8b8fe6e6b928244e65324fcd651"
+          },
+          {
+            "path": "bundled/default_prefab_24/richtext.prefab",
+            "digest": "c8ed2118285dbc2529eaadb15e746e735efa9d3dc6684842b095500b9f75cd2e"
+          },
+          {
+            "path": "bundled/default_prefab_24/scrollview.prefab",
+            "digest": "2664b560007d6c7e7aa3b7552b5b1d0affb0393a7af8959b5538a4ac55e4a6c7"
+          },
+          {
+            "path": "bundled/default_prefab_24/slider.prefab",
+            "digest": "b5a14ea8804d58fa63d80abc33e997047d2117a3dcb83a0a925a01bf814de77f"
+          },
+          {
+            "path": "bundled/default_prefab_24/sprite_splash.prefab",
+            "digest": "c5e4ea7c1abb0cb1da1a263dc92ac997d21c31a0a1e20ce01633c954ad5bd14a"
+          },
+          {
+            "path": "bundled/default_prefab_24/sprite.prefab",
+            "digest": "791202c027bda1a13155e26c94f1d73c3b8b0f03166133305bc92b79fe89a237"
+          },
+          {
+            "path": "bundled/default_prefab_24/tiledmap.prefab",
+            "digest": "809cd434a0972ee20415d0d9d448657663368365d247238d6b783ac34c080e3c"
+          },
+          {
+            "path": "bundled/default_prefab_24/tiledtile.prefab",
+            "digest": "65777b0a7b8f39cc240fc50f4b08c34798cb9458d1ea2cc66bc64909dc8e52fa"
+          },
+          {
+            "path": "bundled/default_prefab_24/toggle.prefab",
+            "digest": "a2fb98b59fce30044e2ad4384a27b08f37bfa61dff1faf39ac0337a41e35df16"
+          },
+          {
+            "path": "bundled/default_prefab_24/toggleContainer.prefab",
+            "digest": "2b7bae5b38ca4c27ddeacf3b5cb910e3d18519d22417bd6eebf26cc85187b88e"
+          },
+          {
+            "path": "bundled/default_prefab_24/toggleGroup.prefab",
+            "digest": "53969b1c6a8387a6921469035b73ed73942cbcf4e181bec733934a655f4b6ce8"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/button.prefab",
+            "digest": "77e8d0a81e9c8bb6ef81eb73901179f875e1f72ec14a3736d118c84587584adc"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/canvas.prefab",
+            "digest": "54fc682b0e74aab3038caee389f8ff624de79d342e65a5382b3b61e3111e23a6"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/editbox.prefab",
+            "digest": "b5b2072c73cd80703f37620bd42d62f563867e384ede2127e086e8a30e7ece8f"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/label.prefab",
+            "digest": "27fb5e26d8f8aa9bcc78f074a0d91e228fd63533dedb16e9bc54e9ab566adf5f"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/layout.prefab",
+            "digest": "e9bebc9572326adc94132b70557c8364773bdff86a6cc883069652da5a865e52"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/pageview.prefab",
+            "digest": "d2d03e136ac4ca375aeb1d8a67450dbf39587f71c24155bb78f8d6f96353adbb"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/progressBar.prefab",
+            "digest": "6cf1d2801378839f9fd31be51e17faabbc7ab8b8fe6e6b928244e65324fcd651"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/richtext.prefab",
+            "digest": "c8ed2118285dbc2529eaadb15e746e735efa9d3dc6684842b095500b9f75cd2e"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/scrollview.prefab",
+            "digest": "2664b560007d6c7e7aa3b7552b5b1d0affb0393a7af8959b5538a4ac55e4a6c7"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/slider.prefab",
+            "digest": "b5a14ea8804d58fa63d80abc33e997047d2117a3dcb83a0a925a01bf814de77f"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/sprite.prefab",
+            "digest": "791202c027bda1a13155e26c94f1d73c3b8b0f03166133305bc92b79fe89a237"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/toggle.prefab",
+            "digest": "a2fb98b59fce30044e2ad4384a27b08f37bfa61dff1faf39ac0337a41e35df16"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/toggleContainer.prefab",
+            "digest": "2b7bae5b38ca4c27ddeacf3b5cb910e3d18519d22417bd6eebf26cc85187b88e"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/videoplayer.prefab",
+            "digest": "5ce77a0a5f758cae9b1cb4a7bad3ef5acf90c5c940d176b2c7c3c05009e218ce"
+          },
+          {
+            "path": "bundled/default_prefab_24/ui/webview.prefab",
+            "digest": "3d1ea2ed9f4c73f770504f814fd9010893b643976d7c1739e5c70abbf5487941"
+          },
+          {
+            "path": "bundled/default_prefab_24/videoplayer.prefab",
+            "digest": "5ce77a0a5f758cae9b1cb4a7bad3ef5acf90c5c940d176b2c7c3c05009e218ce"
+          },
+          {
+            "path": "bundled/default_prefab_24/webview.prefab",
+            "digest": "3d1ea2ed9f4c73f770504f814fd9010893b643976d7c1739e5c70abbf5487941"
+          },
+          {
+            "path": "bundled/default_prefab/2d.meta",
+            "digest": "e2011b349706898d931f79b20627de4363456d9c00882c473097f6d3b7944c57"
+          },
+          {
+            "path": "bundled/default_prefab/2d/Camera.prefab",
+            "digest": "c55d356675f2d06776a824213168f52286451a868c3701ddddaebe12af99d8bb"
+          },
+          {
+            "path": "bundled/default_prefab/2d/Camera.prefab.meta",
+            "digest": "41bf4a47f62af41b07ee98b6e70e802e3b2b598f3ad2ddebf4a13e98c5842202"
+          },
+          {
+            "path": "bundled/default_prefab/2d/ui.meta",
+            "digest": "17274417cbe47464e54d173ca2e922afd89a862ed185a394d08cbe99185c2cc4"
+          },
+          {
+            "path": "bundled/default_prefab/2d/ui/Canvas.prefab",
+            "digest": "438b13dedb41b9587bffb3fb1b53add438f65a4e33f0195c9a118e6cd8460303"
+          },
+          {
+            "path": "bundled/default_prefab/2d/ui/Canvas.prefab.meta",
+            "digest": "587decd5c452d4dd4ca59733dd204e819972f72cd8e587fcca934feca39b118f"
+          },
+          {
+            "path": "bundled/default_prefab/3d.meta",
+            "digest": "e4ff8063c78a4f33b220fdacfc66863be1e4328264a9f8ec65680ba972b46b8c"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Capsule.prefab",
+            "digest": "79de4e246156ce2b7d70366e975adea5edced96454e0a8fb048b509da755ba1f"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Capsule.prefab.meta",
+            "digest": "b2b6f89fceea8a0b507266b94fada12add28fb8233e34319546b5804bdc19fcb"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cone.prefab",
+            "digest": "f390ad8b032f015c43fe200161b89661d54a5e20e4cd5fa5e5ac2039729b4de9"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cone.prefab.meta",
+            "digest": "89d46e6c4cdd4a5086b4a61472b7f4c63dcdbc2a1cb04f6c15665468fa4e94b8"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cube.prefab",
+            "digest": "d0fadd80b976c1e3e7cdf2059017f243660b53c8178887731c70ca3d4415e65d"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cube.prefab.meta",
+            "digest": "6fecddcda53ec8b39b4248e2be96442539ffb555bf90f22758e97a53062a1481"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cylinder.prefab",
+            "digest": "76314269f8563a3e88cb150bc8dd8a8e2539aa4fdcee65316851e668d61b27f2"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Cylinder.prefab.meta",
+            "digest": "b3eba02b0d3e373f593ee9f365c170432715d05e09b614e2601d9a558dfa29cf"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Plane.prefab",
+            "digest": "96ebac6a7e1307cf25ab94f9a77dc6c50e9aa2d3bc16d218d62072da13455e73"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Plane.prefab.meta",
+            "digest": "1c1f3b7b3f81bf4b90272667ee925101d039604040c82569addaf06a31c9b2a3"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Quad.prefab",
+            "digest": "2724fc380e16ab2895e0933d1e6db032bd7d3966b4feb94ec7c4bfe873f22559"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Quad.prefab.meta",
+            "digest": "82050ca7494c2aa9faafc8b4afac56a443b244c53e7c122a0a323c13576ce036"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Sphere.prefab",
+            "digest": "4069c47ff6f4b937c48a4730953e8cbd76d1d43e5ecbb97b387e26ce0b4cc50c"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Sphere.prefab.meta",
+            "digest": "4a4acc33d0d074710b19d913107461c6c30426ee7af78de2650b25df13c1fb82"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Torus.prefab",
+            "digest": "b6f8301c15d2628009f40c0f9b552a656b05b91f3668a0458524d18df4598e22"
+          },
+          {
+            "path": "bundled/default_prefab/3d/Torus.prefab.meta",
+            "digest": "a030ce16702ca9d3bf501b888f2020a1f6a0b2cfff77f7214ffa8c38c23cb12c"
+          },
+          {
+            "path": "bundled/default_prefab/Camera.prefab",
+            "digest": "02da60d0b45be0f1bb8851dd2a83c78a83fcce4ef3c271f45d6dd7710061556d"
+          },
+          {
+            "path": "bundled/default_prefab/Camera.prefab.meta",
+            "digest": "d9ee004d29255fc02a3c1b4412ecb94f9e13ba67a33a4fd964381e7fec48bca9"
+          },
+          {
+            "path": "bundled/default_prefab/effects.meta",
+            "digest": "2e346ffec4fc2211972b6de7bb471793461e6cb3df1bfef2d860a2ed52f67a5a"
+          },
+          {
+            "path": "bundled/default_prefab/effects/Particle System.prefab",
+            "digest": "f66561efe423f606e567e6d1061ca4eb397960cc18b140e8193a3acdc166724b"
+          },
+          {
+            "path": "bundled/default_prefab/effects/Particle System.prefab.meta",
+            "digest": "b88ce26317042277d38c78fb46ff1e527646e42e2ffb1abd38f09406abcd921c"
+          },
+          {
+            "path": "bundled/default_prefab/light.meta",
+            "digest": "55f564ce4ea6fcebe6755f066eb339f1d3bb7aecf28ce0482f035849203bb79b"
+          },
+          {
+            "path": "bundled/default_prefab/light/Directional Light.prefab",
+            "digest": "d52ffbc06a24609c8bc9dead23419ccb655d3c22979b62ca23893f94e55322e7"
+          },
+          {
+            "path": "bundled/default_prefab/light/Directional Light.prefab.meta",
+            "digest": "cc6b34a2968436743f3d77b69ccc8d5963be8a7601a796ea4d0d5bbf601548ab"
+          },
+          {
+            "path": "bundled/default_prefab/light/Light Probe Group.prefab",
+            "digest": "a51e21f2032d4fcf0c508e5b43f11f054a73eb11da79e265e0e97577161fc2c9"
+          },
+          {
+            "path": "bundled/default_prefab/light/Light Probe Group.prefab.meta",
+            "digest": "d76ef3e3489dc9c5f93a878eb084efffc243a51fa3bad9ca1b779cdf51256458"
+          },
+          {
+            "path": "bundled/default_prefab/light/Point Light.prefab",
+            "digest": "0ea73faf6b98ab20cdc462ab0a682dc66de3f1ac1150ed9f23db07e32a85d657"
+          },
+          {
+            "path": "bundled/default_prefab/light/Point Light.prefab.meta",
+            "digest": "d181d1e9865c8e746c46c63cf1a1834004eee13190095fcfe46e4ffe41e0193d"
+          },
+          {
+            "path": "bundled/default_prefab/light/Ranged Directional Light.prefab",
+            "digest": "4e3607b29746ca39fe3f987d354c2351ebb3b0dde221b39ae67158e3933a22f9"
+          },
+          {
+            "path": "bundled/default_prefab/light/Ranged Directional Light.prefab.meta",
+            "digest": "a6c7c2f551aeae3a898408a4024c09bae551d828c2ac7679d3986279f8b0b427"
+          },
+          {
+            "path": "bundled/default_prefab/light/Reflection Probe.prefab",
+            "digest": "69cd0a93608011c7f22355cb646db2c201740075d624c2b0fdee3069d91b3d1e"
+          },
+          {
+            "path": "bundled/default_prefab/light/Reflection Probe.prefab.meta",
+            "digest": "a7dbe9cf4f77a3b7af408aab6b7e2e993fb65ac92d650553a07cec1057d4a789"
+          },
+          {
+            "path": "bundled/default_prefab/light/Sphere Light.prefab",
+            "digest": "5b7808964904977ee8f97ff786fa05dfd33216fb8845451e9bd73869386658d8"
+          },
+          {
+            "path": "bundled/default_prefab/light/Sphere Light.prefab.meta",
+            "digest": "1b773f83af329d6d0f3d93d393cba8940b1f52b6b854fc207ddd5b5f8691ab03"
+          },
+          {
+            "path": "bundled/default_prefab/light/Spot Light.prefab",
+            "digest": "53054f907179d7db4e584bed773b08cac6cfd58354e9456fb6983df237735786"
+          },
+          {
+            "path": "bundled/default_prefab/light/Spot Light.prefab.meta",
+            "digest": "4695d1d0664176d22f61796995c4c789a941a002fcb8fd7ab1ab2ca8d7540a6d"
+          },
+          {
+            "path": "bundled/default_prefab/Terrain.prefab",
+            "digest": "990d586a16e970e4726732e39cf30c85e59e7fdfbe3360869e5ee97778c6888e"
+          },
+          {
+            "path": "bundled/default_prefab/Terrain.prefab.meta",
+            "digest": "fbc7d43a277013a356e1692ac55a6c76adda2d64e2fc2dbfd41ae14f0df219f1"
+          },
+          {
+            "path": "bundled/default_prefab/ui.meta",
+            "digest": "927a362e9aaa1df25b5daa1acb870097b034ece48ac87d0e30198819502cab23"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Button.prefab",
+            "digest": "38bcf4dcfb4558cba4a82c767acb5e4eca703f0f874d5a631e43fc3ba0e0d6cf"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Button.prefab.meta",
+            "digest": "f3c34f87e6437aa1402c843a68ffad3611e929d3936d84c668041a7ea23392c0"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Canvas.prefab",
+            "digest": "d2706f48d3d471a561db5bf1db0518f2c57d7302d172aa1d6f102bd47230418e"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Canvas.prefab.meta",
+            "digest": "577e45f1ea2c8d33b5c0716f2ec6cf11613c453e08edebe15f5533bcc07c1f50"
+          },
+          {
+            "path": "bundled/default_prefab/ui/EditBox.prefab",
+            "digest": "45ac1e9b4bf1fc4d2461bf037bdcd34c3b1b866d52b009af8ec4bd02ca653e83"
+          },
+          {
+            "path": "bundled/default_prefab/ui/EditBox.prefab.meta",
+            "digest": "ffe0d316c79a187a538774aea0f0ab7d7fd15b84ee2b724a51ffde4fbf69da89"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Graphics.prefab",
+            "digest": "97268e65755ee40df0d204cca74b4b698f8dc61d981861cc5b6efd3ae2b45839"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Graphics.prefab.meta",
+            "digest": "019f785f248a601076e8e87f64b891242d20a92495fd1804692964446dd26fe5"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Label.prefab",
+            "digest": "30def3a8e950ea648536b8391d96802ff074ce84a5e15c2fee26732b43b313af"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Label.prefab.meta",
+            "digest": "b15554be0630b8d682ad03fa41c6e8b303b1bb25232112214a6f6e0a16e78479"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Layout.prefab",
+            "digest": "5ee0df54cb8722522fc5de9314b0c9b378d198580c6f8ec2a47fca0dadba6198"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Layout.prefab.meta",
+            "digest": "71f9fc1b0ab1e5c368ffa6f20c81a709700e4d4768cc9ff54ea915b222471127"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Mask.prefab",
+            "digest": "4d01a1d99b68a5463adad38f042db6edcb37bda668db3be475fdea4be12908e5"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Mask.prefab.meta",
+            "digest": "01e687631b0d09f3be3d8c811285ba1139884ce55c47ac2fffb8804d7af44b79"
+          },
+          {
+            "path": "bundled/default_prefab/ui/pageView.prefab",
+            "digest": "f43fa942928a46ee4dedc4f28d8d4b423e3693c08984fd1b7df52625502d449d"
+          },
+          {
+            "path": "bundled/default_prefab/ui/pageView.prefab.meta",
+            "digest": "506a3239081574ed7911cad2d71e0a3ec84a737a354942da7fa9f5d382d62fd6"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ParticleSystem2D.prefab",
+            "digest": "6ac9362be808e90d6791d8d1fa36c876da61d1feaf349929049391b7b6a0ee67"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ParticleSystem2D.prefab.meta",
+            "digest": "60b924ff1ebce81d2b36dd7e8f918ea53a18d0f48194227b13718eb510b2b18f"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ProgressBar.prefab",
+            "digest": "97807de8580378add7f6c4cce04375c62aafa5ce96ede64f26f4f91a86682774"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ProgressBar.prefab.meta",
+            "digest": "ea8b98590b239a9c37f7f6ade1a8c8384704266a64364dc4519c744cf591ea96"
+          },
+          {
+            "path": "bundled/default_prefab/ui/RichText.prefab",
+            "digest": "f1e58c52eeab78fea30d65105a3fe13a94d5e18ef34c601e7cdbd6d439009029"
+          },
+          {
+            "path": "bundled/default_prefab/ui/RichText.prefab.meta",
+            "digest": "4071859672a338dd726fc11a5059e6b51a1c0d4c9917e9300d23c8d3e773741e"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ScrollView.prefab",
+            "digest": "ecd93f5cb63302b588d5fb5877492fa0aef9e51db142be0915d76ab2f87f7090"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ScrollView.prefab.meta",
+            "digest": "6b906f78b3688864c6b34ca924ec4a2c6f88c422c1c68a9368e0ac1f995bd1c1"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Slider.prefab",
+            "digest": "e517ef9f9beb51df7a15e981164783afe2fa5317d5f7d7cfff5c89c7612b740d"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Slider.prefab.meta",
+            "digest": "e5cf0e0ff4d73f6d3c86e75c2a1de25b644f020ac5e266caa909e2cd800f90d9"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Sprite.prefab",
+            "digest": "f2440b013c68c9e285175e3fa3308dd3709e2e1174eb58f22e63872e567086e2"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Sprite.prefab.meta",
+            "digest": "26d9dc5211d4e3fa15771db7268010fdd03b8b56a483655fa51a82408808b629"
+          },
+          {
+            "path": "bundled/default_prefab/ui/SpriteRenderer.prefab",
+            "digest": "b727af664edda81c9873b20997a5563279149752f9fdb4a964eaa4d2642d63e6"
+          },
+          {
+            "path": "bundled/default_prefab/ui/SpriteRenderer.prefab.meta",
+            "digest": "64c44fed7994e4b4295995047b98a7d05cf2d84a66e89218f5603524024e6489"
+          },
+          {
+            "path": "bundled/default_prefab/ui/SpriteSplash.prefab",
+            "digest": "312d25ed34d82eb1947f0b8595634b4672d2267fe87e77dc3e1791d6cadf70e9"
+          },
+          {
+            "path": "bundled/default_prefab/ui/SpriteSplash.prefab.meta",
+            "digest": "b75d8000e2cd3596ca1cb14f2f0a100fea2558078da9d8952f0b443d875ec089"
+          },
+          {
+            "path": "bundled/default_prefab/ui/TiledMap.prefab",
+            "digest": "57b0fb449b935c415125b11859fac2bba75bd88f8980b9d6f8c057cdbc846281"
+          },
+          {
+            "path": "bundled/default_prefab/ui/TiledMap.prefab.meta",
+            "digest": "09fd44c8ab078e82cfae72eeb954860e65e633e21c5cafbd5d2c72e7fde96354"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Toggle.prefab",
+            "digest": "b05c5a0448e988feb60a23162b5b3f2ba8eb8e39eedd9c81eaf9b8b6c3631327"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Toggle.prefab.meta",
+            "digest": "390e9cab0ad3ee36fbb1abf08ad270e458e3f47b2756f6b9151b5f8b2659f7cb"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ToggleContainer.prefab",
+            "digest": "9b59d0334276f9736789087e97700a39dd5ff78e9f2f69e2550eb2b66fa9eba5"
+          },
+          {
+            "path": "bundled/default_prefab/ui/ToggleContainer.prefab.meta",
+            "digest": "47337b70b99a96ef61f7b31df8ae0a0fdd021d7094f68422075cdd58e98f4285"
+          },
+          {
+            "path": "bundled/default_prefab/ui/VideoPlayer.prefab",
+            "digest": "66c40a16a6118d007e179db1743c5ac23fbfda9747439b2e7cb5675a0753047a"
+          },
+          {
+            "path": "bundled/default_prefab/ui/VideoPlayer.prefab.meta",
+            "digest": "567c87bc73d4e8d238759af094a982923a086513f2484b7ff9cc53aca2968bc6"
+          },
+          {
+            "path": "bundled/default_prefab/ui/WebView.prefab",
+            "digest": "d6dea4fd0e07a59819fa91556ee634b97fd917c0ff43b0a7c186a9f89b8558ab"
+          },
+          {
+            "path": "bundled/default_prefab/ui/WebView.prefab.meta",
+            "digest": "6479e1bf153e1ff18cd79f4d64396258e3104f43a2f6f14bd0827dca3640f087"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Widget.prefab",
+            "digest": "edc37e8ab41f2c3a23ac76cee22704321529aefe8cfee318a0da77dad840a693"
+          },
+          {
+            "path": "bundled/default_prefab/ui/Widget.prefab.meta",
+            "digest": "90df598105ed8546bf7272b2bb008d4164f0854e4cb51dbe8b87002a63f7f179"
+          },
+          {
+            "path": "bundled/lumen-templates.manifest.json",
+            "digest": "d75c368e8e7788969ecd517503c6ec1cd147c8d5e9fa0e239c483aba35678601"
+          },
+          {
+            "path": "bundled/schema/assets.json",
+            "digest": "40e8698f645e5b34e437872f6b6dd135133d724fec366b7f7c6974e8419100c5"
+          },
+          {
+            "path": "bundled/schema/components/cc.animation.AnimationController.json",
+            "digest": "b5a6361328a8fcb9f0e1e2258065d96d3fe4dc6278e419b1d188a1c3882e1cd7"
+          },
+          {
+            "path": "bundled/schema/components/cc.Animation.json",
+            "digest": "18bb358dcaf9ce57f15d3d5e9279cd7b9a193113be3acb783489e4d508617657"
+          },
+          {
+            "path": "bundled/schema/components/cc.AudioSource.json",
+            "digest": "0c6363336de02e8e1cf99f98b66194e1b24401fa82dd4f75839a79538029d606"
+          },
+          {
+            "path": "bundled/schema/components/cc.Billboard.json",
+            "digest": "492ffe86c2bfcb6e593217bb9eb890b4a8d8bece9a90535bb2c2a88c67c89192"
+          },
+          {
+            "path": "bundled/schema/components/cc.BlitScreen.json",
+            "digest": "2d2f0c0d6f0cfda550095e9dcb5e0c98c108bb914bd92b37e715ec190c847239"
+          },
+          {
+            "path": "bundled/schema/components/cc.BlockInputEvents.json",
+            "digest": "a097945395ec752de2f4c055da2240dd49d386a6b74ad7a5bfcb2d2b94cc284a"
+          },
+          {
+            "path": "bundled/schema/components/cc.Bloom.json",
+            "digest": "ee0c7962130e611097afd20d26d7ec29a61361f08633cde77e6c3bac0d1448c8"
+          },
+          {
+            "path": "bundled/schema/components/cc.BoxCharacterController.json",
+            "digest": "d83c9151a7509bd0a480422068febe255499985370f34a637502adf4b28cf238"
+          },
+          {
+            "path": "bundled/schema/components/cc.BoxCollider.json",
+            "digest": "2652ad6a21be4a0b3f68e4ad223c2046c1828fc0500e5b10680d0fca2866da30"
+          },
+          {
+            "path": "bundled/schema/components/cc.BoxCollider2D.json",
+            "digest": "9e771a48a8d0379d927f8ef4dde8abaded658aa5b360c1ec1d49e5d84abeb4e2"
+          },
+          {
+            "path": "bundled/schema/components/cc.Button.json",
+            "digest": "245c3d4ea3eb0c1ebd82458b73463ca00b78e2e4a6530ed2c86a8ce3e7aff8dc"
+          },
+          {
+            "path": "bundled/schema/components/cc.Camera.json",
+            "digest": "70af12e59c9325a7f9a4744c2d4197cd3e830f296b22ae9e2311ba1ac467b30e"
+          },
+          {
+            "path": "bundled/schema/components/cc.Canvas.json",
+            "digest": "14a81bdc975449855993175b57c21f79f6848e77552bd84548d902bd5b7b5ff0"
+          },
+          {
+            "path": "bundled/schema/components/cc.CapsuleCharacterController.json",
+            "digest": "655cfdfc90baa23d5f7d434af44b7392ee97b8153d5811ab345e4f0ee627671b"
+          },
+          {
+            "path": "bundled/schema/components/cc.CapsuleCollider.json",
+            "digest": "a240189a8135ec2738b0ab7d9b6847e8758880daaf1b117047c8b7989e5c80f9"
+          },
+          {
+            "path": "bundled/schema/components/cc.CircleCollider2D.json",
+            "digest": "61a3aa0be9776f0736f91648d464d42b490a3ec64b67f34456a03e677fadff9b"
+          },
+          {
+            "path": "bundled/schema/components/cc.ColorGrading.json",
+            "digest": "969a60942b03ca935d79479edd62ffbd369e79f8194078d40bf24dbc0396cae4"
+          },
+          {
+            "path": "bundled/schema/components/cc.ConeCollider.json",
+            "digest": "a60db45996c41ddbe87d4419a3cd4a9b94e856a7c64e80224e30e044ea251b6f"
+          },
+          {
+            "path": "bundled/schema/components/cc.ConfigurableConstraint.json",
+            "digest": "1182d293526d2456c7b259d1f9faa85609dae3181000678099ca4b3311e43f77"
+          },
+          {
+            "path": "bundled/schema/components/cc.ConstantForce.json",
+            "digest": "95d7662fd4301cce6fbfd687343753674b0f4ac0aea4278e41f8dcc845a032d6"
+          },
+          {
+            "path": "bundled/schema/components/cc.CylinderCollider.json",
+            "digest": "c3d47507c322a51f28d9effd82cd21b9af6768babad6087e015e14ec9c295f81"
+          },
+          {
+            "path": "bundled/schema/components/cc.DirectionalLight.json",
+            "digest": "daa75c7f8feffcfbff9e0c7a7a8b0d8c533119b53294e2c0ad19ff3271b8b514"
+          },
+          {
+            "path": "bundled/schema/components/cc.DistanceJoint2D.json",
+            "digest": "934301d258371242cef24e0fd5f9b1cb9d629c8b39750c81dac546994444bc1f"
+          },
+          {
+            "path": "bundled/schema/components/cc.DOF.json",
+            "digest": "73e1c0ad319443dc28ebf0cd7e57adff0c531cc230ae53ff11452cad2873fe7e"
+          },
+          {
+            "path": "bundled/schema/components/cc.EditBox.json",
+            "digest": "fe9ab618b06c171b7750928b9056375a86e48a0ee5adb8e082526ad8fa1e04ac"
+          },
+          {
+            "path": "bundled/schema/components/cc.FixedConstraint.json",
+            "digest": "52cd4400d9974342093a851df028394e2bd0e2759c666fe6308412f5c5a7a5cc"
+          },
+          {
+            "path": "bundled/schema/components/cc.FixedJoint2D.json",
+            "digest": "1e7371da5627970f7e4bdff00819ee2d7ca5595bd107f97c6f058fc9b325dc7f"
+          },
+          {
+            "path": "bundled/schema/components/cc.FSR.json",
+            "digest": "bb923b52ae8a4551bddc2044433dd02520b095e234c98ae798fba3b779084c8c"
+          },
+          {
+            "path": "bundled/schema/components/cc.Graphics.json",
+            "digest": "fd0d041ac1e210dae6b9069aa4012b9832aeb02e211ede896ea55fb14f3f5484"
+          },
+          {
+            "path": "bundled/schema/components/cc.HBAO.json",
+            "digest": "72bcead177834ed5b312f209ce51d91579305609f686cc51a9d61612a97eb4a9"
+          },
+          {
+            "path": "bundled/schema/components/cc.HingeConstraint.json",
+            "digest": "4c3b4577b8c4308986d98c4324a7bda35b26c998e5f5c88f46483f7f4ba43d74"
+          },
+          {
+            "path": "bundled/schema/components/cc.HingeJoint2D.json",
+            "digest": "d9b2cd887e349de19f7f3d5daec4d555cffa00e66b2285c565af2795fe713fac"
+          },
+          {
+            "path": "bundled/schema/components/cc.Label.json",
+            "digest": "89fe6ff53ee09a5dcb50b8d6982a2dcb68fd1a2c3ec41ec72c1ce5661ca1e4d4"
+          },
+          {
+            "path": "bundled/schema/components/cc.Layout.json",
+            "digest": "e40507c578db06804add5df1023838d1a5af1a2774b140b6c4289ca7e86dc521"
+          },
+          {
+            "path": "bundled/schema/components/cc.LightProbeGroup.json",
+            "digest": "9523429d267398d6a5db5d214737340c2fd3ea9164af957c5063bb2e568fe025"
+          },
+          {
+            "path": "bundled/schema/components/cc.Line.json",
+            "digest": "9c204e2d55284c2af8035ad0b00babe46ec18c1af379a5716126366012b3e827"
+          },
+          {
+            "path": "bundled/schema/components/cc.LODGroup.json",
+            "digest": "04504b58e1ec83464c7cebb53fda92f35b8d7266eee9626a7049813f3a9f8056"
+          },
+          {
+            "path": "bundled/schema/components/cc.Mask.json",
+            "digest": "4cf55461e9c32f875d287e1d2b871d378d310c89436327c964242331fe61dffc"
+          },
+          {
+            "path": "bundled/schema/components/cc.MeshCollider.json",
+            "digest": "01c227c58c4f3657b9ba45dacc5fe2539c5c753de3f5e28cc24a79f523a1e3d1"
+          },
+          {
+            "path": "bundled/schema/components/cc.MeshRenderer.json",
+            "digest": "2030c73fb81a72c9533f6351965fc570c3b65954a60fd331c2178da5ef8ae74e"
+          },
+          {
+            "path": "bundled/schema/components/cc.MotionStreak.json",
+            "digest": "b5435d4c4685146c7aad1cd7f2322f265871c4e7bb7f702e9992f2e16ad04f87"
+          },
+          {
+            "path": "bundled/schema/components/cc.MouseJoint2D.json",
+            "digest": "ace70b9d5fbd053bcdbbbca13462ba72cd10d88b92fbb29f3f7644937e669cf1"
+          },
+          {
+            "path": "bundled/schema/components/cc.PageView.json",
+            "digest": "ef49cec36095c05f65add53f3c135f3eadd17ae2534805c5ccc33a80b3f26c5d"
+          },
+          {
+            "path": "bundled/schema/components/cc.PageViewIndicator.json",
+            "digest": "e7462725a1e46c912fa3738310df66ac625dda74d15fc711970169038c092c54"
+          },
+          {
+            "path": "bundled/schema/components/cc.ParticleSystem.json",
+            "digest": "cb7b6d00a34bd7d6030b7953ba8625d8ae53d7c2ed9c80d9a4c30ad4ea152d05"
+          },
+          {
+            "path": "bundled/schema/components/cc.ParticleSystem2D.json",
+            "digest": "5a82edec4100210eff394e1dc85d1f3743a62c85eae4aa1f0c2cc0ab6288eb72"
+          },
+          {
+            "path": "bundled/schema/components/cc.PlaneCollider.json",
+            "digest": "9fb68a20bdcd6d194213e7c10e3952c08a9b56fafa739f2595296b2ebeaa7d6f"
+          },
+          {
+            "path": "bundled/schema/components/cc.PointLight.json",
+            "digest": "632a54731c5b350eafa42f6e4edd1979b0414c6d98575e512457b286a2a607ce"
+          },
+          {
+            "path": "bundled/schema/components/cc.PointToPointConstraint.json",
+            "digest": "1f5abb9ee1097f737469f63607fbdf49a6ebed649535e113e167a316c7297460"
+          },
+          {
+            "path": "bundled/schema/components/cc.PolygonCollider2D.json",
+            "digest": "4d4ecf75c57fba2b5fc6fc4690fe6ac4f9473b6a692742f6c359f6c5e597133c"
+          },
+          {
+            "path": "bundled/schema/components/cc.PostProcess.json",
+            "digest": "0280f54b43e2280c3e1421ca6ca76be5b5730a4322099522c07626a0be37d176"
+          },
+          {
+            "path": "bundled/schema/components/cc.ProgressBar.json",
+            "digest": "2e39c2373792a471fcb47a94e5e16772ccea116924a7a7fa5be8fc0ca86a5860"
+          },
+          {
+            "path": "bundled/schema/components/cc.RangedDirectionalLight.json",
+            "digest": "33bde0fb648a4aa0eac44181307fbd36d0ffd96573af698834a323339aa3ad62"
+          },
+          {
+            "path": "bundled/schema/components/cc.ReflectionProbe.json",
+            "digest": "625c6139f2e0d11b3c46d432ea94c4d524669759d02026dbc41c242fdd587493"
+          },
+          {
+            "path": "bundled/schema/components/cc.RelativeJoint2D.json",
+            "digest": "feeecfdbb37209fa65ca07ad1826b65d7315fca65ff95052949418b59e035694"
+          },
+          {
+            "path": "bundled/schema/components/cc.RenderRoot2D.json",
+            "digest": "8c9b6f2df944ffc74a77339cee37061207df36d9b8bac37ef8e178daaf9961f4"
+          },
+          {
+            "path": "bundled/schema/components/cc.RichText.json",
+            "digest": "89c185726c0f0c6421fc7be3afcda4805bcae92f384cfccb9f3a775966a88768"
+          },
+          {
+            "path": "bundled/schema/components/cc.RigidBody.json",
+            "digest": "a3fd2116dd2d3b892cada3b861767f6f31e9565d502386e9945f50d6843f440e"
+          },
+          {
+            "path": "bundled/schema/components/cc.RigidBody2D.json",
+            "digest": "9e42090e9f4609dedc5a6b614c64c1d487dadae4db2e3b0786239a2cfa634d77"
+          },
+          {
+            "path": "bundled/schema/components/cc.SafeArea.json",
+            "digest": "3885f450d358d1585d122e7598fe27947d7ba58293726b48217247ccc35d0a1b"
+          },
+          {
+            "path": "bundled/schema/components/cc.ScrollBar.json",
+            "digest": "22b8000214e63cfe6bf4975a5b517f87b46140ed83ceb402b362c74f6c1166f7"
+          },
+          {
+            "path": "bundled/schema/components/cc.ScrollView.json",
+            "digest": "4522493c7ebd659ac0188fe818f1b274d166daf213b5d6eeac3cc8bdca993199"
+          },
+          {
+            "path": "bundled/schema/components/cc.SimplexCollider.json",
+            "digest": "970a6303f4458266e03348110647552598f7c4f85533e9b25c908541cbe5ed67"
+          },
+          {
+            "path": "bundled/schema/components/cc.SkeletalAnimation.json",
+            "digest": "ad8b8a4bbeddc23b81ad59117c3a9e305b9f10ef1da41eafee4a58418412e540"
+          },
+          {
+            "path": "bundled/schema/components/cc.SkinnedMeshBatchRenderer.json",
+            "digest": "4744b59bb2e5bc4a04fa36bdd5e6c53e55b0d217c00e5513044417af08e5bf02"
+          },
+          {
+            "path": "bundled/schema/components/cc.SkinnedMeshRenderer.json",
+            "digest": "be99f8f299539ac42f958d8faec818ed16b32cdf11b8c4056c8631e3c660c4d5"
+          },
+          {
+            "path": "bundled/schema/components/cc.Slider.json",
+            "digest": "1a84b2cfa8f47e95849a1da427054a05e9b76de7486cc29a4cf1e4482986403c"
+          },
+          {
+            "path": "bundled/schema/components/cc.SliderJoint2D.json",
+            "digest": "cd872751e7263188d3a825b548730021218ba125fcb77c23df649a5b800b3849"
+          },
+          {
+            "path": "bundled/schema/components/cc.Sorting.json",
+            "digest": "4afe661bf3c72abed7931bdc370097fff8ec592c79734a0bc6ea957c0502c15f"
+          },
+          {
+            "path": "bundled/schema/components/cc.Sorting2D.json",
+            "digest": "2aed8f0064750dac0f3b4c55cdb8e1b6f681aaf60ea8647dc29d1f22370c7b66"
+          },
+          {
+            "path": "bundled/schema/components/cc.SphereCollider.json",
+            "digest": "b292ba3e1e482900ebd20d63b168bb3c2376afbcd1188a6486a0886d393a15fe"
+          },
+          {
+            "path": "bundled/schema/components/cc.SphereLight.json",
+            "digest": "27a78e96df4b0df68a7adff9b3259bc6d8bb00b2c36d97857d62c6d1f90fa0e9"
+          },
+          {
+            "path": "bundled/schema/components/cc.SpotLight.json",
+            "digest": "161c57856f2e40962cbdbf7cc200a3fe2c37a5828d1b441d3537e0bfa6133dde"
+          },
+          {
+            "path": "bundled/schema/components/cc.SpringJoint2D.json",
+            "digest": "f070ff90a048eb8dbc59f448d5397d152cea89a2e7a8792217036980979fe84d"
+          },
+          {
+            "path": "bundled/schema/components/cc.Sprite.json",
+            "digest": "13665586ae3dc57138e1b4b82df2d53f2e96c7f752cda4e3ec60d128dfb64549"
+          },
+          {
+            "path": "bundled/schema/components/cc.SpriteRenderer.json",
+            "digest": "bf07b870dc4bc2ece5e6d9b3e3556f1d740e83c65bbfb111b9d70d405b66fdd1"
+          },
+          {
+            "path": "bundled/schema/components/cc.SubContextView.json",
+            "digest": "45873c2e1d00abeaca29a8f799b156c39f7b5c894a68871ce1f829a485985292"
+          },
+          {
+            "path": "bundled/schema/components/cc.TAA.json",
+            "digest": "ca777e7b7cfac2266a0e7348d43c295ceb720bb393efdea37d33bad6c74a3a3c"
+          },
+          {
+            "path": "bundled/schema/components/cc.Terrain.json",
+            "digest": "f79d35ec635e3ede725018c076a8adcfacc3d0b03968096b508b57fbb4a00c2b"
+          },
+          {
+            "path": "bundled/schema/components/cc.TerrainCollider.json",
+            "digest": "c428cd8ac5fb6d372b5981890f73838f52386eb702e57f26793cc6d718e81d4c"
+          },
+          {
+            "path": "bundled/schema/components/cc.TiledLayer.json",
+            "digest": "8e7e13af4ce4365d3347e4a821cc3034d29bdb55791f86ad8b3fb534c4ee6366"
+          },
+          {
+            "path": "bundled/schema/components/cc.TiledMap.json",
+            "digest": "b806b13e812c5f12b9525f15eb41988679244bb7748503758aa1ce03c2768b25"
+          },
+          {
+            "path": "bundled/schema/components/cc.TiledObjectGroup.json",
+            "digest": "ae9e77e547e37067dd9e92a66b427166ecd9e1f4b30af762a21d8e12455b74c6"
+          },
+          {
+            "path": "bundled/schema/components/cc.TiledTile.json",
+            "digest": "394ab95375e9d56ce8e5532a8e97b6deb80b8b61704b253f9075b606fbdb1ea8"
+          },
+          {
+            "path": "bundled/schema/components/cc.TiledUserNodeData.json",
+            "digest": "394a3f72b05c235bb54ca4259fad56598425a7817d4ab16ddb01939d70f55c56"
+          },
+          {
+            "path": "bundled/schema/components/cc.Toggle.json",
+            "digest": "c6b0d612bdec9d9027aa2bd05df8a726d1db51186cb6e61384ccade25f015c18"
+          },
+          {
+            "path": "bundled/schema/components/cc.ToggleContainer.json",
+            "digest": "559813a7c10b6951d6ee3008cd401893743fe63d2b34dc9e30d6fcec7f2d7c6b"
+          },
+          {
+            "path": "bundled/schema/components/cc.UICoordinateTracker.json",
+            "digest": "4b30d141895399ba93c9e593aa865fb6081f4496b89604fc2f48835c6afbacc6"
+          },
+          {
+            "path": "bundled/schema/components/cc.UIMeshRenderer.json",
+            "digest": "47217caa0b52e9ae936e8e3b6f9ef27a0874ad6ff038bcc3296d6f883b82b580"
+          },
+          {
+            "path": "bundled/schema/components/cc.UIOpacity.json",
+            "digest": "be166db7cc33d88a66556b480aadff1fc26454d3b8099ad8215e40659f295991"
+          },
+          {
+            "path": "bundled/schema/components/cc.UISkew.json",
+            "digest": "e9cda156d5ac2c23a5a6bdc292c9f46e403a94533bd8cb31b4f844378572dd2b"
+          },
+          {
+            "path": "bundled/schema/components/cc.UIStaticBatch.json",
+            "digest": "f87e4887f2363a7a360224cfc80cacf8318c206bcb1b19b306135a60a8d83600"
+          },
+          {
+            "path": "bundled/schema/components/cc.UITransform.json",
+            "digest": "f4c807317649f7bb957d887110302bc13a9556ef5ea9868a2d498155c201cd3f"
+          },
+          {
+            "path": "bundled/schema/components/cc.VideoPlayer.json",
+            "digest": "3e487148a9f34e1c1f3eca0a734b6078b843a4a5460c05582e60116c1e99fa13"
+          },
+          {
+            "path": "bundled/schema/components/cc.WebView.json",
+            "digest": "28bb55572740a4004c5e6a88b81aad21bf5a09431ede4edec7229dd24302eecd"
+          },
+          {
+            "path": "bundled/schema/components/cc.WheelJoint2D.json",
+            "digest": "fd1c92add45a5fdc2e6d13783fc869160cfe87591080ae34a215eec3f2dfd1f7"
+          },
+          {
+            "path": "bundled/schema/components/cc.Widget.json",
+            "digest": "3c651c667fc73e87b7d38b46cdf226efda812541fef9b74a680ebe2eb0e3df8d"
+          },
+          {
+            "path": "bundled/schema/components/dragonBones.ArmatureDisplay.json",
+            "digest": "c7d0e9689ec8aa2f3c4061bec93cbff153ee7ade980801c0a7de43d43f9db0e7"
+          },
+          {
+            "path": "bundled/schema/components/sp.Skeleton.json",
+            "digest": "b790a086b8e53601076c44aaca419ed0a7b64f60a3d335a55fba022e19f54a2a"
+          },
+          {
+            "path": "bundled/schema/conventions.json",
+            "digest": "2fadeec5c21ef879e1e21901cb159399685ac0124a28de5ec2c8cd1e715e09b4"
+          },
+          {
+            "path": "bundled/schema/deprecated.json",
+            "digest": "dc1c412b64c18e51b34386894b152ccf69479fb47c29f39b2b17f6ab07159abc"
+          },
+          {
+            "path": "bundled/schema/meta-importers.json",
+            "digest": "601b8fe91347724d21fd66bb2ef400bc0ebd473bf75a8cffd389e81074ef124b"
+          },
+          {
+            "path": "bundled/schema/node.json",
+            "digest": "8d529202f8fa811005263228b848c1caeb1088e79ca85ec3a60847ae6da12e69"
+          },
+          {
+            "path": "bundled/schema/types/cc.BlitScreenMaterial.json",
+            "digest": "ee74feebbf03d1086c9f4936fef7bdc865f6a4f81a46a5467c62dc3269d276fd"
+          },
+          {
+            "path": "bundled/schema/types/cc.Burst.json",
+            "digest": "40656b1f24ec8f04a375c1ca303150a1c1366ae3e5fb4e2213d19d7f4481fe95"
+          },
+          {
+            "path": "bundled/schema/types/cc.ColorOvertimeModule.json",
+            "digest": "ddd6399734effa5d5ee14c6beebaa174cab8359b77831a82951c8d3581820525"
+          },
+          {
+            "path": "bundled/schema/types/cc.ForceOvertimeModule.json",
+            "digest": "dc5f9035ce83c750bed9e43aeb9da8f0e5dc174b68c651e9b6fa2943e9bd7d62"
+          },
+          {
+            "path": "bundled/schema/types/cc.HingeLimitData.json",
+            "digest": "83c0b020a08230c3b0e90c28f6afac1ffa603df242836c123d53dca102b152bd"
+          },
+          {
+            "path": "bundled/schema/types/cc.HingeMotorData.json",
+            "digest": "cb1a6b5db0aabc9fa88009b78b3a1818780d26d4b39f904abba0edf8ac8612c7"
+          },
+          {
+            "path": "bundled/schema/types/cc.LimitVelocityOvertimeModule.json",
+            "digest": "b5ed6ec1f993ab81056ccaa964d7c756d6b4318dc12e65277d8cf451509f5005"
+          },
+          {
+            "path": "bundled/schema/types/cc.NoiseModule.json",
+            "digest": "5677b238af14569f7c458cbb43c279ca9488efb1eb62788815105e5b093a3ca1"
+          },
+          {
+            "path": "bundled/schema/types/cc.RotationOvertimeModule.json",
+            "digest": "c29241ce7769ab9ac9f8f9cc579fe251f26a84d9a54527bbc7ecdd59938b514a"
+          },
+          {
+            "path": "bundled/schema/types/cc.ShapeModule.json",
+            "digest": "af364c5001ad5af52d50492f360dd20cc55fde29d27189b273132d7352153a25"
+          },
+          {
+            "path": "bundled/schema/types/cc.SizeOvertimeModule.json",
+            "digest": "608cb2e8bd4727e8a7ed6b2906c6990643810ff2e4d2246040eb9dca4e10e3b5"
+          },
+          {
+            "path": "bundled/schema/types/cc.TextureAnimationModule.json",
+            "digest": "c430124735c266aa9e9177ec4f727a04aba1d9c84fb943e51dfb74b3549b5ab8"
+          },
+          {
+            "path": "bundled/schema/types/cc.TrailModule.json",
+            "digest": "7590b09324bf3b74ee5d5c111010b5f3d1932ebcbad39f5ee9050817f48b929c"
+          },
+          {
+            "path": "bundled/schema/types/cc.VelocityOvertimeModule.json",
+            "digest": "ff697f90d8a4929ede003367d62481163144da3c99163a809eaeb4bc5c2edb2c"
+          },
+          {
+            "path": "libs/.keep",
+            "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "package.json",
+            "digest": "3d04369a44dc75f6a70dfc51080beb357eb39b395a2db0b6557ce8b9900ceec4"
+          },
+          {
+            "path": "peanut.pod-lite.bundle.js",
+            "digest": "fcb57f368b9c29a73b710b65bdc52c2802d3bc8311318fb8098102fdec6a63da"
+          }
+        ],
+        "libraries": []
+      }
+    },
+    "packageMeta": {
+      "digest": "38c968bb37aea99c5d52205e84c3a1d5a4a54dab7858b7cf14a3abc0554ddf88",
+      "packedAt": "2026-09-12T01:50:33.071Z"
+    },
+    "isValidStructure": true,
+    "issues": []
+  },
+  "validation": {
+    "ok": true,
+    "issues": [],
+    "warnings": [
+      "package_signature_missing"
+    ]
+  },
+  "installResult": {
+    "operation": "install",
+    "pluginId": "peanut.pod-lite",
+    "version": "0.1.0",
+    "installed": true,
+    "installPath": "D:\\mcp-test\\peanut-plugins\\plugins\\peanut.pod-lite\\0.1.0",
+    "stagedPath": "D:\\mcp-test\\peanut-plugins\\staging\\peanut.pod-lite\\0.1.0",
+    "previousVersion": null,
+    "warnings": [
+      "package_signature_missing"
+    ]
+  },
+  "installError": null,
+  "installedIndex": {
+    "schemaVersion": 2,
+    "plugins": [
+      {
+        "pluginId": "peanut.pod-lite",
+        "activeVersion": "0.1.0",
+        "versions": [
+          {
+            "version": "0.1.0",
+            "installPath": "peanut-plugins\\plugins\\peanut.pod-lite\\0.1.0"
+          }
+        ]
+      }
+    ]
+  }
+}

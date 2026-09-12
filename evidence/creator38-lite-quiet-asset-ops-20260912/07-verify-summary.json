@@ -1,0 +1,98 @@
+{
+  "at": "2026-09-12 09:56:42 UTC+8",
+  "rows": [
+    {
+      "id": "A0-create-root",
+      "op": "asset.createFolder",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:29 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"path\": \"assets/__quiet_asset_ops_tmp\", \"createdDirectories\": [\"assets/__quiet_asset_ops_tmp\"], \"existed\": false, \"refresh\": {\"phase\": \"new_asset_ready_without_force_refresh\", \"paths\": [\"assets/__quiet_asset_ops_tmp\"], \"ready\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 0, \"status\": \"ready\"}, \"skippedForceRefresh\": true}, \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "A1-createFolder-child",
+      "op": "asset.createFolder",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:30 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"path\": \"assets/__quiet_asset_ops_tmp/child\", \"createdDirectories\": [\"assets/__quiet_asset_ops_tmp/child\"], \"existed\": false, \"refresh\": {\"phase\": \"new_asset_ready_without_force_refresh\", \"paths\": [\"assets/__quiet_asset_ops_tmp/child\"], \"ready\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 0, \"status\": \"ready\"}, \"skippedForceRefresh\": true}, \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "A2-writeText",
+      "op": "asset.writeText",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:34 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"written\": [\"assets/__quiet_asset_ops_tmp/note.txt\"], \"createdDirectories\": [], \"byteCount\": 19, \"dirReady\": null, \"refresh\": {\"phase\": \"editor_refreshed\", \"result\": {\"triggered\": true, \"message\": \"lumen_asset_db_refresh:db://assets/__quiet_asset_ops_tmp/,db://assets/__quiet_asset_ops_tmp/note.txt|settle:1/1:45ms/budget:6000ms\", \"settle\": {\"waitedMs\": 45, \"budgetMs\": 6000, \"overBudget\": false, \"registered\": 1, \"pending\": 0, \"ready\": true, \"softFailCount\": 0}}, \"barrier\": true}, \"metaReady\": [\"assets/__quiet_asset_ops_tmp/note.txt\"], \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "A3-rename",
+      "op": "asset.rename",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:37 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"fromPath\": \"assets/__quiet_asset_ops_tmp/note.txt\", \"toPath\": \"assets/__quiet_asset_ops_tmp/note-renamed.txt\", \"isDirectory\": false, \"movedMeta\": true, \"refresh\": {\"phase\": \"watcher_settle_skip_refresh\", \"waitedMs\": 2200, \"from\": \"assets/__quiet_asset_ops_tmp/note.txt\", \"to\": \"assets/__quiet_asset_ops_tmp/note-renamed.txt\", \"triggered\": false, \"ready\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 1, \"status\": \"ready\"}, \"next\": \"rename/move settled via Creator watcher + AssetDB ready; skipped refresh-asset to avoid Window original-asset race\"}, \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "A4-create-subdir",
+      "op": "asset.createFolder",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:38 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"path\": \"assets/__quiet_asset_ops_tmp/subdir\", \"createdDirectories\": [\"assets/__quiet_asset_ops_tmp/subdir\"], \"existed\": false, \"refresh\": {\"phase\": \"new_asset_ready_without_force_refresh\", \"paths\": [\"assets/__quiet_asset_ops_tmp/subdir\"], \"ready\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 0, \"status\": \"ready\"}, \"skippedForceRefresh\": true}, \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "A5-move",
+      "op": "asset.move",
+      "expect": "pass",
+      "passed": true,
+      "ok": true,
+      "error": null,
+      "http": 200,
+      "at": "2026-09-12 09:56:40 UTC+8",
+      "slice": "{\"http\": 200, \"ok\": true, \"result\": {\"fromPath\": \"assets/__quiet_asset_ops_tmp/note-renamed.txt\", \"toPath\": \"assets/__quiet_asset_ops_tmp/subdir/note-moved.txt\", \"isDirectory\": false, \"movedMeta\": true, \"refresh\": {\"phase\": \"watcher_settle_skip_refresh\", \"waitedMs\": 2200, \"from\": \"assets/__quiet_asset_ops_tmp/note-renamed.txt\", \"to\": \"assets/__quiet_asset_ops_tmp/subdir/note-moved.txt\", \"triggered\": false, \"ready\": {\"ready\": true, \"polls\": 1, \"waitedMs\": 0, \"status\": \"ready\"}, \"next\": \"rename/move settled via Creator watcher + AssetDB ready; skipped refresh-asset to avoid Window original-asset race\"}, \"postflight\": {\"logChecked\": true, \"logPath\": \"D:\\\\mcp-test\\\\temp\\\\logs\\\\project.log\", \"newErrorCount\": 0, \"newWarningCount\": 0, \"newErrors\": [], \"newWarnings\": [], \"verified\": true}}}"
+    },
+    {
+      "id": "B1-replace-fake-uuid",
+      "op": "asset.replaceReferences",
+      "expect": "fail_code",
+      "passed": true,
+      "ok": false,
+      "error": "silent_replace_target_not_found:ffffffff-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "http": 400,
+      "at": "2026-09-12 09:56:40 UTC+8",
+      "slice": "{\"http\": 400, \"ok\": false, \"error\": \"silent_replace_target_not_found:ffffffff-bbbb-cccc-dddd-eeeeeeeeeeee\"}",
+      "extra": {
+        "code": "silent_replace_target_not_found",
+        "token": "822d3e393ae098c95a307ce9a0debd3aace1bcb4fbce98fd52831873412377bb",
+        "tokenPresent": true
+      }
+    }
+  ],
+  "passed_all": true,
+  "window_original_asset_hits": [],
+  "window_tmp_hits": [],
+  "plugin_error_silent_replace_hits": [],
+  "plugin_error_any_hits": [],
+  "criteria": {
+    "A_no_window_tmp_errors": true,
+    "B_mcp_structured_not_found": true,
+    "B_no_plugin_console_error": true
+  },
+  "ok": true
+}
