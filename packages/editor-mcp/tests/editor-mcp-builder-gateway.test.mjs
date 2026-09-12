@@ -71,6 +71,44 @@ test('builder prefers Creator default options and keeps caller overrides', async
     assert.equal(calls.includes('query-tasks-info'), false);
 });
 
+test('builder does not inherit debug mode from historical tasks', async () => {
+    let submitted;
+    const runtime = {
+        message: {
+            async request(_target, name, ...args) {
+                if (name === 'query-tasks-info') {
+                    return {
+                        list: [
+                            {
+                                options: {
+                                    platform: 'web-desktop',
+                                    outputName: 'web-desktop',
+                                    taskName: 'web-desktop',
+                                    mainBundleCompressionType: 'merge_dep',
+                                    debug: true,
+                                },
+                            },
+                        ],
+                    };
+                }
+                if (name === 'add-task') {
+                    submitted = args[0];
+                    return 0;
+                }
+                if (name === 'query-task') {
+                    throw new Error('query unavailable');
+                }
+                throw new Error(`unsupported:${name}`);
+            },
+        },
+    };
+    const gateway = new EditorMcpBuilderGateway(runtime);
+    await gateway.build({ platform: 'web-desktop' });
+    assert.equal(submitted.debug, false);
+    await gateway.build({ platform: 'web-desktop', options: { debug: true } });
+    assert.equal(submitted.debug, true);
+});
+
 test('builder.queryDefaultConfig asks Creator for defaults before task history', async () => {
     const calls = [];
     const gateway = new EditorMcpBuilderGateway({

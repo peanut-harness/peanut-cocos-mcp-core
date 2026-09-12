@@ -257,7 +257,7 @@ export class EditorMcpBuilderGateway {
             // Creator convention relative build root — not an invented absolute artifact path.
             merged.buildPath = 'project://build';
         }
-        if (typeof merged.debug !== 'boolean') {
+        if (typeof options.debug !== 'boolean') {
             merged.debug = false;
         }
         if (typeof merged.outputName !== 'string' || merged.outputName.trim().length === 0) {
