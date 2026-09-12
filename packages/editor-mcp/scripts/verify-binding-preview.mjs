@@ -1,10 +1,6 @@
-import { mkdir } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
-
 import { chromium } from 'playwright';
 
 const previewUrl = readFlag('--url') ?? 'http://127.0.0.1:7457';
-const outputPath = resolve(readRequiredFlag('--output'));
 const browserPath = readFlag('--browser') ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const targetX = Number(readFlag('--target-x') ?? 0);
 const targetY = Number(readFlag('--target-y') ?? -30);
@@ -42,9 +38,21 @@ try {
         timeout: 10_000,
     });
     const after = await page.evaluate(() => globalThis.__PEANUT_BINDING_PROOF__);
-    await mkdir(dirname(outputPath), { recursive: true });
-    await page.screenshot({ path: outputPath, fullPage: true });
-    process.stdout.write(`${JSON.stringify({ before, after, consoleErrors, canvas: box, clickPoint, outputPath }, null, 2)}\n`);
+    if (
+        before?.statusBound !== true ||
+        before?.spriteBound !== true ||
+        before?.labelText !== 'READY' ||
+        before?.actionCount !== 0 ||
+        after?.statusBound !== true ||
+        after?.spriteBound !== true ||
+        after?.labelText !== 'ACTION OK' ||
+        after?.actionCount !== 1 ||
+        after?.customEventData !== 'persistent-gallery' ||
+        consoleErrors.length > 0
+    ) {
+        throw new Error('binding_runtime_proof_failed');
+    }
+    process.stdout.write(`${JSON.stringify({ before, after, consoleErrors, canvas: box, clickPoint }, null, 2)}\n`);
 } finally {
     await browser.close();
 }
@@ -52,12 +60,4 @@ try {
 function readFlag(name) {
     const index = process.argv.indexOf(name);
     return index >= 0 ? process.argv[index + 1] : undefined;
-}
-
-function readRequiredFlag(name) {
-    const value = readFlag(name);
-    if (value == null || value.length === 0) {
-        throw new Error(`missing_required_flag:${name}`);
-    }
-    return value;
 }
