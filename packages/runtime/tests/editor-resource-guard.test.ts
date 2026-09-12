@@ -109,6 +109,25 @@ test("ProjectLogPostflightMonitor ignores Error stacks on Creator warn lines", (
   assert.match(result.newErrors[0] ?? "", /real failure/u);
 });
 
+test("ProjectLogPostflightMonitor treats bare Warn prefixes as warnings", (): void => {
+  const root = mkdtempSync(join(tmpdir(), "peanut-project-log-bare-warn-"));
+  const logDir = join(root, "temp", "logs");
+  mkdirSync(logDir, { recursive: true });
+  const logPath = join(logDir, "project.log");
+  writeFileSync(logPath, "", "utf8");
+  const monitor = new ProjectLogPostflightMonitor();
+  const checkpoint = monitor.checkpoint(root);
+  writeFileSync(
+    logPath,
+    "Warn: [Assets] TS2732: Cannot find module './DebugInfos.json'.\n",
+    "utf8",
+  );
+  const result = monitor.readDelta(checkpoint);
+  assert.equal(result.newWarningCount, 1);
+  assert.equal(result.newErrorCount, 0);
+  assert.equal(result.verified, true);
+});
+
 test("ProjectLogPostflightMonitor ignores console.error stack frames without Creator severity", (): void => {
   const root = mkdtempSync(join(tmpdir(), "peanut-project-log-sentry-"));
   const logDir = join(root, "temp", "logs");

@@ -223,7 +223,7 @@ export class ProjectLogPostflightMonitor {
 function readCreatorLogSeverity(
   line: string,
 ): "error" | "warn" | "other" | null {
-  const match = /\s-\s*(error|warn(?:ing)?|info|log|debug)\s*:/iu.exec(line);
+  const match = /(?:\s-\s*|^\s*)(error|warn(?:ing)?|info|log|debug)\s*:/iu.exec(line);
   if (match == null) {
     return null;
   }
