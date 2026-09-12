@@ -6,6 +6,10 @@ import { chromium } from 'playwright';
 const previewUrl = readFlag('--url') ?? 'http://127.0.0.1:7457';
 const outputPath = resolve(readRequiredFlag('--output'));
 const browserPath = readFlag('--browser') ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const targetX = Number(readFlag('--target-x') ?? 0);
+const targetY = Number(readFlag('--target-y') ?? -30);
+const designWidth = Number(readFlag('--design-width') ?? 960);
+const designHeight = Number(readFlag('--design-height') ?? 640);
 const browser = await chromium.launch({ headless: true, executablePath: browserPath });
 
 try {
@@ -29,14 +33,18 @@ try {
         throw new Error('preview_canvas_missing');
     }
 
-    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    const clickPoint = {
+        x: box.x + ((targetX + designWidth / 2) / designWidth) * box.width,
+        y: box.y + ((designHeight / 2 - targetY) / designHeight) * box.height,
+    };
+    await page.mouse.click(clickPoint.x, clickPoint.y);
     await page.waitForFunction(() => globalThis.__PEANUT_BINDING_PROOF__?.actionCount === 1, null, {
         timeout: 10_000,
     });
     const after = await page.evaluate(() => globalThis.__PEANUT_BINDING_PROOF__);
     await mkdir(dirname(outputPath), { recursive: true });
     await page.screenshot({ path: outputPath, fullPage: true });
-    process.stdout.write(`${JSON.stringify({ before, after, consoleErrors, canvas: box, outputPath }, null, 2)}\n`);
+    process.stdout.write(`${JSON.stringify({ before, after, consoleErrors, canvas: box, clickPoint, outputPath }, null, 2)}\n`);
 } finally {
     await browser.close();
 }

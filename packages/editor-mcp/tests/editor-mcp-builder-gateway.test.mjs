@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import test from 'node:test';
 
 import { EditorMcpBuilderGateway } from '../dist/editor-mcp-builder-gateway.js';
@@ -142,4 +145,44 @@ test('builder.queryDefaultConfig does not report an empty task queue as defaults
     const result = await gateway.queryDefaultConfig({ platform: 'web-desktop' });
     assert.equal(result.available, false);
     assert.equal(result.message, 'builder_query_default_config_unavailable:no_executable_default_options');
+});
+
+test('builder verifies Creator project buildPath and outputName artifacts', async () => {
+    const projectRoot = mkdtempSync(join(tmpdir(), 'peanut-builder-artifact-'));
+    const outputDirectory = join(projectRoot, 'build', 'web-desktop');
+    let submitted;
+    const runtime = {
+        projectRead: {
+            async getProjectPath() {
+                return projectRoot;
+            },
+        },
+        message: {
+            async request(_target, name, ...args) {
+                if (name === 'query-worker-ready') {
+                    return true;
+                }
+                if (name === 'query-default-config') {
+                    return {};
+                }
+                if (name === 'query-tasks-info') {
+                    return { queue: {}, list: [] };
+                }
+                if (name === 'add-task') {
+                    submitted = args[0];
+                    mkdirSync(outputDirectory, { recursive: true });
+                    writeFileSync(join(outputDirectory, 'index.html'), '<!doctype html>', 'utf8');
+                    return 1;
+                }
+                if (name === 'query-task') {
+                    return { id: submitted.taskId, state: 'success', stage: 'build', options: submitted };
+                }
+                throw new Error(`unsupported:${name}`);
+            },
+        },
+    };
+    const result = await new EditorMcpBuilderGateway(runtime).build({ platform: 'web-desktop' });
+    assert.equal(result.status, 'completed');
+    assert.equal(result.success, true);
+    assert.deepEqual(result.artifacts, [join(outputDirectory, 'index.html')]);
 });

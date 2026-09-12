@@ -1,5 +1,5 @@
 import { realpath, stat } from 'node:fs/promises';
-import { isAbsolute, relative, resolve, sep } from 'node:path';
+import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import type { IGrantedRuntimeClientSet } from 'peanut-plugin-sdk';
 import type { IEditorMcpBuilderResult } from './editor-mcp-builder-gateway.js';
 
@@ -118,7 +118,7 @@ export class EditorMcpBuilderCompletion {
      * @returns 经验证的实际文件路径。
      */
     private async _artifacts(options: unknown, platform: string, startedAt: number): Promise<string[]> {
-        if (!EditorMcpBuilderCompletion._record(options) || options.platform !== platform || typeof options.dest !== 'string') {
+        if (!EditorMcpBuilderCompletion._record(options) || options.platform !== platform) {
             return [];
         }
         try {
@@ -127,7 +127,11 @@ export class EditorMcpBuilderCompletion {
                 return [];
             }
             const root = await realpath(project);
-            const dest = await realpath(resolve(root, options.dest));
+            const destination = EditorMcpBuilderCompletion._readDestination(options);
+            if (destination === null) {
+                return [];
+            }
+            const dest = await realpath(resolve(root, destination));
             const rel = relative(root, dest);
             if (rel === '' || rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) {
                 return [];
@@ -145,6 +149,27 @@ export class EditorMcpBuilderCompletion {
         } catch {
             return [];
         }
+    }
+
+    /** @description 兼容 Creator 返回的 dest 或 buildPath + outputName 任务选项。 */
+    private static _readDestination(options: Record<string, unknown>): string | null {
+        if (typeof options.dest === 'string' && options.dest.trim().length > 0) {
+            return options.dest.trim();
+        }
+        if (
+            typeof options.buildPath !== 'string' ||
+            options.buildPath.trim().length === 0 ||
+            typeof options.outputName !== 'string' ||
+            options.outputName.trim().length === 0
+        ) {
+            return null;
+        }
+        const rawBuildPath = options.buildPath.trim();
+        const buildPath = rawBuildPath.startsWith('project://') ? rawBuildPath.slice('project://'.length) : rawBuildPath;
+        if (/^[a-z][a-z0-9+.-]*:\/\//iu.test(buildPath)) {
+            return null;
+        }
+        return join(buildPath, options.outputName.trim());
     }
 
     /**
