@@ -10,7 +10,8 @@ import { LumenAssetDbRefreshCoalescer } from './asset-db-refresh-coalescer';
  * @description 通过 AssetDB 消息将磁盘上的 lumen 直写对齐进编辑器的适配器。
  *
  * 策略：磁盘已是真源时，已登记资产只 `refresh-asset`（避免 `save-asset` 二次写盘触发
- * Assets 面板 `changed` 竞态报「原资产不存在」）；未登记时先刷父目录发现，再必要时 `create-asset`。
+ * Assets 面板 `changed` 竞态报「原资产不存在」）；未登记且已有 sidecar 时只等待文件监视器发现，
+ * 无 sidecar 的新文本资产仅在父目录已登记后才走 `create-asset`。
  * 已删除/迁走的文件路径只刷父目录，不对缺失文件 URL 发 refresh（3.8.x Window 竞态）。
  * 全部 AssetDB 同步串行化，降低并发 refresh 打爆面板的概率。
  * 短时间多次 refresh 经 {@link LumenAssetDbRefreshCoalescer} 合并为一次（大批量 commit 友好）。
@@ -240,12 +241,18 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
 
         let existing = await this._queryAssetInfo(dbUrl);
         if (existing == null) {
-            const parent = this._parentDbDirectory(dbUrl);
-            if (parent != null) {
-                await this._softRequest('refresh-asset', parent);
-                await this._waitAssetDbReady(800);
-                existing = await this._queryAssetInfo(dbUrl);
+            if (this._hasSidecarMeta(projectRoot, relativePath)) {
+                await this._waitUntilAssetRegistered(dbUrl, 10000);
+                await this._settleAfterFileSync(projectRoot, relativePath, dbUrl);
+                return;
             }
+
+            const parent = this._parentDbDirectory(dbUrl);
+            if (parent != null && !(await this._waitUntilDirectoryRegistered(parent, 3000))) {
+                await this._waitAssetDbReady(400);
+                return;
+            }
+            existing = await this._queryAssetInfo(dbUrl);
         }
 
         if (existing == null) {
@@ -287,7 +294,7 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
 
         // 已登记脚本/文本：内容写盘即可，Creator 监视器会热更；
         // 再 refresh-asset 会稳定触发 Assets 面板 Window「原资产不存在」。
-        if (this._isTextDiskAsset(relativePath) && this._sidecarMetaImported(projectRoot, relativePath)) {
+        if (this._isTextDiskAsset(relativePath) && this._hasSidecarMeta(projectRoot, relativePath)) {
             await this._settleAfterFileSync(projectRoot, relativePath, dbUrl);
             return;
         }
@@ -311,28 +318,12 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
             return;
         }
 
-        let existing = await this._queryAssetInfo(dbUrl);
+        let existing = await this._queryDirectoryAssetInfo(dbUrl);
         if (existing == null) {
-            existing = await this._queryAssetInfo(this._toDbUrl(relative));
-        }
-        if (existing == null) {
-            // 未登记目录：只刷「非 assets 根」的父目录发现，禁止对自身 URL 发 refresh-asset。
-            // 3.8.x Assets 面板会对「尚未入树」的 URL 走 changed，报 Window「原资产不存在」；
-            // 对 `db://assets` 发 refresh-asset 还会刷 `assets/.meta` ENOENT。
-            const parent = this._parentDbDirectory(dbUrl);
-            if (parent != null && !this._isAssetsRootDbUrl(parent)) {
-                await this._softRequest('refresh-asset', parent);
-                await this._waitAssetDbReady(1200);
-            } else {
-                // 顶层目录：依赖 AssetDB 监视器发现侧车 .meta，只轮询登记。
-                await this._waitAssetDbReady(800);
-            }
-            // 父目录发现通常很快；超时后仍禁止对自身 refresh，避免 Window 刷屏。
-            await this._waitUntilAssetRegistered(dbUrl, 3000);
-            existing = await this._queryAssetInfo(dbUrl);
-            if (existing == null) {
-                existing = await this._queryAssetInfo(this._toDbUrl(relative));
-            }
+            // 未登记目录完全交给 Creator 文件监视器发现。刷新已登记父目录仍会向尚未入树的
+            // 子目录发送 changed，3.8.x Assets 面板因此报「original asset is not exist」。
+            await this._waitUntilDirectoryRegistered(dbUrl, 3000);
+            existing = await this._queryDirectoryAssetInfo(dbUrl);
             if (existing == null) {
                 // 仍未入库：保留磁盘真相，不再对子 URL 发 changed 类消息。
                 if (!existsSync(metaPath)) {
@@ -341,11 +332,9 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
                 await this._waitAssetDbReady(400);
                 return;
             }
-            // 刚发现入库：仅当调用方显式要刷该目录时再 refresh；祖先连带路径到此为止。
-            if (options.forceRefresh !== true) {
-                await this._waitAssetDbReady(200);
-                return;
-            }
+            // 刚发现入库时 Assets 面板仍可能尚未消费 added 事件，本轮一律不再 force refresh。
+            await this._waitAssetDbReady(600);
+            return;
         }
 
         if (options.forceRefresh !== true) {
@@ -431,6 +420,25 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
                 setTimeout(resolve, 80);
             });
         }
+    }
+
+    /**
+     * @description 等待目录 URL 被 AssetDB 登记，同时兼容带与不带尾斜杠的查询形态。
+     * @param dbUrl 目录 db URL。
+     * @param timeoutMs 最长等待毫秒。
+     * @returns 是否在时限内登记。
+     */
+    private async _waitUntilDirectoryRegistered(dbUrl: string, timeoutMs: number): Promise<boolean> {
+        const deadline = Date.now() + timeoutMs;
+        while (Date.now() < deadline) {
+            if ((await this._queryDirectoryAssetInfo(dbUrl)) != null) {
+                return true;
+            }
+            await new Promise<void>((resolve) => {
+                setTimeout(resolve, 80);
+            });
+        }
+        return false;
     }
 
     /**
@@ -597,6 +605,16 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
     }
 
     /**
+     * @description 判断磁盘资产是否已有 Creator sidecar `.meta`，用于区分监视器登记与主动创建路径。
+     * @param projectRoot 项目根。
+     * @param relativePath 项目相对路径。
+     * @returns 是否存在 sidecar。
+     */
+    private _hasSidecarMeta(projectRoot: string, relativePath: string): boolean {
+        return existsSync(`${join(projectRoot, relativePath)}.meta`);
+    }
+
+    /**
      * @description 判断路径是否为带 sidecar meta 的二进制资源（禁止 utf8 create-asset）。
      * @param relativePath 项目相对路径。
      * @returns 是否二进制 sidecar 资源。
@@ -630,6 +648,20 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
         } catch {
             return null;
         }
+    }
+
+    /**
+     * @description 查询目录 AssetDB 信息，兼容 Creator 对目录尾斜杠的差异。
+     * @param dbUrl 目录 db URL。
+     * @returns 目录信息或 null。
+     */
+    private async _queryDirectoryAssetInfo(dbUrl: string): Promise<unknown | null> {
+        const withSlash = dbUrl.endsWith('/') ? dbUrl : `${dbUrl}/`;
+        const direct = await this._queryAssetInfo(withSlash);
+        if (direct != null) {
+            return direct;
+        }
+        return this._queryAssetInfo(withSlash.replace(/\/+$/u, ''));
     }
 
     /**

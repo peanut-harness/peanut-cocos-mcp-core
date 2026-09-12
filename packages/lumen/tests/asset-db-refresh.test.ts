@@ -136,7 +136,7 @@ test('LumenAssetDbEditorRefreshAdapter skips refresh-asset for existing imported
     );
 });
 
-test('LumenAssetDbEditorRefreshAdapter discovers missing asset via parent then create-asset', async (): Promise<void> => {
+test('LumenAssetDbEditorRefreshAdapter creates sidecar-less text only after parent registration', async (): Promise<void> => {
     const projectRoot = mkdtempSync(join(tmpdir(), 'lumen-refresh-'));
     const relativePath = 'assets/ui/New.prefab';
     mkdirSync(join(projectRoot, 'assets/ui'), { recursive: true });
@@ -148,7 +148,7 @@ test('LumenAssetDbEditorRefreshAdapter discovers missing asset via parent then c
         request: async (_target, messageName, dbUrl) => {
             calls.push(`${messageName}:${String(dbUrl ?? '')}`);
             if (messageName === 'query-asset-info') {
-                return null;
+                return dbUrl === 'db://assets/ui/' || dbUrl === 'db://assets/ui' ? { uuid: 'parent' } : null;
             }
             if (messageName === 'query-ready') {
                 return true;
@@ -159,8 +159,12 @@ test('LumenAssetDbEditorRefreshAdapter discovers missing asset via parent then c
 
     const adapter = new LumenAssetDbEditorRefreshAdapter(message, 0);
     await adapter.refresh(projectRoot, [relativePath]);
-    assert.ok(calls.some((entry) => entry.startsWith('refresh-asset:db://assets/ui')));
     assert.ok(calls.some((entry) => entry.startsWith('create-asset:')));
+    assert.equal(
+        calls.some((entry) => entry === 'refresh-asset:db://assets/ui/' || entry === 'refresh-asset:db://assets/ui'),
+        false,
+        'new child discovery must not refresh its parent directory',
+    );
 });
 
 test('LumenAssetDbEditorRefreshAdapter reconciles stale url when file path already removed', async (): Promise<void> => {
@@ -197,7 +201,7 @@ test('LumenAssetDbEditorRefreshAdapter reconciles stale url when file path alrea
     );
 });
 
-test('LumenAssetDbEditorRefreshAdapter expands ancestor directories before new file sync', async (): Promise<void> => {
+test('LumenAssetDbEditorRefreshAdapter lets watcher register new prefab sidecar without changed messages', async (): Promise<void> => {
     const projectRoot = mkdtempSync(join(tmpdir(), 'lumen-refresh-ancestors-'));
     const relativePath = 'assets/tests/peanut-perf/PeanutPerfTest.prefab';
     mkdirSync(join(projectRoot, 'assets/tests/peanut-perf'), { recursive: true });
@@ -219,19 +223,33 @@ test('LumenAssetDbEditorRefreshAdapter expands ancestor directories before new f
         'utf8',
     );
     writeFileSync(join(projectRoot, relativePath), '[]', 'utf8');
+    writeFileSync(
+        join(projectRoot, `${relativePath}.meta`),
+        '{"ver":"1.1.50","importer":"prefab","imported":false,"uuid":"cccccccc-cccc-4ccc-8ccc-cccccccccccc"}\n',
+        'utf8',
+    );
 
     /** @type {string[]} */
     const calls: string[] = [];
-    const registered = new Set<string>();
+    const queryCounts = new Map<string, number>();
     const message: ILumenMessagePort = {
         request: async (_target, messageName, dbUrl) => {
             const key = `${messageName}:${String(dbUrl ?? '')}`;
             calls.push(key);
-            if (messageName === 'refresh-asset' && typeof dbUrl === 'string') {
-                registered.add(dbUrl);
-            }
             if (messageName === 'query-asset-info') {
-                return typeof dbUrl === 'string' && registered.has(dbUrl) ? { uuid: 'ok' } : null;
+                const url = String(dbUrl ?? '');
+                const count = (queryCounts.get(url) ?? 0) + 1;
+                queryCounts.set(url, count);
+                if (url === 'db://assets/tests/' || url === 'db://assets/tests') {
+                    return { uuid: 'tests-dir' };
+                }
+                if (url === 'db://assets/tests/peanut-perf/' || url === 'db://assets/tests/peanut-perf') {
+                    return count >= 2 ? { uuid: 'perf-dir' } : null;
+                }
+                if (url === 'db://assets/tests/peanut-perf/PeanutPerfTest.prefab') {
+                    return count >= 2 ? { uuid: 'prefab' } : null;
+                }
+                return null;
             }
             if (messageName === 'query-ready') {
                 return true;
@@ -242,19 +260,11 @@ test('LumenAssetDbEditorRefreshAdapter expands ancestor directories before new f
 
     const adapter = new LumenAssetDbEditorRefreshAdapter(message, 0);
     await adapter.refresh(projectRoot, [relativePath]);
-    const parentOrSelfDirRefresh = calls.findIndex(
-        (entry) =>
-            entry === 'refresh-asset:db://assets/tests/' ||
-            entry === 'refresh-asset:db://assets/tests/peanut-perf/',
+    assert.equal(
+        calls.some((entry) => entry.startsWith('refresh-asset:') || entry.startsWith('create-asset:')),
+        false,
+        'new prefab and directories with sidecars must settle through watcher events only',
     );
-    const fileCreateOrRefresh = calls.findIndex(
-        (entry) =>
-            entry.startsWith('create-asset:db://assets/tests/peanut-perf/PeanutPerfTest.prefab') ||
-            entry === 'refresh-asset:db://assets/tests/peanut-perf/PeanutPerfTest.prefab',
-    );
-    assert.ok(parentOrSelfDirRefresh >= 0, 'must discover ancestor directory via parent or self refresh');
-    assert.ok(fileCreateOrRefresh >= 0, 'must sync prefab file');
-    assert.ok(parentOrSelfDirRefresh < fileCreateOrRefresh, 'ancestor directory must sync before file');
 });
 
 test('LumenAssetDbEditorRefreshAdapter syncs directory paths without create-asset', async (): Promise<void> => {
@@ -344,19 +354,16 @@ test('LumenAssetDbEditorRefreshAdapter never refresh-asset unregistered director
 
     const adapter = new LumenAssetDbEditorRefreshAdapter(message, 0);
     await adapter.refresh(projectRoot, [relativePath]);
-    assert.ok(
-        calls.some((entry) => entry === 'refresh-asset:db://assets/mcp-verify/'),
-        'must discover via non-root parent refresh',
-    );
     assert.equal(
         calls.some(
             (entry) =>
                 entry === 'refresh-asset:db://assets' ||
                 entry === 'refresh-asset:db://assets/' ||
+                entry === 'refresh-asset:db://assets/mcp-verify/' ||
                 entry === 'refresh-asset:db://assets/mcp-verify/lifecycle-out/',
         ),
         false,
-        'must not refresh assets root or unregistered self URL',
+        'must not refresh assets root, parent, or unregistered self URL',
     );
 });
 

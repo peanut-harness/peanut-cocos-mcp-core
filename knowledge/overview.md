@@ -9,6 +9,10 @@ Cocos Creator 编辑器产品。政策目录 83 操作（38 读、45 需本地�
 | `pod-lite-capability-policy` | 目录、schema、校验、审批租约、`EditorMcpGatewayAdapter` |
 | `mcp-pod-lite-creator-host` | Lite 插件模块；打包 `peanut.pod-lite`（无需 `PEANUT_COCOS_EDITOR_ROOT`） |
 | `cocos-creator-lite-host-extension` | Creator 3.8 扩展、CPM、账号/升级、可选 Pro |
+
+Creator 3.8 的 AssetDB 对尚未进入 Assets 树的新目录或带 sidecar 的新 Prefab/Scene 发送
+`refresh-asset`/`create-asset` 会产生 `original asset is not exist` 竞态日志。Lumen 提交路径对此类资产
+只等待 Creator 文件监视器登记；无 sidecar 的文本资产仅在父目录已经登记后使用 `create-asset`。
 | `creator-24-host` / `creator-35-host` | 2.4 / 3.0–3.5 可打包宿主（未 Creator 实机验证） |
 | `editor-mcp` / `asset-catalog` / `runtime` / `lumen` / `lumen-24` / `plugin-core` | 编辑器岛源实现 |
 
