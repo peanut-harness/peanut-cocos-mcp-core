@@ -7,7 +7,7 @@ import test from 'node:test';
 import { LumenAssetDbEditorRefreshAdapter } from '../source/io/asset-db-refresh.js';
 import type { ILumenMessagePort } from '../source/types.js';
 
-test('LumenAssetDbEditorRefreshAdapter refreshes existing asset without save-asset', async (): Promise<void> => {
+test('LumenAssetDbEditorRefreshAdapter leaves existing serialized assets to the watcher', async (): Promise<void> => {
     const projectRoot = mkdtempSync(join(tmpdir(), 'lumen-refresh-'));
     const relativePath = 'assets/mcp-verify/Foo.prefab';
     const absoluteDir = join(projectRoot, 'assets/mcp-verify');
@@ -32,7 +32,7 @@ test('LumenAssetDbEditorRefreshAdapter refreshes existing asset without save-ass
     const adapter = new LumenAssetDbEditorRefreshAdapter(message, 0);
     const result = await adapter.refresh(projectRoot, [relativePath]);
     assert.equal(result.triggered, true);
-    assert.ok(calls.includes('refresh-asset:db://assets/mcp-verify/Foo.prefab'));
+    assert.equal(calls.includes('refresh-asset:db://assets/mcp-verify/Foo.prefab'), false);
     assert.equal(
         calls.some((entry) => entry.startsWith('save-asset:')),
         false,
@@ -136,19 +136,27 @@ test('LumenAssetDbEditorRefreshAdapter skips refresh-asset for existing imported
     );
 });
 
-test('LumenAssetDbEditorRefreshAdapter creates sidecar-less text only after parent registration', async (): Promise<void> => {
+test('LumenAssetDbEditorRefreshAdapter never mutates an unregistered disk-backed text URL', async (): Promise<void> => {
     const projectRoot = mkdtempSync(join(tmpdir(), 'lumen-refresh-'));
-    const relativePath = 'assets/ui/New.prefab';
+    const relativePath = 'assets/ui/New.ts';
     mkdirSync(join(projectRoot, 'assets/ui'), { recursive: true });
     writeFileSync(join(projectRoot, relativePath), '[]', 'utf8');
 
     /** @type {string[]} */
     const calls: string[] = [];
+    let childQueryCount = 0;
     const message: ILumenMessagePort = {
         request: async (_target, messageName, dbUrl) => {
             calls.push(`${messageName}:${String(dbUrl ?? '')}`);
             if (messageName === 'query-asset-info') {
-                return dbUrl === 'db://assets/ui/' || dbUrl === 'db://assets/ui' ? { uuid: 'parent' } : null;
+                if (dbUrl === 'db://assets/ui/' || dbUrl === 'db://assets/ui') {
+                    return { uuid: 'parent' };
+                }
+                if (dbUrl === 'db://assets/ui/New.ts') {
+                    childQueryCount += 1;
+                    return childQueryCount >= 3 ? { uuid: 'child' } : null;
+                }
+                return null;
             }
             if (messageName === 'query-ready') {
                 return true;
@@ -159,7 +167,8 @@ test('LumenAssetDbEditorRefreshAdapter creates sidecar-less text only after pare
 
     const adapter = new LumenAssetDbEditorRefreshAdapter(message, 0);
     await adapter.refresh(projectRoot, [relativePath]);
-    assert.ok(calls.some((entry) => entry.startsWith('create-asset:')));
+    assert.equal(calls.some((entry) => entry.startsWith('create-asset:')), false);
+    assert.equal(calls.some((entry) => entry.startsWith('refresh-asset:db://assets/ui/New.ts')), false);
     assert.equal(
         calls.some((entry) => entry === 'refresh-asset:db://assets/ui/' || entry === 'refresh-asset:db://assets/ui'),
         false,
@@ -469,8 +478,9 @@ test('LumenAssetDbEditorRefreshAdapter splits mixed stale and present paths in o
     assert.ok(result.message.includes('Probe.png'));
     assert.ok(result.message.includes('Renamed.prefab'));
     assert.ok(calls.some((entry) => entry === 'delete-asset:db://assets/mcp-verify/lifecycle-out/Probe.png'));
-    assert.ok(
+    assert.equal(
         calls.some((entry) => entry.startsWith('refresh-asset:db://assets/mcp-verify/lifecycle-out/Renamed.prefab')),
+        false,
     );
 });
 

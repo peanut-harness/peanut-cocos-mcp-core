@@ -1,3 +1,7 @@
+import { randomUUID } from 'node:crypto';
+import { existsSync, mkdirSync, renameSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
+
 import type { IAssetBridge } from '../core/creator-adapter.js';
 
 /** @description 真实 Creator AssetDB Prefab 写入桥接 provider。 */
@@ -30,6 +34,9 @@ interface ICocosEditorSelectionApi {
 interface ICocosEditorAssetDbGlobal extends Record<string, unknown> {
     readonly Editor?: {
         readonly Message?: ICocosEditorAssetDbApi;
+        readonly Project?: {
+            readonly path?: string;
+        };
         readonly Selection?: ICocosEditorSelectionApi;
     };
 }
@@ -72,6 +79,10 @@ export class EditorApiHostAssetBridgeProvider implements IEditorApiAssetBridgePr
         if (dbUrl == null) {
             return null;
         }
+        const existingAsset = await queryAssetInfo(request, dbUrl);
+        if (existingAsset == null) {
+            return null;
+        }
         try {
             await request('asset-db', 'refresh-asset', dbUrl);
         } catch {
@@ -110,7 +121,7 @@ export class EditorApiHostAssetBridgeProvider implements IEditorApiAssetBridgePr
         const content = JSON.stringify(prefab, null, 4);
         const existingAsset = await queryAssetInfo(request, dbUrl);
         const createdAsset = existingAsset == null
-            ? await request('asset-db', 'create-asset', dbUrl, content)
+            ? await this._createAssetWithoutOverwritePrompt(request, dbUrl, content)
             : await request('asset-db', 'save-asset', dbUrl, content);
         const refreshedAsset = await request('asset-db', 'refresh-asset', dbUrl);
         const queriedAsset = await queryAssetInfo(request, dbUrl);
@@ -140,7 +151,7 @@ export class EditorApiHostAssetBridgeProvider implements IEditorApiAssetBridgePr
         const dbUrl = toAssetDbUrl(relativePath); const request = this._hostGlobal.Editor?.Message?.request; if (request == null) throw new Error('cocos_editor_asset_db_api_unavailable');
         const existingAsset = await queryAssetInfo(request, dbUrl);
         const createdAsset = existingAsset == null
-            ? await request('asset-db', 'create-asset', dbUrl, content)
+            ? await this._createAssetWithoutOverwritePrompt(request, dbUrl, content)
             : await request('asset-db', 'save-asset', dbUrl, content);
         await request('asset-db', 'refresh-asset', dbUrl);
         let queriedAsset = await queryAssetInfo(request, dbUrl);
@@ -171,6 +182,57 @@ export class EditorApiHostAssetBridgeProvider implements IEditorApiAssetBridgePr
             throw new Error('cocos_editor_asset_db_api_unavailable');
         }
         await request('asset-db', 'delete-asset', dbUrl);
+    }
+
+    /**
+     * @description 在 AssetDB 创建前临时移走未登记的磁盘文件与 sidecar，杜绝 Creator 覆盖确认弹窗。
+     * @param request Creator AssetDB 消息请求函数。
+     * @param dbUrl 已验证的目标 AssetDB URL。
+     * @param content 待写入的文本或二进制内容。
+     * @returns Creator 的创建结果。
+     */
+    private async _createAssetWithoutOverwritePrompt(
+        request: NonNullable<ICocosEditorAssetDbApi['request']>,
+        dbUrl: string,
+        content: string | Uint8Array,
+    ): Promise<unknown> {
+        const projectPath = this._hostGlobal.Editor?.Project?.path;
+        if (typeof projectPath !== 'string' || projectPath.trim().length === 0) {
+            return request('asset-db', 'create-asset', dbUrl, content);
+        }
+        if (!dbUrl.startsWith('db://assets/')) {
+            throw new Error('cocos_editor_asset_path_invalid');
+        }
+        const segments = dbUrl.slice('db://'.length).split('/');
+        if (segments.some((segment) => segment.length === 0 || segment === '.' || segment === '..')) {
+            throw new Error('cocos_editor_asset_path_invalid');
+        }
+        const absolutePath = join(projectPath, ...segments);
+        const recoveryDirectory = join(projectPath, 'temp', '.peanut-runtime-asset-recovery', randomUUID());
+        const orphanPaths = [absolutePath, `${absolutePath}.meta`].filter((candidate) => existsSync(candidate));
+        const backups = orphanPaths.map((orphanPath) => ({
+            originalPath: orphanPath,
+            backupPath: join(recoveryDirectory, orphanPath.endsWith('.meta') ? 'asset.meta' : 'asset'),
+        }));
+        try {
+            if (backups.length > 0) {
+                mkdirSync(recoveryDirectory, { recursive: true });
+                for (const backup of backups) {
+                    renameSync(backup.originalPath, backup.backupPath);
+                }
+            }
+            const result = await request('asset-db', 'create-asset', dbUrl, content);
+            rmSync(recoveryDirectory, { recursive: true, force: true });
+            return result;
+        } catch (error) {
+            for (const backup of backups) {
+                if (existsSync(backup.backupPath) && !existsSync(backup.originalPath)) {
+                    renameSync(backup.backupPath, backup.originalPath);
+                }
+            }
+            rmSync(recoveryDirectory, { recursive: true, force: true });
+            throw error;
+        }
     }
 }
 

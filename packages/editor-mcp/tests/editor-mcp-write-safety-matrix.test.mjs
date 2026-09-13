@@ -1,5 +1,5 @@
 import assert from 'assert/strict';
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import test from 'node:test';
@@ -176,6 +176,95 @@ test('matrix: asset.importPlan expands Spine closure and layers leaf-first', asy
         plan.data.layers.flat().map((item) => item.source.split('/').pop()),
         ['Hero.png', 'Hero.atlas', 'Hero.skel'],
     );
+});
+
+test('matrix: asset.writeText creates a new text asset before it exists on disk', async () => {
+    const projectPath = mkdtempSync(join(tmpdir(), 'peanut-mcp-write-text-new-'));
+    const relativePath = 'assets/generated/NewController.ts';
+    const absolutePath = join(projectPath, relativePath);
+    let registered = false;
+    const { pluginModule, importCalls } = await activateRouter({
+        projectPath,
+        messageHandler: async (_target, message, dbUrl, content) => {
+            if (message === 'query-asset-info') {
+                return registered || String(dbUrl).endsWith('/') ? { uuid: 'registered' } : null;
+            }
+            if (message === 'create-asset') {
+                assert.equal(existsSync(absolutePath), false);
+                mkdirSync(join(projectPath, 'assets/generated'), { recursive: true });
+                writeFileSync(absolutePath, content, 'utf8');
+                writeFileSync(`${absolutePath}.meta`, '{"uuid":"registered"}\n', 'utf8');
+                registered = true;
+                return { uuid: 'registered' };
+            }
+            if (message === 'query-ready') {
+                return true;
+            }
+            return null;
+        },
+    });
+
+    await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'asset.writeText',
+        input: { path: relativePath, content: 'export const ready = true;\n' },
+    });
+
+    assert.equal(readFileSync(absolutePath, 'utf8'), 'export const ready = true;\n');
+    assert.equal(importCalls.some((entry) => entry.message === 'create-asset'), true);
+    assert.equal(importCalls.some((entry) => entry.message === 'refresh-asset' && entry.args[0] === `db://${relativePath}`), false);
+});
+
+test('matrix: asset.writeText recovers an unregistered disk orphan without overwrite prompts', async () => {
+    const projectPath = mkdtempSync(join(tmpdir(), 'peanut-mcp-write-text-orphan-'));
+    const relativePath = 'assets/generated/RecoveredController.ts';
+    const absolutePath = join(projectPath, relativePath);
+    mkdirSync(join(projectPath, 'assets/generated'), { recursive: true });
+    writeFileSync(absolutePath, 'stale\n', 'utf8');
+    writeFileSync(`${absolutePath}.meta`, '{"uuid":"stale"}\n', 'utf8');
+    let registered = false;
+    let failCreate = true;
+    const { pluginModule, importCalls } = await activateRouter({
+        projectPath,
+        messageHandler: async (_target, message, dbUrl, content) => {
+            if (message === 'query-asset-info') {
+                return registered || String(dbUrl).endsWith('/') ? { uuid: 'registered' } : null;
+            }
+            if (message === 'create-asset') {
+                assert.equal(existsSync(absolutePath), false);
+                assert.equal(existsSync(`${absolutePath}.meta`), false);
+                if (failCreate) {
+                    throw new Error('simulated_create_failure');
+                }
+                writeFileSync(absolutePath, content, 'utf8');
+                writeFileSync(`${absolutePath}.meta`, '{"uuid":"registered"}\n', 'utf8');
+                registered = true;
+                return { uuid: 'registered' };
+            }
+            if (message === 'query-ready') {
+                return true;
+            }
+            return null;
+        },
+    });
+
+    await assert.rejects(
+        pluginModule.dispatchMcpAction('cocos.call', {
+            operation: 'asset.writeText',
+            input: { path: relativePath, content: 'export const recovered = true;\n' },
+        }),
+        /simulated_create_failure/,
+    );
+    assert.equal(readFileSync(absolutePath, 'utf8'), 'stale\n');
+    assert.equal(readFileSync(`${absolutePath}.meta`, 'utf8'), '{"uuid":"stale"}\n');
+    failCreate = false;
+    await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'asset.writeText',
+        input: { path: relativePath, content: 'export const recovered = true;\n' },
+    });
+
+    assert.equal(readFileSync(absolutePath, 'utf8'), 'export const recovered = true;\n');
+    assert.equal(importCalls.filter((entry) => entry.message === 'create-asset').length, 2);
+    assert.equal(importCalls.some((entry) => entry.message === 'refresh-asset' && entry.args[0] === `db://${relativePath}`), false);
 });
 
 test('matrix: asset.import rejects basename collisions before writing', async () => {

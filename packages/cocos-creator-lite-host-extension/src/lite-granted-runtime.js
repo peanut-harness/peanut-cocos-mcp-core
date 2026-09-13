@@ -1,5 +1,9 @@
 'use strict';
 
+const { randomUUID } = require('node:crypto');
+const { existsSync, mkdirSync, renameSync, rmSync } = require('node:fs');
+const { join } = require('node:path');
+
 /**
  * Builds a Lite-oriented IGrantedRuntimeClientSet from the live Creator Editor
  * global. Reuses the same Message/AssetDB surface as peanut-agents adapter-38,
@@ -45,6 +49,67 @@ function toAssetDbUrl(pathOrUuid) {
         return `db://${value}`;
     }
     return `db://assets/${value.replace(/^\/+/u, '')}`;
+}
+
+function resolveAssetDiskPath(dbUrl) {
+    const projectPath = getEditor()?.Project?.path;
+    if (typeof projectPath !== 'string' || projectPath.trim().length === 0) {
+        throw new Error('peanut_lite_project_path_unavailable');
+    }
+    if (!dbUrl.startsWith('db://assets/')) {
+        throw new Error('peanut_lite_asset_path_invalid');
+    }
+    const segments = dbUrl.slice('db://'.length).split('/');
+    if (segments.some((segment) => segment.length === 0 || segment === '.' || segment === '..')) {
+        throw new Error('peanut_lite_asset_path_invalid');
+    }
+    return join(projectPath, ...segments);
+}
+
+async function writeAssetSilently(relativePath, content) {
+    const request = requireMessageRequest();
+    const dbUrl = toAssetDbUrl(relativePath);
+    if (dbUrl == null) {
+        throw new Error('peanut_lite_asset_path_invalid');
+    }
+    let existing = null;
+    try {
+        existing = await request('asset-db', 'query-asset-info', dbUrl);
+    } catch {
+        existing = null;
+    }
+    if (existing != null) {
+        await request('asset-db', 'save-asset', dbUrl, content);
+        await request('asset-db', 'refresh-asset', dbUrl);
+        return request('asset-db', 'query-asset-info', dbUrl);
+    }
+    const absolutePath = resolveAssetDiskPath(dbUrl);
+    const recoveryDirectory = join(getEditor().Project.path, 'temp', '.peanut-lite-asset-recovery', randomUUID());
+    const orphanPaths = [absolutePath, `${absolutePath}.meta`].filter((candidate) => existsSync(candidate));
+    const backups = orphanPaths.map((orphanPath) => ({
+        originalPath: orphanPath,
+        backupPath: join(recoveryDirectory, orphanPath.endsWith('.meta') ? 'asset.meta' : 'asset'),
+    }));
+    try {
+        if (backups.length > 0) {
+            mkdirSync(recoveryDirectory, { recursive: true });
+            for (const backup of backups) {
+                renameSync(backup.originalPath, backup.backupPath);
+            }
+        }
+        await request('asset-db', 'create-asset', dbUrl, content);
+        rmSync(recoveryDirectory, { recursive: true, force: true });
+    } catch (error) {
+        for (const backup of backups) {
+            if (existsSync(backup.backupPath) && !existsSync(backup.originalPath)) {
+                renameSync(backup.backupPath, backup.originalPath);
+            }
+        }
+        rmSync(recoveryDirectory, { recursive: true, force: true });
+        throw error;
+    }
+    await request('asset-db', 'refresh-asset', dbUrl);
+    return request('asset-db', 'query-asset-info', dbUrl);
 }
 
 function readAssetSnapshot(item) {
@@ -125,40 +190,20 @@ function createLiteGrantedRuntime() {
 
     const assetWrite = Object.freeze({
         writePrefab: async (relativePath, prefab) => {
-            const request = requireMessageRequest();
-            const dbUrl = toAssetDbUrl(relativePath);
-            if (dbUrl == null) {
-                throw new Error('peanut_lite_asset_path_invalid');
-            }
             const content = JSON.stringify(prefab, null, 4);
-            const existing = await assetRead.query(dbUrl);
-            if (existing == null) {
-                await request('asset-db', 'create-asset', dbUrl, content);
-            } else {
-                await request('asset-db', 'save-asset', dbUrl, content);
-            }
-            await request('asset-db', 'refresh-asset', dbUrl);
-            return assetRead.query(dbUrl);
+            return writeAssetSilently(relativePath, content);
         },
         writeBinary: async (relativePath, content) => {
-            const request = requireMessageRequest();
-            const dbUrl = toAssetDbUrl(relativePath);
-            if (dbUrl == null) {
-                throw new Error('peanut_lite_asset_path_invalid');
-            }
-            const existing = await assetRead.query(dbUrl);
-            if (existing == null) {
-                await request('asset-db', 'create-asset', dbUrl, content);
-            } else {
-                await request('asset-db', 'save-asset', dbUrl, content);
-            }
-            await request('asset-db', 'refresh-asset', dbUrl);
-            return assetRead.query(dbUrl);
+            return writeAssetSilently(relativePath, content);
         },
         refresh: async (relativePath) => {
             const request = requireMessageRequest();
             const dbUrl = toAssetDbUrl(relativePath);
             if (dbUrl == null) {
+                return null;
+            }
+            const existing = await assetRead.query(dbUrl);
+            if (existing == null) {
                 return null;
             }
             try {

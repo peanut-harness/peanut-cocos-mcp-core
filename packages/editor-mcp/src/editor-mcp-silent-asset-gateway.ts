@@ -1,7 +1,8 @@
 /**
  * @description 静默资产生命周期与 import / waitReady 编排（从 action-router peel）。
  */
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { existsSync, mkdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { randomUUID } from 'node:crypto';
 import { dirname, join } from 'node:path';
 
 import type {
@@ -487,6 +488,7 @@ export class EditorMcpSilentAssetGateway {
     public async _executeAssetWriteText(input: ContractPayload | undefined): Promise<unknown> {
         const request = this._readAssetWriteTextInput(input);
         const projectRoot = await this._host.requireProjectPath();
+        const message = this._host.runtime.message;
         const pathGuard = new SilentAssetCreateFolder();
         const lockKeys = request.files.map((file) => normalizeResourceLockKey(file.path));
         return LumenResourceWriteLock.shared().runExclusiveMany(lockKeys, async () => {
@@ -506,7 +508,39 @@ export class EditorMcpSilentAssetGateway {
                     }
                 }
                 const absolutePath = join(projectRoot, file.path);
-                writeFileSync(absolutePath, file.content, 'utf8');
+                const dbUrl = `db://${file.path}`;
+                const existing =
+                    message == null
+                        ? null
+                        : await message.request<Record<string, unknown> | null>('asset-db', 'query-asset-info', dbUrl);
+                if (message != null && existing == null) {
+                    const recoveryDirectory = join(projectRoot, 'temp', '.peanut-write-text-recovery', randomUUID());
+                    const orphanPaths = [absolutePath, `${absolutePath}.meta`].filter((candidate) => existsSync(candidate));
+                    const backups = orphanPaths.map((orphanPath) => ({
+                        originalPath: orphanPath,
+                        backupPath: join(recoveryDirectory, orphanPath.endsWith('.meta') ? 'asset.meta' : 'asset'),
+                    }));
+                    try {
+                        if (backups.length > 0) {
+                            mkdirSync(recoveryDirectory, { recursive: true });
+                            for (const backup of backups) {
+                                renameSync(backup.originalPath, backup.backupPath);
+                            }
+                        }
+                        await message.request('asset-db', 'create-asset', dbUrl, file.content);
+                        rmSync(recoveryDirectory, { recursive: true, force: true });
+                    } catch (error) {
+                        for (const backup of backups) {
+                            if (existsSync(backup.backupPath) && !existsSync(backup.originalPath)) {
+                                renameSync(backup.backupPath, backup.originalPath);
+                            }
+                        }
+                        rmSync(recoveryDirectory, { recursive: true, force: true });
+                        throw error;
+                    }
+                } else {
+                    writeFileSync(absolutePath, file.content, 'utf8');
+                }
                 written.push(file.path);
             }
             // 新建目录只 waitReady（禁止 force refresh-asset）；文件走 barrier 登记。

@@ -799,6 +799,31 @@ export class LumenPrefabDocument {
             this._createEmbeddedHost(component),
             (entryIndex) => this._entries[entryIndex] ?? null,
         );
+        if ('clickEvents' in patch) {
+            const referencedClickEventIds = new Set<number>();
+            for (const entry of this._entries) {
+                for (const eventRef of Array.isArray(entry.clickEvents) ? entry.clickEvents : []) {
+                    if (eventRef == null || typeof eventRef !== 'object' || Array.isArray(eventRef)) {
+                        continue;
+                    }
+                    const id = (eventRef as { __id__?: unknown }).__id__;
+                    if (typeof id === 'number') {
+                        referencedClickEventIds.add(id);
+                    }
+                }
+            }
+            const staleIds = new Set(
+                this._entries.flatMap((entry, index) => {
+                    if (entry.__type__ !== 'cc.ClickEvent' || referencedClickEventIds.has(index)) {
+                        return [];
+                    }
+                    return [index];
+                }),
+            );
+            if (staleIds.size > 0) {
+                this._entries = LumenPrefabIdTools.compactEntries(this._entries, staleIds).entries;
+            }
+        }
     }
 
     /**

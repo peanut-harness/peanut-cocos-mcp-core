@@ -10,8 +10,8 @@ import { LumenAssetDbRefreshCoalescer } from './asset-db-refresh-coalescer';
  * @description 通过 AssetDB 消息将磁盘上的 lumen 直写对齐进编辑器的适配器。
  *
  * 策略：磁盘已是真源时，已登记资产只 `refresh-asset`（避免 `save-asset` 二次写盘触发
- * Assets 面板 `changed` 竞态报「原资产不存在」）；未登记且已有 sidecar 时只等待文件监视器发现，
- * 无 sidecar 的新文本资产仅在父目录已登记后才走 `create-asset`。
+ * Assets 面板 `changed` 竞态报「原资产不存在」）；未登记资产只等待文件监视器发现，
+ * 禁止对磁盘已存在但未登记的 URL 调 `create-asset` / `refresh-asset` 触发覆盖确认。
  * 已删除/迁走的文件路径只刷父目录，不对缺失文件 URL 发 refresh（3.8.x Window 竞态）。
  * 全部 AssetDB 同步串行化，降低并发 refresh 打爆面板的概率。
  * 短时间多次 refresh 经 {@link LumenAssetDbRefreshCoalescer} 合并为一次（大批量 commit 友好）。
@@ -256,21 +256,7 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
         }
 
         if (existing == null) {
-            if (this._isBinaryDiskAsset(relativePath)) {
-                // 未登记二进制（含静默 rename 后新 URL）：只等待监视器登记。
-                // 禁止 refresh-asset（含子资源路径）与父目录 refresh——均会触发 Window。
-                await this._waitUntilAssetRegistered(dbUrl, 10000);
-                await this._settleAfterFileSync(projectRoot, relativePath, dbUrl);
-                return;
-            }
-
-            const content = readFileSync(absolutePath, 'utf8');
-            try {
-                await this._message.request('asset-db', 'create-asset', dbUrl, content);
-            } catch {
-                // 并发下父目录 refresh 可能已登记；再刷一次即可。
-                await this._softRequest('refresh-asset', dbUrl);
-            }
+            await this._waitUntilAssetRegistered(dbUrl, 10000);
             await this._settleAfterFileSync(projectRoot, relativePath, dbUrl);
             return;
         }
@@ -294,7 +280,7 @@ export class LumenAssetDbEditorRefreshAdapter implements ILumenEditorRefreshAdap
 
         // 已登记脚本/文本：内容写盘即可，Creator 监视器会热更；
         // 再 refresh-asset 会稳定触发 Assets 面板 Window「原资产不存在」。
-        if (this._isTextDiskAsset(relativePath) && this._hasSidecarMeta(projectRoot, relativePath)) {
+        if (this._isTextDiskAsset(relativePath)) {
             await this._settleAfterFileSync(projectRoot, relativePath, dbUrl);
             return;
         }

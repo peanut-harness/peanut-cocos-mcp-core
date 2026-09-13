@@ -1,14 +1,67 @@
 import assert from 'node:assert/strict';
 import { createHash, webcrypto } from 'node:crypto';
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { test } from 'node:test';
 
 const require = createRequire(import.meta.url);
 const { CpmPackageStore } = require('../src/cpm-package-store.js');
+const { createLiteGrantedRuntime } = require('../src/lite-granted-runtime.js');
 const { PluginServiceRegistry } = require('../src/plugin-service-registry.js');
 const { SystemProtectedKeyStore } = require('../src/system-protected-key-store.js');
+
+test('lite runtime moves unregistered disk orphans aside before creating an asset', async () => {
+    const temporaryRoot = resolve(import.meta.dirname, '..', '.test-temp');
+    mkdirSync(temporaryRoot, { recursive: true });
+    const projectRoot = mkdtempSync(join(temporaryRoot, 'pod-lite-asset-recovery-'));
+    const relativePath = 'assets/generated/BorrowedContent.json';
+    const absolutePath = join(projectRoot, relativePath);
+    const previousEditor = (globalThis as Record<string, unknown>).Editor;
+    let registered = false;
+    let failCreate = true;
+    mkdirSync(join(projectRoot, 'assets/generated'), { recursive: true });
+    writeFileSync(absolutePath, 'stale\n', 'utf8');
+    writeFileSync(`${absolutePath}.meta`, '{"uuid":"stale"}\n', 'utf8');
+    try {
+        (globalThis as Record<string, unknown>).Editor = {
+            App: { version: '3.8.7' },
+            Project: { path: projectRoot },
+            Message: {
+                request: async (_target: string, message: string, _dbUrl: string, content?: Uint8Array): Promise<unknown> => {
+                    if (message === 'query-asset-info') {
+                        return registered ? { uuid: 'registered' } : null;
+                    }
+                    if (message === 'create-asset') {
+                        assert.equal(existsSync(absolutePath), false);
+                        assert.equal(existsSync(`${absolutePath}.meta`), false);
+                        if (failCreate) {
+                            throw new Error('simulated_create_failure');
+                        }
+                        writeFileSync(absolutePath, content ?? new Uint8Array(), 'utf8');
+                        writeFileSync(`${absolutePath}.meta`, '{"uuid":"registered"}\n', 'utf8');
+                        registered = true;
+                    }
+                    return null;
+                },
+            },
+        };
+        const runtime = createLiteGrantedRuntime();
+        assert.equal(await runtime.assetWrite.refresh(relativePath), null);
+        await assert.rejects(
+            runtime.assetWrite.writeBinary(relativePath, new TextEncoder().encode('{"ready":true}\n')),
+            /simulated_create_failure/,
+        );
+        assert.equal(readFileSync(absolutePath, 'utf8'), 'stale\n');
+        assert.equal(readFileSync(`${absolutePath}.meta`, 'utf8'), '{"uuid":"stale"}\n');
+        failCreate = false;
+        await runtime.assetWrite.writeBinary(relativePath, new TextEncoder().encode('{"ready":true}\n'));
+        assert.equal(readFileSync(absolutePath, 'utf8'), '{"ready":true}\n');
+    } finally {
+        (globalThis as Record<string, unknown>).Editor = previousEditor;
+        rmSync(projectRoot, { recursive: true, force: true });
+    }
+});
 
 test('CPM store resolves the indexed package and rejects tampering, extra payloads, and invalid paths', () => {
     const temporaryRoot = resolve(import.meta.dirname, '..', '.test-temp');

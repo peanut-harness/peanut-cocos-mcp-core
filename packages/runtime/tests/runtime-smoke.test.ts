@@ -1,4 +1,7 @@
 import assert from 'assert/strict';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
 
 import type { IAcceptedTask } from '../src/execution/ingress/task-ingress';
@@ -323,6 +326,73 @@ test('runtime facade should export prefabs through Creator AssetDB and select th
         uuid: 'ui-panel-uuid',
         selected: true,
     });
+});
+
+test('runtime provider should recover an unregistered disk orphan before creating a prefab', async (): Promise<void> => {
+    const projectRoot = mkdtempSync(join(tmpdir(), 'peanut-runtime-asset-recovery-'));
+    const relativePath = 'assets/ui/Recovered.prefab';
+    const absolutePath = join(projectRoot, relativePath);
+    mkdirSync(join(projectRoot, 'assets/ui'), { recursive: true });
+    writeFileSync(absolutePath, 'stale\n', 'utf8');
+    writeFileSync(`${absolutePath}.meta`, '{"uuid":"stale"}\n', 'utf8');
+    let registered = false;
+    let failCreate = true;
+    try {
+        const provider = new EditorApiHostAssetBridgeProvider({
+            Editor: {
+                Project: { path: projectRoot },
+                Message: {
+                    request: async (...args: unknown[]): Promise<unknown> => {
+                        if (args[1] === 'query-asset-info') {
+                            return registered ? { uuid: 'recovered-uuid' } : null;
+                        }
+                        if (args[1] === 'create-asset') {
+                            assert.equal(existsSync(absolutePath), false);
+                            assert.equal(existsSync(`${absolutePath}.meta`), false);
+                            if (failCreate) {
+                                throw new Error('simulated_create_failure');
+                            }
+                            writeFileSync(absolutePath, String(args[3]), 'utf8');
+                            writeFileSync(`${absolutePath}.meta`, '{"uuid":"recovered-uuid"}\n', 'utf8');
+                            registered = true;
+                            return { uuid: 'recovered-uuid' };
+                        }
+                        return null;
+                    },
+                },
+            },
+        });
+
+        await assert.rejects(
+            provider.writePrefab(relativePath, [{ __type__: 'cc.Prefab', _name: 'Recovered' }]),
+            /simulated_create_failure/,
+        );
+        assert.equal(readFileSync(absolutePath, 'utf8'), 'stale\n');
+        assert.equal(readFileSync(`${absolutePath}.meta`, 'utf8'), '{"uuid":"stale"}\n');
+        failCreate = false;
+        await provider.writePrefab(relativePath, [{ __type__: 'cc.Prefab', _name: 'Recovered' }]);
+
+        assert.match(readFileSync(absolutePath, 'utf8'), /Recovered/u);
+    } finally {
+        rmSync(projectRoot, { recursive: true, force: true });
+    }
+});
+
+test('runtime provider should not refresh an unregistered asset URL', async (): Promise<void> => {
+    const requests: unknown[][] = [];
+    const provider = new EditorApiHostAssetBridgeProvider({
+        Editor: {
+            Message: {
+                request: async (...args: unknown[]): Promise<unknown> => {
+                    requests.push(args);
+                    return null;
+                },
+            },
+        },
+    });
+
+    assert.equal(await provider.refreshAsset('assets/ui/Orphan.prefab'), null);
+    assert.deepEqual(requests, [['asset-db', 'query-asset-info', 'db://assets/ui/Orphan.prefab']]);
 });
 
 test('runtime facade should route scene reads and script execution through the Creator 3.8 scene-script adapter', async (): Promise<void> => {

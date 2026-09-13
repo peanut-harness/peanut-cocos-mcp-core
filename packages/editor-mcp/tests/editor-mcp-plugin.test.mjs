@@ -4,7 +4,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import test from 'node:test';
 
-import { createPluginModule, EditorMcpLumenGateway, EditorMcpPluginModule } from '../dist/index.js';
+import { createPluginModule, EditorMcpActionRouter, EditorMcpLumenGateway, EditorMcpPluginModule } from '../dist/index.js';
 
 function createCatalogLookupStub() {
     return {
@@ -107,6 +107,25 @@ function createLumenGatewayStub() {
         },
     };
 }
+
+test('bindController preserves button events addressed only by nodePath', () => {
+    const router = new EditorMcpActionRouter({}, {}, createCatalogLookupStub(), createLumenGatewayStub());
+    const parsed = router._readLumenBindControllerInput({
+        prefabRelativePath: 'assets/ui/Demo.prefab',
+        scriptRelativePath: 'assets/ui/DemoController.ts',
+        className: 'DemoController',
+        propertyBindings: {},
+        buttonEvents: [{ nodePath: '/Demo/ConfirmButton', handler: 'onConfirm', customEventData: 'confirm' }],
+    });
+    assert.deepEqual(parsed.buttonEvents, [
+        {
+            nodeName: '/Demo/ConfirmButton',
+            nodePath: '/Demo/ConfirmButton',
+            handler: 'onConfirm',
+            customEventData: 'confirm',
+        },
+    ]);
+});
 
 async function createActivePluginModule(options = {}) {
     const pluginModule = new EditorMcpPluginModule(

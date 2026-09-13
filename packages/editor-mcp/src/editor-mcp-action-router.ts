@@ -916,14 +916,15 @@ export class EditorMcpActionRouter {
                   }
                   const row = entry as Record<string, unknown>;
                   const nodeName = typeof row.nodeName === 'string' ? row.nodeName : '';
+                  const nodePath = typeof row.nodePath === 'string' ? row.nodePath : '';
                   const handler = typeof row.handler === 'string' ? row.handler : '';
-                  if (nodeName.length === 0 || handler.length === 0) {
+                  if ((nodeName.length === 0 && nodePath.length === 0) || handler.length === 0) {
                       return [];
                   }
                   return [
                       {
-                          nodeName,
-                          ...(typeof row.nodePath === 'string' ? { nodePath: row.nodePath } : {}),
+                          nodeName: nodeName || nodePath,
+                          ...(nodePath.length === 0 ? {} : { nodePath }),
                           handler,
                           ...(typeof row.customEventData === 'string' ? { customEventData: row.customEventData } : {}),
                       },

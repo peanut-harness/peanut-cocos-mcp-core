@@ -180,6 +180,19 @@ test('prefab document bindClick appends ClickEvent with componentId', (): void =
     assert.equal(event.handler, 'onClick');
     assert.equal(event.component, 'DemoPanel');
     assert.equal(event._componentId, 'e56c2BdWQZKnrEob356B/ap');
+
+    const otherPath = mutable.addChildFromSpec('/Root', {
+        name: 'Other',
+        components: ['cc.UITransform', 'cc.Button'],
+    });
+    mutable.bindClickEvent(otherPath, '/Root', 'DemoPanel', 'onOtherClick');
+    mutable.setComponentProperty('/Root', 'cc.Button', { clickEvents: [] });
+    const clearedButton = mutable.entries[buttonIndex] as { clickEvents: Array<{ __id__: number }> };
+    assert.deepEqual(clearedButton.clickEvents, []);
+    assert.equal(mutable.entries.filter((entry) => entry.__type__ === 'cc.ClickEvent').length, 1);
+
+    mutable.setComponentProperty(otherPath, 'cc.Button', { clickEvents: [] });
+    assert.equal(mutable.entries.some((entry) => entry.__type__ === 'cc.ClickEvent'), false);
 });
 
 test('scaffold clones default_prefab ui/Label without explicit templateRoot', (): void => {
@@ -976,16 +989,7 @@ test('session factory wires AssetDB refresh adapter', async (): Promise<void> =>
         assert.match(result.message, /lumen_asset_db_refresh/);
         assert.equal(session.phase, 'editor_refreshed');
         const refreshCalls = calls.filter((entry) => entry.message === 'refresh-asset');
-        assert.ok(refreshCalls.length >= 1);
-        assert.ok(
-            refreshCalls.some(
-                (entry) =>
-                    entry.target === 'asset-db' &&
-                    entry.message === 'refresh-asset' &&
-                    entry.args[0] === 'db://assets/ui/Panel.prefab',
-            ),
-            'must refresh the target prefab',
-        );
+        assert.equal(refreshCalls.length, 0, 'must leave registered serialized assets to the file watcher');
         // 3.8.x：已登记祖先目录禁止连带 force refresh-asset（Assets 面板 Window 竞态）。
         assert.equal(
             refreshCalls.some(
