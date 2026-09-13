@@ -1,4 +1,0 @@
-host_dst=D:\workspaces\peanut-agents\test-demos\cocos-for-agent\extensions\peanut-pod-lite-host
-host_main_bytes=1042325
-has_file_url_fix=True
-copiedAt=2026-09-11T20:01:08.1027820+08:00

@@ -214,8 +214,8 @@ function resolveGatewayExecute(context: ICoreCocosCreatorHostActivateContext): E
             return (operation, input) => candidate.execute(operation, input);
         }
     }
-    // Differentiation path: reuse peanut-agents EditorMcp router when the host
-    // supplies a full grant set + services. Paid ops stay refused by Lite policy.
+    // Use the full EditorMcp router when the host supplies grants and services.
+    // Paid operations remain refused by Lite policy.
     if (context.grantedRuntime != null && context.services != null) {
         return createEditorMcpExecuteOperation(context.grantedRuntime, context.services);
     }

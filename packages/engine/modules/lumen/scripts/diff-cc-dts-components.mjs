@@ -11,9 +11,10 @@ const { LumenComponentPropertySchema } = require(
     join(dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'index.js'),
 );
 
-const input =
-    process.argv[2] ??
-    'D:/workspaces/peanut-agents/test-demos/cocos-for-agent/temp/declarations/cc.d.ts';
+const input = process.argv[2];
+if (!input) {
+    throw new Error('usage: node scripts/diff-cc-dts-components.mjs <cc.d.ts-or-editor-root>');
+}
 
 /**
  * @description 解析 stub reference 到真实 d.ts。

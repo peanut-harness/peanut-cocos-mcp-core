@@ -32,4 +32,4 @@ npm run verify
 npm run pack
 ```
 
-结构与版本画像见 `docs/ARCHITECTURE.md`；Core/Pro 安全边界见 `docs/BOUNDARIES.md`；迁移历史见 `docs/COCOS-MIGRATION-LEDGER.md`。真实 Creator 3.8.7 验收工程为 `D:\mcp-test`，Node 测试不能替代编辑器实机验证。
+结构与版本画像见 `docs/ARCHITECTURE.md`；Core/Pro 安全边界见 `docs/BOUNDARIES.md`；安装与实机验收见 `docs/INSTALLATION.md`。Creator 实机证据由独立 QA 工程保存，本仓不提交本机日志、临时验收转储或测试工程绝对路径；Node 测试不能替代编辑器实机验证。

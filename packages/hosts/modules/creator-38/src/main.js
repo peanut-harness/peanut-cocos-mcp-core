@@ -284,8 +284,8 @@ async function activateCore(packageStore) {
     toolHandlers = new Map();
     coreModule = loadVerifiedModule(verified, CORE_PLUGIN_ID);
     await coreModule.register?.({ logger: createLogger(CORE_PLUGIN_ID) });
-    // Reuse peanut-agents EditorMcp gateways via grantedRuntime; Lite policy still
-    // excludes paid ops. Pro stays optional through services.
+    // Supply EditorMcp gateways through grantedRuntime. Lite policy still excludes
+    // paid operations, while Pro remains optional through services.
     await coreModule.activate({
         runtime: createRuntime(),
         grantedRuntime: createLiteGrantedRuntime(),
@@ -349,7 +349,7 @@ async function load() {
     await deactivateModules();
     try {
         creatorContext = resolveTrustedCreatorContext();
-        // Plugin Manager shell first — main Lite UI (same stack as peanut-agents host).
+        // Load the Plugin Manager shell before activating the Lite runtime.
         await loadPluginManagerShell(creatorContext);
         const packageStore = new CpmPackageStore(requireProjectPath());
         const coreVersion = await activateCore(packageStore);

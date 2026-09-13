@@ -1,7 +1,0 @@
-{
-  "http": 200,
-  "ok": true,
-  "result": {
-    "directWriteEnabled": true
-  }
-}

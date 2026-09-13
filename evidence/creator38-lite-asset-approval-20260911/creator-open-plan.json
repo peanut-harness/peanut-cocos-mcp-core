@@ -1,9 +1,0 @@
-{
-  "project": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent",
-  "reason": "reload after approvalId/approvalToken P0 alias",
-  "attachOrSpawn": "spawn",
-  "startedAtLocal": "2026-09-11 21:42:28 UTC+8",
-  "note": "Creator already up after soft-close+reinstall",
-  "pathChoice": "worktree_host+worktree_core",
-  "bin": "C:\\ProgramData\\Cocos\\editors\\Creator\\3.8.7\\CocosCreator.exe"
-}

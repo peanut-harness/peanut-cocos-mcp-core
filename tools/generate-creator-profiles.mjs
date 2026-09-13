@@ -14,7 +14,7 @@ const generatedSource = renderCatalog(document);
 
 if (process.argv.includes('--check')) {
     const currentSource = readFileSync(generatedPath, 'utf8');
-    if (currentSource !== generatedSource) {
+    if (currentSource.replaceAll('\r\n', '\n') !== generatedSource) {
         throw new Error('creator_profile_generated_catalog_stale');
     }
 } else {

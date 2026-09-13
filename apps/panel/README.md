@@ -27,4 +27,4 @@ import { PluginPanelActivator } from '@peanut/pod-panel';
 ## 镜像资源
 
 - `panels/plugin-manager/*` 在本包中仅作为壳层镜像保留
-- 真正的源码源头在 [`@peanut/pod-engine/kernel/panels/plugin-manager`](../../../core/plugin-core/panels/plugin-manager)
+- 真正的源码源头在 [`@peanut/pod-engine/kernel/panels/plugin-manager`](../../packages/engine/modules/kernel/panels/plugin-manager)

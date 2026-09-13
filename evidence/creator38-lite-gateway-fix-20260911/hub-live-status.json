@@ -1,8 +1,0 @@
-{
-  "httpStatus": 200,
-  "statusOk": true,
-  "capabilities": [],
-  "toolsCount": 0,
-  "toolSample": [],
-  "statusSlice": "{\"ok\":true,\"result\":{\"isAvailable\":true,\"isEnabled\":true,\"port\":52935,\"preferredPort\":52935,\"catalogRevision\":0,\"capabilities\":[],\"disabledPluginIds\":[],\"writeEnabledPluginIds\":[\"peanut.editor-mcp\"],\"directWriteEnabled\":true,\"recentCalls\":[]}}"
-}

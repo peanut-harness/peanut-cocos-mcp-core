@@ -4,3 +4,5 @@ release/
 .package-staging/
 *.tsbuildinfo
 .DS_Store
+/.grok/
+/evidence/

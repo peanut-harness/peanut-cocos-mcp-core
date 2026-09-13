@@ -1,2 +1,0 @@
-soft_close_start count=12 ids=[23544, 42924, 41656, 22168, 44476, 40732, 41792, 26964, 38548, 35504, 37852, 38108]
-soft_close_at=2026-09-12 00:51:12 UTC+8 remaining=0 remainIds=[]

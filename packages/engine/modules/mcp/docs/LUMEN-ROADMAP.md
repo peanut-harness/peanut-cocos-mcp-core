@@ -2,7 +2,7 @@
 
 > **产品定位：** Lumen 编辑 Creator 资源管理器里能打开、检视器里能改的**全部资产**。  
 > 写的是工程源文件与 `.meta` / `subMetas`（Importer 设置）；**不手写 `library/` / `temp/`**，Import 仍交给 Creator。  
-> 权威契约：[`@peanut/pod-engine/lumen` README](../../../tools/lumen/README.md) · 操作手册：[LUMEN-AI-PLAYBOOK.md](./LUMEN-AI-PLAYBOOK.md) · 检视器对照：[ASSET-INSPECTOR-PARITY.md](./ASSET-INSPECTOR-PARITY.md) · 实机验收：[CREATOR-VERIFY.md](./CREATOR-VERIFY.md)
+> 权威契约：[`@peanut/pod-engine/lumen` README](../../lumen/README.md) · 操作手册：[LUMEN-AI-PLAYBOOK.md](./LUMEN-AI-PLAYBOOK.md) · 检视器对照：[ASSET-INSPECTOR-PARITY.md](./ASSET-INSPECTOR-PARITY.md) · 实机验收：[CREATOR-VERIFY.md](./CREATOR-VERIFY.md)
 
 ## 目标与边界
 
@@ -17,7 +17,7 @@
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | 不克隆编辑器面板        | 不做地形笔刷窗、曲线编辑器、着色器节点图；用文档字段 / 窗口读写（如地形 `region`）表达同一数据                                          |
 | 不迁入 `agents/plugins` | Creator 平台能力，不是 Agent Tool                                                                                                       |
-| 不与 ui-prefab 合并     | ui-prefab 不 bundle lumen；经核心 `mcp.invoke` 调本插件已注册工具。见 [`core/plugin-sdk/README.md`](../../../core/plugin-sdk/README.md) |
+| 不与 UI 生成器合并      | UI 生成器不 bundle lumen；经核心 `mcp.invoke` 调本插件已注册工具。见 [`@peanut/pod-sdk`](../../../../sdk/README.md) |
 
 「全编辑器」= **资产文档覆盖**，不是复刻 Creator 每一个交互控件。Effect 要能改 `.effect` 源，不必做可视化 shader graph；地形要能改高度场，不必做笔刷。
 
@@ -202,10 +202,10 @@ early3x 写升 `verified`：仍须本机 Creator **3.0–3.5** 跑 `probe:early3
 
 | 路径                                                     | 用途                                    |
 | -------------------------------------------------------- | --------------------------------------- |
-| `products/cocos/editor/tools/lumen/`                     | Session / schema / CLI / 资产文档       |
+| `packages/engine/modules/lumen/`                         | Session / schema / CLI / 资产文档       |
 | `lumen-terrain-document.ts`                              | Terrain VERSION8 + region               |
 | `lumen-terrain-grid.ts`                                  | 顶点盒 / 本地圆寻址                     |
-| `products/cocos/editor/plugins/integrations/editor-mcp/` | MCP 插件                                |
-| `products/cocos/default_prefab/`                         | 3.x Prefab 模板源（入库）               |
+| `packages/engine/modules/mcp/`                           | MCP 插件                                |
+| `packages/engine/modules/lumen/bundled/default_prefab/`  | 3.x Prefab 模板源（入库）               |
 | Creator 2.4.11 安装包 `static/default-assets/prefab/`    | 2.4 Prefab 模板源（build 抽取，不入库） |
 | `test-demos/cocos-for-agent/`                            | 真机 demo / recipes                     |

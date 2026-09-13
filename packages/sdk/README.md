@@ -22,4 +22,4 @@ import type { IPluginActivateContext, IPluginRegisterContext } from '@peanut/pod
 
 `npm test` 覆盖 `PluginModuleBase` 默认生命周期与清单字段契约（`tests/plugin-module-base.test.ts`）。
 
-插件互调已注册 MCP 工具（不经 Hub plan）见 [`@peanut/pod-engine/mcp` README](../../plugins/integrations/editor-mcp/README.md) 与 [`LUMEN-ROADMAP.md`](../../plugins/integrations/editor-mcp/docs/LUMEN-ROADMAP.md)。
+插件互调已注册 MCP 工具（不经 Hub plan）见 [`@peanut/pod-engine/mcp` README](../engine/modules/mcp/README.md) 与 [`LUMEN-ROADMAP.md`](../engine/modules/mcp/docs/LUMEN-ROADMAP.md)。

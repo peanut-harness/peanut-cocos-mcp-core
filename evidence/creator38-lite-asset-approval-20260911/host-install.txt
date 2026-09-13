@@ -1,7 +1,0 @@
-{
-  "host_bundle_has_approvalToken": true,
-  "host_src": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\cocos-creator-lite-host-extension\\release\\peanut-pod-lite-host-0.1.0",
-  "host_main_bytes": 1049605,
-  "copiedAt": "2026-09-11T21:42:03+08:00",
-  "host_dst": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\extensions\\peanut-pod-lite-host"
-}

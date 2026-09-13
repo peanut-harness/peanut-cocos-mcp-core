@@ -28,7 +28,7 @@ the only grant path.
 破坏性操作至少包括删除、引用替换、节点/组件移除、Prefab 解包/解除关联和 Builder 输出覆盖。目录缺失 schema 或风险信息时必须拒绝启动，不能静默跳过。
 
 
-## resources × 资产写绑定（策略 A，2026-09-12 09:17:11 UTC+8）
+## resources × 资产写绑定
 
 - **匹配**：归一后字符串精确 ⊆（`lease.resources` 必须覆盖授权集）。**无** parent/前缀覆盖；租约签父路径不能放行子路径（A1）。
 - **归一 `normalizeResourceKey`**（签发 / 推导 / 校验同一套）：
@@ -41,4 +41,4 @@ the only grant path.
 - **空资源**：Hub BatchStore 与 Lite 统一 fail-closed（写/破坏性消费无有效资源则拒）；整库仅显式哨兵 `db://assets`（refresh / 无 path 的 reimport）。
 - **seed risk**：`asset.replaceReferences` 与 native 对齐为 `destructive`（需 `confirmDestructive`）。
 - **审计**：router `_stripHubControlFields` 剥离 `resources` 前写入 `__peanutResourcesAudit` 摘要（≤32）。
-- **真机工程**：`D:\mcp-test`（非 cocos-for-agent）。证据：`evidence/creator38-lite-resources-binding-20260912/`。
+- **验收归属**：实机日志与逐项结果由独立 QA 工程保存；本仓只保留可重复执行的实现、测试和验收步骤。

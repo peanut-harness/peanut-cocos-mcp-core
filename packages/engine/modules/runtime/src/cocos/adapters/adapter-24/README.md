@@ -4,7 +4,7 @@
 
 - Phase：`creator_2x`
 - 实现：`EditorApi24Adapter`（`supportLevel: minimal`）
-- 决策：[`compatibility.matrix.json`](../../../../../../compatibility.matrix.json) `productLines.creator2x`
+- 决策：[`creator-profiles.json`](../../../../../../../../specs/creator-profiles/creator-profiles.json) 的 `creator-24` 画像
 - **禁止**从 `adapter-38` 复制后改 `supports()` 冒充可用
 
 ## 能力边界
@@ -18,6 +18,6 @@
 | `scene.save` / `builder.build` / `snowb.*` | **拒绝** |
 | silent-asset / ui-prefab | 随全栈插件；须 2.4 实机重测 |
 
-宿主包：`examples/cocos-panel-host-extension-24`（`peanut-pod-24`，装入工程 `packages/`）。
+宿主包：`packages/hosts/modules/creator-24`（`peanut-pod-24`，装入工程 `packages/`）。
 
-权威写盘进度：[`tools/lumen-24/LANDING.md`](../../../../tools/lumen-24/LANDING.md)。
+权威写盘进度：[`lumen-24/LANDING.md`](../../../../../lumen-24/LANDING.md)。

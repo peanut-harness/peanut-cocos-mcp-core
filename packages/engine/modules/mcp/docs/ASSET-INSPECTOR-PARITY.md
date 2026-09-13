@@ -1,7 +1,7 @@
 # Creator 资产检视器 ↔ Lumen 对照表
 
 > 对照 **Cocos Creator 3.8** 资源管理器 / 属性检查器可编辑字段，与 `lumen.inspect` / `lumen.assetSet`（路径 `assetRelativePath`）实现。  
-> 权威源：`cocos-docs/versions/3.8/zh/asset/*`、`tools/lumen/bundled/schema/assets.json`、`tools/lumen/source/standalone/*`。  
+> 权威源：Cocos Creator 3.8 资产文档、`packages/engine/modules/lumen/bundled/schema/assets.json`、`packages/engine/modules/lumen/source/standalone/*`。
 > 状态：**✅ 已实现** · **⚠️ 部分** · **❌ 缺** · **⊘ 有意只读/不做** · **— 官方无独立字段**
 
 写入一律：`peanut.editor-mcp.lumen-asset-set` → `props`；改盘后 `lumen.refresh` / `lumen.commit`。  
@@ -239,6 +239,6 @@ P0 图像 compress/type/trim、AutoAtlas compress、**平台压缩覆盖**（`co
 
 ## 6. 维护说明
 
-- Sidecar 字段以 `tools/lumen/bundled/schema/assets.json` 为准；文档类以对应 `standalone/*.ts` 的 `applyPatch` allow-list 为准。
+- Sidecar 字段以 `packages/engine/modules/lumen/bundled/schema/assets.json` 为准；文档类以对应 `standalone/*.ts` 的 `applyPatch` allow-list 为准。
 - 新增官方字段：先补 schema / 文档类，再更新本表状态列。
 - 关联：[LUMEN-ROADMAP.md](./LUMEN-ROADMAP.md) · [LUMEN-AI-PLAYBOOK.md](./LUMEN-AI-PLAYBOOK.md)

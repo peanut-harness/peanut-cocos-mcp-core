@@ -2,9 +2,9 @@
 
 权威契约：现有 `lumen.*` MCP operation id（**禁止** `lumen24.*`）。
 消化面：`@peanut/pod-engine/lumen-24`（`Lumen24McpBridge` / `EditorMcpLumen24Bridge`）+ editor-mcp 再导出。
-3.x：`tools/lumen` / `peanut.lumen` 零侵入。
+3.x：`@peanut/pod-engine/lumen` / `peanut.lumen` 零侵入。
 
-产品线对照（防漏面）：[`../../plugins/integrations/editor-mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json`](../../plugins/integrations/editor-mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json)。
+产品线对照（防漏面）：[`../mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json`](../mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json)。
 
 ## 模式
 

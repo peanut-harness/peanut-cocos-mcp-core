@@ -32,7 +32,7 @@ await build({
 await writeFile(resolve(outputDirectory, 'dist/scene.js'), "'use strict';\nmodule.exports = {};\n", 'utf8');
 await cp(resolve(extensionRoot, 'package.json'), resolve(outputDirectory, 'package.json'));
 await cp(resolve(extensionRoot, 'panel'), resolve(outputDirectory, 'panel'), { recursive: true });
-// Static Plugin Manager UI assets (same layout as peanut-agents host pack).
+// Static Plugin Manager UI assets shared by the Creator host package.
 await cp(resolve(repositoryRoot, 'apps/panel/panels'), resolve(outputDirectory, 'panels'), { recursive: true });
 await writeFile(
     resolve(outputDirectory, 'README.md'),

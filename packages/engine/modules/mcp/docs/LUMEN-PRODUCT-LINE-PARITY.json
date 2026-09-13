@@ -168,7 +168,7 @@
         "1. contracts: 只加 lumen.<op>（禁止 lumen24.*）",
         "2. 本文件 operations 增一行：三 phase × allow|refuse + digester",
         "3. ProductLineMcpPolicy 与矩阵一致（test:lumen-parity 会拦）",
-        "4. digester=split|both：stable → tools/lumen；creator2x allow → tools/lumen-24 Bridge",
+        "4. digester=split|both：stable → @peanut/pod-engine/lumen；creator2x allow → lumen-24 Bridge",
         "5. editor-mcp router/gateway 只做 phase 分流，不写 2.x 细节",
         "6. 单测：3.x 必有；creator2x 若 allow 则 lumen-24 必有",
         "7. 真机：stable / creator2x 各跑对应探针后再钉 verified"

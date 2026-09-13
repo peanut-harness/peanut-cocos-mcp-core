@@ -6,8 +6,7 @@ const { join } = require('node:path');
 
 /**
  * Builds a Lite-oriented IGrantedRuntimeClientSet from the live Creator Editor
- * global. Reuses the same Message/AssetDB surface as peanut-agents adapter-38,
- * without booting the full plugin-manager kernel.
+ * global without booting the full plugin-manager kernel.
  */
 
 function getEditor() {

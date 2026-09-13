@@ -2,8 +2,8 @@
 
 /**
  * Minimal Cocos Plugin Manager shell for Lite host.
- * Reuses @peanut/pod-panel / plugin-core (same stack as peanut-agents host),
- * without SnowB host slots or contribution codegen.
+ * Uses @peanut/pod-panel and the plugin core without paid host slots or
+ * contribution code generation.
  */
 
 const { PluginPanelActivator } = require('@peanut/pod-hosts');

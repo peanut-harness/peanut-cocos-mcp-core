@@ -5,7 +5,7 @@ Cocos 内容组装会话（品牌名 **lumen**）。**Creator 平台能力，非
 **定位：** 编辑 Creator 资源管理器里能打开、检视器里能改的全部资产。写工程源文件与 `.meta` / `subMetas`；**不维护 `library/` / `temp/`**（Import 交给 Creator）。Prefab/Scene 节点、独立资产文档、图片等 Importer 设置都走本包（CLI + `LumenSession`），不再另起业务插件。
 
 管线：落盘与搭节点 →（可选 Creator Import）→ catalog → 绑定 / 属性编辑 → save。  
-模板库：[`products/cocos/default_prefab`](../../../default_prefab/)。索引：[`@peanut/pod-engine/assets`](../../core/asset-catalog/)。
+模板库：[`bundled/default_prefab`](./bundled/default_prefab/)。索引：[`@peanut/pod-engine/assets`](../assets/)。
 
 **模块形态：** CommonJS（`require`），源码不用 `node:` 前缀、相对路径不加 `.js`，兼容 Creator 旧 Electron。
 
@@ -23,7 +23,7 @@ Cocos 内容组装会话（品牌名 **lumen**）。**Creator 平台能力，非
 
 **暂缓：** 多 `templateRoots`。
 
-**当前已落地文档：** Prefab、Scene、Material、AnimationClip、PhysicsMaterial、Terrain（VERSION8 + `region` 窗口）、图片 `.meta`（Texture / SpriteFrame）、Effect `.effect` / chunk、模型 `.fbx` / `.gltf` / `.glb` `.meta`、Auto Atlas `.pac`、LabelAtlas `.labelatlas`、Animation Graph / Variant / Mask、RenderTexture `.rt`、Render Pipeline `.rpp`、Render Flow `.flow`、Render Stage `.stg`、音频 `.meta`、视频 `.meta`、TTF / BitmapFont `.meta`、Spine `.skel` / `.json` `.meta`、DragonBones `.dbbin` / 图集 `.json` `.meta`、CubeMap `.cubemap` `.meta`、TiledMap `.tmx` `.meta`、文件夹 Bundle `.meta`、粒子 / Sprite Atlas `.plist` `.meta`、JSON / 文本 `.meta`、Buffer `.bin` `.meta`、脚本 `.ts`（`source` 全文可写；`.meta` 只读）/ `.js` `.meta`、instantiation dump `.mesh` / `.skeleton` / `.animation` / `.material` `.meta`。**IV.B 检视器 meta 已走通。** 其余见 [LUMEN-ROADMAP.md](../../plugins/integrations/editor-mcp/docs/LUMEN-ROADMAP.md)。**方法：** 不手改 `library/` / `temp/`，不克隆笔刷/曲线/着色器图/状态机节点图/管线 dump 树 UI（同一数据用字段或窗口读写）。废弃组件（LabelOutline/Shadow）与抽象基类仍拒绝。路径共用 `prefabRelativePath`，MCP 可用别名 `assetRelativePath`。扩展名随文档增加，不另开 `lumen.scene-*` / `lumen.image-*`。
+**当前已落地文档：** Prefab、Scene、Material、AnimationClip、PhysicsMaterial、Terrain（VERSION8 + `region` 窗口）、图片 `.meta`（Texture / SpriteFrame）、Effect `.effect` / chunk、模型 `.fbx` / `.gltf` / `.glb` `.meta`、Auto Atlas `.pac`、LabelAtlas `.labelatlas`、Animation Graph / Variant / Mask、RenderTexture `.rt`、Render Pipeline `.rpp`、Render Flow `.flow`、Render Stage `.stg`、音频 `.meta`、视频 `.meta`、TTF / BitmapFont `.meta`、Spine `.skel` / `.json` `.meta`、DragonBones `.dbbin` / 图集 `.json` `.meta`、CubeMap `.cubemap` `.meta`、TiledMap `.tmx` `.meta`、文件夹 Bundle `.meta`、粒子 / Sprite Atlas `.plist` `.meta`、JSON / 文本 `.meta`、Buffer `.bin` `.meta`、脚本 `.ts`（`source` 全文可写；`.meta` 只读）/ `.js` `.meta`、instantiation dump `.mesh` / `.skeleton` / `.animation` / `.material` `.meta`。**IV.B 检视器 meta 已走通。** 其余见 [LUMEN-ROADMAP.md](../mcp/docs/LUMEN-ROADMAP.md)。**方法：** 不手改 `library/` / `temp/`，不克隆笔刷/曲线/着色器图/状态机节点图/管线 dump 树 UI（同一数据用字段或窗口读写）。废弃组件（LabelOutline/Shadow）与抽象基类仍拒绝。路径共用 `prefabRelativePath`，MCP 可用别名 `assetRelativePath`。扩展名随文档增加，不另开 `lumen.scene-*` / `lumen.image-*`。
 
 **场景脚手架契约：** 新建/reset `.scene` 时先挂 `default_prefab/Camera`→`Main Camera`、`light/Directional Light`→`Main Light`（对齐工程 `scene.scene`），再挂可选 `ui/Canvas`。禁止改 Canvas 模板相机去清色。
 
@@ -34,8 +34,8 @@ Cocos 内容组装会话（品牌名 **lumen**）。**Creator 平台能力，非
 ## 布局
 
 ```text
-tools/lumen/
-  bundled/            # 随包数据（default_prefab 由 bundle:templates 生成，不入库）
+packages/engine/modules/lumen/
+  bundled/            # 随包 schema 与正式 default_prefab 模板
     schema/           # 策展 JSON：components/、types/、node.json、conventions.json、assets.json
     default_prefab/   # 脚手架模板（构建自 products/cocos/default_prefab）
     lumen-templates.manifest.json
@@ -192,8 +192,8 @@ bash test-demos/cocos-for-agent/tools/build-login-panel.sh
 | `default_prefab` 模板库 | **是**（`bundled/default_prefab`，**默认 Creator 3.8.3** + manifest） |
 | 业务 recipe | 否（各 Creator 项目） |
 | 引擎源码 / `cc.d.ts` | 否（本机 `--engine`） |
-| 设置面板 | 独立插件 [`peanut-plugin-lumen`](../../plugins/tools/lumen/)（`peanut.lumen`）；装包只消费 `@peanut/pod-engine/lumen/plugin-runtime` |
-| AI / MCP | 否（经 [`peanut.editor-mcp`](../../plugins/integrations/editor-mcp/) 的 `lumen.*` / `lumen.commit`；手册 [`LUMEN-AI-PLAYBOOK.md`](../../plugins/integrations/editor-mcp/docs/LUMEN-AI-PLAYBOOK.md)；补全计划 [`LUMEN-ROADMAP.md`](../../plugins/integrations/editor-mcp/docs/LUMEN-ROADMAP.md)） |
+| 设置面板 | `peanut.lumen` 模板缓存插件；装包只消费 `@peanut/pod-engine/lumen/plugin-runtime` |
+| AI / MCP | 否（经 [`peanut.editor-mcp`](../mcp/) 的 `lumen.*` / `lumen.commit`；手册 [`LUMEN-AI-PLAYBOOK.md`](../mcp/docs/LUMEN-AI-PLAYBOOK.md)；补全计划 [`LUMEN-ROADMAP.md`](../mcp/docs/LUMEN-ROADMAP.md)） |
 
 插件启动时同步缓存；也可 CLI：
 
@@ -212,7 +212,7 @@ node dist/cli.js templates --project /path/to/CreatorProject --template-cache /p
 const sync = LumenDefaultTemplateRoot.ensurePluginCache(pluginCacheDir);
 ```
 
-仓库源仍在 [`products/cocos/default_prefab`](../../../default_prefab/)；`npm run build` / `bundle:templates` 打进包并标注 `cocosVersion: "3.8.3"`。
+正式模板保存在 [`bundled/default_prefab`](./bundled/default_prefab/)；`npm run build` / `bundle:templates` 校验并打入包内。
 
 ## 固定约定（Creator 兼容）
 

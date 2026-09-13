@@ -2,7 +2,7 @@
  * @description Creator 2.4.x 适配器导出。
  *
  * @see compatibility.matrix.json productLines
- * @see tools/lumen-24/LANDING.md
+ * @see ../../../../../lumen-24/LANDING.md
  */
 export { EditorApi24Adapter } from './editor-api-24-adapter.js';
 export type { ICreator24MessageHostGlobal } from './editor-api-24-adapter.js';

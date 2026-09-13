@@ -1,6 +1,6 @@
 # @peanut/pod-engine/lumen-24
 
-Creator **2.4.x** Prefab / `.fire` Scene 写盘库。模板从本机 Creator 安装包抽取（`bundle:templates`）；见 [`LANDING.md`](./LANDING.md)、[`compatibility.matrix.json`](../../compatibility.matrix.json) `productLines.creator2x`。
+Creator **2.4.x** Prefab / `.fire` Scene 写盘库。模板从本机 Creator 安装包抽取（`bundle:templates`）；见 [`LANDING.md`](./LANDING.md) 与 [`creator-profiles.json`](../../../../specs/creator-profiles/creator-profiles.json)。
 
 ```bash
 # 默认读 /Applications/Cocos/Creator/2.4.11/CocosCreator.app/Contents/Resources/...
@@ -16,7 +16,7 @@ COCOS_CREATOR_24_RESOURCES=/path/to/CocosCreator.app/Contents/Resources npm run 
 
 -   `Lumen24WriteFacade` — scaffold / tree / inspect / node* / comp* / bind\* / structure / compileRecipe / validateRefs / schema·templates / assetSet / refresh / import / ensureSpriteFrames
 -   `Lumen24WriteGate.status()` — `writes: prefab_scene_standalone_preview_slice`
--   MCP：共享 `lumen.*`（经 `Lumen24McpBridge`）；**禁止** `lumen24.*` 动词；产品线对照见 [LUMEN-PRODUCT-LINE-PARITY.json](../../plugins/integrations/editor-mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json)
+-   MCP：共享 `lumen.*`（经 `Lumen24McpBridge`）；**禁止** `lumen24.*` 动词；产品线对照见 [LUMEN-PRODUCT-LINE-PARITY.json](../mcp/docs/LUMEN-PRODUCT-LINE-PARITY.json)
 
 ## 已落地（真机 mcp-test-2-4-x）
 
@@ -42,7 +42,7 @@ COCOS_CREATOR_24_RESOURCES=/path/to/CocosCreator.app/Contents/Resources npm run 
 
 1. 新建 `peanut.lumen-24` 插件，依赖本包。
 2. 把 `editor-mcp-lumen-24-bridge.ts` **整文件**迁入。
-3. `tools/lumen` / `peanut.lumen` 保持零 diff。
+3. `@peanut/pod-engine/lumen` / `peanut.lumen` 保持零 diff。
 
 ```bash
 npm run test

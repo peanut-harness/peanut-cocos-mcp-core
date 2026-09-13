@@ -1,9 +1,0 @@
-{
-  "copiedAt": "2026-09-11T22:20:22+08:00",
-  "host_src": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\cocos-creator-lite-host-extension\\release\\peanut-pod-lite-host-0.1.0",
-  "host_dst": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\extensions\\peanut-pod-lite-host",
-  "host_main_bytes": 1052780,
-  "host_bundle_has_mirror": true,
-  "core_src": "D:\\peanut-workspace\\peanut-pod-lite-wt-smoke-ab\\packages\\mcp-pod-lite-creator-host\\release\\peanut.pod-lite-0.1.0",
-  "core_dst": "D:\\workspaces\\peanut-agents\\test-demos\\cocos-for-agent\\peanut-plugins\\plugins\\peanut.pod-lite\\0.1.0"
-}

@@ -1,7 +1,0 @@
-{
-  "tool": "peanut.editor-mcp.scene-resolve-prefab-root-uuid",
-  "httpStatus": 200,
-  "ok": true,
-  "error": null,
-  "slice": "{\"ok\": true, \"result\": {\"rootName\": \"BatchPanel_01\", \"rootUuid\": null, \"unresolved\": true}}"
-}
