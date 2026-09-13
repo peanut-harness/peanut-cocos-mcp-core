@@ -8,6 +8,33 @@ import type { IAcceptedTask } from '../src/execution/ingress/task-ingress';
 
 import { EditorApiHostAssetBridgeProvider, EditorApiHostSceneBridgeProvider, RuntimeFacade, TaskMerger } from '../src/index';
 import { VersionResolver } from '../src/cocos/version/version-resolver';
+
+/**
+ * @description 创建带显式内存数据的 Runtime 测试实例，避免生产门面隐式注入示例资产。
+ * @returns 带资源与场景节点种子的 Runtime 门面
+ */
+function createSeededRuntimeFacade(): RuntimeFacade {
+    return new RuntimeFacade('3.8.7', {
+        initialState: {
+            assets: [
+                {
+                    pathOrUuid: 'assets/example.prefab',
+                    value: { path: 'assets/example.prefab', uuid: 'example-prefab-uuid', type: 'prefab' },
+                },
+                {
+                    pathOrUuid: 'assets/example-2.prefab',
+                    value: { path: 'assets/example-2.prefab', uuid: 'example-2-prefab-uuid', type: 'prefab' },
+                },
+            ],
+            sceneNodes: [
+                {
+                    nodeId: 'root-node',
+                    state: { nodeId: 'root-node', enabled: false, name: 'Root Node' },
+                },
+            ],
+        },
+    });
+}
 import { RuntimeSmokeHarness } from '../src/integration/runtime-smoke-harness';
 
 test('runtime smoke harness should resolve the 3.8 adapter and complete a task snapshot', async (): Promise<void> => {
@@ -168,7 +195,7 @@ test('task merger should only coalesce requests with compatible payload shapes',
 
 test('execution runtime service should expose final task results after commit', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存异步操作的解析结果，供当前流程后续校验、转换或编排使用。
     const taskReceipt = await runtimeFacade.execution.submit({
         requestId: 'result-query-request',
@@ -195,7 +222,7 @@ test('execution runtime service should expose final task results after commit', 
 
 test('runtime facade should route selection and project state through the active creator adapter', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
 
     await runtimeFacade.selection.setActiveIds(['runtime-selection-a', 'runtime-selection-b']);
     await runtimeFacade.project.configure('projects/runtime-smoke', 'Runtime Smoke Project');
@@ -203,6 +230,14 @@ test('runtime facade should route selection and project state through the active
     assert.deepEqual(await runtimeFacade.selection.getActiveIds(), ['runtime-selection-a', 'runtime-selection-b']);
     assert.equal(await runtimeFacade.project.getProjectPath(), 'projects/runtime-smoke');
     assert.equal(await runtimeFacade.project.getProjectName(), 'Runtime Smoke Project');
+});
+
+test('runtime facade should start with an empty memory host unless initial state is explicit', async (): Promise<void> => {
+    const runtimeFacade = new RuntimeFacade('3.8.7');
+
+    assert.equal(await runtimeFacade.asset.query('assets/example.prefab'), null);
+    assert.equal(await runtimeFacade.scene.getCurrent(), null);
+    assert.deepEqual(await runtimeFacade.scene.getHierarchy(), []);
 });
 
 test('runtime facade should support stable Editor API versions from 3.6 through 3.8', (): void => {
@@ -276,7 +311,7 @@ test('runtime facade should resolve adapter-35 for Creator 3.0–3.5', (): void 
 });
 
 test('runtime facade should expose read-only current scene and hierarchy snapshots', async (): Promise<void> => {
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
 
     const currentSceneRoot = await runtimeFacade.scene.getCurrent();
     const sceneHierarchy = await runtimeFacade.scene.getHierarchy();

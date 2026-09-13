@@ -1,15 +1,12 @@
 /**
- * @description 根据 `@peanut/pod-engine/kernel` 包根目录解析默认热更新监听路径。
+ * @description 根据 `@peanut/pod-engine/kernel` 包根目录解析逻辑源码热更新监听路径。
  * @param packageRootDir `@peanut/pod-engine/kernel` 包根目录
  * @returns 建议监听的目录路径列表
  */
 export function resolvePluginManagerHostWatchPaths(packageRootDir: string): readonly string[] {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const /* 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。 */ normalizedPackageRootDir = packageRootDir.replace(/\\/g, '/').replace(/\/+$/, '');
-    return [
-        `${normalizedPackageRootDir}/panels/plugin-manager/embedded`,
-        `${normalizedPackageRootDir}/src`,
-    ];
+    return [`${normalizedPackageRootDir}/src`];
 }
 
 /**
@@ -25,7 +22,6 @@ export function resolvePluginManagerSplitHostWatchPaths(corePackageRootDir: stri
     const /* 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。 */ normalizedPanelPackageRootDir = panelPackageRootDir.replace(/\\/g, '/').replace(/\/+$/, '');
     return [
         `${normalizedCorePackageRootDir}/src`,
-        `${normalizedCorePackageRootDir}/panels/plugin-manager/embedded`,
         `${normalizedPanelPackageRootDir}/panels/plugin-manager/embedded`,
         `${normalizedPanelPackageRootDir}/src`,
     ];

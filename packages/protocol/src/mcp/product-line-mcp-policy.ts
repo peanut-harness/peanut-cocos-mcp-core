@@ -11,6 +11,14 @@ export type ProductLineMcpDecision = 'allow' | 'refuse';
  */
 export class ProductLineMcpPolicy {
     /**
+     * @description Pro 独占操作；Lite 的任何 Creator 产品线都不得放行。
+     */
+    private static readonly _proExclusive = new Set<EditorMcpOperationId>([
+        'preview.capture',
+        'snowb.bmfont.export',
+    ]);
+
+    /**
      * @description early3x 明确拒绝的写/破坏性 operation。
      */
     private static readonly _early3xRefuse = new Set<EditorMcpOperationId>([
@@ -108,6 +116,9 @@ export class ProductLineMcpPolicy {
      * @returns allow 或 refuse
      */
     public static decide(phase: CreatorPhase, operation: EditorMcpOperationId): ProductLineMcpDecision {
+        if (ProductLineMcpPolicy._proExclusive.has(operation)) {
+            return 'refuse';
+        }
         if (phase === 'editor_api_stable') {
             return 'allow';
         }
@@ -130,6 +141,9 @@ export class ProductLineMcpPolicy {
      * @returns 错误字符串
      */
     public static refuseError(phase: CreatorPhase, operation: EditorMcpOperationId): string {
+        if (ProductLineMcpPolicy._proExclusive.has(operation)) {
+            return `product_line_mcp_refused:pro_exclusive:${operation}`;
+        }
         if (phase === 'creator_2x') {
             return `product_line_mcp_refused:creator2x:${operation}:await_lumen_24_or_adapter_write`;
         }

@@ -20,6 +20,36 @@ const allowedWorkspaceDependencies = new Map([
 ]);
 const ignoredDirectoryNames = new Set(['.git', '.npm-cache', 'dist', 'evidence', 'node_modules', 'release']);
 
+const kernelStaticPanelDirectory = join(repositoryRoot, 'packages/engine/modules/kernel/panels');
+if (existsSync(kernelStaticPanelDirectory) && containsFiles(kernelStaticPanelDirectory)) {
+    throw new Error('kernel_static_panel_source_forbidden');
+}
+
+for (const panelAsset of [
+    'apps/panel/panels/plugin-manager/embedded/index.html',
+    'apps/panel/panels/plugin-manager/embedded/index.css',
+    'apps/panel/panels/plugin-manager/embedded/index.js',
+]) {
+    if (!existsSync(join(repositoryRoot, panelAsset))) {
+        throw new Error(`panel_static_asset_missing:${panelAsset}`);
+    }
+}
+
+const liteMcpSource = readSourceTree(join(repositoryRoot, 'packages/engine/modules/mcp/src'));
+for (const forbiddenToken of ['preview.capture', 'snowb.bmfont.export', 'mcp.admit', 'proPlan', 'playwright']) {
+    if (liteMcpSource.includes(forbiddenToken)) {
+        throw new Error(`lite_mcp_pro_execution_forbidden:${forbiddenToken}`);
+    }
+}
+
+const runtimeFacadeSource = readFileSync(
+    join(repositoryRoot, 'packages/engine/modules/runtime/src/cocos/runtime-facade.ts'),
+    'utf8',
+);
+if (/adapters\/adapter-(?:24|35|38)\//u.test(runtimeFacadeSource)) {
+    throw new Error('runtime_facade_concrete_adapter_dependency_forbidden');
+}
+
 const rootManifest = JSON.parse(readFileSync(join(repositoryRoot, 'package.json'), 'utf8'));
 if (JSON.stringify(rootManifest.workspaces) !== JSON.stringify(expectedWorkspaces)) {
     throw new Error('workspace_layout_drift');
@@ -190,4 +220,29 @@ function collectInternalModuleImports(directory) {
         }
     }
     return [...dependencyNames];
+}
+
+function containsFiles(directory) {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+        if (entry.isFile()) {
+            return true;
+        }
+        if (entry.isDirectory() && containsFiles(join(directory, entry.name))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function readSourceTree(directory) {
+    const sourceParts = [];
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+        const absolutePath = join(directory, entry.name);
+        if (entry.isDirectory()) {
+            sourceParts.push(readSourceTree(absolutePath));
+        } else if (/\.(?:ts|mts|cts|js|mjs|cjs)$/u.test(entry.name)) {
+            sourceParts.push(readFileSync(absolutePath, 'utf8'));
+        }
+    }
+    return sourceParts.join('\n');
 }

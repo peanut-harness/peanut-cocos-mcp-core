@@ -4,10 +4,12 @@ import type {
 } from "./adapters/core/creator-adapter.js";
 import type { ICocosRuntime } from "./runtime.js";
 
-import { EditorApi24Adapter } from "./adapters/adapter-24/editor-api-24-adapter.js";
-import { EditorApi35Adapter } from "./adapters/adapter-35/editor-api-35-adapter.js";
-import { EditorApi38Adapter } from "./adapters/adapter-38/editor-api-38-adapter.js";
 import { AdapterRegistry } from "./adapters/core/adapter-registry.js";
+import {
+  DefaultCreatorAdapterFactory,
+  type ICreatorAdapterFactory,
+  type IDefaultCreatorAdapterFactoryOptions,
+} from "./adapters/default-creator-adapter-factory.js";
 import { ExecutionRuntimeService } from "../execution/execution-runtime-service.js";
 import { TaskIngress } from "../execution/ingress/task-ingress.js";
 import { TaskLedger } from "../execution/ledger/task-ledger.js";
@@ -28,36 +30,65 @@ import { CreatorHostState } from "./shared/host-state.js";
 import { VersionResolver } from "./version/version-resolver.js";
 import { BatchCommitCoordinator } from "../execution/commit/batch-commit-coordinator.js";
 import { RuntimeTaskCommitDispatcher } from "../execution/commit/runtime-task-commit-dispatcher.js";
-import type { IEditorApiPanelHostGlobal } from "./adapters/adapter-38/editor-api-host-panel-window-provider.js";
-import { EditorApiHostPanelWindowProvider } from "./adapters/adapter-38/editor-api-host-panel-window-provider.js";
-import type { IEditorApiPanelWindowProvider } from "./adapters/adapter-38/editor-api-panel-window-launcher.js";
-import type { IEditorApiAssetBridgeProvider } from "./adapters/adapter-38/editor-api-host-asset-bridge-provider.js";
-import { EditorApiHostSceneBridgeProvider } from "./adapters/adapter-38/editor-api-host-scene-bridge-provider.js";
 
 /**
  * @description Runtime 门面可选装配参数。
  */
-export interface IRuntimeFacadeOptions {
+export interface IRuntimeFacadeOptions extends IDefaultCreatorAdapterFactoryOptions {
   /**
-   * @description 可选 Editor API 面板宿主 provider。
+   * @description 可替换的适配器工厂；默认使用内置版本组合根。
    */
-  readonly editorApiPanelWindowProvider?: IEditorApiPanelWindowProvider;
-
-  /**
-   * @description 可选真实 Editor API 面板宿主全局对象；省略时使用 `globalThis`。
-   */
-  readonly editorApiHostGlobal?: IEditorApiPanelHostGlobal;
+  readonly adapterFactory?: ICreatorAdapterFactory;
 
   /**
-   * @description 测试场景下是否允许 3.8.7 面板宿主退回内存 skeleton provider；默认 `false`。
+   * @description 可选内存宿主初始状态；仅由显式的测试或离线模拟场景提供。
    */
-  readonly allowMemoryPanelWindowProviderFallback?: boolean;
+  readonly initialState?: IRuntimeFacadeInitialState;
+}
 
-  /** @description 可选真实 Editor API AssetDB 写入 provider。 */
-  readonly editorApiAssetBridgeProvider?: IEditorApiAssetBridgeProvider;
+/**
+ * @description Runtime 内存宿主的显式初始状态。
+ */
+export interface IRuntimeFacadeInitialState {
+  /**
+   * @description 初始资源条目。
+   */
+  readonly assets?: readonly IRuntimeFacadeInitialAsset[];
 
-  /** @description 可选真实 Editor API 场景脚本 provider。 */
-  readonly editorApiSceneBridgeProvider?: EditorApiHostSceneBridgeProvider;
+  /**
+   * @description 初始场景节点条目。
+   */
+  readonly sceneNodes?: readonly IRuntimeFacadeInitialSceneNode[];
+}
+
+/**
+ * @description Runtime 内存宿主的资源种子。
+ */
+export interface IRuntimeFacadeInitialAsset {
+  /**
+   * @description 资源路径或 uuid。
+   */
+  readonly pathOrUuid: string;
+
+  /**
+   * @description 资源快照。
+   */
+  readonly value: unknown;
+}
+
+/**
+ * @description Runtime 内存宿主的场景节点种子。
+ */
+export interface IRuntimeFacadeInitialSceneNode {
+  /**
+   * @description 场景节点稳定标识。
+   */
+  readonly nodeId: string;
+
+  /**
+   * @description 场景节点快照。
+   */
+  readonly state: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -92,23 +123,13 @@ export class RuntimeFacade implements ICocosRuntime {
   public constructor(creatorVersion: string, options?: IRuntimeFacadeOptions) {
     this.version = new VersionResolver(creatorVersion);
     this._adapterRegistry = new AdapterRegistry();
-    // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const creatorHostState = new CreatorHostState();
-    creatorHostState.setAsset("assets/example.prefab", {
-      path: "assets/example.prefab",
-      uuid: "example-prefab-uuid",
-      type: "prefab",
-    });
-    creatorHostState.setAsset("assets/example-2.prefab", {
-      path: "assets/example-2.prefab",
-      uuid: "example-2-prefab-uuid",
-      type: "prefab",
-    });
-    creatorHostState.setSceneNode("root-node", {
-      nodeId: "root-node",
-      enabled: false,
-      name: "Root Node",
-    });
+    for (const asset of options?.initialState?.assets ?? []) {
+      creatorHostState.setAsset(asset.pathOrUuid, asset.value);
+    }
+    for (const sceneNode of options?.initialState?.sceneNodes ?? []) {
+      creatorHostState.setSceneNode(sceneNode.nodeId, { ...sceneNode.state });
+    }
 
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskLedger = new TaskLedger();
@@ -151,42 +172,8 @@ export class RuntimeFacade implements ICocosRuntime {
     );
 
     const phase = this.version.getCurrentVersion().phase;
-    if (phase === 'editor_api_stable') {
-      this.registerAdapter(
-        new EditorApi38Adapter(
-          creatorVersion,
-          creatorHostState,
-          options?.editorApiPanelWindowProvider ??
-            new EditorApiHostPanelWindowProvider(
-              undefined,
-              options?.editorApiHostGlobal,
-              {
-                allowFallbackProvider:
-                  options?.allowMemoryPanelWindowProviderFallback === true,
-              },
-            ),
-          options?.editorApiAssetBridgeProvider,
-          options?.editorApiSceneBridgeProvider,
-          options?.editorApiHostGlobal,
-        ),
-      );
-    } else if (phase === 'creator_3x_early') {
-      this.registerAdapter(
-        new EditorApi35Adapter(
-          creatorVersion,
-          creatorHostState,
-          options?.editorApiHostGlobal,
-        ),
-      );
-    } else {
-      this.registerAdapter(
-        new EditorApi24Adapter(
-          creatorVersion,
-          creatorHostState,
-          options?.editorApiHostGlobal,
-        ),
-      );
-    }
+    const adapterFactory = options?.adapterFactory ?? new DefaultCreatorAdapterFactory();
+    this.registerAdapter(adapterFactory.create(creatorVersion, phase, creatorHostState, options));
 
     const activeAdapter = this._adapterRegistry.resolve(creatorVersion);
     if (activeAdapter == null) {

@@ -87,7 +87,6 @@ export class EditorMcpLumenCommitFacade {
             'lumen.commit(+validateRefs on .prefab/.scene)',
             'preview.refresh',
             'preview.queryErrors',
-            'preview.capture?',
         ] as const;
         if (validation.length === 0) {
             return {
@@ -122,7 +121,7 @@ export class EditorMcpLumenCommitFacade {
                 input: { refreshAssets: true },
             },
             nextHint:
-                'validation ok. Next lane:preview → preview.refresh → preview.queryErrors → optional preview.capture. Never scene.save/open/reload for writing; optional scene.open only to show the user.',
+                'validation ok. Next lane:preview → preview.refresh → preview.queryErrors. Never scene.save/open/reload for writing; optional scene.open only to show the user.',
             acceptancePipeline,
         };
     }

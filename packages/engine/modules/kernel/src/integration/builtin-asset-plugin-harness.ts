@@ -18,7 +18,20 @@ export class BuiltinAssetPluginHarness {
      * @param creatorVersion 当前宿主绑定的 Creator 版本字符串
      */
     public constructor(creatorVersion: string) {
-        this._runtime = new RuntimeFacade(creatorVersion);
+        this._runtime = new RuntimeFacade(creatorVersion, {
+            initialState: {
+                assets: [
+                    {
+                        pathOrUuid: 'assets/example.prefab',
+                        value: {
+                            path: 'assets/example.prefab',
+                            uuid: 'example-prefab-uuid',
+                            type: 'prefab',
+                        },
+                    },
+                ],
+            },
+        });
         this._pluginManager = new PluginManagerApp(this._runtime);
     }
 

@@ -1,13 +1,13 @@
 # Peanut Editor MCP Plugin
 
-`peanut.editor-mcp` 是面向 MCP 宿主的 Cocos Creator 编辑器能力插件。除只读查询外，它可调用 **lumen 资产编辑**（Prefab / Scene / 独立资产源文件），并经受管插件服务导出 SnowB BMFont，供 AI 或自动化脚本使用。
+`peanut.editor-mcp` 是面向 MCP 宿主的 Cocos Creator 编辑器能力插件。除只读查询外，它可调用 **lumen 资产编辑**（Prefab / Scene / 独立资产源文件），供 AI 或自动化脚本使用。付费 operation 由可选 Pro 插件通过统一 MCP capability registry 独立注册，Lite 不实现也不代理付费执行。
 
 ## MVP 范围
 
 - **进程内 action（`dispatchMcpAction`，测试/宿主内部用）：** `cocos.capabilities`、`cocos.plan`、`cocos.call`；兼容别名 `editor-mcp.capabilities.list`、`editor-mcp.plan`、`editor-mcp.execute`
 - **Hub MCP 工具（一级铺平）：** 每个 operation 一个带命名空间的一级工具 `peanut.editor-mcp.<op-kebab>`（如 `editor-query-version`、`asset-import`、`lumen-comp-set`、`lumen-node-rm`），各带精确 `inputSchema`；**不再有** `capabilities/plan/query/call` 通用入口，也不再把 operation 藏进 payload。MCP 客户端直接按工具名调用，输入即该 operation 的原始入参（写/删的 `confirmDestructive`、批准 `approvalToken` 一并放在该工具输入里）。
-- 操作：… **preview query/refresh/errors/capture**、**queryCompatibleTypes**、builder、lumen、导入账本
-- **验收路径：** `validateRefs` → `preview.refresh` → `preview.queryErrors` → 可选 `preview.capture`
+- 操作：… **preview query/refresh/errors**、**queryCompatibleTypes**、builder、lumen、导入账本
+- **验收路径：** `validateRefs` → `preview.refresh` → `preview.queryErrors`
 - **整包规划：** [`docs/LUMEN-ROADMAP.md`](./docs/LUMEN-ROADMAP.md)
 
 ## 资产目录快查（给 AI 用）
@@ -72,24 +72,6 @@ MCP tools（节选）：`peanut.editor-mcp.lumen-schema` / `lumen-templates` / `
 - 另提供 `lumen.cocosInfo`；playbook 冒烟：`node scripts/lumen-ai-playbook.smoke.mjs`
 
 所有输入都由 `EditorMcpActionRouter` / `EditorMcpLumenGateway` 校验；不支持任意 Editor 消息或网络服务器。
-
-## SnowB BMFont Tool
-
-```typescript
-await pluginModule.dispatchMcpAction('cocos.call', {
-    operation: 'snowb.bmfont.export',
-    input: {
-        configRelativePath: 'assets/fonts/figma-export.json',
-        outputRelativePath: 'assets/fonts/generated',
-        exportFormat: 'text',
-    },
-});
-```
-
-- 必须激活 `snowb.bmfont`，其 `bmfont.export` 服务由核心插件服务注册表管理。
-- `configRelativePath` 与 `sbfName` 必须且只能提供一个；`sbfName` 仅接受缓存中的 `.sbf` 文件名。
-- `outputRelativePath`、`configRelativePath` 必须是项目相对路径，拒绝绝对路径和 `..` 路径穿越。
-- 请求不接受 `projectDirectory`；router 始终使用当前 Editor runtime 的项目目录。
 
 ## 验证
 

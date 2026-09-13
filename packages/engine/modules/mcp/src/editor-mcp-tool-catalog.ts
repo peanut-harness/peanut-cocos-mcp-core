@@ -511,19 +511,6 @@ export class EditorMcpToolCatalog {
                 sinceOffset: this._integer('仅返回 project.log 该字节偏移之后的新增错误；用上次返回的 logOffset。'),
             }),
         );
-        map.set(
-            'preview.capture',
-            this._object({
-                url: this._string('可选预览 URL；省略时先 preview.query。'),
-                outputRelativePath: this._string('输出相对路径；默认 .peanut-ai/artifacts/preview-capture.png。'),
-                width: this._integer('视口宽；默认 1280。'),
-                height: this._integer('视口高；默认 720。'),
-                waitMs: this._integer('截图前等待毫秒；默认 500。'),
-                scenePath: this._string('可选工程相对 .scene 路径；省略=当前预览行为。提供时尝试无确认框准备该场景，否则 refused。'),
-                assetRelativePath: this._string('scenePath 别名（与 lumen 对齐）；二者都给时以 scenePath 为准。'),
-            }),
-        );
-
         map.set('builder.queryPlatforms', this._object({ filter: this._string('可选平台名子串过滤。') }));
         map.set(
             'builder.querySchema',
@@ -542,17 +529,6 @@ export class EditorMcpToolCatalog {
                 },
                 ['platform'],
             ),
-        );
-
-        map.set(
-            'snowb.bmfont.export',
-            this._object({
-                configRelativePath: this._string('项目相对 JSON 配置路径；与 sbfName 二选一。'),
-                sbfName: this._string('缓存中的 .sbf 文件名；与 configRelativePath 二选一。'),
-                outputRelativePath: this._string('项目相对输出目录；省略时写入 SnowB 受控缓存。'),
-                exportFormat: this._enum(['text', 'xml', 'binary'], 'BMFont 输出格式；默认 text。'),
-                ...this._writeControl(),
-            }),
         );
 
         this._addLumenReadSchemas(map);
@@ -934,13 +910,9 @@ export class EditorMcpToolCatalog {
      * @returns 对象 schema。
      */
     private _object(properties: Readonly<Record<string, IMcpJsonSchema>>, required: readonly string[] = []): IMcpJsonSchema {
-        const controlledProperties = {
-            ...properties,
-            proPlan: this._freeObject('Pro 签名计划；仅用于本地授权，绝不传入 Cocos 执行器。'),
-        };
         return required.length > 0
-            ? { type: 'object', properties: controlledProperties, required, additionalProperties: false }
-            : { type: 'object', properties: controlledProperties, additionalProperties: false };
+            ? { type: 'object', properties, required, additionalProperties: false }
+            : { type: 'object', properties, additionalProperties: false };
     }
 
     /**

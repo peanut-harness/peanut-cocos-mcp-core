@@ -14,8 +14,7 @@
     },
     "files": [
         "dist",
-        "README.md",
-        "panels"
+        "README.md"
     ],
     "scripts": {
         "build": "tsc -p tsconfig.json",

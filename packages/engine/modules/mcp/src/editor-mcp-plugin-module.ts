@@ -1,7 +1,7 @@
 import type { EditorMcpActionId, IEditorMcpActionPlan, IEditorMcpActionResult, IEditorMcpCapabilityDescriptor } from '@peanut/pod-protocol';
 import { AssetCatalogFastLookupApi, type IAssetCatalogFastLookup } from '@peanut/pod-engine/assets';
 import { PluginModuleBase } from '@peanut/pod-sdk';
-import type { IMcpCapabilityInvocation, IPluginActivateContext, IPluginRegisterContext, IPluginServiceApi, PluginDeactivateReason } from '@peanut/pod-sdk';
+import type { IPluginActivateContext, IPluginRegisterContext, PluginDeactivateReason } from '@peanut/pod-sdk';
 
 import { EditorMcpActionRouter } from './editor-mcp-action-router.js';
 import { EditorMcpLumenGateway } from './editor-mcp-lumen-gateway.js';
@@ -21,18 +21,16 @@ export class EditorMcpPluginModule extends PluginModuleBase {
     private readonly _lumenGateway: EditorMcpLumenGateway | null;
     /** @description operation 与一级工具名、schema 的目录。 */
     private readonly _toolCatalog = new EditorMcpToolCatalog();
-    /** @description 激活期 Pro 本地授权服务端口；停用后清空。 */
-    private _services: IPluginServiceApi | null = null;
 
     /** @description 供插件治理与打包校验使用的运行时清单。 */
     public readonly manifest = {
         id: 'peanut.editor-mcp',
-        version: '0.1.115',
+        version: '0.1.116',
         kind: 'tooling-plugin',
         displayName: 'Peanut Editor MCP',
         description: {
-            'en-US': 'Cocos Creator MCP capability router with lumen asset editing and SnowB BMFont export.',
-            'zh-CN': '包含 lumen 资产源文件编辑与 SnowB BMFont 导出的 Cocos Creator MCP capability 路由器。',
+            'en-US': 'Cocos Creator MCP capability router for the 83 Lite operations and lumen asset editing.',
+            'zh-CN': '包含 83 项 Lite 操作与 lumen 资产源文件编辑的 Cocos Creator MCP capability 路由器。',
         },
         icon: './assets/icon.png' as const,
         main: './peanut.editor-mcp.bundle.js',
@@ -74,14 +72,13 @@ export class EditorMcpPluginModule extends PluginModuleBase {
      * @returns Promise 在 router 建立后结束
      */
     public override async activate(context: IPluginActivateContext): Promise<void> {
-        this._router = new EditorMcpActionRouter(context.runtime, context.services, this._catalogLookup, this._lumenGateway ?? undefined);
-        this._services = context.services;
+        this._router = new EditorMcpActionRouter(context.runtime, this._catalogLookup, this._lumenGateway ?? undefined);
         if (context.mcp != null) {
             const definitions = this._toolCatalog.buildDefinitions(this._router.listCapabilities());
             for (const definition of definitions) {
                 this._mcpCapabilityDisposers.push(
-                    context.mcp.register(definition, async (input, invocation): Promise<unknown> => {
-                        return this._invokeMcpCapability(definition.name, definition.risk, input, invocation);
+                    context.mcp.register(definition, async (input): Promise<unknown> => {
+                        return this._invokeMcpCapability(definition.name, input);
                     }),
                 );
             }
@@ -110,7 +107,6 @@ export class EditorMcpPluginModule extends PluginModuleBase {
     public override async deactivate(_reason: PluginDeactivateReason): Promise<void> {
         this._disposeMcpCapabilities();
         this._router = null;
-        this._services = null;
     }
 
     /**
@@ -120,7 +116,6 @@ export class EditorMcpPluginModule extends PluginModuleBase {
     public override async dispose(): Promise<void> {
         this._disposeMcpCapabilities();
         this._router = null;
-        this._services = null;
     }
 
     /**
@@ -132,31 +127,17 @@ export class EditorMcpPluginModule extends PluginModuleBase {
      */
     private async _invokeMcpCapability(
         name: string,
-        definitionRisk: 'read' | 'write' | 'destructive',
         input: unknown,
-        invocation?: IMcpCapabilityInvocation,
     ): Promise<unknown> {
         const router = this._requireRouter();
         const operation = this._toolCatalog.operationForToolName(name);
         if (operation == null) {
             throw new Error(`editor_mcp_capability_unsupported:${name}`);
         }
-        const request = this._splitProPlan(input);
-        const admission = await this._requireServices().request<unknown>('peanut.cocos-mcp-pro', 'mcp.admit', {
-            toolName: name,
-            input: request.input,
-            resourceIds: invocation?.resourceIds ?? [],
-            risk: invocation?.risk ?? definitionRisk,
-            hasLocalApproval: invocation?.hasLocalApproval === true,
-            signedPlan: request.signedPlan,
-        });
-        if (!this._isAdmitted(admission, operation)) {
-            throw new Error('editor_mcp_pro_admission_rejected');
-        }
         try {
             const result = await router.dispatch('cocos.call', {
                 operation,
-                input: request.input ?? undefined,
+                input: input ?? undefined,
             });
             if (!this._isActionResult(result)) {
                 throw new Error('editor_mcp_capability_result_invalid');
@@ -211,48 +192,4 @@ export class EditorMcpPluginModule extends PluginModuleBase {
         return this._router;
     }
 
-    /** @description 返回激活期服务端口；未激活时拒绝请求。 */
-    private _requireServices(): IPluginServiceApi {
-        if (this._services == null) {
-            throw new Error('editor_mcp_not_active');
-        }
-        return this._services;
-    }
-
-    /** @description 校验 Pro 服务返回的成功准入结果与当前 operation 精确匹配。 */
-    private _isAdmitted(value: unknown, operation: string): boolean {
-        if (typeof value !== 'object' || value == null || Array.isArray(value)) {
-            return false;
-        }
-        return (
-            Object.getOwnPropertyDescriptor(value, 'granted')?.value === true &&
-            Object.getOwnPropertyDescriptor(value, 'operation')?.value === operation
-        );
-    }
-
-    /** @description 从已校验输入分离仅供 Pro 授权的签名计划，避免它进入 Cocos action router。 */
-    private _splitProPlan(value: unknown): { readonly input: unknown; readonly signedPlan: unknown } {
-        if (typeof value !== 'object' || value == null || Array.isArray(value)) {
-            return Object.freeze({ input: value, signedPlan: null });
-        }
-        const descriptors = Object.getOwnPropertyDescriptors(value);
-        const plan = descriptors.proPlan;
-        if (plan == null) {
-            return Object.freeze({ input: value, signedPlan: null });
-        }
-        if (!('value' in plan)) {
-            throw new Error('editor_mcp_pro_plan_invalid');
-        }
-        const input: Record<string, unknown> = {};
-        for (const [key, descriptor] of Object.entries(descriptors)) {
-            if (key === 'proPlan') {
-                continue;
-            }
-            if (!('value' in descriptor)) {
-                throw new Error('editor_mcp_pro_plan_invalid');
-            }
-            input[key] = descriptor.value;
-        }
-        return Object.freeze({ input: Object.freeze(input), signedPlan: plan.value });
-    }
 }

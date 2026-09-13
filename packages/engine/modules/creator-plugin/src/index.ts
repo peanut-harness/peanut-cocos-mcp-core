@@ -217,7 +217,7 @@ function resolveGatewayExecute(context: ICoreCocosCreatorHostActivateContext): E
     // Use the full EditorMcp router when the host supplies grants and services.
     // Paid operations remain refused by Lite policy.
     if (context.grantedRuntime != null && context.services != null) {
-        return createEditorMcpExecuteOperation(context.grantedRuntime, context.services);
+        return createEditorMcpExecuteOperation(context.grantedRuntime);
     }
     return null;
 }

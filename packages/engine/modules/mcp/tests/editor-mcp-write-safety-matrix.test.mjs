@@ -65,7 +65,6 @@ function createCatalogLookupStub() {
 
 async function activateRouter(options = {}) {
     const importCalls = [];
-    const admissionRequests = [];
     const projectPath = options.projectPath ?? mkdtempSync(join(tmpdir(), 'peanut-editor-mcp-matrix-'));
     mkdirSync(join(projectPath, 'temp', 'logs'), { recursive: true });
     writeFileSync(join(projectPath, 'temp', 'logs', 'project.log'), '', 'utf8');
@@ -135,15 +134,7 @@ async function activateRouter(options = {}) {
                 },
             },
         },
-        services: {
-            request: async (_providerPluginId, _serviceId, request) => {
-                admissionRequests.push(request);
-                return {
-                    granted: true,
-                    operation: request.toolName === 'peanut.editor-mcp.editor-query-version' ? 'editor.queryVersion' : null,
-                };
-            },
-        },
+        services: { request: async () => undefined },
         logger: { info: () => {} },
         mcp: {
             register: (definition, handler) => {
@@ -156,7 +147,7 @@ async function activateRouter(options = {}) {
             },
         },
     });
-    return { pluginModule, importCalls, projectPath, handlers, definitions, admissionRequests };
+    return { pluginModule, importCalls, projectPath, handlers, definitions };
 }
 
 test('matrix: asset.importPlan expands Spine closure and layers leaf-first', async () => {
@@ -583,16 +574,12 @@ test('matrix: flat read tool handler routes operation and returns data', async (
     assert.equal(data.raw, '3.8.7');
 });
 
-test('matrix: pro plan is sent only to local Pro admission and stripped before routing', async () => {
-    const { handlers, admissionRequests } = await activateRouter();
-    const version = handlers.get('peanut.editor-mcp.editor-query-version');
-    const proPlan = Object.freeze({ protocolVersion: 1, planId: 'local-plan', signature: 'signature' });
-    const data = await version({ proPlan });
-    assert.equal(data.raw, '3.8.7');
-    assert.equal(admissionRequests.length, 1);
-    assert.equal(admissionRequests[0].signedPlan, proPlan);
-    assert.deepEqual(admissionRequests[0].input, {});
-    assert.equal('proPlan' in admissionRequests[0].input, false);
+test('matrix: Lite schemas do not accept Pro plan control fields', async () => {
+    const { definitions } = await activateRouter();
+    const version = definitions.get('peanut.editor-mcp.editor-query-version');
+    assert.ok(version, 'editor-query-version');
+    assert.equal(Object.hasOwn(version.inputSchema.properties, 'proPlan'), false);
+    assert.equal(version.inputSchema.additionalProperties, false);
 });
 
 test('matrix: flat write tool schema is precise (required fields, closed, free-form props)', async () => {

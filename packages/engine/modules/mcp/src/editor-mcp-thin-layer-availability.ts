@@ -37,7 +37,6 @@ export class EditorMcpThinLayerAvailabilityMapper {
         if (
             source === 'fallback' ||
             source === 'project_log' ||
-            source === 'playwright' ||
             message.includes('fallback') ||
             message.includes('query-node-tree') ||
             message.includes('live_tried=')

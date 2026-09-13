@@ -8,18 +8,15 @@ export class AdapterRegistry {
     private readonly _adapters: ICreatorAdapter[] = [];
 
     /**
-     * @description 注册一个新的 Creator 版本适配器；同 id 的适配器会被覆盖。
+     * @description 注册一个新的 Creator 版本适配器；重复 id 会显式失败，避免静默覆盖。
      * @param adapter 要注册的适配器实例
      * @returns 当前注册中心实例，便于链式注册
      */
     public register(adapter: ICreatorAdapter): AdapterRegistry {
-        // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-        const /* 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。 */ nextAdapters = this._adapters.filter((item) => {
-            return item.id !== adapter.id;
-        });
-        nextAdapters.push(adapter);
-        this._adapters.length = 0;
-        this._adapters.push(...nextAdapters);
+        if (this._adapters.some((registeredAdapter) => registeredAdapter.id === adapter.id)) {
+            throw new Error(`adapter_registration_duplicate:${adapter.id}`);
+        }
+        this._adapters.push(adapter);
         return this;
     }
 
@@ -32,17 +29,20 @@ export class AdapterRegistry {
     }
 
     /**
-     * @description 为指定 Creator 版本选择首个可用适配器。
+     * @description 为指定 Creator 版本选择唯一可用适配器；重叠命中会显式失败。
      * @param creatorVersion Cocos Creator 版本字符串
      * @returns 命中时返回适配器，否则返回 `null`
      */
     public resolve(creatorVersion: string): ICreatorAdapter | null {
-        for (const /* 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。 */ adapter of this._adapters) {
-            if (adapter.supports(creatorVersion)) {
-                return adapter;
-            }
+        const matchedAdapters = this._adapters.filter((adapter) => adapter.supports(creatorVersion));
+        if (matchedAdapters.length === 0) {
+            return null;
         }
-        return null;
+        if (matchedAdapters.length > 1) {
+            const adapterIds = matchedAdapters.map((adapter) => adapter.id).sort().join(',');
+            throw new Error(`adapter_resolution_ambiguous:${creatorVersion}:${adapterIds}`);
+        }
+        return matchedAdapters[0] ?? null;
     }
 
     /**

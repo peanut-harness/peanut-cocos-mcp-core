@@ -22,6 +22,33 @@ import { TimeoutAndCancelController } from '../src/execution/timeout/timeout-and
 import { TracePipeline } from '../src/execution/trace/trace-pipeline';
 import { WorkerPool } from '../src/execution/workers/worker-pool';
 
+/**
+ * @description 创建带显式资源与节点种子的 Runtime 测试实例。
+ * @returns 可用于执行管线测试的 Runtime 门面
+ */
+function createSeededRuntimeFacade(): RuntimeFacade {
+    return new RuntimeFacade('3.8.7', {
+        initialState: {
+            assets: [
+                {
+                    pathOrUuid: 'assets/example.prefab',
+                    value: { path: 'assets/example.prefab', uuid: 'example-prefab-uuid', type: 'prefab' },
+                },
+                {
+                    pathOrUuid: 'assets/example-2.prefab',
+                    value: { path: 'assets/example-2.prefab', uuid: 'example-2-prefab-uuid', type: 'prefab' },
+                },
+            ],
+            sceneNodes: [
+                {
+                    nodeId: 'root-node',
+                    state: { nodeId: 'root-node', enabled: false, x: 0 },
+                },
+            ],
+        },
+    });
+}
+
 class InstrumentedWorkerPool extends WorkerPool {
     /** @description 保存实例生命周期内需要复用的状态或协作依赖。 */
     public maxConcurrentPlans: number = 0;
@@ -185,6 +212,26 @@ function createHostBackedExecutionRuntimeService(options?: {
     };
 }
 
+test('adapter registry should reject duplicate ids and ambiguous version matches', (): void => {
+    const hostState = new CreatorHostState();
+    const adapterRegistry = new AdapterRegistry();
+    const primaryAdapter = new EditorApi38Adapter('3.8.7', hostState);
+    const overlappingAdapter = new EditorApi38Adapter('3.8.7', hostState);
+    (overlappingAdapter as { id: string }).id = 'adapter-38-overlap';
+
+    adapterRegistry.register(primaryAdapter);
+    assert.throws(
+        (): AdapterRegistry => adapterRegistry.register(new EditorApi38Adapter('3.8.7', hostState)),
+        /adapter_registration_duplicate:adapter-38/u,
+    );
+
+    adapterRegistry.register(overlappingAdapter);
+    assert.throws(
+        (): unknown => adapterRegistry.resolve('3.8.7'),
+        /adapter_resolution_ambiguous:3\.8\.7:adapter-38,adapter-38-overlap/u,
+    );
+});
+
 function createAssetQueryTaskRequest(pluginId: string, requestId: string, pathOrUuid: string): ITaskRequest {
     return {
         requestId,
@@ -252,7 +299,7 @@ test('execution runtime service should keep distinct task ids while deduping a b
 
 test('runtime facade execution should dispatch asset queries through the asset runtime service', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskReceipt = await runtimeFacade.execution.submit({
         requestId: 'asset-query-dispatch',
@@ -281,7 +328,7 @@ test('runtime facade execution should dispatch asset queries through the asset r
 
 test('runtime facade execution should dispatch asset refresh tasks through the asset runtime service', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskReceipt = await runtimeFacade.execution.submit({
         requestId: 'asset-refresh-dispatch',
@@ -309,7 +356,7 @@ test('runtime facade execution should dispatch asset refresh tasks through the a
 
 test('runtime facade execution should batch asset refresh tasks into one commit window', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskBatchReceipt = await runtimeFacade.execution.submitBatch([
         {
@@ -358,7 +405,7 @@ test('runtime facade execution should batch asset refresh tasks into one commit 
 
 test('runtime facade execution should dispatch scene patch tasks through the scene runtime service', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskReceipt = await runtimeFacade.execution.submit({
         requestId: 'scene-patch-dispatch',
@@ -391,7 +438,7 @@ test('runtime facade execution should dispatch scene patch tasks through the sce
 
 test('runtime facade execution should coalesce compatible scene patch tasks into a merged node state', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
-    const runtimeFacade = new RuntimeFacade('3.8.7');
+    const runtimeFacade = createSeededRuntimeFacade();
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。
     const taskBatchReceipt = await runtimeFacade.execution.submitBatch([
         {

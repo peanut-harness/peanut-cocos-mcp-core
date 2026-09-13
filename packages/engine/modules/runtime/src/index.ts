@@ -57,9 +57,19 @@ export type {
   IEditorApiPanelWindowHandle,
 } from "./cocos/adapters/adapter-38/editor-api-window-backed-panel-host-bridge.js";
 export { AdapterRegistry } from "./cocos/adapters/core/adapter-registry.js";
+export { DefaultCreatorAdapterFactory } from "./cocos/adapters/default-creator-adapter-factory.js";
+export type {
+  ICreatorAdapterFactory,
+  IDefaultCreatorAdapterFactoryOptions,
+} from "./cocos/adapters/default-creator-adapter-factory.js";
 export { BaseCreatorAdapter } from "./cocos/adapters/core/base-creator-adapter.js";
 export type { ICocosRuntime } from "./cocos/runtime.js";
-export type { IRuntimeFacadeOptions } from "./cocos/runtime-facade.js";
+export type {
+  IRuntimeFacadeInitialAsset,
+  IRuntimeFacadeInitialSceneNode,
+  IRuntimeFacadeInitialState,
+  IRuntimeFacadeOptions,
+} from "./cocos/runtime-facade.js";
 export { RuntimeFacade } from "./cocos/runtime-facade.js";
 export type {
   ExecutionDiagnosticGroupStatus,

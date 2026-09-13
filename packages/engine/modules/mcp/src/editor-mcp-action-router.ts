@@ -8,12 +8,11 @@ import type {
     IEditorMcpCapabilityDescriptor,
     IEditorMcpOperationRequest,
     ISceneGetHierarchyMcpInput,
-    ISnowbBmfontExportMcpInput,
     LocalizedText,
 } from '@peanut/pod-protocol';
 import { McpControlFlowRefusal } from '@peanut/pod-engine/kernel';
 import { EditorMcpExecutionLaneResolver, ProductLineMcpPolicy } from '@peanut/pod-protocol';
-import type { IGrantedRuntimeClientSet, IPluginServiceApi } from '@peanut/pod-sdk';
+import type { IGrantedRuntimeClientSet } from '@peanut/pod-sdk';
 import { AssetCatalogFastLookupApi, type IAssetCatalogFastLookup } from '@peanut/pod-engine/assets';
 
 import { EditorMcpAssetDiagnostics } from './editor-mcp-asset-diagnostics.js';
@@ -35,8 +34,6 @@ import { CAPABILITIES, type EditorMcpCapabilitySeed } from './editor-mcp-capabil
 export class EditorMcpActionRouter {
     /** @description 由当前实例持有的授权 runtime client 集合。 */
     private readonly _runtime: IGrantedRuntimeClientSet;
-    /** @description 由宿主按当前 MCP 插件身份注入的服务客户端。 */
-    private readonly _services: IPluginServiceApi;
     /** @description 资产目录 MCP 快查接口。 */
     private readonly _catalogLookup: IAssetCatalogFastLookup;
     /** @description 资产诊断与搜索。 */
@@ -63,18 +60,15 @@ export class EditorMcpActionRouter {
     /**
      * @description 创建一个新的 Editor MCP action router。
      * @param runtime 由插件宿主裁剪并可撤销的 runtime client 集合
-     * @param services 由插件宿主注入的受管服务客户端
      * @param catalogLookup 资产目录快查接口；测试可注入替代实现
      * @param lumenGateway 可选 lumen 网关；测试可注入替代实现
      */
     public constructor(
         runtime: IGrantedRuntimeClientSet,
-        services: IPluginServiceApi,
         catalogLookup: IAssetCatalogFastLookup = new AssetCatalogFastLookupApi(),
         lumenGateway?: EditorMcpLumenGateway,
     ) {
         this._runtime = runtime;
-        this._services = services;
         this._catalogLookup = catalogLookup;
         this._diagnostics = new EditorMcpAssetDiagnostics();
         this._preview = new EditorMcpPreviewGateway(runtime, async () => {
@@ -518,11 +512,6 @@ export class EditorMcpActionRouter {
                     operation: request.operation,
                     data: await this._preview.queryErrors(this._preview.readErrorsInput(request.input)),
                 };
-            case 'preview.capture':
-                return {
-                    operation: request.operation,
-                    data: await this._preview.capture(this._preview.readCaptureInput(request.input)),
-                };
             case 'builder.queryPlatforms':
                 return {
                     operation: request.operation,
@@ -552,11 +541,6 @@ export class EditorMcpActionRouter {
                 return {
                     operation: request.operation,
                     data: await this._reference.setImage(this._reference.readSetInput(request.input)),
-                };
-            case 'snowb.bmfont.export':
-                return {
-                    operation: request.operation,
-                    data: await this._executeSnowbBmfontExport(request.input),
                 };
             case 'lumen.bindController':
                 return {
@@ -718,9 +702,6 @@ export class EditorMcpActionRouter {
         if (request.operation === 'preview.queryErrors') {
             this._preview.readErrorsInput(request.input);
         }
-        if (request.operation === 'preview.capture') {
-            this._preview.readCaptureInput(request.input);
-        }
         if (request.operation === 'builder.queryPlatforms') {
             this._builder.readPlatformsInput(request.input);
         }
@@ -780,9 +761,6 @@ export class EditorMcpActionRouter {
         if (request.operation === 'prefab.getInfo') {
             this._sceneGateway.readGetInfoInput(request.input);
         }
-        if (request.operation === 'snowb.bmfont.export') {
-            this._readSnowbBmfontExportInput(request.input);
-        }
         // bindController 由 router 直连 2.4/离线路径，不经 3.x lumen gateway。
         if (request.operation === 'lumen.bindController') {
             this._readLumenBindControllerInput(this._stripHubControlFields(request.input));
@@ -835,17 +813,6 @@ export class EditorMcpActionRouter {
             throw new Error('editor_mcp_catalog_lookup_limit_invalid');
         }
         return value;
-    }
-
-    /** @description 执行经 MCP 收窄后的 SnowB BMFont 导出服务请求。 */
-    private async _executeSnowbBmfontExport(input: ContractPayload | undefined): Promise<unknown> {
-        const projectDirectory = await this._requireProjectPath();
-        const exportInput = this._readSnowbBmfontExportInput(input);
-        return this._services.request('snowb.bmfont', 'bmfont.export', {
-            action: 'export',
-            projectDirectory,
-            ...exportInput,
-        });
     }
 
     /**
@@ -969,77 +936,6 @@ export class EditorMcpActionRouter {
         const hits = lookupResult.hits;
         const exact = hits.find((hit) => hit.path.replace(/\\/g, '/') === normalized);
         return exact?.uuid ?? hits[0]?.uuid;
-    }
-
-    /** @description 读取 SnowB 导出输入，拒绝项目路径覆盖和未经声明的字段。 */
-    private _readSnowbBmfontExportInput(input: ContractPayload | undefined): ISnowbBmfontExportMcpInput {
-        if (input == null) {
-            throw new Error('editor_mcp_snowb_input_required');
-        }
-        const supportedFields = new Set(['configRelativePath', 'sbfName', 'outputRelativePath', 'exportFormat']);
-        for (const fieldName of Object.keys(input)) {
-            if (!supportedFields.has(fieldName)) {
-                throw new Error(`editor_mcp_snowb_input_field_unsupported:${fieldName}`);
-            }
-        }
-        const configRelativePath = this._readProjectRelativePath(input.configRelativePath, 'configRelativePath');
-        const sbfName = this._readSbfName(input.sbfName);
-        if ((configRelativePath == null) === (sbfName == null)) {
-            throw new Error('editor_mcp_snowb_export_requires_exactly_one_of_configRelativePath_or_sbfName');
-        }
-        const outputRelativePath = this._readProjectRelativePath(input.outputRelativePath, 'outputRelativePath');
-        const exportFormat = this._readExportFormat(input.exportFormat);
-        return {
-            configRelativePath,
-            sbfName,
-            outputRelativePath,
-            exportFormat,
-        };
-    }
-
-    /** @description 读取可选项目相对路径，拒绝绝对路径、盘符路径和上级目录穿越。 */
-    private _readProjectRelativePath(value: unknown, fieldName: string): string | undefined {
-        if (value == null) {
-            return undefined;
-        }
-        if (typeof value !== 'string' || value.trim().length === 0) {
-            throw new Error(`editor_mcp_snowb_${fieldName}_invalid`);
-        }
-        const normalizedPath = value.trim().split('\\').join('/');
-        if (
-            normalizedPath.startsWith('/') ||
-            /^[a-zA-Z]:/.test(normalizedPath) ||
-            normalizedPath.split('/').some((segment) => segment.length === 0 || segment === '..')
-        ) {
-            throw new Error(`editor_mcp_snowb_${fieldName}_not_project_relative`);
-        }
-        return normalizedPath;
-    }
-
-    /** @description 读取 SnowB 缓存文件名，禁止目录片段并要求 `.sbf` 后缀。 */
-    private _readSbfName(value: unknown): string | undefined {
-        if (value == null) {
-            return undefined;
-        }
-        if (typeof value !== 'string') {
-            throw new Error('editor_mcp_snowb_sbfName_invalid');
-        }
-        const sbfName = value.trim();
-        if (sbfName.length === 0 || sbfName.includes('/') || sbfName.includes('\\') || !sbfName.toLowerCase().endsWith('.sbf')) {
-            throw new Error('editor_mcp_snowb_sbfName_invalid');
-        }
-        return sbfName;
-    }
-
-    /** @description 读取可选 BMFont 导出格式。 */
-    private _readExportFormat(value: unknown): 'text' | 'xml' | 'binary' | undefined {
-        if (value == null) {
-            return undefined;
-        }
-        if (value !== 'text' && value !== 'xml' && value !== 'binary') {
-            throw new Error('editor_mcp_snowb_exportFormat_invalid');
-        }
-        return value;
     }
 
     /** @description 要求 message grant。 */
@@ -1168,7 +1064,6 @@ export class EditorMcpActionRouter {
             case 'preview.query':
             case 'preview.refresh':
             case 'preview.queryErrors':
-            case 'preview.capture':
             case 'builder.queryPlatforms':
             case 'builder.querySchema':
             case 'builder.queryDefaultConfig':
@@ -1177,8 +1072,6 @@ export class EditorMcpActionRouter {
             case 'reference.queryImage':
             case 'reference.setImage':
                 return true;
-            case 'snowb.bmfont.export':
-                return this._runtime.projectRead != null;
             default:
                 if (operation === 'lumen.compileRecipe') {
                     return true;

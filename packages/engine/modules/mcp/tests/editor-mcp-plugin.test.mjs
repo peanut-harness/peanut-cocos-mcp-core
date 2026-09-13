@@ -109,7 +109,7 @@ function createLumenGatewayStub() {
 }
 
 test('bindController preserves button events addressed only by nodePath', () => {
-    const router = new EditorMcpActionRouter({}, {}, createCatalogLookupStub(), createLumenGatewayStub());
+    const router = new EditorMcpActionRouter({}, createCatalogLookupStub(), createLumenGatewayStub());
     const parsed = router._readLumenBindControllerInput({
         prefabRelativePath: 'assets/ui/Demo.prefab',
         scriptRelativePath: 'assets/ui/DemoController.ts',
@@ -132,7 +132,6 @@ async function createActivePluginModule(options = {}) {
         createCatalogLookupStub(),
         options.lumenGateway ?? createLumenGatewayStub(),
     );
-    const serviceRequests = [];
     const messageRequests = [];
     let selectedIds = ['node-a'];
     await pluginModule.activate({
@@ -212,15 +211,10 @@ async function createActivePluginModule(options = {}) {
                 getProjectPath: async () => options.projectPath ?? 'projects/mcp-test',
             },
         },
-        services: {
-            request: async (providerPluginId, serviceId, request) => {
-                serviceRequests.push({ providerPluginId, serviceId, request });
-                return { fontPath: 'assets/fonts/generated/figma_label.fnt' };
-            },
-        },
+        services: { request: async () => undefined },
         logger: { info: () => {} },
     });
-    return { pluginModule, serviceRequests, messageRequests };
+    return { pluginModule, messageRequests };
 }
 
 test('Editor MCP plugin should declare a tooling manifest and dynamic factory', () => {
@@ -238,7 +232,7 @@ test('Editor MCP plugin should declare a tooling manifest and dynamic factory', 
 });
 
 test('Editor MCP plugin should list, plan, and execute supported operations', async () => {
-    const { pluginModule, serviceRequests } = await createActivePluginModule();
+    const { pluginModule } = await createActivePluginModule();
     const capabilities = await pluginModule.dispatchMcpAction('editor-mcp.capabilities.list');
     const capabilityAlias = await pluginModule.dispatchMcpAction('cocos.capabilities');
     const editorPlan = await pluginModule.dispatchMcpAction('editor-mcp.plan', { operation: 'editor.queryVersion' });
@@ -246,10 +240,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
     const catalogPlan = await pluginModule.dispatchMcpAction('cocos.plan', {
         operation: 'asset.catalog.lookup',
         input: { type: 'script', name: 'SeatItem', limit: 5 },
-    });
-    const snowbPlan = await pluginModule.dispatchMcpAction('cocos.plan', {
-        operation: 'snowb.bmfont.export',
-        input: { configRelativePath: 'assets/fonts/figma-export.json', outputRelativePath: 'assets/fonts/generated', exportFormat: 'text' },
     });
     const lumenPlan = await pluginModule.dispatchMcpAction('cocos.plan', {
         operation: 'lumen.scaffold',
@@ -264,10 +254,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
         input: { type: 'script', name: 'SeatItem', limit: 5 },
     });
     const sceneResult = await pluginModule.dispatchMcpAction('editor-mcp.execute', { operation: 'scene.getHierarchy' });
-    const snowbResult = await pluginModule.dispatchMcpAction('cocos.call', {
-        operation: 'snowb.bmfont.export',
-        input: { configRelativePath: 'assets/fonts/figma-export.json', outputRelativePath: 'assets/fonts/generated', exportFormat: 'text' },
-    });
     const lumenTemplates = await pluginModule.dispatchMcpAction('cocos.call', { operation: 'lumen.templates' });
     const lumenScaffold = await pluginModule.dispatchMcpAction('cocos.call', {
         operation: 'lumen.scaffold',
@@ -278,7 +264,7 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
         input: { paths: ['assets/ui/Demo.prefab'] },
     });
 
-    assert.equal(capabilities.length, 85);
+    assert.equal(capabilities.length, 83);
     assert.equal(capabilityAlias.length, capabilities.length);
     const byOp = Object.fromEntries(capabilities.map((c) => [c.operation, c]));
     assert.equal(byOp['asset.replaceReferences'].lane, 'lumen-offline');
@@ -312,8 +298,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
     assert.equal(catalogPlan.operation, 'asset.catalog.lookup');
     assert.equal(catalogPlan.readOnly, true);
     assert.equal(catalogPlan.risk, 'read');
-    assert.equal(snowbPlan.readOnly, false);
-    assert.equal(snowbPlan.risk, 'write');
     const importOverwritePlan = await pluginModule.dispatchMcpAction('cocos.plan', {
         operation: 'asset.import',
         input: {
@@ -352,7 +336,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
         input: { uuid: 'log-uuid', url: 'db://assets/temp/logs/project.log' },
     });
     assert.equal(skippedLog.data.action.kind, 'skip');
-    assert.equal(snowbPlan.executable, true);
     assert.equal(lumenPlan.readOnly, false);
     assert.equal(lumenPlan.executable, true);
     assert.equal(versionResult.data.raw, '3.8.7');
@@ -363,7 +346,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
     assert.equal(sceneResult.data.nodes[0].name, '__hidden__');
     assert.equal(sceneResult.data.nodes[0].children[0].uuid, 'root-uuid');
     assert.equal(sceneResult.data.availability, 'live');
-    assert.equal(snowbResult.data.fontPath, 'assets/fonts/generated/figma_label.fnt');
     assert.equal(lumenTemplates.data.count, 1);
     assert.equal(lumenScaffold.data.prefab, 'assets/ui/Demo.prefab');
     assert.equal(lumenScaffold.data.recommendedNext.operation, 'lumen.commit');
@@ -383,18 +365,6 @@ test('Editor MCP plugin should list, plan, and execute supported operations', as
     assert.match(String(lumenCommit.data.nextHint), /Never scene\.save/);
     assert.doesNotMatch(String(lumenCommit.data.nextHint), /scene\.reload as write|→ scene\.reload/);
     assert.match(String(lumenCommit.data.nextHint), /scene\.open/);
-    assert.deepEqual(serviceRequests, [{
-        providerPluginId: 'snowb.bmfont',
-        serviceId: 'bmfont.export',
-        request: {
-            action: 'export',
-            projectDirectory: 'projects/mcp-test',
-            configRelativePath: 'assets/fonts/figma-export.json',
-            sbfName: undefined,
-            outputRelativePath: 'assets/fonts/generated',
-            exportFormat: 'text',
-        },
-    }]);
 });
 
 test('Editor MCP plugin should reject unsupported or invalid requests and calls after deactivation', async () => {
@@ -406,14 +376,10 @@ test('Editor MCP plugin should reject unsupported or invalid requests and calls 
         operation: 'asset.catalog.lookup',
         input: {},
     }), /editor_mcp_catalog_lookup_requires_uuid_or_type_or_name_or_path/);
-    await assert.rejects(async () => pluginModule.dispatchMcpAction('cocos.call', {
-        operation: 'snowb.bmfont.export',
-        input: { projectDirectory: 'D:/outside-project', configRelativePath: 'assets/fonts/figma-export.json' },
-    }), /editor_mcp_snowb_input_field_unsupported:projectDirectory/);
-    await assert.rejects(async () => pluginModule.dispatchMcpAction('cocos.call', {
-        operation: 'snowb.bmfont.export',
-        input: { configRelativePath: '../outside-project.json' },
-    }), /editor_mcp_snowb_configRelativePath_not_project_relative/);
+    await assert.rejects(
+        async () => pluginModule.dispatchMcpAction('cocos.call', { operation: 'snowb.bmfont.export' }),
+        /editor_mcp_operation_unsupported:snowb\.bmfont\.export/,
+    );
     await assert.rejects(async () => {
         const gateway = new EditorMcpLumenGateway(async () => '/tmp/unused');
         gateway.validate('lumen.scaffold', { prefabRelativePath: '../escape.prefab' });

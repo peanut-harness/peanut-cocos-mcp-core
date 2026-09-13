@@ -5,7 +5,6 @@ import { mkdtemp, mkdir, writeFile, rm, utimes, symlink, realpath } from 'node:f
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { EditorMcpPreviewGateway } from '../dist/editor-mcp-preview-gateway.js';
 import { EditorMcpBuilderGateway, extractArtifactHints } from '../dist/editor-mcp-builder-gateway.js';
 import { EditorMcpBuilderPostBuildHookRegistry } from '../dist/editor-mcp-builder-post-build-hooks.js';
 import { EditorMcpReferenceGateway } from '../dist/editor-mcp-reference-gateway.js';
@@ -13,31 +12,6 @@ import { EditorMcpLumenGateway } from '../dist/editor-mcp-lumen-gateway.js';
 import { executeLodRecalcBounds } from '../dist/editor-mcp-lod-recalc.js';
 import { buildSceneSaveRefusePayload, resolveSceneHostRoute, SCENE_SAVE_REFUSED_REASON } from '../dist/editor-mcp-scene-host-routes.js';
 import { EditorMcpSceneGateway } from '../dist/editor-mcp-scene-gateway.js';
-
-test('P0 readCaptureInput accepts scenePath / assetRelativePath', () => {
-    const gateway = new EditorMcpPreviewGateway({});
-    const a = gateway.readCaptureInput({
-        scenePath: 'assets/demo/Main.scene',
-        waitMs: 100,
-    });
-    assert.equal(a.scenePath, 'assets/demo/Main.scene');
-    assert.equal(a.waitMs, 100);
-    const b = gateway.readCaptureInput({
-        assetRelativePath: 'assets/demo/Other.scene',
-    });
-    assert.equal(b.assetRelativePath, 'assets/demo/Other.scene');
-});
-
-test('P0 capture with scenePath refuses without runtime message / missing file', async () => {
-    const gateway = new EditorMcpPreviewGateway({}, async () => process.cwd());
-    const missing = await gateway.capture({
-        scenePath: 'assets/__no_such__/Missing.scene',
-        outputRelativePath: '.peanut-ai/artifacts/_pink_p0_missing.png',
-    });
-    assert.equal(missing.available, false);
-    assert.equal(missing.availability, 'refused');
-    assert.match(String(missing.message), /preview_capture_refused:/);
-});
 
 test('P3 builder enrich + post-build hook registry (no Creator)', async () => {
     EditorMcpBuilderPostBuildHookRegistry.clearForTests();

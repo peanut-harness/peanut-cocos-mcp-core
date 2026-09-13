@@ -4,7 +4,7 @@
 
 依赖只允许沿以下方向流动：`protocol <- sdk <- engine <- hosts`。
 
-`panel` 是独立静态应用，只消费稳定消息协议，不装配 runtime、kernel 或 Creator API。Creator 生命周期、进程、版本和面板装配全部归 `hosts`；业务能力、审批、资产写入和版本能力适配全部归 `engine`。
+`panel` 是独立静态应用，只消费稳定消息协议，不装配 runtime、kernel 或 Creator API，并且是 HTML/CSS/浏览器脚本的唯一源码源头。Creator 生命周期、进程、版本和面板装配全部归 `hosts`；业务能力、审批、资产写入和版本能力适配全部归 `engine`。
 
 ## 工作区
 
@@ -13,6 +13,8 @@
 - `engine` 通过 package subpath 暴露内部模块；内部目录不是独立发布单元。
 - `hosts` 包含 2.x 与 3.x 两类壳，并把具体版本映射为四个兼容画像。
 - `panel` 只保留可复制进 Creator 扩展的静态页面和最小应用标识。
+
+`RuntimeFacade` 只依赖适配器工厂契约，具体 2.4、3.0–3.5 与 3.6–3.8 实现由默认组合根集中装配。适配器 id 重复或版本范围重叠均 fail-closed；默认内存宿主为空，测试数据必须显式注入。
 
 ## 版本画像
 
@@ -32,4 +34,5 @@
 - 缺失 schema、未知版本、空资源授权和不匹配风险均 fail-closed。
 - `prefab.unpack`、`prefab.unlink`、`builder.build` 与删除/替换类操作按 destructive 处理。
 - Lite 不导入 Pro；订阅状态不能替代本地写入审批。
+- `preview.capture` 与 `snowb.bmfont.export` 是 Pro 独占操作，Lite 在所有 Creator 画像上都显式拒绝，也不请求 Pro admission 服务。
 - Creator 进程匹配必须精确解析 `--project` / `--path`，不得用路径前缀或其它工程进程作为当前工程证据。

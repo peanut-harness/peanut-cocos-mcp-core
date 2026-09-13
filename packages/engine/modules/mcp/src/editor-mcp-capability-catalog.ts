@@ -547,16 +547,6 @@ export const EDITOR_MCP_CAPABILITY_SEEDS: readonly EditorMcpCapabilitySeed[] = [
         requiresInput: false,
     },
     {
-        operation: 'preview.capture',
-        readOnly: true,
-        risk: 'read',
-        description: {
-            'en-US': 'Screenshot preview (Creator message or optional playwright). Optional scenePath/assetRelativePath prepares that .scene when Creator allows without UI confirm; else availability refused.',
-            'zh-CN': '预览截图（Creator message 或可选 playwright）。可选 scenePath/assetRelativePath：Creator 允许且无确认框时准备该场景；否则 availability refused。',
-        },
-        requiresInput: false,
-    },
-    {
         operation: 'builder.queryPlatforms',
         readOnly: true,
         risk: 'read',
@@ -593,16 +583,6 @@ export const EDITOR_MCP_CAPABILITY_SEEDS: readonly EditorMcpCapabilitySeed[] = [
         description: {
             'en-US': 'Start a Creator build task (destructive; requires confirmDestructive).',
             'zh-CN': '启动 Creator 构建任务（destructive；需 confirmDestructive）。',
-        },
-        requiresInput: true,
-    },
-    {
-        operation: 'snowb.bmfont.export',
-        readOnly: false,
-        risk: 'write',
-        description: {
-            'en-US': 'Export BMFont using the current project SnowB configuration or cached .sbf file.',
-            'zh-CN': '使用当前 Cocos 项目中的 SnowB 配置或缓存 .sbf 导出 BMFont。',
         },
         requiresInput: true,
     },

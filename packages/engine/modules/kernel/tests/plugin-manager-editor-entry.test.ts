@@ -53,7 +53,6 @@ test('plugin-manager host watch path resolver should return panel and source dir
     const /* 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。 */ watchPaths = resolvePluginManagerHostWatchPaths('D:\\workspaces\\peanut-cocos-mcp-projects\\@peanut/pod-engine/kernel\\');
 
     assert.deepEqual(watchPaths, [
-        'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-engine/kernel/panels/plugin-manager/embedded',
         'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-engine/kernel/src',
     ]);
 });
@@ -67,7 +66,6 @@ test('plugin-manager split host watch path resolver should prefer panel package 
 
     assert.deepEqual(watchPaths, [
         'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-engine/kernel/src',
-        'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-engine/kernel/panels/plugin-manager/embedded',
         'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-panel/panels/plugin-manager/embedded',
         'D:/workspaces/peanut-cocos-mcp-projects/@peanut/pod-panel/src',
     ]);

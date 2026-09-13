@@ -18,7 +18,20 @@ export class BuiltinScenePluginHarness {
      * @param creatorVersion 当前宿主绑定的 Creator 版本字符串
      */
     public constructor(creatorVersion: string) {
-        this._runtime = new RuntimeFacade(creatorVersion);
+        this._runtime = new RuntimeFacade(creatorVersion, {
+            initialState: {
+                sceneNodes: [
+                    {
+                        nodeId: 'root-node',
+                        state: {
+                            nodeId: 'root-node',
+                            enabled: false,
+                            name: 'Root Node',
+                        },
+                    },
+                ],
+            },
+        });
         this._pluginManager = new PluginManagerApp(this._runtime);
     }
 
