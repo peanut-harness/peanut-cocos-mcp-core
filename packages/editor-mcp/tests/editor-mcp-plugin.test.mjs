@@ -133,6 +133,7 @@ async function createActivePluginModule(options = {}) {
         options.lumenGateway ?? createLumenGatewayStub(),
     );
     const serviceRequests = [];
+    const messageRequests = [];
     let selectedIds = ['node-a'];
     await pluginModule.activate({
         plugin: { id: 'peanut.editor-mcp' },
@@ -162,7 +163,8 @@ async function createActivePluginModule(options = {}) {
                 ],
             },
             message: {
-                request: async (target, message) => {
+                request: async (target, message, ...args) => {
+                    messageRequests.push({ target, message, args });
                     if (target === 'scene' && message === 'query-current-scene') {
                         return { uuid: 'scene-uuid', url: 'db://assets/Main.scene' };
                     }
@@ -175,7 +177,22 @@ async function createActivePluginModule(options = {}) {
                     if (target === 'scene' && message === 'create-node') {
                         return { created: true };
                     }
-                    if (target === 'scene' && (message === 'unlink-prefab' || message === 'unpack-prefab')) {
+                    if (target === 'scene' && message === 'query-node') {
+                        return {
+                            uuid: 'child-uuid',
+                            __prefab__: {
+                                uuid: 'prefab-asset-uuid',
+                                prefabStateInfo: { assetUuid: 'prefab-asset-uuid' },
+                            },
+                        };
+                    }
+                    if (target === 'scene' && message === 'create-prefab') {
+                        return 'prefab-uuid';
+                    }
+                    if (target === 'scene' && message === 'apply-prefab') {
+                        return true;
+                    }
+                    if (target === 'scene' && (message === 'unlink-prefab' || message === 'restore-prefab')) {
                         return { unlinked: true };
                     }
                     if (target === 'asset-db' && message === 'open-asset') {
@@ -203,7 +220,7 @@ async function createActivePluginModule(options = {}) {
         },
         logger: { info: () => {} },
     });
-    return { pluginModule, serviceRequests };
+    return { pluginModule, serviceRequests, messageRequests };
 }
 
 test('Editor MCP plugin should declare a tooling manifest and dynamic factory', () => {
@@ -1475,7 +1492,7 @@ test('Editor MCP lumen gateway scaffolds and builds structure on a real project'
 });
 
 test('Editor MCP should set selection by path and batch queryInfo', async () => {
-    const { pluginModule } = await createActivePluginModule();
+    const { pluginModule, messageRequests } = await createActivePluginModule();
     const setSelection = await pluginModule.dispatchMcpAction('cocos.call', {
         operation: 'editor.setSelection',
         input: { paths: ['Demo/Child'] },
@@ -1510,6 +1527,54 @@ test('Editor MCP should set selection by path and batch queryInfo', async () => 
         input: { type: 'Camera', name: 'MainCamera', parentPath: 'Demo' },
     });
     assert.equal(createNode.data.available, true);
+
+    const createPrefab = await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'prefab.createFromNode',
+        input: { nodePath: 'Demo/Child', prefabPath: 'db://assets/Child.prefab' },
+    });
+    assert.equal(createPrefab.data.available, true);
+    assert.equal(createPrefab.data.data.instancePath, 'Demo/Child');
+    assert.equal(createPrefab.data.data.instanceUuid, 'child-uuid');
+    assert.deepEqual(messageRequests.at(-1), {
+        target: 'scene',
+        message: 'create-prefab',
+        args: ['child-uuid', 'db://assets/Child.prefab'],
+    });
+
+    const apply = await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'prefab.apply',
+        input: { nodePath: 'Demo/Child' },
+    });
+    assert.equal(apply.data.available, true);
+    assert.deepEqual(messageRequests.at(-1), {
+        target: 'scene',
+        message: 'apply-prefab',
+        args: ['child-uuid'],
+    });
+
+    const revert = await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'prefab.revert',
+        input: { nodePath: 'Demo/Child' },
+    });
+    assert.equal(revert.data.available, true);
+    assert.equal(revert.data.message, 'prefab_revert_ok:restore-prefab');
+    assert.deepEqual(messageRequests.at(-1), {
+        target: 'scene',
+        message: 'restore-prefab',
+        args: ['child-uuid', 'prefab-asset-uuid'],
+    });
+
+    const unpack = await pluginModule.dispatchMcpAction('cocos.call', {
+        operation: 'prefab.unpack',
+        input: { nodePath: 'Demo/Child', confirmDestructive: true },
+    });
+    assert.equal(unpack.data.available, true);
+    assert.equal(unpack.data.message, 'prefab_unpack_ok:unlink-prefab');
+    assert.deepEqual(messageRequests.at(-1), {
+        target: 'scene',
+        message: 'unlink-prefab',
+        args: ['child-uuid', true],
+    });
 
     await assert.rejects(
         async () =>

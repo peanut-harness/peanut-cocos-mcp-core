@@ -458,13 +458,55 @@ export class EditorMcpSceneGateway {
         message: "prefab_create_blocked:invalid_prefab_path",
       });
     }
-    return this._requestSceneFirst(
+    const nodePath = input.nodePath.trim();
+    const nodeUuid = await this._resolveNodeUuid(nodePath);
+    if (nodeUuid == null) {
+      return this._finalize({
+        available: false,
+        message: "prefab_create_refused:node_not_found",
+        data: { nodePath, prefabPath },
+      });
+    }
+    const created = await this._requestSceneFirst(
       [
-        ["create-prefab", [input.nodePath.trim(), prefabPath]],
-        ["create-prefab", [{ node: input.nodePath.trim(), url: prefabPath }]],
+        ["create-prefab", [nodeUuid, prefabPath]],
+        ["create-prefab", [{ uuid: nodeUuid, url: prefabPath }]],
       ],
       "prefab_create",
     );
+    if (!created.available) {
+      return created;
+    }
+    const asset = await this._waitForReadableAsset(prefabPath);
+    if (asset == null) {
+      return this._finalize({
+        available: false,
+        message: "prefab_create_unverified:asset_missing",
+        data: { nodePath, nodeUuid, prefabPath },
+      });
+    }
+    const prefabName = prefabPath.split("/").pop()?.replace(/\.prefab$/iu, "");
+    const parentPath = nodePath.includes("/")
+      ? nodePath.slice(0, nodePath.lastIndexOf("/"))
+      : "";
+    const instancePath =
+      prefabName == null || prefabName.length === 0
+        ? nodePath
+        : parentPath.length > 0
+          ? `${parentPath}/${prefabName}`
+          : prefabName;
+    const instanceUuid = await this._resolveNodeUuid(instancePath);
+    return {
+      ...created,
+      data: {
+        nodePath,
+        nodeUuid,
+        prefabPath,
+        asset,
+        instancePath,
+        instanceUuid,
+      },
+    };
   }
 
   /**
@@ -475,9 +517,13 @@ export class EditorMcpSceneGateway {
   public async apply(
     input: IPrefabInstanceOpMcpInput,
   ): Promise<IEditorMcpSceneOpResult> {
-    return this._requestPrefabInstanceOp(
-      input.nodePath,
-      "apply-prefab",
+    const nodePath = input.nodePath.trim();
+    const uuid = (await this._resolveNodeUuid(nodePath)) ?? nodePath;
+    return this._requestSceneFirst(
+      [
+        ["apply-prefab", [uuid]],
+        ["apply-prefab", [{ uuid }]],
+      ],
       "prefab_apply",
     );
   }
@@ -490,9 +536,22 @@ export class EditorMcpSceneGateway {
   public async revert(
     input: IPrefabInstanceOpMcpInput,
   ): Promise<IEditorMcpSceneOpResult> {
-    return this._requestPrefabInstanceOp(
-      input.nodePath,
-      "revert-prefab",
+    const nodePath = input.nodePath.trim();
+    const uuid = (await this._resolveNodeUuid(nodePath)) ?? nodePath;
+    const assetUuid = await this._resolvePrefabAssetUuid(uuid);
+    if (assetUuid == null) {
+      return this._finalize({
+        available: false,
+        message: "prefab_revert_refused:asset_uuid_unresolved",
+        data: { nodePath, uuid },
+      });
+    }
+    return this._requestSceneFirst(
+      [
+        ["restore-prefab", [uuid, assetUuid]],
+        ["restore-prefab", [{ uuid }]],
+        ["restore-prefab", [uuid]],
+      ],
       "prefab_revert",
     );
   }
@@ -505,9 +564,14 @@ export class EditorMcpSceneGateway {
   public async unpack(
     input: IPrefabInstanceOpMcpInput,
   ): Promise<IEditorMcpSceneOpResult> {
-    return this._requestPrefabInstanceOp(
-      input.nodePath,
-      "unpack-prefab",
+    const nodePath = input.nodePath.trim();
+    const uuid = (await this._resolveNodeUuid(nodePath)) ?? nodePath;
+    return this._requestSceneFirst(
+      [
+        ["unlink-prefab", [uuid, true]],
+        ["unlink-prefab", [uuid]],
+        ["unlink-prefab", [{ uuid }]],
+      ],
       "prefab_unpack",
     );
   }
@@ -524,6 +588,7 @@ export class EditorMcpSceneGateway {
     const uuid = (await this._resolveNodeUuid(nodePath)) ?? nodePath;
     const unlinked = await this._requestSceneFirst(
       [
+        ["unlink-prefab", [uuid, false]],
         ["unlink-prefab", [uuid]],
         ["unlink-prefab", [{ uuid }]],
         ["unlink-prefab", [nodePath]],
@@ -1286,6 +1351,69 @@ export class EditorMcpSceneGateway {
       ],
       label,
     );
+  }
+
+  /**
+   * @description 等待 AssetDB 能读到刚创建的资源，避免把空操作误报为成功。
+   * @param dbPath db:// 资源路径。
+   * @returns 资源信息；超时或无读取能力时返回 null。
+   */
+  private async _waitForReadableAsset(
+    dbPath: string,
+  ): Promise<Record<string, unknown> | null> {
+    const assetRead = this._runtime.assetRead;
+    if (assetRead == null) {
+      return null;
+    }
+    const queryPath = dbPath.replace(/^db:\/\//u, "");
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      try {
+        const result = await assetRead.query(queryPath);
+        if (result != null && typeof result === "object") {
+          return result as Record<string, unknown>;
+        }
+      } catch {}
+      await new Promise<void>((resolveDelay) => setTimeout(resolveDelay, 100));
+    }
+    return null;
+  }
+
+  /**
+   * @description 从 Creator 节点 dump 解析 Prefab 资源 UUID。
+   * @param nodeUuid Prefab 实例节点 UUID。
+   * @returns Prefab 资源 UUID；无法解析时返回 null。
+   */
+  private async _resolvePrefabAssetUuid(
+    nodeUuid: string,
+  ): Promise<string | null> {
+    const message = this._runtime.message;
+    if (message == null) {
+      return null;
+    }
+    try {
+      const node = await message.request<Record<string, unknown>>(
+        "scene",
+        "query-node",
+        nodeUuid,
+      );
+      const prefab = node.__prefab__;
+      if (prefab == null || typeof prefab !== "object") {
+        return null;
+      }
+      const prefabRecord = prefab as Record<string, unknown>;
+      const state = prefabRecord.prefabStateInfo;
+      if (state != null && typeof state === "object") {
+        const assetUuid = (state as Record<string, unknown>).assetUuid;
+        if (typeof assetUuid === "string" && assetUuid.length > 0) {
+          return assetUuid;
+        }
+      }
+      return typeof prefabRecord.uuid === "string" && prefabRecord.uuid.length > 0
+        ? prefabRecord.uuid
+        : null;
+    } catch {
+      return null;
+    }
   }
 
   /**
