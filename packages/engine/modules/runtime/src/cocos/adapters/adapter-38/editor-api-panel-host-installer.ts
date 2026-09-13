@@ -1,5 +1,5 @@
 import { EditorApiPanelHostBridgeRegistry } from './editor-api-panel-host-bridge-registry.js';
-import type { IEditorApiPanelHostBridge, IEditorApiPanelHostGlobal } from './editor-api-host-panel-window-provider.js';
+import type { IEditorApiPanelHostBridge, IEditorApiPanelHostGlobal } from '../core/editor-api-panel-window.js';
 import {
     EditorApiWindowBackedPanelHostBridge,
     type IEditorApiPanelWindowFactory,

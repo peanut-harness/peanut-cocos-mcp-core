@@ -6,7 +6,16 @@ import test from 'node:test';
 
 import type { IAcceptedTask } from '../src/execution/ingress/task-ingress';
 
-import { EditorApiHostAssetBridgeProvider, EditorApiHostSceneBridgeProvider, RuntimeFacade, TaskMerger } from '../src/index';
+import {
+    CreatorAdapterFactoryRegistry,
+    EditorApiHostAssetBridgeProvider,
+    EditorApiHostSceneBridgeProvider,
+    RuntimeFacade,
+    TaskMerger,
+    type ICreatorPhaseAdapterFactory,
+} from '../src/index';
+import { EditorApi24AdapterFactory } from '../src/cocos/adapters/adapter-24/editor-api-24-adapter-factory';
+import { CreatorHostState } from '../src/cocos/shared/host-state';
 import { VersionResolver } from '../src/cocos/version/version-resolver';
 
 /**
@@ -36,6 +45,32 @@ function createSeededRuntimeFacade(): RuntimeFacade {
     });
 }
 import { RuntimeSmokeHarness } from '../src/integration/runtime-smoke-harness';
+
+test('creator adapter factory registry should reject duplicate ids and phases', (): void => {
+    const registry = new CreatorAdapterFactoryRegistry();
+    const factory = new EditorApi24AdapterFactory();
+    registry.register(factory);
+
+    assert.throws(() => registry.register(factory), /adapter_factory_id_duplicate:adapter-24-factory/);
+
+    const duplicatePhaseFactory: ICreatorPhaseAdapterFactory = {
+        id: 'alternate-creator-2x-factory',
+        phase: 'creator_2x',
+        create: (creatorVersion, hostState, options) => factory.create(creatorVersion, hostState, options),
+    };
+    assert.throws(
+        () => registry.register(duplicatePhaseFactory),
+        /adapter_factory_phase_duplicate:creator_2x/,
+    );
+});
+
+test('creator adapter factory registry should reject an unregistered phase', (): void => {
+    const registry = new CreatorAdapterFactoryRegistry();
+    assert.throws(
+        () => registry.create('3.8.7', 'editor_api_stable', new CreatorHostState()),
+        /adapter_factory_phase_unsupported:editor_api_stable:3.8.7/,
+    );
+});
 
 test('runtime smoke harness should resolve the 3.8 adapter and complete a task snapshot', async (): Promise<void> => {
     // 保存当前执行步骤的中间结果，仅在本作用域内参与后续处理。

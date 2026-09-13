@@ -24,7 +24,7 @@ export {
   EditorApi35Adapter,
 } from "./cocos/adapters/adapter-35/index.js";
 export { EditorApiHostSceneBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-scene-bridge-provider.js";
-export { EditorApiHostMessageBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-message-bridge-provider.js";
+export { EditorApiHostMessageBridgeProvider } from "./cocos/adapters/shared/editor-api-host-message-bridge-provider.js";
 export { EditorApiHostSelectionBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-selection-bridge-provider.js";
 export type {
   IEditorApiSceneHostGlobal,
@@ -46,20 +46,22 @@ export type {
   IEditorApiPanelHostMetadata,
   IEditorApiPanelWindowLaunchRequest,
   IEditorApiPanelWindowProvider,
-} from "./cocos/adapters/adapter-38/editor-api-panel-window-launcher.js";
+} from "./cocos/adapters/core/editor-api-panel-window.js";
 export type {
-  IEditorApiHostPanelWindowProviderOptions,
   IEditorApiPanelHostBridge,
   IEditorApiPanelHostGlobal,
-} from "./cocos/adapters/adapter-38/editor-api-host-panel-window-provider.js";
+} from "./cocos/adapters/core/editor-api-panel-window.js";
+export type { IEditorApiHostPanelWindowProviderOptions } from "./cocos/adapters/adapter-38/editor-api-host-panel-window-provider.js";
 export type {
   IEditorApiPanelWindowFactory,
   IEditorApiPanelWindowHandle,
 } from "./cocos/adapters/adapter-38/editor-api-window-backed-panel-host-bridge.js";
 export { AdapterRegistry } from "./cocos/adapters/core/adapter-registry.js";
+export { CreatorAdapterFactoryRegistry } from "./cocos/adapters/creator-adapter-factory-registry.js";
 export { DefaultCreatorAdapterFactory } from "./cocos/adapters/default-creator-adapter-factory.js";
 export type {
   ICreatorAdapterFactory,
+  ICreatorPhaseAdapterFactory,
   IDefaultCreatorAdapterFactoryOptions,
 } from "./cocos/adapters/default-creator-adapter-factory.js";
 export { BaseCreatorAdapter } from "./cocos/adapters/core/base-creator-adapter.js";
@@ -136,5 +138,6 @@ export type { IPanelHostSessionRecord } from "./cocos/shared/host-state.js";
 export { CreatorHostState } from "./cocos/shared/host-state.js";
 export type { IVersionResolver } from "./cocos/version/version-resolver.js";
 export { VersionResolver } from "./cocos/version/version-resolver.js";
-export type { IEditorApiAssetBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-asset-bridge-provider.js";
+export type { IEditorApiAssetBridgeProvider } from "./cocos/adapters/core/editor-api-asset-bridge-provider.js";
+export type { IEditorApiSceneBridgeProvider } from "./cocos/adapters/core/editor-api-scene-bridge-provider.js";
 export { EditorApiHostAssetBridgeProvider } from "./cocos/adapters/adapter-38/editor-api-host-asset-bridge-provider.js";

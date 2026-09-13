@@ -11,6 +11,7 @@ Cocos Creator 编辑器产品。公开 83 项免费操作（38 读、45 写/破�
 - `apps/panel`：静态面板应用，不依赖 engine/hosts。
 - 只有根 `package-lock.json`；内部 modules 不是 workspace，不得声明 `file:` 依赖。
 - 内部 modules 由 manifest 自动发现，按 `peanut.internalDependencies` 拓扑执行并校验源码导入。
+- Creator 版本实现使用阶段工厂注册表装配；版本目录互不导入，共用端口与宿主实现分别归 `adapters/core`、`adapters/shared`。
 
 ## Creator Profiles
 

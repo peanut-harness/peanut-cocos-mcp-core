@@ -1,9 +1,14 @@
 import {
-    DefaultEditorApiPanelWindowProvider,
     type IEditorApiPanelBrowserWindow,
+    type IEditorApiPanelHostBridge,
+    type IEditorApiPanelHostGlobal,
     type IEditorApiPanelWindowLaunchRequest,
     type IEditorApiPanelWindowProvider,
-} from './editor-api-panel-window-launcher.js';
+} from '../core/editor-api-panel-window.js';
+import { DefaultEditorApiPanelWindowProvider } from '../shared/default-editor-api-panel-window-provider.js';
+import { MissingEditorApiPanelHostError } from './missing-editor-api-panel-host-error.js';
+
+export { MissingEditorApiPanelHostError } from './missing-editor-api-panel-host-error.js';
 
 /**
  * @description Editor API 宿主面板 provider 可选项。
@@ -13,59 +18,6 @@ export interface IEditorApiHostPanelWindowProviderOptions {
      * @description 缺失真实宿主 bridge 时是否允许退回内存 skeleton provider；默认 `false`。
      */
     readonly allowFallbackProvider?: boolean;
-}
-
-/**
- * @description 当 3.8.7 宿主未安装真实 panel host bridge 且未允许测试 fallback 时抛出的错误。
- */
-export class MissingEditorApiPanelHostError extends Error {
-    /**
-     * @description 创建一个新的宿主 bridge 缺失错误。
-     */
-    public constructor() {
-        super(
-            'Editor API panel host bridge is not installed. Install __PEANUT_EDITOR_PANEL_HOST__ or explicitly allow the memory fallback provider.',
-        );
-        this.name = 'MissingEditorApiPanelHostError';
-    }
-}
-
-/**
- * @description Editor API 宿主桥接接口，由真实 Creator 宿主实现并注入。
- */
-export interface IEditorApiPanelHostBridge {
-    /**
-     * @description 启动一个真实宿主面板窗口。
-     * @param request 面板窗口启动请求
-     * @returns 宿主浏览器侧上下文对象
-     */
-    openPanelWindow(request: IEditorApiPanelWindowLaunchRequest): IEditorApiPanelBrowserWindow | Promise<IEditorApiPanelBrowserWindow>;
-
-    /**
-     * @description 聚焦一个真实宿主面板窗口。
-     * @param panelId 面板稳定标识
-     * @param browserWindow 当前宿主浏览器侧上下文对象
-     * @returns Promise 在聚焦完成后结束
-     */
-    focusPanelWindow?(panelId: string, browserWindow: IEditorApiPanelBrowserWindow): void | Promise<void>;
-
-    /**
-     * @description 关闭一个真实宿主面板窗口。
-     * @param panelId 面板稳定标识
-     * @param browserWindow 当前宿主浏览器侧上下文对象
-     * @returns Promise 在关闭完成后结束
-     */
-    closePanelWindow?(panelId: string, browserWindow: IEditorApiPanelBrowserWindow): void | Promise<void>;
-}
-
-/**
- * @description 可能携带宿主桥接的全局对象。
- */
-export interface IEditorApiPanelHostGlobal extends Record<string, unknown> {
-    /**
-     * @description 由真实宿主注入的 Panel Host bridge。
-     */
-    __PEANUT_EDITOR_PANEL_HOST__?: IEditorApiPanelHostBridge;
 }
 
 /**

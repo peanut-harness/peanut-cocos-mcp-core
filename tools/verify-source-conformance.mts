@@ -52,6 +52,7 @@ class SourceConformanceVerifier {
      * @returns 无返回值
      */
     public run(): void {
+        this._assertAdapterBoundaries();
         const baseline = this._readBaseline();
         const current = this._scan();
         for (const metric of Object.keys(baseline) as Array<keyof ICodeQualityBaseline>) {
@@ -60,6 +61,33 @@ class SourceConformanceVerifier {
             }
         }
         process.stdout.write(`${JSON.stringify({ ok: true, baseline, current }, null, 2)}\n`);
+    }
+
+    /**
+     * @description 阻止版本适配器直接依赖其他版本目录，公共能力必须下沉到 core 或 shared。
+     * @returns 无返回值
+     */
+    private _assertAdapterBoundaries(): void {
+        const adaptersDirectory = join(
+            this._repositoryRoot,
+            'packages',
+            'engine',
+            'modules',
+            'runtime',
+            'src',
+            'cocos',
+            'adapters',
+        );
+        for (const adapterDirectoryName of ['adapter-24', 'adapter-35', 'adapter-38']) {
+            const adapterDirectory = join(adaptersDirectory, adapterDirectoryName);
+            for (const filePath of this._collectSourceFiles(adapterDirectory)) {
+                const source = readFileSync(filePath, 'utf8');
+                const siblingAdapterImport = source.match(/from\s+['"]\.\.\/adapter-(?:24|35|38)\//u)?.[0];
+                if (siblingAdapterImport != null) {
+                    throw new Error(`adapter_boundary_violation:${adapterDirectoryName}:${filePath}`);
+                }
+            }
+        }
     }
 
     /**

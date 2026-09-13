@@ -4,7 +4,7 @@
 
 ## 职责
 
-- 通过独立工厂选择并注册 Creator adapter
+- 通过阶段工厂注册表选择并装配 Creator adapter
 - 暴露 `RuntimeFacade`
 - 提供 `message / asset / scene / selection / project / panel-host` runtime service
 - 管理任务接入、合并、锁、提交与 trace
@@ -54,4 +54,6 @@ npm run --workspace @peanut/pod-engine/runtime smoke
 - 允许依赖 `@peanut/pod-protocol`
 - 不承载插件治理、安装、回滚与 UI 管理逻辑
 - 不把 `Editor.*` 版本分支泄漏到消费方
+- 版本目录不得互相导入；共用端口和实现分别下沉到 `adapters/core` 与 `adapters/shared`
+- 重复工厂 id、重复阶段或未知阶段必须显式失败
 - 重复适配器 id 或同一版本命中多个适配器时显式失败

@@ -4,7 +4,7 @@ import { CreatorHostState } from '../../shared/host-state.js';
 import {
     EditorApiHostMessageBridgeProvider,
     type IEditorApiMessageHostGlobal,
-} from '../adapter-38/editor-api-host-message-bridge-provider.js';
+} from '../shared/editor-api-host-message-bridge-provider.js';
 
 /**
  * @description 面向 Cocos Creator 3.0.x–3.5.x 的早期 Editor API 适配器（compatible；写盘需实机重测）。

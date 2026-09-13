@@ -14,7 +14,7 @@ import {
     type ICreator24AssetDbApi,
     type ICreator24AssetDbHostGlobal,
 } from './editor-api-24-host-asset-bridge-provider.js';
-import type { IEditorApiAssetBridgeProvider } from '../adapter-38/editor-api-host-asset-bridge-provider.js';
+import type { IEditorApiAssetBridgeProvider } from '../core/editor-api-asset-bridge-provider.js';
 
 /**
  * @description Creator 2.4.x 主进程可能暴露的消息面（Ipc / 旧 Message）与 AssetDB。

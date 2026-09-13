@@ -3,25 +3,7 @@ import { existsSync, mkdirSync, renameSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
 import type { IAssetBridge } from '../core/creator-adapter.js';
-
-/** @description 真实 Creator AssetDB Prefab 写入桥接 provider。 */
-export interface IEditorApiAssetBridgeProvider {
-    /** @description 当前宿主是否提供可调用的 AssetDB 消息接口。 */
-    isAvailable(): boolean;
-
-    /** @description 查询指定资源或子资源的最新快照；不可用时返回 null。 */
-    queryAsset(pathOrUuid: string): Promise<unknown | null>;
-    /** @description 刷新指定资源并返回最新快照；不可用时返回 null。 */
-    refreshAsset(pathOrUuid: string): Promise<unknown | null>;
-    /** @description 按 pattern 批量查询资源快照（含子资源）；不可用时返回空数组。 */
-    queryAssets(options?: { readonly pattern?: string; readonly importer?: string | readonly string[] }): Promise<readonly unknown[]>;
-    /** @description 写入、刷新并选中指定 Prefab。 */
-    writePrefab(relativePath: string, prefab: readonly Record<string, unknown>[]): Promise<unknown>;
-    /** @description 写入受支持图片资源并刷新 AssetDB。 */
-    writeBinary(relativePath: string, content: Uint8Array, mediaType: 'image/png' | 'image/svg+xml' | 'application/json' | 'font/ttf' | 'font/otf'): Promise<unknown>;
-    /** @description 删除已验证的项目相对资源。 */
-    deleteAsset(relativePath: string): Promise<void>;
-}
+import type { IEditorApiAssetBridgeProvider } from '../core/editor-api-asset-bridge-provider.js';
 
 interface ICocosEditorAssetDbApi {
     request?(target: string, message: string, ...args: unknown[]): Promise<unknown>;

@@ -1,9 +1,9 @@
 import type {
     IEditorApiPanelBrowserWindow,
+    IEditorApiPanelHostBridge,
     IEditorApiPanelHostMetadata,
     IEditorApiPanelWindowLaunchRequest,
-} from './editor-api-panel-window-launcher.js';
-import type { IEditorApiPanelHostBridge } from './editor-api-host-panel-window-provider.js';
+} from '../core/editor-api-panel-window.js';
 
 /**
  * @description 可包装真实宿主窗口对象的基础句柄。

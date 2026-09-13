@@ -1,4 +1,4 @@
-import type { IEditorApiAssetBridgeProvider } from '../adapter-38/editor-api-host-asset-bridge-provider.js';
+import type { IEditorApiAssetBridgeProvider } from '../core/editor-api-asset-bridge-provider.js';
 
 /**
  * @description Creator 2.4 `Editor.assetdb` 回调签名。

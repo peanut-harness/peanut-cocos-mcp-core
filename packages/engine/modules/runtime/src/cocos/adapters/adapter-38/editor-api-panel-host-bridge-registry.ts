@@ -1,4 +1,4 @@
-import type { IEditorApiPanelHostBridge, IEditorApiPanelHostGlobal } from './editor-api-host-panel-window-provider.js';
+import type { IEditorApiPanelHostBridge, IEditorApiPanelHostGlobal } from '../core/editor-api-panel-window.js';
 
 /**
  * @description Editor API 宿主桥接注册器，用于让真实 Creator 宿主显式挂载 panel host bridge。

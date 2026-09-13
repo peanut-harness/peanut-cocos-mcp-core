@@ -8,18 +8,18 @@ import type {
 } from "../core/creator-adapter.js";
 import { CreatorHostState } from "../../shared/host-state.js";
 import {
-  DefaultEditorApiPanelWindowProvider,
   EditorApiPanelWindowLauncher,
-  type IEditorApiPanelBrowserWindow,
-  type IEditorApiPanelWindowProvider,
 } from "./editor-api-panel-window-launcher.js";
-import {
-  EditorApiHostAssetBridgeProvider,
-  type IEditorApiAssetBridgeProvider,
-} from "./editor-api-host-asset-bridge-provider.js";
-import { EditorApiHostMessageBridgeProvider } from "./editor-api-host-message-bridge-provider.js";
-import { EditorApiHostSceneBridgeProvider } from "./editor-api-host-scene-bridge-provider.js";
+import { EditorApiHostAssetBridgeProvider } from "./editor-api-host-asset-bridge-provider.js";
 import { EditorApiHostSelectionBridgeProvider } from "./editor-api-host-selection-bridge-provider.js";
+import type { IEditorApiAssetBridgeProvider } from "../core/editor-api-asset-bridge-provider.js";
+import type {
+  IEditorApiPanelBrowserWindow,
+  IEditorApiPanelWindowProvider,
+} from "../core/editor-api-panel-window.js";
+import type { IEditorApiSceneBridgeProvider } from "../core/editor-api-scene-bridge-provider.js";
+import { DefaultEditorApiPanelWindowProvider } from "../shared/default-editor-api-panel-window-provider.js";
+import { EditorApiHostMessageBridgeProvider } from "../shared/editor-api-host-message-bridge-provider.js";
 
 /**
  * @description 面向 Cocos Creator 3.6–3.8 稳定 Editor API 阶段的兼容适配器。
@@ -32,7 +32,7 @@ export class EditorApi38Adapter extends BaseCreatorAdapter {
   /** @description Creator AssetDB 真实写入 provider。 */
   private readonly _assetBridgeProvider: IEditorApiAssetBridgeProvider;
   /** @description Creator 场景脚本真实读取与执行 provider；缺失时安全回退内存 bridge。 */
-  private readonly _sceneBridgeProvider: EditorApiHostSceneBridgeProvider | null;
+  private readonly _sceneBridgeProvider: IEditorApiSceneBridgeProvider | null;
   /** @description Creator Message 真实转发 provider。 */
   private readonly _messageBridgeProvider: EditorApiHostMessageBridgeProvider;
   /** @description Creator Selection 真实读写 provider。 */
@@ -52,7 +52,7 @@ export class EditorApi38Adapter extends BaseCreatorAdapter {
     hostState: CreatorHostState,
     panelWindowProvider?: IEditorApiPanelWindowProvider,
     assetBridgeProvider?: IEditorApiAssetBridgeProvider,
-    sceneBridgeProvider?: EditorApiHostSceneBridgeProvider,
+    sceneBridgeProvider?: IEditorApiSceneBridgeProvider,
     hostGlobal?: Record<string, unknown>,
   ) {
     super("adapter-38", creatorVersion, hostState, ["editor-api"]);

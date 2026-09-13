@@ -36,7 +36,7 @@ export interface IEditorApiSceneNodeSnapshot extends Record<string, unknown> {
 /**
  * @description 真实 Creator 3.8 场景脚本桥接 provider。
  */
-export class EditorApiHostSceneBridgeProvider {
+export class EditorApiHostSceneBridgeProvider implements IEditorApiSceneBridgeProvider {
     /** @description Creator 主进程全局对象。 */
     private readonly _hostGlobal: IEditorApiSceneHostGlobal;
     /** @description 提供受控场景读取方法的宿主扩展包名。 */
@@ -187,3 +187,4 @@ export class EditorApiHostSceneBridgeProvider {
         return Object.values(value as Record<string, unknown>).every((item) => this._isJsonValue(item));
     }
 }
+import type { IEditorApiSceneBridgeProvider } from '../core/editor-api-scene-bridge-provider.js';
