@@ -35,6 +35,13 @@
     },
     "peanut": {
         "role": "business-plugin",
-        "verify": true
+        "verify": true,
+        "internalDependencies": [
+            "@peanut/pod-engine/assets",
+            "@peanut/pod-engine/kernel",
+            "@peanut/pod-engine/lumen",
+            "@peanut/pod-engine/lumen-24",
+            "@peanut/pod-engine/runtime"
+        ]
     }
 }

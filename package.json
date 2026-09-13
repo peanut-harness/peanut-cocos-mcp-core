@@ -12,10 +12,12 @@
   ],
   "scripts": {
     "clean": "node tools/run-internal-modules.mjs clean",
-    "generate:check": "node tools/verify-creator-profiles.mjs",
+    "generate": "node tools/generate-creator-profiles.mjs",
+    "generate:check": "node tools/generate-creator-profiles.mjs --check",
     "build": "npm run build --workspace @peanut/pod-protocol && npm run build --workspace @peanut/pod-sdk && npm run build --workspace @peanut/pod-engine && npm run build --workspace @peanut/pod-panel && npm run build --workspace @peanut/pod-hosts",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspace @peanut/pod-protocol && npm run test --workspace @peanut/pod-sdk && npm run test --workspace @peanut/pod-engine && npm run test --workspace @peanut/pod-panel && npm run test --workspace @peanut/pod-hosts",
+    "test:tools": "node --test tools/tests/*.test.mjs",
+    "test": "npm run test:tools && npm run test --workspace @peanut/pod-protocol && npm run test --workspace @peanut/pod-sdk && npm run test --workspace @peanut/pod-engine && npm run test --workspace @peanut/pod-panel && npm run test --workspace @peanut/pod-hosts",
     "pack": "npm run pack --workspace @peanut/pod-engine && npm run pack --workspace @peanut/pod-hosts",
     "verify:structure": "node tools/verify-workspace-structure.mjs",
     "verify": "npm run verify:structure && npm run generate:check && npm run build && npm run typecheck && npm test"

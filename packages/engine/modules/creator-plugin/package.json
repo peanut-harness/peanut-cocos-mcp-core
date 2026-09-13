@@ -20,5 +20,13 @@
     "devDependencies": {
         "esbuild": "^0.25.9",
         "typescript": "^5.9.3"
+    },
+    "peanut": {
+        "role": "business-plugin",
+        "verify": true,
+        "internalDependencies": [
+            "@peanut/pod-engine/mcp",
+            "@peanut/pod-engine/policy"
+        ]
     }
 }

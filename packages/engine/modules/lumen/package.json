@@ -38,6 +38,9 @@
     "peanut": {
         "role": "tool",
         "verify": true,
-        "verifyImport": true
+        "verifyImport": true,
+        "internalDependencies": [
+            "@peanut/pod-engine/assets"
+        ]
     }
 }

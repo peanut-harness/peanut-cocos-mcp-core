@@ -4,26 +4,21 @@ Creator **2.4.x** 宿主（`creator2x`：PluginManager + MCP Hub + peanut-plugin
 
 ## 边界
 
-- 装入工程 **`packages/peanut-pod-24/`**（不是 3.x 的 `extensions/`）
-- 写盘经 `@peanut/pod-engine/lumen-24` + `Editor.assetdb`（Prefab 层次 CRUD）；**不走** 3.x silent-asset / Message AssetDB
-- Hub 写能力需 `writeEnabledPluginIds` 含 `peanut.editor-mcp`（`setPluginExposure` mode=`all`）
-- 重启编辑器时只杀 **2.4.11** 路径，勿裸 `pkill CocosCreator`（会误杀 3.x）
+- 装入工程 `packages/peanut-pod-24/`，不是 3.x 的 `extensions/`。
+- 写盘经 `@peanut/pod-engine/lumen-24` 与 `Editor.assetdb`；不走 3.x silent-asset / Message AssetDB。
+- 当前画像为 experimental，默认禁止写入。
+- 重启编辑器时只能处理已核实属于当前工程的 2.4 进程，禁止裸 `pkill CocosCreator`。
 
 ## 打包
 
 ```bash
-cd products/cocos/editor
+cd peanut-pod-lite
 npm install
-npm run --workspace peanut-pod-24 pack
+npm run pack --prefix packages/hosts/modules/creator-24
 ```
 
-产物：`examples/cocos-panel-host-extension-24/release/peanut-pod-24-0.2.0/`。
+产物：`packages/hosts/modules/creator-24/release/peanut-pod-24-0.2.1/`。
 
 ## 安装
 
-```bash
-# 权威：选型 + 装本线宿主/插件
-npm run pack:demo -- --project /abs/Creator2.4工程 --with-host-extension
-# 选型 dry-run（不写盘）
-npm run resolve:product-line -- --project /abs/Creator2.4工程
-```
+复制发布目录到目标工程 `packages/peanut-pod-24/`，然后完整重启 Creator 2.4。

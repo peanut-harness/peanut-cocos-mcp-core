@@ -32,6 +32,8 @@
         "productLine": "creator2x",
         "mvp": "full-stack-port",
         "verify": true,
-        "verifyImport": false
+        "verifyImport": false,
+        "profileId": "creator-24",
+        "internalDependencies": []
     }
 }

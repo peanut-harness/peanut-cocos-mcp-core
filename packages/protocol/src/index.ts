@@ -55,10 +55,14 @@ export type {
     TaskTraceStatus,
 } from './task/task-contracts.js';
 export type { CreatorPhase, ICreatorVersionInfo } from './cocos/creator-version.js';
+export {
+    CREATOR_PROFILE_DEFINITIONS,
+    type CreatorHostFamily,
+    type CreatorProfileId,
+    type CreatorProfileSupport,
+    type ICreatorProfileDefinition,
+} from './cocos/creator-profile-catalog.js';
 export type {
-    CreatorHostFamily,
-    CreatorProfileId,
-    CreatorProfileSupport,
     ICreatorContext,
 } from './cocos/creator-context.js';
 export { CreatorPhaseResolver, type ICreatorVersionNumbers } from './cocos/creator-phase.js';

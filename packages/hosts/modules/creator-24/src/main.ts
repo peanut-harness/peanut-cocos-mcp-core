@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { PluginPanelActivator, resolveCreatorContext } from '@peanut/pod-hosts';
+import { CreatorContextResolver, PluginPanelActivator } from '@peanut/pod-hosts';
 
 import { NodeProtocolShim } from './node-protocol-shim';
 
@@ -237,7 +237,7 @@ function writeLiveDiagnoseArtifact(snapshot: Record<string, unknown>): void {
 async function bootPluginStack(): Promise<void> {
     const hostGlobal = globalThis as ICreator24EditorGlobal;
     const creatorVersion = resolveCreatorVersion(hostGlobal);
-    const creatorContext = resolveCreatorContext(creatorVersion);
+    const creatorContext = CreatorContextResolver.resolve(creatorVersion);
     const projectPath = hostGlobal.Editor?.Project?.path ?? null;
     pluginPanelActivator = new PluginPanelActivator({
         hostGlobal: hostGlobal as never,

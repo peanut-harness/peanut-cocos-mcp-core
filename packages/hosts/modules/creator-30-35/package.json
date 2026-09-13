@@ -57,6 +57,8 @@
         "productLine": "early3x",
         "mvp": "compatible-host",
         "verify": true,
-        "verifyImport": false
+        "verifyImport": false,
+        "profileId": "creator-30-35",
+        "internalDependencies": []
     }
 }

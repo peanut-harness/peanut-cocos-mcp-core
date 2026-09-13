@@ -1,23 +1,5 @@
 import type { ICreatorVersionInfo } from './creator-version.js';
-
-/**
- * @description Creator 宿主使用的版本适配档案标识。
- */
-export type CreatorProfileId =
-    | 'creator-24'
-    | 'creator-30-35'
-    | 'creator-36-37'
-    | 'creator-38';
-
-/**
- * @description Creator 宿主 API 的主版本家族。
- */
-export type CreatorHostFamily = 'creator-2x' | 'creator-3x';
-
-/**
- * @description 当前版本档案具备的支持等级。
- */
-export type CreatorProfileSupport = 'full' | 'experimental' | 'unsupported';
+import type { CreatorHostFamily, CreatorProfileId, CreatorProfileSupport } from './creator-profile-catalog.js';
 
 /**
  * @description 宿主解析并向内核传递的可信 Creator 运行上下文。

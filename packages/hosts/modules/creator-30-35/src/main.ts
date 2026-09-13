@@ -1,5 +1,5 @@
 import { RuntimeFacade } from '@peanut/pod-engine/runtime';
-import { resolveCreatorContext } from '@peanut/pod-hosts';
+import { CreatorContextResolver } from '@peanut/pod-hosts';
 
 /**
  * @description Creator 3.x 主进程最小 Editor 面。
@@ -61,7 +61,7 @@ let runtimeFacade: RuntimeFacade | null = null;
 export async function load(): Promise<void> {
     const hostGlobal = globalThis as ICreator35EditorGlobal;
     const creatorVersion = resolveCreatorVersion(hostGlobal);
-    const creatorContext = resolveCreatorContext(creatorVersion);
+    const creatorContext = CreatorContextResolver.resolve(creatorVersion);
     runtimeFacade = new RuntimeFacade(creatorVersion, {
         editorApiHostGlobal: hostGlobal as never,
         allowMemoryPanelWindowProviderFallback: false,

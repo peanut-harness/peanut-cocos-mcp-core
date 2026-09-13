@@ -10,12 +10,14 @@ Cocos Creator 编辑器产品。公开 83 项免费操作（38 读、45 写/破�
 - `packages/hosts`：Creator 壳、进程与版本画像；宿主只解析一次上下文。
 - `apps/panel`：静态面板应用，不依赖 engine/hosts。
 - 只有根 `package-lock.json`；内部 modules 不是 workspace，不得声明 `file:` 依赖。
+- 内部 modules 由 manifest 自动发现，按 `peanut.internalDependencies` 拓扑执行并校验源码导入。
 
 ## Creator Profiles
 
 - 2.4 与 3.0–3.5：experimental，写入关闭。
 - 3.6–3.7：unsupported。
-- 3.8.7：host/project 版本一致时 full，可写；其它 3.8 补丁版本只读。
+- `specs/creator-profiles/creator-profiles.json` 生成 protocol 画像目录，规范与运行时不能双写。
+- 3.8.7：host/project 版本都存在且一致时 full，可写；其它 3.8 补丁版本只读。
 - 未知、缺失或不一致版本全部 fail-closed。
 
 ## Hard Rules
@@ -26,7 +28,7 @@ Cocos Creator 编辑器产品。公开 83 项免费操作（38 读、45 写/破�
 - Lite 永不 import Pro；Pro 缺失不得挡住 Lite 启动；订阅不等于写盘许可。
 - Creator 2.4 缺本机安装时保留已提交正式模板，禁止用测试 fixture 覆盖发布资产。
 - 产品分发是目录包 / CPM，不是 `npm publish`。
-- 真实 Creator 3.8.7 验收工程是 `D:\mcp-test`；Node 单测不是实机冒烟。
+- Creator 进程必须精确匹配 `--project` / `--path`；Node 单测不是实机冒烟。
 
 ## Verification
 

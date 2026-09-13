@@ -30,6 +30,11 @@
     },
     "peanut": {
         "role": "core",
-        "verify": true
+        "verify": true,
+        "internalDependencies": [
+            "@peanut/pod-engine/assets",
+            "@peanut/pod-engine/installation",
+            "@peanut/pod-engine/runtime"
+        ]
     }
 }

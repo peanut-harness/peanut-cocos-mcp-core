@@ -21,10 +21,13 @@ Cocos Creator 编辑器产品。Lite 公开 83 项免费操作（38 读、45 写
 
 宿主启动时只解析一次 `CreatorContext`。未知版本、宿主与工程版本不一致、或缺少实机证据时均 fail-closed。
 
+版本画像只维护 `specs/creator-profiles/creator-profiles.json`，运行时代码由 `npm run generate` 生成。内部 engine/host 模块由各自 manifest 的 `peanut.internalDependencies` 自动发现和拓扑执行，新增模块不需要再修改根任务脚本。
+
 ## 验证
 
 ```powershell
 npm install
+npm run generate:check
 npm run verify
 npm run pack
 ```

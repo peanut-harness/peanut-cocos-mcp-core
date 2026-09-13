@@ -2,7 +2,7 @@
 
 const { mkdirSync, readFileSync, writeFileSync } = require('fs');
 const { join } = require('path');
-const { resolveCreatorContext } = require('@peanut/pod-hosts');
+const { CreatorContextResolver } = require('@peanut/pod-hosts');
 
 const { LiteAccountController, createSignedOutAccount } = require('./account-controller');
 const { CpmPackageStore } = require('./cpm-package-store');
@@ -63,7 +63,7 @@ function resolveTrustedCreatorContext() {
     } catch (error) {
         getEditor()?.warn?.(`[peanut-pod-lite] project_creator_version_unavailable:${normalizeError(error)}`);
     }
-    const context = resolveCreatorContext(hostVersion, projectVersion);
+    const context = CreatorContextResolver.resolve(hostVersion, projectVersion);
     if (context.profileId !== 'creator-38') {
         throw new Error(`creator_profile_host_mismatch:${context.profileId}:creator-38`);
     }

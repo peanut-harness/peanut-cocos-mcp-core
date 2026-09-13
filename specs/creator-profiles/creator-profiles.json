@@ -1,37 +1,41 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "profiles": [
     {
       "id": "creator-24",
-      "range": ">=2.4.0 <3.0.0",
+      "minVersion": "2.4.0",
+      "maxVersionExclusive": "3.0.0",
       "hostFamily": "creator-2x",
-      "support": "experimental",
-      "writesAllowed": false,
-      "verifiedVersions": []
+      "defaultSupport": "experimental",
+      "verifiedVersions": [],
+      "writeEnabledVersions": []
     },
     {
       "id": "creator-30-35",
-      "range": ">=3.0.0 <3.6.0",
+      "minVersion": "3.0.0",
+      "maxVersionExclusive": "3.6.0",
       "hostFamily": "creator-3x",
-      "support": "experimental",
-      "writesAllowed": false,
-      "verifiedVersions": []
+      "defaultSupport": "experimental",
+      "verifiedVersions": [],
+      "writeEnabledVersions": []
     },
     {
       "id": "creator-36-37",
-      "range": ">=3.6.0 <3.8.0",
+      "minVersion": "3.6.0",
+      "maxVersionExclusive": "3.8.0",
       "hostFamily": "creator-3x",
-      "support": "unsupported",
-      "writesAllowed": false,
-      "verifiedVersions": []
+      "defaultSupport": "unsupported",
+      "verifiedVersions": [],
+      "writeEnabledVersions": []
     },
     {
       "id": "creator-38",
-      "range": ">=3.8.0 <3.9.0",
+      "minVersion": "3.8.0",
+      "maxVersionExclusive": "3.9.0",
       "hostFamily": "creator-3x",
-      "support": "full",
-      "writesAllowed": true,
-      "verifiedVersions": ["3.8.7"]
+      "defaultSupport": "experimental",
+      "verifiedVersions": ["3.8.7"],
+      "writeEnabledVersions": ["3.8.7"]
     }
   ]
 }

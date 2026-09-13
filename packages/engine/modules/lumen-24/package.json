@@ -25,6 +25,7 @@
         "productLine": "creator2x",
         "peelTarget": "peanut.lumen-24",
         "publicEntry": "Lumen24WriteFacade",
-        "mcpBridge": "Lumen24McpBridge"
+        "mcpBridge": "Lumen24McpBridge",
+        "internalDependencies": []
     }
 }

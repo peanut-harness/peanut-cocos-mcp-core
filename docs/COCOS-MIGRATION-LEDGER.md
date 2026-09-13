@@ -10,6 +10,14 @@
 - 四个画像固定为 2.4、3.0–3.5、3.6–3.7、3.8；当前只有 host/project 同为 3.8.7 时开放写入。
 - 缺写入 schema 直接拒绝目录构造；Prefab 解包/解除关联和 Builder 输出覆盖提升为 destructive。
 
+## 2026-09-13 Architecture v2 hardening
+
+- Creator 画像规范升级为 schema v2，并生成 protocol 类型化目录；宿主不再维护第二份手写画像。
+- 修复 3.8.7 项目版本缺失仍可能放行写入的问题；写入现在要求 host/project 双方精确证据。
+- 内部模块改为 manifest 自动发现与拓扑执行；结构检查核对源码导入、engine exports、宿主画像和必需任务。
+- Creator 进程发现改为精确参数解析，覆盖 Windows/macOS 路径大小写、引号、前缀误匹配和三类环境变量。
+- Creator 3.8 CommonJS 宿主加入 14 个源文件的语法检查，不再在 typecheck 阶段静默跳过。
+
 ## Core
 
 | 源模块 | 迁入范围 | 当前状态 |

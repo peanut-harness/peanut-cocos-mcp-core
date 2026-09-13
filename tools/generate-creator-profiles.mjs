@@ -1,0 +1,118 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const repositoryRoot = resolve(import.meta.dirname, '..');
+const documentPath = resolve(repositoryRoot, 'specs/creator-profiles/creator-profiles.json');
+const generatedPath = resolve(repositoryRoot, 'packages/protocol/src/cocos/creator-profile-catalog.ts');
+const supportedHostFamilies = new Set(['creator-2x', 'creator-3x']);
+const supportedDefaultLevels = new Set(['experimental', 'unsupported']);
+const semanticVersionPattern = /^\d+\.\d+\.\d+$/u;
+
+const document = JSON.parse(readFileSync(documentPath, 'utf8'));
+validateDocument(document);
+const generatedSource = renderCatalog(document);
+
+if (process.argv.includes('--check')) {
+    const currentSource = readFileSync(generatedPath, 'utf8');
+    if (currentSource !== generatedSource) {
+        throw new Error('creator_profile_generated_catalog_stale');
+    }
+} else {
+    writeFileSync(generatedPath, generatedSource, 'utf8');
+}
+
+process.stdout.write(
+    `${JSON.stringify({ ok: true, schemaVersion: document.schemaVersion, profiles: document.profiles.map((profile) => profile.id) }, null, 4)}\n`,
+);
+
+function validateDocument(value) {
+    if (value == null || typeof value !== 'object' || value.schemaVersion !== 2 || !Array.isArray(value.profiles)) {
+        throw new Error('creator_profile_catalog_invalid');
+    }
+    if (value.profiles.length === 0) {
+        throw new Error('creator_profile_catalog_empty');
+    }
+    const ids = new Set();
+    let previousMaximum = null;
+    for (const profile of value.profiles) {
+        validateProfile(profile);
+        if (ids.has(profile.id)) {
+            throw new Error(`creator_profile_duplicate:${profile.id}`);
+        }
+        ids.add(profile.id);
+        if (previousMaximum != null) {
+            const boundaryComparison = compareVersions(profile.minVersion, previousMaximum);
+            if (boundaryComparison < 0) {
+                throw new Error(`creator_profile_range_overlap:${profile.id}`);
+            }
+            if (boundaryComparison > 0) {
+                throw new Error(`creator_profile_range_gap:${profile.id}`);
+            }
+        }
+        previousMaximum = profile.maxVersionExclusive;
+    }
+}
+
+function validateProfile(profile) {
+    if (profile == null || typeof profile !== 'object' || !/^[a-z0-9-]+$/u.test(profile.id ?? '')) {
+        throw new Error('creator_profile_definition_invalid');
+    }
+    if (!supportedHostFamilies.has(profile.hostFamily) || !supportedDefaultLevels.has(profile.defaultSupport)) {
+        throw new Error(`creator_profile_support_invalid:${profile.id}`);
+    }
+    validateVersion(profile.minVersion, `creator_profile_min_version_invalid:${profile.id}`);
+    validateVersion(profile.maxVersionExclusive, `creator_profile_max_version_invalid:${profile.id}`);
+    if (compareVersions(profile.minVersion, profile.maxVersionExclusive) >= 0) {
+        throw new Error(`creator_profile_range_invalid:${profile.id}`);
+    }
+    validateVersionList(profile, 'verifiedVersions');
+    validateVersionList(profile, 'writeEnabledVersions');
+    const verifiedVersions = new Set(profile.verifiedVersions);
+    for (const version of profile.writeEnabledVersions) {
+        if (!verifiedVersions.has(version)) {
+            throw new Error(`creator_profile_write_without_evidence:${profile.id}:${version}`);
+        }
+    }
+    if (profile.defaultSupport === 'unsupported' && profile.verifiedVersions.length > 0) {
+        throw new Error(`unsupported_creator_profile_has_evidence:${profile.id}`);
+    }
+}
+
+function validateVersionList(profile, fieldName) {
+    if (!Array.isArray(profile[fieldName]) || new Set(profile[fieldName]).size !== profile[fieldName].length) {
+        throw new Error(`creator_profile_version_list_invalid:${profile.id}:${fieldName}`);
+    }
+    for (const version of profile[fieldName]) {
+        validateVersion(version, `creator_profile_version_invalid:${profile.id}:${fieldName}`);
+        if (compareVersions(version, profile.minVersion) < 0 || compareVersions(version, profile.maxVersionExclusive) >= 0) {
+            throw new Error(`creator_profile_version_out_of_range:${profile.id}:${version}`);
+        }
+    }
+}
+
+function validateVersion(version, errorCode) {
+    if (typeof version !== 'string' || !semanticVersionPattern.test(version)) {
+        throw new Error(errorCode);
+    }
+}
+
+function compareVersions(left, right) {
+    const leftParts = left.split('.').map(Number);
+    const rightParts = right.split('.').map(Number);
+    for (let index = 0; index < 3; index += 1) {
+        if (leftParts[index] !== rightParts[index]) {
+            return leftParts[index] - rightParts[index];
+        }
+    }
+    return 0;
+}
+
+function renderCatalog(value) {
+    const profileIds = value.profiles.map((profile) => `    | '${profile.id}'`).join('\n');
+    const profiles = value.profiles.map(renderProfile).join(',\n');
+    return `// Generated by tools/generate-creator-profiles.mjs from specs/creator-profiles/creator-profiles.json.\n\n/**\n * @description Creator 宿主使用的版本适配档案标识。\n */\nexport type CreatorProfileId =\n${profileIds};\n\n/**\n * @description Creator 宿主 API 的主版本家族。\n */\nexport type CreatorHostFamily = 'creator-2x' | 'creator-3x';\n\n/**\n * @description 当前版本档案具备的支持等级。\n */\nexport type CreatorProfileSupport = 'full' | 'experimental' | 'unsupported';\n\n/**\n * @description Creator 版本画像的不可变运行时定义。\n */\nexport interface ICreatorProfileDefinition {\n    /**\n     * @description 档案标识。\n     */\n    readonly id: CreatorProfileId;\n\n    /**\n     * @description 档案覆盖的最小 Creator 版本。\n     */\n    readonly minVersion: string;\n\n    /**\n     * @description 档案不再覆盖的首个 Creator 版本。\n     */\n    readonly maxVersionExclusive: string;\n\n    /**\n     * @description 档案对应的 Creator API 家族。\n     */\n    readonly hostFamily: CreatorHostFamily;\n\n    /**\n     * @description 未命中实机证据时的默认支持等级。\n     */\n    readonly defaultSupport: Exclude<CreatorProfileSupport, 'full'>;\n\n    /**\n     * @description 已通过宿主实机验证的精确版本集合。\n     */\n    readonly verifiedVersions: readonly string[];\n\n    /**\n     * @description 允许在工程版本精确匹配时执行写操作的版本集合。\n     */\n    readonly writeEnabledVersions: readonly string[];\n}\n\n/**\n * @description 由版本画像规范生成的不可变目录。\n */\nexport const CREATOR_PROFILE_DEFINITIONS: readonly ICreatorProfileDefinition[] = Object.freeze([\n${profiles},\n]);\n`;
+}
+
+function renderProfile(profile) {
+    return `    Object.freeze({\n        id: '${profile.id}',\n        minVersion: '${profile.minVersion}',\n        maxVersionExclusive: '${profile.maxVersionExclusive}',\n        hostFamily: '${profile.hostFamily}',\n        defaultSupport: '${profile.defaultSupport}',\n        verifiedVersions: Object.freeze(${JSON.stringify(profile.verifiedVersions)}),\n        writeEnabledVersions: Object.freeze(${JSON.stringify(profile.writeEnabledVersions)}),\n    })`;
+}
