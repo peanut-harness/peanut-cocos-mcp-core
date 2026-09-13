@@ -1,0 +1,40 @@
+{
+    "name": "@peanut/pod-engine/mcp",
+    "description": "Editor MCP capability plugin with lumen asset source editing and delegated SnowB BMFont export for the Peanut Cocos runtime.",
+    "version": "0.1.115",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "docs",
+        "peanut.editor-mcp.manifest.json",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "pack": "npm run build && node scripts/pack-plugin.mjs",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run build && node --test tests/editor-mcp-plugin.test.mjs tests/editor-mcp-host-integration.test.mjs tests/editor-mcp-write-safety-matrix.test.mjs tests/editor-mcp-thin-layer-availability.test.mjs tests/editor-mcp-tableview-scaffold.test.mjs tests/editor-mcp-builder-gateway.test.mjs tests/editor-mcp-pink-p0-p3.test.mjs && node scripts/lumen-ai-playbook.smoke.mjs",
+        "verify:mcp-safety": "node ../../../../scripts/verify-mcp-write-safety.mjs"
+    },
+    "optionalDependencies": {
+        "playwright": "^1.51.0"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.0",
+        "tsx": "4.23.0",
+        "typescript": "^5.9.3"
+    },
+    "peanut": {
+        "role": "business-plugin",
+        "verify": true
+    }
+}

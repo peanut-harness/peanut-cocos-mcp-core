@@ -1,14 +1,32 @@
 # Peanut Pod Lite
 
-Cocos Creator editor product. The current policy and schema catalogs cover 83 free operations: 38 reads and 45 writes/destructive operations. Native writes require a real local approval lease. Lite can sign in and upgrade a subscription; paid execution still requires the Pro package.
+Cocos Creator 编辑器产品。Lite 公开 83 项免费操作（38 读、45 写/破坏性）；所有原生写入都必须消费绑定连接、操作、资源与风险的本地审批租约。Pro 始终可选，缺失或升级失败不得阻断 Lite。
 
-## Packages
+## 五个工作区
 
-- `pod-lite-capability-policy`: catalogs, schemas, input validation, approval leases, dispatch, and `EditorMcpGatewayAdapter` (83 ops when a gateway is injected).
-- `mcp-pod-lite-creator-host`: Lite directory plugin. With a gateway it registers all 83 free ops; without one it falls back to nine native reads. Pack uses local esbuild (no `PEANUT_COCOS_EDITOR_ROOT`).
-- `cocos-creator-lite-host-extension`: Creator 3.8 host, CPM integrity, account/upgrade panel, optional Pro. Missing Pro stays isolated from Lite startup.
-- `creator-24-host` / `creator-35-host`: packable 2.4 and 3.0–3.5 hosts (not Creator-verified yet).
-- `editor-mcp`, `asset-catalog`, `runtime`, `lumen`, `lumen-24`, `plugin-core`, `packaging`, `plugin-panel`: editor-island implementation packages moved from `products/cocos/editor`.
-- `lumen-template-cache`: free cache-pack identification and request parsing.
+- `packages/protocol`：稳定 DTO、版本与宿主上下文协议，不依赖其它工作区。
+- `packages/sdk`：插件作者 API，只依赖 `protocol`。
+- `packages/engine`：运行时、安装、资产、Lumen、MCP、策略与内核，只依赖 `protocol`、`sdk`。
+- `packages/hosts`：Creator 宿主壳、进程识别与一次性版本画像，只依赖 `protocol`、`sdk`、`engine`。
+- `apps/panel`：静态面板应用与嵌入资源，不依赖引擎或宿主。
 
-See [migration ledger](docs/COCOS-MIGRATION-LEDGER.md) and [installation](docs/INSTALLATION.md). The user-designated acceptance project is `D:/workspaces/peanut-agents/test-demos/cocos-for-agent` (Creator 3.8.7). Unit tests do not establish Creator verification.
+内部实现保留在 `packages/engine/modules/*` 与 `packages/hosts/modules/*`，但不再是 npm workspace，也不维护独立 lockfile。依赖安装、构建和测试只从仓库根执行。
+
+## Creator 适配
+
+- `creator-24`：Creator 2.4，实验支持，默认禁止写入。
+- `creator-30-35`：Creator 3.0–3.5，实验支持，默认禁止写入。
+- `creator-36-37`：显式不支持，不会误落到 3.8 写入适配器。
+- `creator-38`：Creator 3.8；当前只有宿主与工程均为 `3.8.7` 时允许写入。
+
+宿主启动时只解析一次 `CreatorContext`。未知版本、宿主与工程版本不一致、或缺少实机证据时均 fail-closed。
+
+## 验证
+
+```powershell
+npm install
+npm run verify
+npm run pack
+```
+
+结构与版本画像见 `docs/ARCHITECTURE.md`；Core/Pro 安全边界见 `docs/BOUNDARIES.md`；迁移历史见 `docs/COCOS-MIGRATION-LEDGER.md`。真实 Creator 3.8.7 验收工程为 `D:\mcp-test`，Node 测试不能替代编辑器实机验证。

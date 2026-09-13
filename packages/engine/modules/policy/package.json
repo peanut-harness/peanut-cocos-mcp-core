@@ -1,0 +1,30 @@
+{
+    "name": "@peanut/pod-engine/policy",
+    "version": "0.1.0",
+    "description": "Public capability access policy primitives for Peanut Cocos MCP.",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run build && node --test tests/*.test.mts",
+        "prepack": "npm run build"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.3"
+    }
+}

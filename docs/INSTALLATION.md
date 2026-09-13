@@ -5,7 +5,7 @@
 ## 必需顺序
 
 1. **关闭目标 Creator 项目。** 不得在旧宿主仍持有插件目录或运行期服务时覆盖安装。
-2. **安装 Lite 宿主扩展。** 使用 `packages/cocos-creator-lite-host-extension` 的发布目录安装到项目 `extensions/peanut-pod-lite-host/`。该原生 Creator 扩展从 CPM `peanut-plugins/installed.json` 读取活动版本，完整校验后加载必需的 `peanut.pod-lite` 与可选的 `peanut.cocos-mcp-pro`；不扫描旧插件目录。
+2. **安装 Lite 宿主扩展。** 使用 `packages/hosts/modules/creator-38/release/peanut-pod-lite-host-*/` 安装到项目 `extensions/peanut-pod-lite-host/`。该原生 Creator 扩展从 CPM `peanut-plugins/installed.json` 读取活动版本，完整校验后加载必需的 `peanut.pod-lite` 与可选的 `peanut.cocos-mcp-pro`；不扫描旧插件目录。
 3. **通过 CPM 安装 Core 能力包。** 安装器必须先校验目录包、原子写入插件目录和 schema v2 活动版本索引，再允许 Creator host 加载。不得手工伪造成功索引。
 4. **启动 Creator 并等待宿主就绪。** 打开方式遵循 Hub `knowledge/cocos-creator-open.md`：3.x 用 `--project <abs> --nologin`；本工程已有 GUI 则 attach，不要再 spawn / 强杀；装宿主扩展后必须重启 Creator。只接受 `query-status` 返回 `ready: true`（gateway 接入后 `tools` 应为 83）且日志出现 `lite_host_ready`；未就绪时不得继续能力验收。
 5. **运行只读冒烟测试。** 验证 `editor.queryVersion`、`editor.queryProject`、`editor.querySelection`、`scene.getCurrent`、`scene.getHierarchy`、`builder.queryPlatforms`、`builder.querySchema`、`builder.queryDefaultConfig` 与 `preview.query`；失败时停止，不继续任何写入测试。
@@ -16,14 +16,12 @@
 本地可先构建宿主扩展与 Core CPM 目录包。宿主与 MCP 目录包均使用本仓 esbuild，不再读取 `PEANUT_COCOS_EDITOR_ROOT`：
 
 ```bash
-npm install --prefix packages/cocos-creator-lite-host-extension
-npm run pack --prefix packages/cocos-creator-lite-host-extension
-npm install --prefix packages/mcp-pod-lite-creator-host
-npm run pack --prefix packages/mcp-pod-lite-creator-host
-# 可选产品线宿主（未 Creator 实机验证）
-npm test --prefix packages/creator-35-host
-npm test --prefix packages/creator-24-host
+npm install
+npm run verify
+npm run pack
 ```
+
+禁止在内部 module 目录单独安装依赖；仓库只维护根 lockfile。可选宿主发布物位于 `packages/hosts/modules/creator-24/release/` 与 `packages/hosts/modules/creator-30-35/release/`。
 
 2.4 宿主安装到项目 `packages/peanut-pod-24/`；3.0–3.5 宿主安装到 `extensions/peanut-pod-35/`。
 

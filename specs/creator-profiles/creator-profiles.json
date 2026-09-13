@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "id": "creator-24",
+      "range": ">=2.4.0 <3.0.0",
+      "hostFamily": "creator-2x",
+      "support": "experimental",
+      "writesAllowed": false,
+      "verifiedVersions": []
+    },
+    {
+      "id": "creator-30-35",
+      "range": ">=3.0.0 <3.6.0",
+      "hostFamily": "creator-3x",
+      "support": "experimental",
+      "writesAllowed": false,
+      "verifiedVersions": []
+    },
+    {
+      "id": "creator-36-37",
+      "range": ">=3.6.0 <3.8.0",
+      "hostFamily": "creator-3x",
+      "support": "unsupported",
+      "writesAllowed": false,
+      "verifiedVersions": []
+    },
+    {
+      "id": "creator-38",
+      "range": ">=3.8.0 <3.9.0",
+      "hostFamily": "creator-3x",
+      "support": "full",
+      "writesAllowed": true,
+      "verifiedVersions": ["3.8.7"]
+    }
+  ]
+}

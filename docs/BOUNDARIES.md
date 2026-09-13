@@ -17,6 +17,16 @@ not execute those operations, accept a client-supplied entitlement, or treat a
 subscription as a write approval. Billing webhooks on `peanut-pod-server` are
 the only grant path.
 
+## Workspace Boundary
+
+- `protocol` 不依赖其它工作区；`sdk` 只依赖 `protocol`。
+- `engine` 只依赖 `protocol` 与 `sdk`；不得导入 `hosts` 或 `panel`。
+- `hosts` 负责 Creator 生命周期与动态适配，可依赖 `engine`。
+- `panel` 不得装配 engine 或读取 Creator 版本；它只保留静态 UI 与稳定消息面。
+- engine/host 内部目录不是 npm workspace，禁止独立 lockfile 与 `file:` 依赖。
+
+破坏性操作至少包括删除、引用替换、节点/组件移除、Prefab 解包/解除关联和 Builder 输出覆盖。目录缺失 schema 或风险信息时必须拒绝启动，不能静默跳过。
+
 
 ## resources × 资产写绑定（策略 A，2026-09-12 09:17:11 UTC+8）
 

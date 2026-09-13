@@ -1,0 +1,30 @@
+{
+  "name": "@peanut/pod-engine",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    "./assets": { "types": "./modules/assets/dist/index.d.ts", "import": "./modules/assets/dist/index.js", "require": "./modules/assets/dist/index.js" },
+    "./creator-plugin": { "types": "./modules/creator-plugin/dist/index.d.ts", "import": "./modules/creator-plugin/dist/index.js" },
+    "./installation": { "types": "./modules/installation/dist/index.d.ts", "import": "./modules/installation/dist/index.js" },
+    "./kernel": { "types": "./modules/kernel/dist/index.d.ts", "import": "./modules/kernel/dist/index.js" },
+    "./lumen": { "types": "./modules/lumen/dist/index.d.ts", "import": "./modules/lumen/dist/index.js", "require": "./modules/lumen/dist/index.js" },
+    "./lumen-24": { "types": "./modules/lumen-24/dist/index.d.ts", "import": "./modules/lumen-24/dist/index.js" },
+    "./mcp": { "types": "./modules/mcp/dist/index.d.ts", "import": "./modules/mcp/dist/index.js" },
+    "./policy": { "types": "./modules/policy/dist/index.d.ts", "import": "./modules/policy/dist/index.js" },
+    "./runtime": { "types": "./modules/runtime/dist/index.d.ts", "import": "./modules/runtime/dist/index.js" },
+    "./template-cache": { "types": "./modules/template-cache/dist/index.d.ts", "import": "./modules/template-cache/dist/index.js" }
+  },
+  "scripts": {
+    "clean": "node ../../tools/run-internal-modules.mjs clean engine",
+    "build": "node ../../tools/run-internal-modules.mjs build engine",
+    "typecheck": "node ../../tools/run-internal-modules.mjs typecheck engine",
+    "test": "node ../../tools/run-internal-modules.mjs test engine",
+    "pack": "node ../../tools/run-internal-modules.mjs pack engine"
+  },
+  "dependencies": {
+    "@peanut/pod-protocol": "*",
+    "@peanut/pod-sdk": "*"
+  }
+}

@@ -1,0 +1,42 @@
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
+
+const extensionRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const repositoryRoot = resolve(extensionRoot, '../../../..');
+const manifest = JSON.parse(await readFile(resolve(extensionRoot, 'package.json'), 'utf8'));
+const outputDirectory = resolve(extensionRoot, 'release', `${manifest.name}-${manifest.version}`);
+await rm(outputDirectory, { recursive: true, force: true });
+await mkdir(resolve(outputDirectory, 'dist'), { recursive: true });
+await build({
+    bundle: true,
+    entryPoints: [resolve(extensionRoot, 'src/main.js')],
+    format: 'cjs',
+    platform: 'node',
+    target: 'node16',
+    outfile: resolve(outputDirectory, 'dist/main.js'),
+    legalComments: 'none',
+    alias: {
+        '@peanut/pod-hosts': resolve(repositoryRoot, 'packages/hosts/dist/index.js'),
+        '@peanut/pod-engine/kernel': resolve(repositoryRoot, 'packages/engine/modules/kernel/dist/index.js'),
+        '@peanut/pod-engine/runtime': resolve(repositoryRoot, 'packages/engine/modules/runtime/dist/index.js'),
+        '@peanut/pod-engine/installation': resolve(repositoryRoot, 'packages/engine/modules/installation/dist/index.js'),
+        '@peanut/pod-protocol': resolve(repositoryRoot, 'packages/protocol/dist/index.js'),
+        '@peanut/pod-sdk': resolve(repositoryRoot, 'packages/sdk/dist/index.js'),
+        '@peanut/pod-engine/assets': resolve(repositoryRoot, 'packages/engine/modules/assets/dist/index.js'),
+    },
+    // Creator Electron provides electron; keep it external.
+    external: ['electron', 'canvas'],
+});
+await writeFile(resolve(outputDirectory, 'dist/scene.js'), "'use strict';\nmodule.exports = {};\n", 'utf8');
+await cp(resolve(extensionRoot, 'package.json'), resolve(outputDirectory, 'package.json'));
+await cp(resolve(extensionRoot, 'panel'), resolve(outputDirectory, 'panel'), { recursive: true });
+// Static Plugin Manager UI assets (same layout as peanut-agents host pack).
+await cp(resolve(repositoryRoot, 'apps/panel/panels'), resolve(outputDirectory, 'panels'), { recursive: true });
+await writeFile(
+    resolve(outputDirectory, 'README.md'),
+    '# Peanut Pod Lite Host\n\nInstall this extension before the Lite directory package.\n\n- Extension > Cocos Plugin Manager\n- Extension > Peanut Account\n',
+    'utf8',
+);
+process.stdout.write(`${JSON.stringify({ ok: true, outputDirectory }, null, 2)}\n`);

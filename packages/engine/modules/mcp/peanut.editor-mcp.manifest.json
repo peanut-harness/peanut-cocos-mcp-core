@@ -1,0 +1,594 @@
+{
+    "id": "peanut.editor-mcp",
+    "version": "0.1.115",
+    "kind": "tooling-plugin",
+    "displayName": "Peanut Editor MCP",
+    "description": {
+        "en-US": "Cocos Creator MCP capability router with lumen asset editing and SnowB BMFont export.",
+        "zh-CN": "包含 lumen 资产源文件编辑与 SnowB BMFont 导出的 Cocos Creator MCP capability 路由器。"
+    },
+    "icon": "./assets/icon.png",
+    "main": "./peanut.editor-mcp.bundle.js",
+    "engines": {
+        "host": "^0.1.0"
+    },
+    "activation": {
+        "autoActivate": true,
+        "events": [
+            "onStartup"
+        ]
+    },
+    "permissions": {
+        "assetDb": {
+            "read": true,
+            "write": true,
+            "delete": false
+        },
+        "editorMessages": [
+            "asset-db",
+            "scene",
+            "builder"
+        ],
+        "sceneScripts": [
+            "peanut.editor-mcp.read"
+        ]
+    },
+    "package": {
+        "schemaVersion": 1,
+        "digest": "",
+        "packedAt": "2026-07-31T00:00:00.000Z",
+        "sdkVersion": "0.1.0",
+        "files": [],
+        "libraries": [],
+        "changelog": [
+            {
+                "version": "0.1.111",
+                "publishedAt": "2026-08-31T08:20:00.000Z",
+                "changes": [
+                    "creator2x: lumen.assetSet creates missing body assets (json/text/ts/anim/mtl/effect/…); Wave E compSet props for RichText/ProgressBar/Widget."
+                ]
+            },
+            {
+                "version": "0.1.100",
+                "publishedAt": "2026-08-31T07:50:00.000Z",
+                "changes": [
+                    "creator2x scene.open: use peanut-pod-24 scene-script + Editor.Scene.callSceneScript (remove broken scene:// and scene:open-by-uuid probes that spam Console)."
+                ]
+            },
+            {
+                "version": "0.1.99",
+                "publishedAt": "2026-08-31T07:40:00.000Z",
+                "changes": [
+                    "creator2x scene.open: fallback via scene://utils/scene and Editor.Ipc scene:open-by-uuid when _Scene is unavailable in plugin host."
+                ]
+            },
+            {
+                "version": "0.1.98",
+                "publishedAt": "2026-08-31T07:00:00.000Z",
+                "changes": [
+                    "creator2x: CompatibleUuid for silent asset.copy/createFolder (no crypto.randomUUID); refuse asset.import of in-project sources to avoid AssetDB already-in-database."
+                ]
+            },
+            {
+                "version": "0.1.97",
+                "publishedAt": "2026-08-31T06:40:00.000Z",
+                "changes": [
+                    "fix: lumen.bindController plan() no longer routes through 3.x lumen gateway validate (was falsely refusing on creator2x)."
+                ]
+            },
+            {
+                "version": "0.1.96",
+                "publishedAt": "2026-08-31T06:30:00.000Z",
+                "changes": [
+                    "asset.writeText: silent UTF-8 write under assets/ with coalesced lumen.refresh (batch files[]; prefer over IDE writeFile while Creator is open."
+                ]
+            },
+            {
+                "version": "0.1.96",
+                "publishedAt": "2026-08-31T06:30:00.000Z",
+                "changes": [
+                    "creator2x: stop blind 3.x sendToMain probes; expand assetSet to 2.4 docs kinds; UI builtins Wave E; asset.import + ensureSpriteFramesBatch via AssetDB."
+                ]
+            },
+            {
+                "version": "0.1.94",
+                "publishedAt": "2026-08-31T06:10:00.000Z",
+                "changes": [
+                    "creator2x Wave C: assetSet(texture/json/text/js), bindSpriteBatch, bindController, preview.refresh via AssetDB, scene.open via _Scene.loadSceneByUuid."
+                ]
+            },
+            {
+                "version": "0.1.94",
+                "publishedAt": "2026-08-31T05:50:00.000Z",
+                "changes": [
+                    "creator2x: asset.copy/move/rename/reimport allow; createFolder writes 2.4 folder meta on disk (no 0-byte AssetDB create)."
+                ]
+            },
+            {
+                "version": "0.1.92",
+                "publishedAt": "2026-08-31T05:40:00.000Z",
+                "changes": [
+                    "creator2x asset.delete via AssetDB; lumen.refresh skips missing paths (parent fallback) to avoid ENOENT on stale index."
+                ]
+            },
+            {
+                "version": "0.1.91",
+                "publishedAt": "2026-08-31T03:20:00.000Z",
+                "changes": [
+                    "creator2x lumen-24 bindRef: map 3.x Button.target to 2.4 _N$target (Inspector-visible node ref)."
+                ]
+            },
+            {
+                "version": "0.1.90",
+                "publishedAt": "2026-08-31T02:00:00.000Z",
+                "changes": [
+                    "creator2x Wave C1: lumen-24 .fire Scene scaffold/tree/inspect/node* (official new-scene shape); shared prefabRelativePath."
+                ]
+            },
+            {
+                "version": "0.1.89",
+                "publishedAt": "2026-08-29T16:10:00.000Z",
+                "changes": [
+                    "creator2x Wave B3: lumen.bindRef / structure / compileRecipe via lumen-24; policy allowlist expanded."
+                ]
+            },
+            {
+                "version": "0.1.81",
+                "publishedAt": "2026-08-28T06:20:00.000Z",
+                "changes": [
+                    "asset.ensureSpriteFramesBatch: save-asset-meta batch ensure PNG @f9941 SpriteFrame (no disk .meta surgery)."
+                ]
+            },
+            {
+                "version": "0.1.80",
+                "publishedAt": "2026-08-26T08:40:00.000Z",
+                "changes": [
+                    "lumen.inspect: Prefab/Scene omit nodePath defaults to root node (stops policy warn noise)."
+                ]
+            },
+            {
+                "version": "0.1.74",
+                "publishedAt": "2026-08-26T06:30:00.000Z",
+                "changes": [
+                    "AssetDB sync: refresh-only for existing disk assets (no save-asset race); parent discover + global refresh queue; offline writes defer refresh to commit."
+                ]
+            },
+            {
+                "version": "0.1.73",
+                "publishedAt": "2026-08-26T06:00:00.000Z",
+                "changes": [
+                    "High-concurrency: per-asset write lock, import-dir lock, Hub write slots (16), parallel validateRefs."
+                ]
+            },
+            {
+                "version": "0.1.70",
+                "publishedAt": "2026-08-26T04:00:00.000Z",
+                "changes": [
+                    "Map lumen client rejects to editor_mcp_lumen_operation_unsupported so project.log stays warn even before host extension hot-reload."
+                ]
+            },
+            {
+                "version": "0.1.69",
+                "publishedAt": "2026-08-26T03:50:00.000Z",
+                "changes": [
+                    "compile-recipe: treat template=empty as components; bindSprite rejects nil uuid before catalog; broader lumen client warn classification in host."
+                ]
+            },
+            {
+                "version": "0.1.68",
+                "publishedAt": "2026-08-26T03:40:00.000Z",
+                "changes": [
+                    "project.log hygiene: lumen client rejects as warn; postflight trusts Creator severity; compile-recipe wires templates; bindClick rejects cc.*; path root alias; asset-import rename strips source meta uuid."
+                ]
+            },
+            {
+                "version": "0.1.67",
+                "publishedAt": "2026-08-26T02:45:00.000Z",
+                "changes": [
+                    "Capability lane: lumen-offline | editor-ui | preview on catalog/plan; scene.open/reload are presentation-only; commit nextHint never requires scene open/reload for writing."
+                ]
+            },
+            {
+                "version": "0.1.66",
+                "publishedAt": "2026-08-26T02:15:00.000Z",
+                "changes": [
+                    "scene.open: fall back to asset-db open-asset(UUID) when open-scene throws; surface message errors; still never pass db://."
+                ]
+            },
+            {
+                "version": "0.1.65",
+                "publishedAt": "2026-08-26T02:00:00.000Z",
+                "changes": [
+                    "Hard-block Creator save-scene/save-as/save at message layer (confirm dialog hangs automation); disk .scene.meta UUID fallback for open; probe picks existing AppQaSmoke/McpVerify scene."
+                ]
+            },
+            {
+                "version": "0.1.64",
+                "publishedAt": "2026-08-26T01:40:00.000Z",
+                "changes": [
+                    "scene.createNode/unlink: resolve parent UUID, expand create-node candidates, fall back to host scene script createChildNode/unlinkPrefabInstance; hierarchy get retries before query-node-tree."
+                ]
+            },
+            {
+                "version": "0.1.63",
+                "publishedAt": "2026-08-25T15:50:00.000Z",
+                "changes": [
+                    "Hard-block open-scene args that are not UUID (prevents import://db/db://…); open incomplete if hierarchy empty; probe opens TableViewTest.scene."
+                ]
+            },
+            {
+                "version": "0.1.62",
+                "publishedAt": "2026-08-25T15:45:00.000Z",
+                "changes": [
+                    "scene.getHierarchy falls back to query-node-tree when host scene script returns empty; scene.open settle uses the same fallback."
+                ]
+            },
+            {
+                "version": "0.1.61",
+                "publishedAt": "2026-08-25T15:35:00.000Z",
+                "changes": [
+                    "scene.open: resolve db path → UUID before open-scene (Creator rejects db:// and produces import://db/db://…)."
+                ]
+            },
+            {
+                "version": "0.1.60",
+                "publishedAt": "2026-08-25T16:30:00.000Z",
+                "changes": [
+                    "preview.queryErrors: sinceOffset + logOffset/newErrorCount/verified for delta-only Agent accept; probe uses baseline→sinceOffset."
+                ]
+            },
+            {
+                "version": "0.1.59",
+                "publishedAt": "2026-08-25T15:00:00.000Z",
+                "changes": [
+                    "Agent accept pipeline: commit returns acceptancePipeline; validation fail → validateRefs next; tool descriptions mark steps 1–3; probe-agent-accept-pipeline.mjs."
+                ]
+            },
+            {
+                "version": "0.1.58",
+                "publishedAt": "2026-08-25T14:40:00.000Z",
+                "changes": [
+                    "scene.save refuses Creator save-scene/save-as (confirm UI hangs Agents); redirect to lumen offline write → commit → reload/refresh."
+                ]
+            },
+            {
+                "version": "0.1.57",
+                "publishedAt": "2026-08-25T09:50:00.000Z",
+                "changes": [
+                    "Core PinK align: startScenePath resolve; asset/scene open attach validateRefs; search type+pathContains; selection items."
+                ]
+            },
+            {
+                "version": "0.1.52",
+                "publishedAt": "2026-08-25T09:40:00.000Z",
+                "changes": [
+                    "preview.query: merge startScene from project.json general even when preview.json only has port."
+                ]
+            },
+            {
+                "version": "0.1.51",
+                "publishedAt": "2026-08-25T09:30:00.000Z",
+                "changes": [
+                    "PinK 33: findReferencingNodes missingOnly + node name/path filters.",
+                    "preview.query nested general.startScene; queryErrors.contains; asset.open thin layer."
+                ]
+            },
+            {
+                "version": "0.1.50",
+                "publishedAt": "2026-08-25T09:00:00.000Z",
+                "changes": [
+                    "preview.query: prefer live Creator messages with live_tried fallback annotation.",
+                    "validateRefs: ignore default_prefab / engine builtin uuids (ignoredEngineDefaultUuid).",
+                    "Agent pipeline + scene thin-layer probe docs; install always development reload + Hub reloadSettings."
+                ]
+            },
+            {
+                "version": "0.1.49",
+                "publishedAt": "2026-08-25T08:09:16.721Z",
+                "changes": [
+                    "preview.capture: screenshot via system Node child_process + local playwright (Electron-safe)."
+                ]
+            },
+            {
+                "version": "0.1.49",
+                "publishedAt": "2026-08-25T08:08:42.477Z",
+                "changes": [
+                    "preview.capture: screenshot via system Node child_process + local playwright (Electron-safe)."
+                ]
+            },
+            {
+                "version": "0.1.48",
+                "publishedAt": "2026-08-25T08:06:30.894Z",
+                "changes": [
+                    "preview.capture: createRequire from playwright package.json for Creator Electron resolve."
+                ]
+            },
+            {
+                "version": "0.1.47",
+                "publishedAt": "2026-08-25T08:05:37.398Z",
+                "changes": [
+                    "preview.query: probe ports and prefer HTML title matching project name (multi-Creator safe).",
+                    "preview.capture: resolve playwright from nearby node_modules when Creator cwd lacks it."
+                ]
+            },
+            {
+                "version": "0.1.46",
+                "publishedAt": "2026-08-25T07:54:23.474Z",
+                "changes": [
+                    "preview.capture: only treat Creator message as success when output file is non-empty; otherwise fall through to playwright."
+                ]
+            },
+            {
+                "version": "0.1.45",
+                "publishedAt": "2026-08-25T07:51:54.908Z",
+                "changes": [
+                    "Wave A/B/C: preview.query/refresh/queryErrors/capture, asset diagnostics, sessionBound approval."
+                ]
+            },
+            {
+                "version": "0.1.44",
+                "publishedAt": "2026-08-21T00:00:00.000Z",
+                "changes": [
+                    "scene.resolvePrefabRootUuid 未解析时软返回 unresolved，避免刷 project.log。"
+                ]
+            },
+            {
+                "version": "0.1.43",
+                "publishedAt": "2026-08-21T00:00:00.000Z",
+                "changes": [
+                    "lumen 执行前剥离 confirmDestructive/approvalToken/resources，避免字段校验误伤。"
+                ]
+            },
+            {
+                "version": "0.1.42",
+                "publishedAt": "2026-08-21T00:00:00.000Z",
+                "changes": [
+                    "导入结果以 Creator 返回 url 记入账本，避免 rename 目标漂移。",
+                    "AssetDB refresh 同步刷父目录；bindSprite 前 assertManaged。",
+                    "lumen PrefabDocument 增加 removeNodeByIndex / setScriptProperties。",
+                    "入口 call 说明：资产须 importPlan→import→managedStatus，禁止旁路拷贝。"
+                ]
+            },
+            {
+                "version": "0.1.41",
+                "publishedAt": "2026-08-21T00:00:00.000Z",
+                "changes": [
+                    "入口 call/query 不再把 Hub 的 approvalToken/resources 灌入 lumen/operation 字段校验。",
+                    "配合真机深覆盖验收脚本 verify-host-deep-coverage。"
+                ]
+            },
+            {
+                "version": "0.1.40",
+                "publishedAt": "2026-08-21T00:00:00.000Z",
+                "changes": [
+                    "新增 asset.managedStatus：MCP 导入账本检疫（.peanut-ai/import-ledger.json）。",
+                    "新增 asset.queryDependencies：磁盘序列化依赖图（不依赖 Creator query-dependencies）。",
+                    "asset.importPlan / asset.import 接线 planId 与账本记录。"
+                ]
+            },
+            {
+                "version": "0.1.39",
+                "publishedAt": "2026-08-20T00:00:00.000Z",
+                "changes": [
+                    "lumen.assetSet 校验补丁内非空 Creator uuid（含 @子资源）必须存在于 asset-catalog，拒绝占位假 uuid。",
+                    "宿主烟测补 C11：SpriteAtlas / TS / Mesh inspect + JavaScript isPlugin 族可写。"
+                ]
+            },
+            {
+                "version": "0.1.38",
+                "publishedAt": "2026-08-19T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 instantiation-skeleton .skeleton、instantiation-animation .animation 与 instantiation-material .material 旁路 .meta。",
+                    "只读 uuid；不改引擎 dump 源；与 .anim 剪辑、.mtl 材质文档分开。"
+                ]
+            },
+            {
+                "version": "0.1.27",
+                "publishedAt": "2026-08-19T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 TypeScript .ts、JavaScript .js 与 instantiation-mesh .mesh 旁路 .meta。",
+                    "TS / mesh dump 只读 uuid；JS 写 isPlugin 加载开关；不改脚本或引擎 dump 源。"
+                ]
+            },
+            {
+                "version": "0.1.26",
+                "publishedAt": "2026-08-19T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持独立 Render Flow .flow 与 Render Stage .stg。",
+                    "改 name / priority / tag；Flow 改 stageUuids；不做 dump 树 UI。"
+                ]
+            },
+            {
+                "version": "0.1.25",
+                "publishedAt": "2026-08-19T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 Buffer .bin 旁路 .meta。",
+                    "3.8 无可写字段；不改源、不做二进制预览。"
+                ]
+            },
+            {
+                "version": "0.1.24",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持粒子 / Sprite Atlas .plist 与 JSON / 文本旁路 .meta。",
+                    ".plist 按 importer 区分 particle 与 sprite-atlas；3.8 无可写字段；不改源、不做粒子或图集预览、不克隆代码预览。"
+                ]
+            },
+            {
+                "version": "0.1.23",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 CubeMap / TiledMap / 文件夹 Bundle 旁路 .meta。",
+                    "CubeMap 改六面 uuid 与过滤；TiledMap 3.8 无可写字段；文件夹改 isBundle / bundleName / priority；不改源、不做预览。"
+                ]
+            },
+            {
+                "version": "0.1.22",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 Spine / DragonBones 旁路 .meta。",
+                    "Spine 改 atlasUuid；DragonBones 骨骼与图集 3.8 无可写字段；不改源、不做动画预览。"
+                ]
+            },
+            {
+                "version": "0.1.21",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持音频 / 视频 / TTF / BitmapFont 旁路 .meta。",
+                    "音频改 downloadMode；视频与 TTF 3.8 无可写字段；BitmapFont 改 textureUuid / fontSize；不改源文件、不做播放器或字形预览。"
+                ]
+            },
+            {
+                "version": "0.1.20",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 Animation Graph / Variant / Mask 与 RenderTexture / Pipeline。",
+                    "动画图改图层与变量，不做状态机节点图；RenderTexture 改尺寸与过滤；Pipeline 改 name/tag/流名，不做 dump 树 UI。"
+                ]
+            },
+            {
+                "version": "0.1.19",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 Auto Atlas .pac 与 LabelAtlas .labelatlas。",
+                    "Auto Atlas 改 .meta 打包与贴图过滤；LabelAtlas 改 spriteFrameUuid / 格子；不做预览或压缩贴图 UI。"
+                ]
+            },
+            {
+                "version": "0.1.18",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 FBX / glTF .meta：Model / FBX / Material 页与内嵌图 remap。",
+                    "asset-catalog 增加 model / mesh 分桶；不 scaffold、不改模型源与 library。"
+                ]
+            },
+            {
+                "version": "0.1.17",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持 Effect .effect 与 chunk：YAML properties、CCProgram 源、整文件 source。",
+                    "asset-catalog 增加 effect 分桶（importer effect / chunk）。"
+                ]
+            },
+            {
+                "version": "0.1.16",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect / lumen.assetSet 支持图片 .meta 的 Texture 与 SpriteFrame 设置。",
+                    "覆盖过滤、寻址、各向异性、九宫格、pivot、packable 与透明伪影修复；不改图片源和缓存目录。"
+                ]
+            },
+            {
+                "version": "0.1.15",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.inspect 地形可传 region（顶点盒或本地圆）读高度窗。",
+                    "lumen.assetSet 地形窗口写：props.region + heights，或 props.samples。"
+                ]
+            },
+            {
+                "version": "0.1.14",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "Terrain .terrain 写 Creator VERSION8 高度场（tileSize/blockCount/ramp/heights/layerInfos）。",
+                    "cc.Terrain.asset 可绑地形 uuid。"
+                ]
+            },
+            {
+                "version": "0.1.13",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.assetSet / inspect 覆盖 AnimationClip .anim、PhysicsMaterial .pmtl、Terrain .terrain。",
+                    "asset-catalog 增加 material / animationClip / physicsMaterial / terrain 分桶。"
+                ]
+            },
+            {
+                "version": "0.1.12",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.assetSet 写入 Material .mtl Inspector 字段；inspect 可省略 nodePath。",
+                    "prefabRelativePath 增加 assetRelativePath 别名，覆盖 .prefab / .scene / .mtl。"
+                ]
+            },
+            {
+                "version": "0.1.11",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen 同一套 prefabRelativePath 读写 .scene；节点/组件 CRUD 与 Prefab 对齐。",
+                    "实例发现覆盖 __id__ 引用与未知嵌套对象；CurveRange TwoCurves / GradientRange TwoGradients。"
+                ]
+            },
+            {
+                "version": "0.1.10",
+                "publishedAt": "2026-08-18T00:00:00.000Z",
+                "changes": [
+                    "lumen.cocosInfo 支持 gapOffset/gapLimit；报告 inEngineNotInWhitelist 分页缺口（禁止自动写入白名单）。",
+                    "粒子 overtime 模块支持嵌套 curveRange/gradientRange（colorOverLifetime / size / velocity 等）。"
+                ]
+            },
+            {
+                "version": "0.1.9",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "脚本 @property 半自动发现：lumen-schema / comp-add / comp-set / inspect 按 catalog 解析 .ts 并注册字段。"
+                ]
+            },
+            {
+                "version": "0.1.8",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "lumen 挂载约定：Renderer 互斥校验、UI_2D/DEFAULT Layer 自动写入；schema 返回 conventions / layerRole。"
+                ]
+            },
+            {
+                "version": "0.1.7",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "修复 lumen-structure / comp-set / node-set 的 object 输入 schema（additionalProperties），使 recipe/props 可通过 MCP 校验。"
+                ]
+            },
+            {
+                "version": "0.1.6",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "写操作返回 recommendedNext；支持 autoCommit；新增 lumen.cocosInfo。"
+                ]
+            },
+            {
+                "version": "0.1.5",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "新增 lumen.commit：写盘后 AssetDB refresh + asset-catalog 重建受管收口。"
+                ]
+            },
+            {
+                "version": "0.1.4",
+                "publishedAt": "2026-08-17T00:00:00.000Z",
+                "changes": [
+                    "新增 lumen Prefab CRUD MCP：schema/templates/tree/inspect 与 scaffold/structure/node/comp/bind/refresh。"
+                ]
+            },
+            {
+                "version": "0.1.3",
+                "publishedAt": "2026-08-14T00:00:00.000Z",
+                "changes": [
+                    "资产目录迁入 core/@peanut/pod-engine/assets，并经 assetCatalog grant 暴露。"
+                ]
+            },
+            {
+                "version": "0.1.1",
+                "publishedAt": "2026-08-14T00:00:00.000Z",
+                "changes": [
+                    "新增资产目录 MCP 快查：asset.catalog.summary / lookup / refresh。"
+                ]
+            },
+            {
+                "version": "0.1.0",
+                "publishedAt": "2026-07-31T00:00:00.000Z",
+                "changes": [
+                    "提供 Editor MCP action router，并通过受管 SnowB 服务支持 BMFont 导出。"
+                ]
+            }
+        ]
+    }
+}

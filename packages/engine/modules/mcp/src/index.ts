@@ -1,0 +1,44 @@
+export { EditorMcpActionRouter } from './editor-mcp-action-router.js';
+export { EditorMcpLumenGateway } from './editor-mcp-lumen-gateway.js';
+export { EditorMcpPluginModule } from './editor-mcp-plugin-module.js';
+export {
+    createEditorMcpActionRouter,
+    createEditorMcpExecuteOperation,
+    type EditorMcpExecuteOperation,
+} from './editor-mcp-gateway-factory.js';
+
+import { EditorMcpPluginModule } from './editor-mcp-plugin-module.js';
+
+/**
+ * @description 创建供 Peanut 宿主动态加载的 Editor MCP 插件模块。
+ * @returns 新建的 Editor MCP 插件模块
+ */
+export function createPluginModule(): EditorMcpPluginModule {
+    return new EditorMcpPluginModule();
+}
+
+export type {
+    IAssetReadClient,
+    ICreatorVersionClient,
+    IGrantedRuntimeClientSet,
+    IPluginActivateContext,
+    IPluginRegisterContext,
+    IPluginServiceApi,
+    IProjectReadClient,
+    ISceneClient,
+    ISelectionClient,
+    PluginDeactivateReason,
+} from '@peanut/pod-sdk';
+
+export { EditorMcpBuilderPostBuildHookRegistry } from './editor-mcp-builder-post-build-hooks.js';
+export { executeLodRecalcBounds, LOD_RECALC_PROBE_EVIDENCE } from './editor-mcp-lod-recalc.js';
+export { extractArtifactHints } from './editor-mcp-builder-gateway.js';
+export { REFERENCE_IMAGE_PROBE_EVIDENCE } from './editor-mcp-reference-gateway.js';
+
+export {
+    EDITOR_MCP_SCENE_HOST_ROUTES,
+    SCENE_SAVE_REFUSED_REASON,
+    CREATOR_SCENE_SAVE_MESSAGES,
+    resolveSceneHostRoute,
+    buildSceneSaveRefusePayload,
+} from './editor-mcp-scene-host-routes.js';

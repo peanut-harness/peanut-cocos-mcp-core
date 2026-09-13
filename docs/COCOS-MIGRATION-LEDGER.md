@@ -2,13 +2,21 @@
 
 源清单固定为 `peanut-agents/products/cocos/editor/plugins`。Core 的范围不是只读子集：凡不属于明确商业化清单的 Cocos Creator 编辑器能力，均由 Core 提供，并且可以在 Pro 未安装时独立运行。
 
+## 2026-09-13 Architecture v2
+
+- 原 16 个独立包收敛为 `protocol`、`sdk`、`engine`、`hosts`、`panel` 五个根工作区。
+- engine/host 细分实现留在各自 `modules/`，不再拥有独立 lockfile 或 `file:` 依赖。
+- 面板装配器迁入 `hosts`，`panel` 只保留静态 UI；版本画像由宿主入口一次解析并传入装配器。
+- 四个画像固定为 2.4、3.0–3.5、3.6–3.7、3.8；当前只有 host/project 同为 3.8.7 时开放写入。
+- 缺写入 schema 直接拒绝目录构造；Prefab 解包/解除关联和 Builder 输出覆盖提升为 destructive。
+
 ## Core
 
 | 源模块 | 迁入范围 | 当前状态 |
 | --- | --- | --- |
 | `integrations/editor-mcp` | editor、asset、scene、prefab、preview（不含 capture）、builder、Lumen、reference 的 83 个 operation | capability/schema/风险目录已覆盖；执行分发器已接输入验证与审批租约消费；Creator host 在注入 `EditorMcpGatewayAdapter` 时注册全部 83 项（排除 preview.capture 与 snowb）；无网关时回退 9 项读取。 **Creator 3.8.7 实机冒烟/毕业（host-verified）证据**：`evidence/creator38-lite-graduation-20260912/`（83/83；读最小必填 + 写无租约拒批/有租约执行；quiet-gate；builder web-desktop+）。边界：路径打通 ≠ 业务语义全绿 |
-| `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | `packages/lumen` + `lumen-24` 已迁入并可构建；模板随 Lite 目录包打包；缓存识别仍在 lumen-template-cache |
-| `ui/panel` | 通用宿主壳与生命周期 | `packages/plugin-panel` 已迁入；`creator-24-host` / `creator-35-host` / 3.8 host 可打包（24/35 未 Creator 实机验证） |
+| `tools/lumen` | 模板缓存、导入/重置、AssetDB refresh、host 生命周期 | `packages/engine/modules/lumen*` 已迁入并可构建；模板随 Lite 目录包打包；缓存识别位于 engine template-cache module |
+| `ui/panel` | 静态面板应用 | `apps/panel` 保留静态 UI；装配器与 Creator 生命周期位于 `packages/hosts`；2.4 / early-3x 未 Creator 实机验证 |
 
 Core 写入一律由本地审批租约控制；不得被在线许可证、订阅或 Pro 缺失阻断。
 
@@ -80,7 +88,7 @@ Pro 仅对这张表的能力签发在线计划并校验权益/撤销；不得接
 ## 2026-09-12 Lite↔editor 免费面对齐
 
 - 盘点：缺实现类 P0 = 0；补写 schema `resources` 字段（policy + editor-mcp tool catalog）。
-- 单测：`@peanut/pod-lite-capability-policy` 13/13。
+- 单测：`@peanut/pod-engine/policy` 13/13。
 - 真机：pack 安装 worktree host/core → 软关 Creator → 重启；device-verify-resources 7/7。
 - P1（2026-09-12 01:07:25 UTC+8）：`sessionBound` 已对齐；prefab/builder/import/preview 真机矩阵见 `evidence/lite-editor-parity-20260912-p1/`（42/42）；剩余 P2：open/importPlan/managedStatus 无 control（旧岛同构）、文档措辞；Pro 面维持禁入。
 - 证据目录：`evidence/lite-editor-parity-20260912/`。

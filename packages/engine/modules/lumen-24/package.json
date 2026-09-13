@@ -1,0 +1,30 @@
+{
+    "name": "@peanut/pod-engine/lumen-24",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "description": "Creator 2.4 Prefab / .fire Scene scaffold 与层次写盘（ADR 0003）。",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "bundle:templates": "node scripts/bundle-default-prefab-24.cjs",
+        "build": "npm run bundle:templates && tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run build && node --test tests/lumen-24-write-gate.test.mjs tests/lumen-24-prefab-document.test.mjs tests/lumen-24-write-facade.test.mjs tests/lumen-24-hierarchy-crud.test.mjs tests/lumen-24-validate-refs.test.mjs tests/lumen-24-components.test.mjs tests/lumen-24-script-bind.test.mjs tests/lumen-24-scene.test.mjs tests/lumen-24-refresh-paths.test.mjs tests/lumen-24-standalone-asset.test.mjs tests/lumen-24-default-prefab-24.test.mjs"
+    },
+    "peanut": {
+        "role": "tool",
+        "verify": true,
+        "verifyImport": false,
+        "productLine": "creator2x",
+        "peelTarget": "peanut.lumen-24",
+        "publicEntry": "Lumen24WriteFacade",
+        "mcpBridge": "Lumen24McpBridge"
+    }
+}

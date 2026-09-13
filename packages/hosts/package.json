@@ -1,0 +1,27 @@
+{
+  "name": "@peanut/pod-hosts",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "node ../../tools/run-internal-modules.mjs clean hosts",
+    "build": "tsc -p tsconfig.json && node ../../tools/run-internal-modules.mjs build hosts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && node ../../tools/run-internal-modules.mjs typecheck hosts",
+    "test": "node --test tests/*.test.mjs && node ../../tools/run-internal-modules.mjs test hosts",
+    "pack": "node ../../tools/run-internal-modules.mjs pack hosts"
+  },
+  "dependencies": {
+    "@peanut/pod-engine": "*",
+    "@peanut/pod-protocol": "*",
+    "@peanut/pod-sdk": "*"
+  }
+}

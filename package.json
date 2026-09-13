@@ -1,0 +1,29 @@
+{
+  "name": "@peanut/pod-lite",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/protocol",
+    "packages/sdk",
+    "packages/engine",
+    "packages/hosts",
+    "apps/panel"
+  ],
+  "scripts": {
+    "clean": "node tools/run-internal-modules.mjs clean",
+    "generate:check": "node tools/verify-creator-profiles.mjs",
+    "build": "npm run build --workspace @peanut/pod-protocol && npm run build --workspace @peanut/pod-sdk && npm run build --workspace @peanut/pod-engine && npm run build --workspace @peanut/pod-panel && npm run build --workspace @peanut/pod-hosts",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspace @peanut/pod-protocol && npm run test --workspace @peanut/pod-sdk && npm run test --workspace @peanut/pod-engine && npm run test --workspace @peanut/pod-panel && npm run test --workspace @peanut/pod-hosts",
+    "pack": "npm run pack --workspace @peanut/pod-engine && npm run pack --workspace @peanut/pod-hosts",
+    "verify:structure": "node tools/verify-workspace-structure.mjs",
+    "verify": "npm run verify:structure && npm run generate:check && npm run build && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.4",
+    "esbuild": "^0.25.12",
+    "tsx": "4.23.0",
+    "typescript": "6.0.3"
+  }
+}

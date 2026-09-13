@@ -1,0 +1,31 @@
+{
+    "name": "@peanut/pod-panel",
+    "description": "Static Cocos panel application assets for the Peanut plugin system.",
+    "version": "0.1.1",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "panels"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=cjs --platform=node --target=node16 --outfile=dist/index.cjs",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "test": "npm run typecheck && node --test tests/plugin-manager-panel-message-route.test.mjs"
+    },
+    "dependencies": {},
+    "peanut": {
+        "role": "panel-app",
+        "verify": true
+    }
+}
